@@ -3,8 +3,8 @@ layout: page
 title: User Guide
 ---
 
-Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard 
-patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can 
+Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
+patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services.
 * Table of Contents
 {:toc}
