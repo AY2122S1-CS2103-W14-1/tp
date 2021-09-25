@@ -69,3 +69,12 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Responsibilities: Scheduling and Tracking
 
 
+### Yu Xin
+
+<img src="images/yuxin.png" width="200px">
+
+[[github](https://github.com/huyuxin0429)]
+[[portfolio](team/yuxin.md)]
+
+* Role: Developer
+* Responsibilities: Testing
