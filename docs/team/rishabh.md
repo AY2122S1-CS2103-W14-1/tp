@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Yu Xin's Project Portfolio Page
+title: Rishabh's Project Portfolio Page
 ---
 
 ### Project: Doc'IT
@@ -8,11 +8,7 @@ title: Yu Xin's Project Portfolio Page
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services
-<<<<<<< HEAD
-Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created 
-=======
 Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created
->>>>>>> 5bfa971f2943a8670ff892c02b9c893494370505
 with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
