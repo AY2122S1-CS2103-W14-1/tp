@@ -75,7 +75,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/huyuxin0429.png" width="200px">
 
 [[github](https://github.com/huyuxin0429)]
-[[portfolio](team/yuxin.md)]
+[[portfolio](team/huyuxin0429.md)]
 
 * Role: Developer
 * Responsibilities: Testing
