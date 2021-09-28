@@ -257,27 +257,58 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Authorised staff from small family clinics (both receptionist and doctors)
+* Clinics lacking access to the cloud and are undeveloped compared to hospitals
+* Young clinics that do not have technological capabilities
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+
+**Value proposition**:
+Today, small family clinics often record patient information using paper application forms.
+Such recording of patient information results in the clinic having a messy and inefficient patient record information;
+the family clinic will have to flip through files and documents in order to find the patient. Doc’it aims to provide a
+centralised platform for authorised staff from small family clinics to view, update and onboard patients.
+With Doc’it, small family clinics are able to reduce man hours from managing paper documents,
+and translate these ‘saved’ hours into providing better frontline service to patients, focusing on what they do best.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                  | I want to …​                                              | So that I can…​                                                           |
+| -------- | --------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `* * *`  | clinic staff                | create new patient details                                                                 | add data of new patients in our clinic                                       |
+| `* * *`  | clinic staff                | add medical history to patient details                                                     | have a background on the patient                                             | 
+| `* * *`  | clinic staff                | view patient details                                                                       | better prescribe medication and treatments to my out-patients                |
+| `* * *`  | clinic staff                | delete patient details                                                                     | manage patients’ need for privacy when patients no longer visit the clinic   |
+| `* * *`  | clinic staff                | view the prescriptions currently prescribed to my patients                                 | provide correct prescriptions to them                                        |
+| `* * *`  | clinic staff                | create new appointments from patients                                                      | track upcoming appointments                                                  |
+| `* * *`  | clinic staff                | view appointments from patients                                                            | know at-a-glance what are the upcoming appointments and the patients involved|
+| `* * *`  | clinic staff                | delete appointments from patients                                                          | re-organise appointments when either side cancels their appointments         |
+| `* * *`  | clinic staff                | have appointments moved to appointment history                                             | separate what are the upcoming appointments from past appointments           |
+| `* * *`  | clinic staff                | view past appointments                                                                     | track their medical history                                                  |
+| `* *`    | clinic staff                | edit appointments from patients                                                            | ensure appointment records are up-to-date                                    |
+| `* *`    | clinic staff                | modify patient details                                                                     | ensure that any changes in their information are up-to-date                  |
+| `* *`    | clinic staff                | edit prescriptions                                                                         | ensure my patients’ current prescriptions are up-to-date                     |
+| `* *`    | clinic staff                | view the duration of prescriptions                                                         | decide whether they should be given additional prescriptions                 |
+| `* *`    | clinic staff                | move prescriptions to prescription history when patients have finished that prescription   |                                                                              |
+| `* *`    | clinic staff                | view the prescription history of patients                                                  | know what drugs my patients have taken before                                |
+| `* *`    | clinic staff                | cannot edit past prescriptions                                                             | prevent erroneous edits                                                      |
+| `* *`    | clinic staff                | verify that the patient has paid for his appointment                                       | record that the patient has paid the bills                                   |
+| `* *`    | clinic staff                | input the bill and price of the patient appointment                                        | record the amount that the patient has paid                                  |
+| `* *`    | clinic staff                | prevent editing past appointments                                                          | ensure past records cannot be incorrectly modified                           |
+| `* *`    | clinic staff                | filter patients by name                                                                    | pull up patient records easily when requested                                |
+| `* *`    | clinic staff                | filter patients by the date of their appointment                                           | know the list of patients per appointment day                                |
+| `* *`    | clinic staff                | filter patients by their prescriptions                                                     | gauge the demand of prescription_drug needed by the clinic                   |
+| `* *`    | new clinic staff            | go through a tutorial at the beginning                                                     | familiarise myself with how the app works and what it can do                 |
+| `* *`    | new clinic staff            | type a command to get all available commands and how they work                             | easily refer to the commands I can make                                      |
+| `* *`    | clinic staff                | purge all current data                                                                     | delete any experimental records                                              |
+| `* *`    | long term clinic staff      | use shortened command aliases                                                              | speed up my work                                                             |
+| `* *`    | clinic staff                | easily make changes to the patient records without too many commands                       | my work can be done faster                                                   |
+| `* *`    | clinic staff                | view information on an appealing GUI                                                       | view information that is neatly organised                                    |
+| `* *`    | clinic staff                | share a single patient database with other clinic staff                                    | ensure all changes are synced                                                |
+
+
 
 *{More to be added}*
 
