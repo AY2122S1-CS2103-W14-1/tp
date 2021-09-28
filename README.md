@@ -6,7 +6,7 @@
 
 Today, small family clinics often record patient information using paper application forms. Such recording of patient information results in the clinic having a messy and inefficient patient record information; the family clinic will have to flip through files and documents in order to find the patient. Doc’it aims to provide a centralised platform for authorised staff from small family clinics to view, update and onboard patients. With Doc’it, small family clinics are able to reduce man hours from managing paper documents, and translate these ‘saved’ hours into providing better frontline service to patients, focusing on what they do best.
 
-* Doc'it is a Patient Record manager for staff from small family clinics to keep track of patients, patient appointments and their respective details. 
+* Doc'it is a Patient Record manager for staff from small family clinics to keep track of patients, patient appointments and their respective details.
 * It is meant to be used regularly, and requires the user to consistently update on a routine basis.
 * Doc'it is:
   * written in OOP fashion.
