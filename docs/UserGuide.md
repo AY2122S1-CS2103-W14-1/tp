@@ -26,19 +26,46 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-  * **`list`** : Lists all contacts.
+* **`list`** : Lists all contacts.
 
-  * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
 
-  * **`delete`**`3` : Deletes the 3rd contact shown in the current list.
+* **`delete`**`3` : Deletes the 3rd contact shown in the current list.
 
-  * **`clear`** : Deletes all contacts.
+* **`clear`** : Deletes all contacts.
 
-  * **`exit`** : Exits the app.
+* **`exit`** : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+
+## Overview of Features
+
+<div markdown="block" class="alert alert-info">
+
+This section provides a brief overview of Doc’It. The intention is for users to gain a better
+understanding of basic functionalities of Doc’It, before diving into specific commands.
+</div>
+
+1. Managing Patient Records
+
+   a. Create a new patient record
+
+   b. View details of patient records
+
+   c. Delete patient records
+
+
+2. Managing Patient Appointments
+
+   a. Create a new appointment
+
+   b. View appointments
+
+   c. Delete appointments
+
+   d. Archive appointments
 
 ## Features
 
@@ -180,51 +207,51 @@ _Details coming soon ..._
 A patient in our patient record may have appointments to visit the family clinic. In the appointment view, each appointment on the appointment list indicates an upcoming visit to the clinic. To help small family clinics manage their upcoming appointments for its patients, Doc’It records the following attributes for appointment:
 
 * Patient’s Name: The patient’s name matching in the patient record.
-* Appointment Date: The date of the appointment 
+* Appointment Date: The date of the appointment
 
 
 ## Listing all appointments: `list`
-Shows a list of all appointments. 
+Shows a list of all appointments.
 
 Format: `list -a`
 
-Example:  
+Example:
 * `list -a`  Lists all appointments.
 
-Expected Outcome:  
-1. Patient Name: Lim, Joshen  Appointment Date: 2021-10-05  
-2. Patient Name: Yong, Ian Appointment Date: 2021-10-06  
+Expected Outcome:
+1. Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
+2. Patient Name: Yong, Ian Appointment Date: 2021-10-06
 
 
 ## Adding an appointment: `add`
-Adds an appointment for the patient of the specified patient id.  
+Adds an appointment for the patient of the specified patient id.
 
-Format: `add -a n/PATIENT_ID d/DATE`  
+Format: `add -a n/PATIENT_ID d/DATE`
 
-Examples:  
+Examples:
 * `list`  List all patients.
 * `add -a n/1 d/2021-10-05`  Adds appointment to patient of ID 1.
 
 Expected Outcome:  
 New appointment added:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05  
+Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
 
 
 ## Deleting an appointment: `delete`
 Deletes the appointment at the specified index.
 
-Format: `delete -a INDEX`  
-* Deletes the appointment at the specified INDEX.  
-* The index refers to the index number shown in the displayed appointment list.  
-* The index must be a positive integer 1, 2, 3, …​  
+Format: `delete -a INDEX`
+* Deletes the appointment at the specified INDEX.
+* The index refers to the index number shown in the displayed appointment list.
+* The index must be a positive integer 1, 2, 3, …​
 
 Examples:
-* `list -a`  Lists all appointments.  
-* `delete -a 1`  Deletes appointment at index 1. 
+* `list -a`  Lists all appointments.
+* `delete -a 1`  Deletes appointment at index 1.
 
 Expected Outcome:  
 Appointment deleted:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05  
+Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
 
 
 ## Archiving an appointment:  `archive`
@@ -241,7 +268,7 @@ Examples:
 
 Expected Outcome:  
 Old appointment archived:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05  
+Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
 
 
 --------------------------------------------------------------------------------------------------------------------
