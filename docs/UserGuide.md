@@ -269,3 +269,13 @@ Action | Format, Examples
 **Delete Appointment** | `delete -a INDEX` <br> e.g., `delete -a 1`
 **Archive Appointment** | `archive -a INDEX` <br> e.g., `archive -a 1`
 
+--------------------------------------------------------------------------------------------------------------------
+
+## Glossary
+
+Term | Definition
+----- | ----------
+**Appointment** | A scheduled consult between a patient and the clinic's doctor.
+**Archive** | Storage for data that is non-urgent, e.g. appointment records that are past their date.
+**Patient Record** | A record of a patient's details, medical history, medication, appointment list, and name.
+**Prescription** | The issued medication/treatment for a patient.
