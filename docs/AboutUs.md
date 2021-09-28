@@ -67,7 +67,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Developer
 * Responsibilities: Scheduling and Tracking
->>>>>>> 5bfa971f2943a8670ff892c02b9c893494370505
 
 
 ### Yu Xin
