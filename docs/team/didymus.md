@@ -8,13 +8,13 @@ title: Didymus' Project Portfolio Page
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services
-Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created 
+Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created
 with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project:
 
 - **New Feature**: Added AppointmentBook class to store and manage appointments.
-  * What it does: allows the user to store and manage multiple appointments across different Date and Time. 
+  * What it does: allows the user to store and manage multiple appointments across different Date and Time.
   * Justification: This feature improves the product significantly because a user can avoid clashing appointments and track the upcoming appointments from patients.
   * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
   * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
