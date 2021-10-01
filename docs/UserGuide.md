@@ -91,7 +91,6 @@ understanding of basic functionalities of Doc’It, before diving into specific 
 
 Shows a message explaning how to access the help page.
 
-![help message](images/helpMessage.png)
 
 Format: `help`
 
