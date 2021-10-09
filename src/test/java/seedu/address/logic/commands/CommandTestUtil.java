@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -20,6 +21,9 @@ import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+
+
+
 
 /**
  * Contains helper methods for testing commands.
@@ -56,6 +60,50 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
+
+    public static final String VALID_PATIENT_ID_0 = "0";
+    public static final String VALID_PATIENT_ID_1 = "1";
+    public static final String VALID_PATIENT_ID_2 = "2";
+
+    public static final String VALID_PATIENT_ID_DESC_0 = " " + PREFIX_NAME + VALID_PATIENT_ID_0;
+    public static final String VALID_PATIENT_ID_DESC_1 = " " + PREFIX_NAME + VALID_PATIENT_ID_1;
+    public static final String VALID_PATIENT_ID_DESC_2 = " " + PREFIX_NAME + VALID_PATIENT_ID_2;
+
+    public static final String INVALID_PATIENT_ID_MINUS_1 = "-1";
+
+    public static final String INVALID_PATIENT_ID_DESC_MINUS_1 = " " + PREFIX_NAME + INVALID_PATIENT_ID_MINUS_1;
+
+    public static final String VALID_APPOINTMENT_DATE_TIME = "2020-1-10 1600";
+    public static final String INVALID_APPOINTMENT_DATE_TIME_MONTH = "2020-13-10 1600"; // invalid month
+    public static final String INVALID_APPOINTMENT_DATE_TIME_YEAR = "-1-13-10 1600"; // invalid year
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DATE = "2020-1-43 1600"; // invalid date
+    public static final String INVALID_APPOINTMENT_DATE_TIME_TIME = "2020-12-10 3400"; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_ALL = "-1-13-33 9900"; // invalid datetime
+    public static final String INVALID_APPOINTMENT_DATE_TIME_NULL = ""; // invalid entry
+    public static final String INVALID_APPOINTMENT_DATE_TIME_RANDOM = "asfdsafsfs"; // invalid entry
+
+    public static final String VALID_APPOINTMENT_DATE_TIME_DESC =
+            " " + PREFIX_DATETIME + VALID_APPOINTMENT_DATE_TIME;
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_MONTH; // invalid month
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_YEAR =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_YEAR; // invalid year
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_DATE =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_DATE; // invalid date
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_TIME =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_TIME; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_ALL =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_ALL; // invalid datetime
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_NULL =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_NULL; // invalid entry
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_RANDOM =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_RANDOM; // invalid entry
+
+
+
+
+
+
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
