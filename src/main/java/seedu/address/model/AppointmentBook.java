@@ -15,6 +15,7 @@ import seedu.address.model.appointment.UniqueAppointmentList;
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     private final UniqueAppointmentList appointments;
+    private final UniqueAppointmentList archivedAppointments;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -25,6 +26,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     {
         appointments = new UniqueAppointmentList();
+        archivedAppointments = new UniqueAppointmentList();
     }
 
     public AppointmentBook() {
@@ -92,6 +94,28 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         appointments.remove(key);
     }
 
+    /**
+     * Marks {@code key} from this {@code AppointmentBook} as archived. {@code key} must exist in the address book.
+     */
+    public void archiveAppointment(Appointment key) {
+        appointments.remove(key);
+        archivedAppointments.add(key);
+    }
+
+    /**
+     * Gets a String representation of archived appointments (for testing).
+     *
+     * @return List of archived appointments.
+     */
+    public String archivedToString() {
+        Iterator<Appointment> i = archivedAppointments.iterator();
+        StringBuilder r = new StringBuilder();
+        while (i.hasNext()) {
+            r.append(i.next());
+        }
+        return archivedAppointments.asUnmodifiableObservableList().size() + " appointments:\n" + r.toString();
+        // TODO: refine later
+    }
     //// util methods
 
     @Override public String toString() {

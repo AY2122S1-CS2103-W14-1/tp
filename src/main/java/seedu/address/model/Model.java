@@ -124,6 +124,11 @@ public interface Model {
     void addAppointment(Appointment appointment);
 
     /**
+     * Archives the given appointment.The appointment must exist in the appointment Book.
+     */
+    void archiveAppointment(Appointment appointmentToArchive);
+
+    /**
      * Replaces the given appointment {@code target} with {@code editedAppointment}. {@code target} must exist in the
      * appointment Book. The appointment identity of {@code editedAppointment} must not be the same as another existing
      * appointment in the appointment Book.
@@ -136,6 +141,11 @@ public interface Model {
      * Temporarily returns appointment list to be printed in CommandResult.
      */
     String getAppointments();
+
+    /**
+     * Temporarily returns archived appointment list to be printed in CommandResult.
+     */
+    String getArchivedAppointments();
 
     /**
      * Returns an unmodifiable view of the filtered appointment list

@@ -178,6 +178,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void archiveAppointment(Appointment target) {
+        appointmentBook.archiveAppointment(target);
+    }
+
+    @Override
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireAllNonNull(target, editedAppointment);
 
@@ -191,6 +196,13 @@ public class ModelManager implements Model {
      */
     public String getAppointments() {
         return appointmentBook.toString();
+    }
+
+    /**
+     * Temporarily returns archived appointment list to be printed in CommandResult.
+     */
+    public String getArchivedAppointments() {
+        return appointmentBook.archivedToString();
     }
 
     //=========== Filtered Appointment List Accessors =============================================================

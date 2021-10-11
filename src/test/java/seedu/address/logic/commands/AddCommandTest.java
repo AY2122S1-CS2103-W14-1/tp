@@ -186,6 +186,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void archiveAppointment(Appointment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setAppointment(Appointment target, Appointment editedAppointment) {
             throw new AssertionError("This method should not be called.");
         }
@@ -196,6 +201,13 @@ public class AddCommandTest {
          * Temporarily returns appointment list to be printed in CommandResult.
          */
         public String getAppointments() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Temporarily returns appointment list to be printed in CommandResult.
+         */
+        public String getArchivedAppointments() {
             throw new AssertionError("This method should not be called.");
         }
 
