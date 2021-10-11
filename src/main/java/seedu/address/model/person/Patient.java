@@ -127,7 +127,9 @@ public class Patient {
             tags.forEach(builder::append);
         }
 
-        builder.append(getMedicalHistory());
+        builder.append("; Medical History: ")
+               .append(getMedicalHistory());
+
         return builder.toString();
     }
 

@@ -6,14 +6,35 @@ title: User Guide
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services.
-* Table of Contents
-  {:toc}
+
+#### Table of Contents
+
+1. Quick Start
+2. Overview of Features
+    1. Patient-related Features
+        - Help
+        - Add a patient
+        - List all patients
+        - Edit a patient
+        - Delete a patient
+        - Exit the program
+    2. Appointment-related Features
+        - List all appointments
+        - Add an appointment
+        - Delete an appointment
+        - Archive an appointment
+    3. Upcoming Commands
+        - Clear all entries
+        - Saving all data
+        - Editing data files
+        - Archiving data files
+3. FAQ
+4. Command Summary
+5. Glossary
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
----to be completed---
-
 1. Ensure you have Java `11` or above installed in your Computer.
 
 2. Download the latest `docit.jar` from [here](https://github.com/AY2122S1-CS2103-W14-1/tp/releases).
@@ -30,7 +51,7 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
 
 * **`exit`** : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+1. Refer to the **Features** section below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -42,24 +63,15 @@ This section provides a brief overview of Doc’It. The intention is for users t
 understanding of basic functionalities of Doc’It, before diving into specific commands.
 </div>
 
-1. Managing Patient Records
-
-   a. Create a new patient record
-
-   b. View details of patient records
-
-   c. Delete patient records
-
-
-2. Managing Patient Appointments
-
-   a. Create a new appointment
-
-   b. View appointments
-
-   c. Delete appointments
-
-   d. Archive appointments
+1. **Managing Patient Records**
+    1. Create a new patient record
+    2. View details of patient records
+    3. Delete patient records
+2. **Managing Patient Appointments**
+    1. Create a new appointment
+    2. View appointments
+    3. Delete appointments
+    4. Archive appointments
 
 ## Features
 
@@ -87,84 +99,96 @@ understanding of basic functionalities of Doc’It, before diving into specific 
 
 </div>
 
-### Viewing help : `help`
+### Help : `help`
 
-Shows a message explaning how to access the help page.
+Shows the user manual for `Doc'it` explaining how to access the help page.
 
 Format: `help`
 
+---
 
-### Adding a patient: `add -p`
+### Add a patient: `pt add`
 
 Creates a new patient record.
 
-**Format:** `add -p f/FAMILY_NAME n/GIVEN_NAME m/[MEDICAL_HISTORY]`
+**Format:** `pt add n/FULL_NAME m/[MEDICAL_HISTORY]`
 
 - `MEDICAL_HISTORY` is optional; if `MEDICAL_HISTORY` is not given, an empty text will be used
 
 **Examples:**
-- `add -p f/Lim n/Joshen`
-- `add -p f/Lim n/Joshen m/lovesick`
+- `pt add n/Joshen Lim`
+- `pt add n/Joshen Lim m/lovesick`
 
 **Expected Outcome:**
-New patient created: Lim, Joshen; Patient ID: 0001
+```
+New patient created: Joshen Lim; Patient ID: 0001
+```
 
 ---
 
-### Listing all patients : `list`
+### List all patients : `pt list`
 
 Shows a list of all patients in the record system.
 
-Format: `list`
+Format: `pt list`
 
 ---
 
-### Editing a patient : `[coming in v1.2]`
+### Clear all records : `clear`
 
-_Details coming soon ..._
+Clears all patient records and information. This is an irreversible operation.
+
+Format: `clear`
 
 ---
 
-### Locating patients by name: `view -p`
+### Edit a patient : `pt edit`
 
-Views an existing patient record.
+Edits the details of a specified patient.
 
-**Format:** `view -p id/PATIENT_ID` or `view -p name/FULL_NAME`
+**Format:** `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] ...`
+- All fields are optional but if stated, must not be null or empty
+- `INDEX` is compulsory when making an edit to patient details
 
 **Examples:**
-- `view -p id/0001`
-- `view -p name/Joshen`
-- `view -p name/Lim Joshen`
-- `view -p name/Joshen Lim`
+- `pt edit 1 n/Joshen Tan m/Heartbreak`
 
-**Expected Outcome:**
-Patient Name: Lim, Joshen
-Patient ID: 0001
-Appointment List: 2021-10-05, 2021-09-04
-Medical History: lovesick
-Prescription: panadol
+**Expected outcome:** <br>
+```
+Successfully edited patient details:
+Before:
+Index: 1
+Name: Joshen Lim
+Medical History: Lovesick
 
+After:
+Index: 1
+Name: Joshen Tan
+Medical History: Heartbreak
+```
 ---
 
-### Deleting a patient : `delete -p`
+### Delete a patient : `pt delete`
 
 Deletes a patient record, including all information about the patient.
 
-**Format:** `delete -p id/PATIENT_ID`
+**Format:** `pt delete INDEX`
 
-- Deletes the patient with the specified `PATIENT_ID`.
+- Deletes the patient at the specified `INDEX` (one-indexed).
 
 **Examples:**
-- `delete -p id/0001`
+- `pt delete 1`
 
 **Expected Outcome:**
+```
 Deleted the following patient from records:
-Patient Name: Lim, Joshen
-Patient ID: 0001
+Patient Name: Joshen Lim
+Patient ID: 1
+```
 
 ---
 
-### Exiting the program : `exit`
+### Exit the program : `exit`
 
 Exits the program.
 
@@ -172,96 +196,84 @@ Format: `exit`
 
 ---
 
-### Clearing all entries : `[coming in v1.2]`
-
-_Details coming soon ..._
-
----
-
-### Saving the data `[coming in v1.2]`
-
-_Details coming soon ..._
-
----
-
-### Editing the data file `[coming in v1.2]`
-
-_Details coming soon ..._
-
----
-
-### Archiving data files `[coming in v1.2]`
-
-_Details coming soon ..._
-
-
 ## Appointments
 A patient in our patient record may have appointments to visit the family clinic. In the appointment view, each appointment on the appointment list indicates an upcoming visit to the clinic. To help small family clinics manage their upcoming appointments for its patients, Doc’It records the following attributes for appointment:
 
-* Patient’s ID: The patient’s id matching in the patient record.
-* Appointment Date: The date of the appointment
+* Patient’s `INDEX`: The index of the patient in the list, starting from 1.
+* Appointment Date: The date of the appointment.
 
 
-## Listing all appointments: `list`
+## List all appointments: `appt list`
 Shows a list of all appointments.
 
-Format: `appt list`
+**Format:** `appt list`
 
-Example:
+**Examples:**
 * `appt list`  Lists all appointments.
 
-Expected Outcome:
-1. Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
-2. Patient Name: Yong, Ian Appointment Date: 2021-10-06
+**Expected Outcome:**
+```
+1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
+```
 
-
-## Adding an appointment: `add`
+## Add an appointment: `appt add`
 Adds an appointment for the patient of the specified patient id.
 
-Format: `appt add n/PATIENT_ID d/DATE`
+**Format:** `appt add INDEX d/DATE`
 
-Examples:
-* `list`  List all patients.
-* `appt add n/1 d/2021-10-05`  Adds appointment to patient of ID 1.
+**Examples:**
+* `list` List all patients.
+* `appt add 1 d/2021-10-05`  Adds appointment to patient of ID 1.
 
-Expected Outcome:  
-New appointment added:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
+**Expected Outcome:**
+```
+New appointment added:
+Patient Name: Joshen Lim |  Appointment Date: 2021-10-05
+```
 
-
-## Deleting an appointment: `delete`
+## Delete an appointment: `appt delete`
 Deletes the appointment at the specified index.
 
-Format: `appt delete INDEX`
+**Format:** `appt delete INDEX`
 * Deletes the appointment at the specified INDEX.
 * The index refers to the index number shown in the displayed appointment list.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer 1, 2, 3, ...
 
-Examples:
+**Examples:**
 * `appt list`  Lists all appointments.
 * `appt delete 1`  Deletes appointment at index 1.
 
-Expected Outcome:  
-Appointment deleted:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
+**Expected Outcome:**
+```
+Appointment deleted:
+Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+```
 
-
-## Archiving an appointment:  `archive`
+## Archive an appointment:  `appt archive`
 Archives an old appointment that is already past its date.
 
-Format: `appt archive INDEX`
+**Format:** `appt archive INDEX`
 * Archives the appointment at the specified INDEX.
 * The index refers to the index number shown in the displayed appointment list.
-* The index must be a positive integer 1, 2, 3, …​
+* The index must be a positive integer 1, 2, 3, ...
 
-Examples:
+**Examples:**
 * `appt list`  Lists all appointments.
 * `appt archive 1`  Archives appointment at index 1.
 
-Expected Outcome:  
-Old appointment archived:  
-Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
+**Expected Outcome:**
+```
+Old appointment archived:
+Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+```
 
+---
+
+## Upcoming commands
+1. Saving the data `[coming in v1.3]`
+2. Editing the data file `[coming in v1.3]`
+3. Archiving data files `[coming in v1.3]`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -274,27 +286,36 @@ Patient Name: Lim, Joshen  Appointment Date: 2021-10-05
 
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]… ` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]… `<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List** | `list`
-**Help** | `help`
-**List Appointment** | `appt list`
-**Add Appointment** | `appt add n/PATIENT_ID d/DATE` <br> e.g.,  `appt add n/1 d/2021-10-05`
-**Delete Appointment** | `appt delete INDEX` <br> e.g., `appt delete 1`
-**Archive Appointment** | `appt archive INDEX` <br> e.g., `appt archive 1`
+### General Commands
+| Command     | Format        |
+|-------------|---------------|
+| User Manual | `help`        |
+| Clear       | `cleat`       |
+| Exit        | `exit`        |
+
+### Patient-related Commands
+| Command | Format                                                                  | Sample                                                                                                |
+|---------|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| Add     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]`                | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| Delete  | `pt delete INDEX`                                                       | `pt delete 3`                                                                                         |
+| Edit    | `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]` | `pt edit 2 n/James Lee e/jameslee@example.com`                                                        |
+| Find    | `pt find n/NAME`                                                        | `pt find /nJames Jake`                                                                                |
+| List    | `pt list`                                                               | -                                                                                                     |
+
+### Appointment-related Commands
+| Command | Format                  | Sample                    |
+|---------|-------------------------|---------------------------|
+| Add     | `appt add INDEX d/DATE` | `appt add 1 d/2021-10-05` |
+| Delete  | `appt delete INDEX`     | `appt delete 1`           |
+| Archive | `appt archive INDEX`    | `appt archive 1`          |
+| List    | `appt list`             | -                         |
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
-
-Term | Definition
------ | ----------
-**Appointment** | A scheduled consult between a patient and the clinic's doctor.
-**Archive** | Storage for data that is non-urgent, e.g. appointment records that are past their date.
-**Patient Record** | A record of a patient's details, medical history, medication, appointment list, and name.
-**Prescription** | The issued medication/treatment for a patient.
+| Term           | Definition                                                                                |
+|----------------|-------------------------------------------------------------------------------------------|
+| Appointment    | A scheduled consult between a patient and the clinic's doctor.                            |
+| Archive        | Storage for data that is non-urgent, e.g. appointment records that are past their date.   |
+| Patient Record | A record of a patient's details, medical history, medication, appointment list, and name. |
+| Prescription   | The issued medication/treatment for a patient.         

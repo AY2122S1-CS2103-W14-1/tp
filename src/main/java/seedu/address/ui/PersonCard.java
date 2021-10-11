@@ -39,6 +39,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label medicalHistory;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -49,12 +51,13 @@ public class PersonCard extends UiPart<Region> {
         this.patient = patient;
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
-        phone.setText(patient.getPhone().value);
-        address.setText(patient.getAddress().value);
-        email.setText(patient.getEmail().value);
+        phone.setText("\uD83D\uDCDE\t" + patient.getPhone().value);
+        address.setText("\uD83C\uDFE0\t" + patient.getAddress().value);
+        email.setText("\uD83D\uDCE7\t" + patient.getEmail().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(new Label("\uD83E\uDE7A\t" + tag.tagName)));
+        medicalHistory.setText("\uD83C\uDFE5\t" + patient.getMedicalHistory());
     }
 
     @Override
