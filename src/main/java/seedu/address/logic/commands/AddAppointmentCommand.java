@@ -16,9 +16,9 @@ public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE =
-        "appt"
+        "appt "
         + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME + "ID "
-            + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1"
+            + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1 "
             + PREFIX_DATETIME + "2021-12-31 1600";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";

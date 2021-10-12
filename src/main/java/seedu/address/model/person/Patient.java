@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Patient {
 
     // Identity fields
     private final Name name;
@@ -24,16 +24,20 @@ public class Person {
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+    // Patient specific fields
+    private final MedicalHistory medicalHistory;
+
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, MedicalHistory medicalHistory) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.medicalHistory = medicalHistory;
     }
 
     public Name getName() {
@@ -60,17 +64,21 @@ public class Person {
         return Collections.unmodifiableSet(tags);
     }
 
+    public MedicalHistory getMedicalHistory() {
+        return this.medicalHistory;
+    }
+
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Patient otherPatient) {
+        if (otherPatient == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherPatient != null
+                && otherPatient.getName().equals(getName());
     }
 
     /**
@@ -83,16 +91,16 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Patient)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+        Patient otherPatient = (Patient) other;
+        return otherPatient.getName().equals(getName())
+                && otherPatient.getPhone().equals(getPhone())
+                && otherPatient.getEmail().equals(getEmail())
+                && otherPatient.getAddress().equals(getAddress())
+                && otherPatient.getTags().equals(getTags());
     }
 
     @Override
@@ -112,11 +120,16 @@ public class Person {
                 .append("; Address: ")
                 .append(getAddress());
 
+
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
         }
+
+        builder.append("; Medical History: ")
+               .append(getMedicalHistory());
+
         return builder.toString();
     }
 

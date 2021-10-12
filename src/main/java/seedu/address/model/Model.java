@@ -6,16 +6,14 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * {@code Predicate} that always evaluate to true
-     */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Patient> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Appointment> PREDICATE_SHOW_ALL_APPOINTMENTS = unused -> true;
 
     /**
@@ -61,37 +59,34 @@ public interface Model {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(Patient patient);
 
     /**
      * Deletes the given person. The person must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(Patient target);
 
     /**
      * Adds the given person. {@code person} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPerson(Patient patient);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the address
      * book. The person identity of {@code editedPerson} must not be the same as another existing person in the address
      * book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(Patient target, Patient editedPatient);
 
-    /**
-     * Returns an unmodifiable view of the filtered person list
-     */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered person list */
+    ObservableList<Patient> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
+    void updateFilteredPersonList(Predicate<Patient> predicate);
 
     /**
      * Returns the user prefs' appointment Book file path.
@@ -129,6 +124,11 @@ public interface Model {
     void addAppointment(Appointment appointment);
 
     /**
+     * Archives the given appointment.The appointment must exist in the appointment Book.
+     */
+    void archiveAppointment(Appointment appointmentToArchive);
+
+    /**
      * Replaces the given appointment {@code target} with {@code editedAppointment}. {@code target} must exist in the
      * appointment Book. The appointment identity of {@code editedAppointment} must not be the same as another existing
      * appointment in the appointment Book.
@@ -143,6 +143,11 @@ public interface Model {
     String getAppointments();
 
     /**
+     * Temporarily returns archived appointment list to be printed in CommandResult.
+     */
+    String getArchivedAppointments();
+
+    /**
      * Returns an unmodifiable view of the filtered appointment list
      */
     ObservableList<Appointment> getFilteredAppointmentList();
@@ -153,6 +158,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
-
-
 }

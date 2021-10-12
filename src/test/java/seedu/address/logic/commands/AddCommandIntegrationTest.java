@@ -11,11 +11,11 @@ import seedu.address.model.AppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddPatientCommand}.
  */
 public class AddCommandIntegrationTest {
 
@@ -25,19 +25,21 @@ public class AddCommandIntegrationTest {
         model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
     }
 
-    @Test public void execute_newPerson_success() {
-        Person validPerson = new PersonBuilder().build();
+    @Test
+    public void execute_newPerson_success() {
+        Patient validPatient = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
-        expectedModel.addPerson(validPerson);
+        expectedModel.addPerson(validPatient);
 
-        assertCommandSuccess(new AddCommand(validPerson), model, String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
-            expectedModel);
+        assertCommandSuccess(new AddPatientCommand(validPatient), model,
+                String.format(AddPatientCommand.MESSAGE_SUCCESS, validPatient), expectedModel);
     }
 
-    @Test public void execute_duplicatePerson_throwsCommandException() {
-        Person personInList = model.getAddressBook().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(personInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    @Test
+    public void execute_duplicatePerson_throwsCommandException() {
+        Patient patientInList = model.getAddressBook().getPersonList().get(0);
+        assertCommandFailure(new AddPatientCommand(patientInList), model, AddPatientCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }
