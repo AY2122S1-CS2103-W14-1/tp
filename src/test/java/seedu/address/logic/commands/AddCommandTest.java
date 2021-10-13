@@ -10,18 +10,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Person;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.ReadOnlyAppointmentBook;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Patient;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.stubs.ModelStub;
-import seedu.address.testutil.stubs.ModelStubAcceptingPersonAdded;
-import seedu.address.testutil.stubs.ModelStubWithPerson;
+import seedu.address.testutil.stubs.ModelStubAcceptingPatientAdded;
+import seedu.address.testutil.stubs.ModelStubWithPatient;
 
 
 
@@ -34,7 +27,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPatientAdded modelStub = new ModelStubAcceptingPatientAdded();
         Patient validPatient = new PersonBuilder().build();
 
         CommandResult commandResult = new AddPatientCommand(validPatient).execute(modelStub);
@@ -47,7 +40,7 @@ public class AddCommandTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Patient validPatient = new PersonBuilder().build();
         AddPatientCommand addCommand = new AddPatientCommand(validPatient);
-        ModelStub modelStub = new ModelStubWithPerson(validPatient);
+        ModelStub modelStub = new ModelStubWithPatient(validPatient);
 
         assertThrows(CommandException.class,
                 AddPatientCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));

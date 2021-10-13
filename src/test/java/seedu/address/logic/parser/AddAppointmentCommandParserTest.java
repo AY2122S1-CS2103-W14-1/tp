@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Name;
 
@@ -114,6 +114,6 @@ public class AddAppointmentCommandParserTest {
                 PREAMBLE_NON_EMPTY
                         + VALID_PATIENT_ID_DESC_0
                         + VALID_APPOINTMENT_DATE_TIME_DESC,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPatientCommand.MESSAGE_USAGE));
     }
 }

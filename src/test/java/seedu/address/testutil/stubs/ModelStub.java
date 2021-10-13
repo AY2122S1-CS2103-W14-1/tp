@@ -10,8 +10,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.Person;
-
+import seedu.address.model.person.Patient;
 
 
 /**
@@ -49,7 +48,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Patient patient) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -64,27 +63,27 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Patient patient) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void deletePerson(Person target) {
+    public void deletePatient(Patient target) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
+    public void setPatient(Patient target, Patient editedPerson) {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
+    public ObservableList<Patient> getFilteredPatientList() {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -100,6 +99,16 @@ public class ModelStub implements Model {
 
     @Override
     public void addAppointment(Appointment appointment) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * Archives the given appointment.The appointment must exist in the appointment Book.
+     *
+     * @param appointmentToArchive
+     */
+    @Override
+    public void archiveAppointment(Appointment appointmentToArchive) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -128,12 +137,12 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    // TODO: Remove and replace with appointment view in UI
-
-    /**
-     * Temporarily returns appointment list to be printed in CommandResult.
-     */
     public String getAppointments() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public String getArchivedAppointments() {
         throw new AssertionError("This method should not be called.");
     }
 

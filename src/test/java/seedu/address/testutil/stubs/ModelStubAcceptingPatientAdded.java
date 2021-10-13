@@ -6,22 +6,22 @@ import java.util.ArrayList;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 
 /**
  * A Model stub that always accept the person being added.
  */
-public class ModelStubAcceptingPersonAdded extends ModelStub {
-    public final ArrayList<Person> personsAdded = new ArrayList<>();
+public class ModelStubAcceptingPatientAdded extends ModelStub {
+    public final ArrayList<Patient> personsAdded = new ArrayList<>();
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPatient(Patient person) {
         requireNonNull(person);
-        return personsAdded.stream().anyMatch(person::isSamePerson);
+        return personsAdded.stream().anyMatch(person::isSamePatient);
     }
 
     @Override
-    public void addPerson(Person person) {
+    public void addPatient(Patient person) {
         requireNonNull(person);
         personsAdded.add(person);
     }

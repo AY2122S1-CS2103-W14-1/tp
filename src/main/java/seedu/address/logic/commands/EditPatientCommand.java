@@ -71,7 +71,7 @@ public class EditPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Patient> lastShownList = model.getFilteredPersonList();
+        List<Patient> lastShownList = model.getFilteredPatientList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -80,12 +80,12 @@ public class EditPatientCommand extends Command {
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPatient = createEditedPerson(patientToEdit, editPersonDescriptor);
 
-        if (!patientToEdit.isSamePerson(editedPatient) && model.hasPerson(editedPatient)) {
+        if (!patientToEdit.isSamePatient(editedPatient) && model.hasPatient(editedPatient)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.setPerson(patientToEdit, editedPatient);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.setPatient(patientToEdit, editedPatient);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPatient));
     }
 

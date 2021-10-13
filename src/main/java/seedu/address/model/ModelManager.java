@@ -108,24 +108,24 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Patient patient) {
+    public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
         return addressBook.hasPerson(patient);
     }
 
     @Override
-    public void deletePerson(Patient target) {
+    public void deletePatient(Patient target) {
         addressBook.removePerson(target);
     }
 
     @Override
-    public void addPerson(Patient patient) {
+    public void addPatient(Patient patient) {
         addressBook.addPerson(patient);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Patient target, Patient editedPatient) {
+    public void setPatient(Patient target, Patient editedPatient) {
         requireAllNonNull(target, editedPatient);
 
         addressBook.setPerson(target, editedPatient);
@@ -138,12 +138,12 @@ public class ModelManager implements Model {
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Patient> getFilteredPersonList() {
+    public ObservableList<Patient> getFilteredPatientList() {
         return filteredPatients;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Patient> predicate) {
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
     }

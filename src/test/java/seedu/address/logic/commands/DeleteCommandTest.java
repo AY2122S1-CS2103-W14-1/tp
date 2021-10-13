@@ -29,19 +29,19 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Patient patientToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Patient patientToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeletePatientCommand deleteCommand = new DeletePatientCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePatient(patientToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPatientList().size() + 1);
         DeletePatientCommand deleteCommand = new DeletePatientCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -50,13 +50,13 @@ public class DeleteCommandTest {
     @Test public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        Patient patientToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Patient patientToDelete = model.getFilteredPatientList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeletePatientCommand deleteCommand = new DeletePatientCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
-        expectedModel.deletePerson(patientToDelete);
+        expectedModel.deletePatient(patientToDelete);
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -99,8 +99,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredPatientList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredPatientList().isEmpty());
     }
 }

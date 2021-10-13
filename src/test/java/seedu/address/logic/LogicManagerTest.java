@@ -85,7 +85,7 @@ public class LogicManagerTest {
                 + ADDRESS_DESC_AMY + MEDICAL_DESC_PATIENT;
         Patient expectedPatient = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedPatient);
+        expectedModel.addPatient(expectedPatient);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }

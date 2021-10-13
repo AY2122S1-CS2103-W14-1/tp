@@ -59,34 +59,34 @@ public interface Model {
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
-    boolean hasPerson(Patient patient);
+    boolean hasPatient(Patient patient);
 
     /**
      * Deletes the given person. The person must exist in the address book.
      */
-    void deletePerson(Patient target);
+    void deletePatient(Patient target);
 
     /**
      * Adds the given person. {@code person} must not already exist in the address book.
      */
-    void addPerson(Patient patient);
+    void addPatient(Patient patient);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}. {@code target} must exist in the address
      * book. The person identity of {@code editedPerson} must not be the same as another existing person in the address
      * book.
      */
-    void setPerson(Patient target, Patient editedPatient);
+    void setPatient(Patient target, Patient editedPatient);
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Patient> getFilteredPersonList();
+    ObservableList<Patient> getFilteredPatientList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Patient> predicate);
+    void updateFilteredPatientList(Predicate<Patient> predicate);
 
     /**
      * Returns the user prefs' appointment Book file path.
