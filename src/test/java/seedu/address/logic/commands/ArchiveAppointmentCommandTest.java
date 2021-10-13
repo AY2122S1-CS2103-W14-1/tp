@@ -85,7 +85,8 @@ public class ArchiveAppointmentCommandTest {
         assertTrue(archiveFirstAppointmentCommand.equals(archiveFirstAppointmentCommand));
 
         // same values -> returns true
-        ArchiveAppointmentCommand archiveFirstAppointmentCommandCopy = new ArchiveAppointmentCommand(INDEX_FIRST_PERSON);
+        ArchiveAppointmentCommand archiveFirstAppointmentCommandCopy =
+                new ArchiveAppointmentCommand(INDEX_FIRST_PERSON);
         assertTrue(archiveFirstAppointmentCommand.equals(archiveFirstAppointmentCommandCopy));
 
         // different types -> returns false

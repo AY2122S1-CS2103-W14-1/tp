@@ -40,6 +40,7 @@ public class ListAppointmentsCommandTest {
     @Disabled("Not implemented yet, currently list is shown in user feedback")
     public void execute_listIsFiltered_showsEverything() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
-        assertCommandSuccess(new ListAppointmentsCommand(), model, ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAppointmentsCommand(), model,
+                ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
