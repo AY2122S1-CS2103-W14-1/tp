@@ -24,7 +24,7 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindPatientCommand}.
  */
-public class FindCommandTest {
+public class FindPatientCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
 

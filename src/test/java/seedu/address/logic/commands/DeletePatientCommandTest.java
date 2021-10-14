@@ -22,7 +22,7 @@ import seedu.address.model.person.Patient;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeletePatientCommand}.
  */
-public class DeleteCommandTest {
+public class DeletePatientCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
 

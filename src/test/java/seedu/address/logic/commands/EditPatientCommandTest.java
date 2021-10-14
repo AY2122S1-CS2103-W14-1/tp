@@ -32,7 +32,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditPatientCommand.
  */
-public class EditCommandTest {
+public class EditPatientCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
 

@@ -18,7 +18,7 @@ import seedu.address.testutil.stubs.ModelStubWithPatient;
 
 
 
-public class AddCommandTest {
+public class AddPatientCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {

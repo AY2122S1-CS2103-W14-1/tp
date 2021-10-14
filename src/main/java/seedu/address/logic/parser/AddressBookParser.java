@@ -69,13 +69,13 @@ public class AddressBookParser {
     public Command parseBasicCommand(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
         case AddPatientCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            return new AddPatientCommandParser().parse(arguments);
         case EditPatientCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            return new EditPatientCommandParser().parse(arguments);
         case DeletePatientCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            return new DeletePatientCommandParser().parse(arguments);
         case FindPatientCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new FindPatientCommandParser().parse(arguments);
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
         case ExitCommand.COMMAND_WORD:

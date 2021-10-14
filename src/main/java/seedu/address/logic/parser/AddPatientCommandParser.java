@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddPatientCommand object
  */
-public class AddCommandParser implements Parser<AddPatientCommand> {
+public class AddPatientCommandParser implements Parser<AddPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPatientCommand

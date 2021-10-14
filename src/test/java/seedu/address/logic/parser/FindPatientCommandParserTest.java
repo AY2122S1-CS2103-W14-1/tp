@@ -11,9 +11,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.FindPatientCommand;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
-public class FindCommandParserTest {
+public class FindPatientCommandParserTest {
 
-    private FindCommandParser parser = new FindCommandParser();
+    private FindPatientCommandParser parser = new FindPatientCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
