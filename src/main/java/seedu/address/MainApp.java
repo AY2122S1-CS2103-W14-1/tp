@@ -79,50 +79,41 @@ public class MainApp extends Application {
      * empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        ReadOnlyAddressBook initialData = initModelAddressBook(storage);
-        ReadOnlyAppointmentBook initialAppointmentData;
-        if (initialData.equals(SampleDataUtil.getSampleAddressBook())) {
-            // Load sample appointment book linked to sample address book
-            initialAppointmentData = SampleDataUtil.getSampleAppointmentBook();
-        } else {
-            initialAppointmentData = initModelAppointmentBook(initialData, storage);
-        }
-        return new ModelManager(initialData, initialAppointmentData, userPrefs);
-    }
-
-    private ReadOnlyAddressBook initModelAddressBook(Storage storage) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData = new AddressBook();
+        Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
+        ReadOnlyAddressBook initialData;
+        ReadOnlyAppointmentBook initialAppointmentData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
-                initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             }
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
         }
-        return initialData;
-    }
 
-    private ReadOnlyAppointmentBook initModelAppointmentBook(ReadOnlyAddressBook addressBook, Storage storage) {
-        Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
-        ReadOnlyAppointmentBook initialAppointmentData = new AppointmentBook();
+        // Storage and Sample data for Appointments
         try {
-            appointmentBookOptional = storage.readAppointmentBook(addressBook);
+            appointmentBookOptional = storage.readAppointmentBook(initialData);
             if (!appointmentBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty AppointmentBook");
+                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
             }
+            initialAppointmentData = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
+            initialAppointmentData = new AppointmentBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+            initialAppointmentData = new AppointmentBook();
         }
-        return initialAppointmentData;
-    }
 
+        return new ModelManager(initialData, initialAppointmentData, userPrefs);
+    }
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
