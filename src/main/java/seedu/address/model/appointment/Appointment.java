@@ -70,7 +70,7 @@ public class Appointment {
     }
 
     @Override public String toString() {
-        return "" + getPatient() + "; Datetime: "  + getDatetime() + "\n";
+        return "" + getPatient() + "; Datetime: " + getDatetime() + "\n";
     }
 
 }
