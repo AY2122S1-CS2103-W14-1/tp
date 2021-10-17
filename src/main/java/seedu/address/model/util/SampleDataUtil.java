@@ -5,7 +5,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppointmentBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.MedicalHistory;
@@ -41,10 +44,25 @@ public class SampleDataUtil {
         };
     }
 
+    // TODO: Improve sample appointments
+    public static Appointment[] getSampleAppointments() {
+        return new Appointment[] {
+            new Appointment(1, "2020-10-17")
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Patient samplePatient : getSamplePersons()) {
             sampleAb.addPerson(samplePatient);
+        }
+        return sampleAb;
+    }
+
+    public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
+        AppointmentBook sampleAb = new AppointmentBook();
+        for (Appointment sampleAppointment : getSampleAppointments()) {
+            sampleAb.addAppointment(sampleAppointment);
         }
         return sampleAb;
     }
