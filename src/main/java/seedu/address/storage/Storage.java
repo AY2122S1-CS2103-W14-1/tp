@@ -33,4 +33,13 @@ public interface Storage extends AddressBookStorage, AppointmentBookStorage, Use
     @Override void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
         throws IOException;
 
+    @Override
+    Path getAppointmentBookFilePath();
+
+    @Override
+    Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException;
+
 }
