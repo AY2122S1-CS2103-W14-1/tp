@@ -10,14 +10,14 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AppointmentBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.appointment.Appointment;
 
 /**
  * An Immutable AppointmentBook that is serializable to JSON format.
  */
-@JsonRootName(value = "appointmentBook")
-class JsonSerializableAppointmentBook {
+@JsonRootName(value = "appointmentBook") class JsonSerializableAppointmentBook {
 
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointments list contains duplicate appointment(s).";
 
@@ -26,18 +26,19 @@ class JsonSerializableAppointmentBook {
     /**
      * Constructs a {@code JsonSerializableAppointmentBook} with the given appointments.
      */
-    @JsonCreator
-    public JsonSerializableAppointmentBook(@JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
+    @JsonCreator public JsonSerializableAppointmentBook(
+        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.appointments.addAll(appointments);
     }
 
     /**
      * Converts a given {@code ReadOnlyAppointmentBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAppointmentBook}.
+     * @param source      future changes to this will not affect the created {@code JsonSerializableAppointmentBook}.
+     * @param addressBook {@code AddressBook} that this appointment book references
      */
-    public JsonSerializableAppointmentBook(ReadOnlyAppointmentBook source) {
-        appointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
+    public JsonSerializableAppointmentBook(ReadOnlyAppointmentBook source, ReadOnlyAddressBook addressBook) {
+        appointments.addAll(source.getAppointmentList().stream().map(x -> new JsonAdaptedAppointment(x, addressBook))
             .collect(Collectors.toList()));
     }
 
@@ -46,10 +47,10 @@ class JsonSerializableAppointmentBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public AppointmentBook toModelType() throws IllegalValueException {
+    public AppointmentBook toModelType(ReadOnlyAddressBook addressBook) throws IllegalValueException {
         AppointmentBook appointmentBook = new AppointmentBook();
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointments) {
-            Appointment appointment = jsonAdaptedAppointment.toModelType();
+            Appointment appointment = jsonAdaptedAppointment.toModelType(addressBook);
             if (appointmentBook.hasAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }

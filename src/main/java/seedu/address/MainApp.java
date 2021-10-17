@@ -50,8 +50,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
-    @Override
-    public void init() throws Exception {
+    @Override public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
@@ -75,45 +74,63 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br> The
+     * data from the sample address book will be used instead if {@code storage}'s address book is not found, or an
+     * empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional = Optional.empty();
-        Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook initialData = initModelAddressBook(storage);
         ReadOnlyAppointmentBook initialAppointmentData;
-        try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook and AppointmentBook");
-                initialAppointmentData = SampleDataUtil.getSampleAppointmentBook();
-            } else {
-                appointmentBookOptional = storage.readAppointmentBook();
-                initialAppointmentData = new AppointmentBook();
-            }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook and AppointmentBook");
-            initialData = new AddressBook();
-            initialAppointmentData = new AppointmentBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook and AppointmentBook");
-            initialData = new AddressBook();
-            initialAppointmentData = new AppointmentBook();
+        if (initialData.equals(SampleDataUtil.getSampleAddressBook())) {
+            // Load sample appointment book linked to sample address book
+            initialAppointmentData = SampleDataUtil.getSampleAppointmentBook();
+        } else {
+            initialAppointmentData = initModelAppointmentBook(initialData, storage);
         }
         return new ModelManager(initialData, initialAppointmentData, userPrefs);
     }
+
+    private ReadOnlyAddressBook initModelAddressBook(Storage storage) {
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData = new AddressBook();
+        try {
+            addressBookOptional = storage.readAddressBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+        }
+        return initialData;
+    }
+
+    private ReadOnlyAppointmentBook initModelAppointmentBook(ReadOnlyAddressBook addressBook, Storage storage) {
+        Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
+        ReadOnlyAppointmentBook initialAppointmentData = new AppointmentBook();
+        try {
+            appointmentBookOptional = storage.readAppointmentBook(addressBook);
+            if (!appointmentBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty AppointmentBook");
+            }
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+        }
+        return initialAppointmentData;
+    }
+
 
     private void initLogging(Config config) {
         LogsCenter.init(config);
     }
 
     /**
-     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
-     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
-     * if {@code configFilePath} is null.
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br> The default file path {@code
+     * Config#DEFAULT_CONFIG_FILE} will be used instead if {@code configFilePath} is null.
      */
     protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
@@ -133,7 +150,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -147,9 +164,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path, or a new {@code UserPrefs}
+     * with default configuration if errors occur when reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         Path prefsFilePath = storage.getUserPrefsFilePath();
@@ -160,8 +176,8 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+            logger.warning(
+                "UserPrefs file at " + prefsFilePath + " is not in the correct format. " + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
@@ -178,14 +194,12 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    @Override
-    public void start(Stage primaryStage) {
+    @Override public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
-    @Override
-    public void stop() {
+    @Override public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());

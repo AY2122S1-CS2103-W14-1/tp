@@ -8,7 +8,7 @@ import java.util.Arrays;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.AppointmentContainsIdPredicate;
+import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 
 public class AppointmentCommandTestUtil {
 
@@ -21,7 +21,7 @@ public class AppointmentCommandTestUtil {
 
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
         final int id = appointment.getPatientUuid();
-        model.updateFilteredAppointmentList(new AppointmentContainsIdPredicate(Arrays.asList(id)));
+        model.updateFilteredAppointmentList(new AppointmentContainsKeywordsPredicate(Arrays.asList(id)));
 
         assertEquals(1, model.getFilteredAppointmentList().size());
     }

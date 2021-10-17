@@ -21,11 +21,15 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code AddressBook} with sample data.
  */
 public class SampleDataUtil {
+
+    private static Patient patientAlex = new Patient(new Name("Alex Yeoh"), new Phone("87438807"),
+        new Email("alexyeoh" + "@example" + ".com"), new Address("Blk 30 Geylang Street 29, #06-40"),
+        getTagSet("friends"), new MedicalHistory("lovesick"));
+
+
     public static Patient[] getSamplePersons() {
         return new Patient[] {
-            new Patient(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends"), new MedicalHistory("lovesick")),
+            patientAlex,
             new Patient(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("colleagues", "friends"), new MedicalHistory("lovesick")),
@@ -47,7 +51,7 @@ public class SampleDataUtil {
     // TODO: Improve sample appointments
     public static Appointment[] getSampleAppointments() {
         return new Appointment[] {
-            new Appointment(1, "2020-10-17")
+            new Appointment(patientAlex, "2020-10-17")
         };
     }
 

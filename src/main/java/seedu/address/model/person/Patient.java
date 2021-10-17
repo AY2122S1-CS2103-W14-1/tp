@@ -38,7 +38,6 @@ public class Patient {
         this.address = address;
         this.tags.addAll(tags);
         this.medicalHistory = medicalHistory;
-        this.uuid = Objects.hash(name, phone, email, address);  // temporary identifier to replace with actual uuid
     }
 
     public Name getName() {
@@ -67,17 +66,6 @@ public class Patient {
 
     public MedicalHistory getMedicalHistory() {
         return this.medicalHistory;
-    }
-
-    public int getUuid() {
-        return uuid;
-    }
-
-    /**
-     * Returns true if both persons have the same uuid.
-     */
-    public boolean isSameUuid(int uuid) {
-        return this.uuid == uuid;
     }
 
     /**

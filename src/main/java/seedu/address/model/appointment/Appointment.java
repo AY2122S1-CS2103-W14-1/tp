@@ -13,46 +13,24 @@ import seedu.address.model.person.Patient;
 public class Appointment {
 
     // Identity fields
-    private final int patientUuid;
+    private final Patient patient;
     private final String datetime;
-
-    // Data fields
-
-    private Patient patient;    // Lazy result storing
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(int patientUuid, String datetime) {
-        requireAllNonNull(patientUuid, datetime);
-        this.patientUuid = patientUuid;
-        this.datetime = datetime;
-    }
-
-    /**
-     * Instantiate appointment with patient instance
-     */
     public Appointment(Patient patient, String datetime) {
         requireAllNonNull(patient, datetime);
-        this.patientUuid = patient.getUuid();
         this.patient = patient;
         this.datetime = datetime;
-    }
-
-    public int getPatientUuid() {
-        return patientUuid;
-    }
-
-    public String getDatetime() {
-        return datetime;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
     }
 
     public Patient getPatient() {
         return patient;
+    }
+
+    public String getDatetime() {
+        return datetime;
     }
 
     /**
@@ -64,7 +42,7 @@ public class Appointment {
             return true;
         }
 
-        return otherAppointment != null && otherAppointment.getPatientUuid() == getPatientUuid()
+        return otherAppointment != null && otherAppointment.getPatient().equals(getPatient())
             && otherAppointment.getDatetime().equals(getDatetime());
     }
 
@@ -82,21 +60,17 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return otherAppointment.getPatientUuid() == (getPatientUuid()) && otherAppointment.getDatetime()
+        return otherAppointment.getPatient().equals(getPatient()) && otherAppointment.getDatetime()
             .equals(getDatetime());
     }
 
     @Override public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patientUuid, datetime);
+        return Objects.hash(patient, datetime);
     }
 
     @Override public String toString() {
-        if (patient != null) {
-            return "" + getPatient() + "; Datetime: "  + getDatetime() + "\n";
-        } else {
-            return "" + getPatientUuid() + "; Datetime: " + getDatetime() + "\n";
-        }
+        return "" + getPatient() + "; Datetime: "  + getDatetime() + "\n";
     }
 
 }

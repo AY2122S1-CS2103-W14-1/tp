@@ -15,28 +15,22 @@ import seedu.address.model.UserPrefs;
  */
 public interface Storage extends AddressBookStorage, AppointmentBookStorage, UserPrefsStorage {
 
-    @Override
-    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    @Override Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
-    @Override
-    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+    @Override void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override
-    Path getAddressBookFilePath();
+    @Override Path getAddressBookFilePath();
 
-    @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    @Override Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
-    @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    @Override void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
-    @Override
-    Path getAppointmentBookFilePath();
+    @Override Path getAppointmentBookFilePath();
 
-    @Override
-    Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException;
+    @Override Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
+        throws DataConversionException, IOException;
 
-    @Override
-    void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException;
+    @Override void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
+        throws IOException;
 
 }

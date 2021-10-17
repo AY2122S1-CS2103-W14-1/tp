@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -29,13 +30,19 @@ public class UniquePersonList implements Iterable<Patient> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns Patient of uuid given or null if not exist.
+     * Returns patient at index position or null if not exist.
      */
-    public Patient getPatientOfUuid(int uuid) {
-        return internalList.stream()
-            .filter(x -> x.isSameUuid(uuid))
-            .findFirst()
-            .orElse(null);
+    public Patient get(Index index) {
+        requireNonNull(index);
+        return index.getZeroBased() < internalList.size() ? internalList.get(index.getZeroBased()) : null;
+    }
+
+    /**
+     * Returns index of patient in the list.
+     */
+    public Index indexOf(Patient patient) {
+        requireNonNull(patient);
+        return internalList.indexOf(patient) != -1 ? Index.fromZeroBased(internalList.indexOf(patient)) : null;
     }
 
     /**
