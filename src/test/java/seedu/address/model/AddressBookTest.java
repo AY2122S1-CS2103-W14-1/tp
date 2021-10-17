@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -26,60 +27,51 @@ public class AddressBookTest {
 
     private final AddressBook addressBook = new AddressBook();
 
-    @Test
-    public void constructor() {
+    @Test public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
     }
 
-    @Test
-    public void resetData_null_throwsNullPointerException() {
+    @Test public void resetData_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.resetData(null));
     }
 
-    @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    @Test public void resetData_withValidReadOnlyAddressBook_replacesData() {
         AddressBook newData = getTypicalAddressBook();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
 
-    @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
+    @Test public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Patient editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Patient editedAlice =
+            new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         List<Patient> newPatients = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPatients);
 
         assertThrows(DuplicatePersonException.class, () -> addressBook.resetData(newData));
     }
 
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    @Test public void hasPerson_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> addressBook.hasPerson(null));
     }
 
-    @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
+    @Test public void hasPerson_personNotInAddressBook_returnsFalse() {
         assertFalse(addressBook.hasPerson(ALICE));
     }
 
-    @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
+    @Test public void hasPerson_personInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
         assertTrue(addressBook.hasPerson(ALICE));
     }
 
-    @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+    @Test public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addPerson(ALICE);
-        Patient editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
+        Patient editedAlice =
+            new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
 
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    @Test public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> addressBook.getPersonList().remove(0));
     }
 
@@ -93,9 +85,16 @@ public class AddressBookTest {
             this.patients.setAll(patients);
         }
 
-        @Override
-        public ObservableList<Patient> getPersonList() {
+        @Override public ObservableList<Patient> getPersonList() {
             return patients;
+        }
+
+        @Override public Patient getPatientOfIndex(Index index) {
+            return null;
+        }
+
+        @Override public Index getIndexOfPatient(Patient patient) {
+            return null;
         }
     }
 
