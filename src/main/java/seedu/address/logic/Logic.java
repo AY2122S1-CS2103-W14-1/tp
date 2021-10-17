@@ -8,6 +8,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAppointmentBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Patient;
 
 /**
@@ -37,6 +39,22 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the AppointmentBook.
+     *
+     * @see seedu.address.model.Model#getAppointmentBook()
+     */
+    ReadOnlyAppointmentBook getAppointmentBook();
+
+    /** Returns an unmodifiable view of the filtered list of appointments */
+    ObservableList<Appointment> getFilteredAppointmentList();
+
+    /**
+     * Returns the user prefs' address book file path.
+     */
+    Path getAppointmentBookFilePath();
+
 
     /**
      * Returns the user prefs' GUI settings.
