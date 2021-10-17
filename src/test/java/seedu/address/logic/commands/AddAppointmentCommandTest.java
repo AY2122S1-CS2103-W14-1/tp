@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.stubs.ModelStub;
 import seedu.address.testutil.stubs.ModelStubAcceptingAppointmentAdded;
 import seedu.address.testutil.stubs.ModelStubWithAppointment;
@@ -21,35 +20,39 @@ import seedu.address.testutil.stubs.ModelStubWithAppointment;
 public class AddAppointmentCommandTest {
     private final int defaultPatientId = 0;
     private final String defaultDateTime = "2021-12-31 1600";
-    private Appointment defaultAppointment = new Appointment(SampleDataUtil.getSamplePersons()[0], defaultDateTime);
+    private Appointment defaultAppointment = new Appointment(defaultPatientId, defaultDateTime);
 
-    @Test public void constructor_nullAppointment_throwsNullPointerException() {
+    @Test
+    public void constructor_nullAppointment_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddAppointmentCommand(Index.fromOneBased(1), ""));
     }
 
-    @Test public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
+    @Test
+    public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         Appointment validAppointment = defaultAppointment;
 
         CommandResult commandResult = new AddAppointmentCommand(Index.fromOneBased(1), "").execute(modelStub);
 
         assertEquals(String.format(AddAppointmentCommand.MESSAGE_SUCCESS, validAppointment),
-            commandResult.getFeedbackToUser());
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validAppointment), modelStub.appointmentsAdded);
     }
 
-    @Test public void execute_duplicateAppointment_throwsCommandException() {
+    @Test
+    public void execute_duplicateAppointment_throwsCommandException() {
         Appointment validAppointment = defaultAppointment;
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(Index.fromOneBased(1), "");
         ModelStub modelStub = new ModelStubWithAppointment(validAppointment);
 
-        assertThrows(CommandException.class,
-            AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT, () -> addAppointmentCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddAppointmentCommand.MESSAGE_DUPLICATE_APPOINTMENT, () ->
+                addAppointmentCommand.execute(modelStub));
     }
 
-    @Test public void equals() {
+    @Test
+    public void equals() {
         Appointment appointment1 = defaultAppointment;
-        Appointment appointment2 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2022-12-31 1600");
+        Appointment appointment2 = new Appointment(1, "2022-12-31 1600");
         AddAppointmentCommand addAppointment1 = new AddAppointmentCommand(Index.fromOneBased(1), "");
         AddAppointmentCommand addAppointment2 = new AddAppointmentCommand(Index.fromOneBased(1), "");
 
@@ -70,6 +73,7 @@ public class AddAppointmentCommandTest {
         // different person -> returns false
         assertFalse(addAppointment1.equals(addAppointment2));
     }
+
 
 
 }

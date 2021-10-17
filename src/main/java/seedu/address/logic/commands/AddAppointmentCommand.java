@@ -12,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Patient;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Adds an appointment to the appointment book.
@@ -22,8 +21,9 @@ public class AddAppointmentCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE =
-        "appt " + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME
-            + "ID " + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1 "
+        "appt "
+        + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME + "ID "
+            + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1 "
             + PREFIX_DATETIME + "2021-12-31 1600";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
@@ -36,9 +36,8 @@ public class AddAppointmentCommand extends Command {
 
     /**
      * Creates an AddCommand to add the specified {@code Appointment}
-     *
      * @param targetPatientIndex patient index to make appointment
-     * @param datetime           date and time of appointment
+     * @param datetime date and time of appointment
      */
     public AddAppointmentCommand(Index targetPatientIndex, String datetime) {
         requireNonNull(targetPatientIndex, datetime);
@@ -56,7 +55,7 @@ public class AddAppointmentCommand extends Command {
 
         Patient patientToMakeAppointment = lastShownList.get(targetPatientIndex.getZeroBased());
 
-        toAdd = new Appointment(SampleDataUtil.getSamplePersons()[0], datetime);
+        toAdd = new Appointment(patientToMakeAppointment, datetime);
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
@@ -69,7 +68,7 @@ public class AddAppointmentCommand extends Command {
     @Override public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddAppointmentCommand // instanceof handles nulls
-            && targetPatientIndex.equals(((AddAppointmentCommand) other).targetPatientIndex) && datetime.equals(
-            ((AddAppointmentCommand) other).datetime));
+            && targetPatientIndex.equals(((AddAppointmentCommand) other).targetPatientIndex)
+            && datetime.equals(((AddAppointmentCommand) other).datetime));
     }
 }

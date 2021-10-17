@@ -8,7 +8,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Patient;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -64,7 +63,7 @@ class JsonAdaptedAppointment {
         if (datetime == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Datetime"));
         }
-        return new Appointment(SampleDataUtil.getSamplePersons()[0], datetime);
+        return new Appointment(patientToAppointment, datetime);
     }
 
 }

@@ -7,6 +7,8 @@ import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.model.appointment.Appointment;
 
 
+
+
 /**
  * A utility class for Appointment.
  */
@@ -24,7 +26,7 @@ public class AppointmentUtil {
      */
     public static String getAppointmentDetails(Appointment appointment) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + String.valueOf(appointment.getPatient()) + " ");
+        sb.append(PREFIX_NAME + String.valueOf(appointment.getPatientUuid()) + " ");
         sb.append(PREFIX_DATETIME + appointment.getDatetime() + " ");
         return sb.toString();
     }
