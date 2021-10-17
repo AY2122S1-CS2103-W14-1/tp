@@ -29,6 +29,16 @@ public class UniquePersonList implements Iterable<Patient> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Returns Patient of uuid given or null if not exist.
+     */
+    public Patient getPatientOfUuid(int uuid) {
+        return internalList.stream()
+            .filter(x -> x.isSameUuid(uuid))
+            .findFirst()
+            .orElse(null);
+    }
+
+    /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(Patient toCheck) {
@@ -134,4 +144,5 @@ public class UniquePersonList implements Iterable<Patient> {
         }
         return true;
     }
+
 }

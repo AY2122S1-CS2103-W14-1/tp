@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -87,7 +88,7 @@ public class AddressBookParserTest {
         Appointment appointment = APPOINTMENT_1;
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand("appt "
                 + AppointmentUtil.getAddCommand(appointment));
-        assertEquals(new AddAppointmentCommand(appointment), command);
+        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), ""), command);
     }
 
     @Test

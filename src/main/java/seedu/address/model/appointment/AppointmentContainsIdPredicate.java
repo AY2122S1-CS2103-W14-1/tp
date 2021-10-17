@@ -16,7 +16,7 @@ public class AppointmentContainsIdPredicate implements Predicate<Appointment> {
     @Override
     public boolean test(Appointment appointment) {
         return keywords.stream()
-                .anyMatch(keyword -> keyword.equals(appointment.getPatientId()));
+                .anyMatch(keyword -> keyword.equals(appointment.getPatientUuid()));
     }
 
     @Override

@@ -67,6 +67,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns patient of uuid given or null.
+     */
+    public Patient getPatientOfUuid(int uuid) {
+        return persons.getPatientOfUuid(uuid);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

@@ -20,7 +20,7 @@ public class AppointmentCommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
 
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
-        final int id = appointment.getPatientId();
+        final int id = appointment.getPatientUuid();
         model.updateFilteredAppointmentList(new AppointmentContainsIdPredicate(Arrays.asList(id)));
 
         assertEquals(1, model.getFilteredAppointmentList().size());

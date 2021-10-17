@@ -80,39 +80,29 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
+        Optional<ReadOnlyAddressBook> addressBookOptional = Optional.empty();
         Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyAppointmentBook initialAppointmentData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("Data file not found. Will be starting with a sample AddressBook and AppointmentBook");
+                initialAppointmentData = SampleDataUtil.getSampleAppointmentBook();
+            } else {
+                appointmentBookOptional = storage.readAppointmentBook();
+                initialAppointmentData = new AppointmentBook();
             }
             initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook and AppointmentBook");
             initialData = new AddressBook();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-        // Storage and Sample data for Appointments
-        try {
-            appointmentBookOptional = storage.readAppointmentBook();
-            if (!appointmentBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
-            }
-            initialAppointmentData = appointmentBookOptional.orElseGet(SampleDataUtil::getSampleAppointmentBook);
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
             initialAppointmentData = new AppointmentBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook and AppointmentBook");
+            initialData = new AddressBook();
             initialAppointmentData = new AppointmentBook();
         }
-
         return new ModelManager(initialData, initialAppointmentData, userPrefs);
     }
 

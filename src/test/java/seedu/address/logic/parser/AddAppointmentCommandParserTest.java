@@ -21,6 +21,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.model.appointment.Appointment;
@@ -39,15 +40,15 @@ public class AddAppointmentCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_PATIENT_ID_0 + VALID_APPOINTMENT_DATE_TIME,
-                new AddAppointmentCommand(expectedAppointment));
+                new AddAppointmentCommand(Index.fromOneBased(1), ""));
 
         // fully correct entry
         assertParseSuccess(parser, VALID_PATIENT_ID_0 + VALID_APPOINTMENT_DATE_TIME,
-                new AddAppointmentCommand(expectedAppointment));
+                new AddAppointmentCommand(Index.fromOneBased(1), ""));
 
         // fully correct entry with irrelevant ending whitespace only preamble
         assertParseSuccess(parser, VALID_PATIENT_ID_0 + VALID_APPOINTMENT_DATE_TIME + PREAMBLE_WHITESPACE,
-                new AddAppointmentCommand(expectedAppointment));
+                new AddAppointmentCommand(Index.fromOneBased(1), ""));
     }
 
 
