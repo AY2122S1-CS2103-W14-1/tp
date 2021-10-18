@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.stubs.ModelStub;
 import seedu.address.testutil.stubs.ModelStubAcceptingAppointmentAdded;
 import seedu.address.testutil.stubs.ModelStubWithAppointment;
@@ -20,7 +21,7 @@ import seedu.address.testutil.stubs.ModelStubWithAppointment;
 public class AddAppointmentCommandTest {
     private final int defaultPatientId = 0;
     private final String defaultDateTime = "2021-12-31 1600";
-    private Appointment defaultAppointment = new Appointment(defaultPatientId, defaultDateTime);
+    private Appointment defaultAppointment = new Appointment(SampleDataUtil.getSamplePersons()[0], defaultDateTime);
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
@@ -52,7 +53,7 @@ public class AddAppointmentCommandTest {
     @Test
     public void equals() {
         Appointment appointment1 = defaultAppointment;
-        Appointment appointment2 = new Appointment(1, "2022-12-31 1600");
+        Appointment appointment2 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2022-12-31 1600");
         AddAppointmentCommand addAppointment1 = new AddAppointmentCommand(Index.fromOneBased(1), "");
         AddAppointmentCommand addAppointment2 = new AddAppointmentCommand(Index.fromOneBased(1), "");
 

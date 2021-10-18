@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
@@ -96,6 +97,14 @@ public class AddressBookTest {
         @Override
         public ObservableList<Patient> getPersonList() {
             return patients;
+        }
+
+        @Override public Patient getPatientOfIndex(Index index) {
+            return null;
+        }
+
+        @Override public Index getIndexOfPatient(Patient patient) {
+            return null;
         }
     }
 
