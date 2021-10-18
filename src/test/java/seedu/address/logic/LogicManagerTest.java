@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AppointmentBook;
+import seedu.address.model.ArchivedAppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -32,6 +33,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Patient;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAppointmentBookStorage;
+import seedu.address.storage.JsonArchivedAppointmentBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -51,8 +53,11 @@ public class LogicManagerTest {
                 new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonAppointmentBookStorage appointmentBookStorage =
             new JsonAppointmentBookStorage(temporaryFolder.resolve("appointmentBook.json"));
+        JsonArchivedAppointmentBookStorage archivedAppointmentBookStorage =
+                new JsonArchivedAppointmentBookStorage(temporaryFolder.resolve("archivedAppointmentBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage,
+                archivedAppointmentBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -81,9 +86,12 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
         JsonAppointmentBookStorage appointmentBookStorage =
             new JsonAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAppointmentBook.json"));
+        JsonArchivedAppointmentBookStorage archivedAppointmentBookStorage =
+                new JsonArchivedAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionArchivedAppointmentBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage,
+                archivedAppointmentBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -137,7 +145,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(),
+                new ArchivedAppointmentBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -178,6 +187,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonArchivedAppointmentBookIoExceptionThrowingStub extends JsonArchivedAppointmentBookStorage {
+        private JsonArchivedAppointmentBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

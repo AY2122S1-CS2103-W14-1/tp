@@ -109,6 +109,11 @@ public interface Model {
     ReadOnlyAppointmentBook getAppointmentBook();
 
     /**
+     * Returns the ArchivedAppointmentBook
+     */
+    ReadOnlyAppointmentBook getArchivedAppointmentBook();
+
+    /**
      * Returns true if an appointment with the same identity as {@code appointment} exists in the appointment Book.
      */
     boolean hasAppointment(Appointment appointment);
@@ -135,16 +140,8 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
-    // TODO: Remove and replace with appointment view in UI
-
-    /**
-     * Temporarily returns appointment list to be printed in CommandResult.
-     */
     String getAppointments();
 
-    /**
-     * Temporarily returns archived appointment list to be printed in CommandResult.
-     */
     String getArchivedAppointments();
 
     /**

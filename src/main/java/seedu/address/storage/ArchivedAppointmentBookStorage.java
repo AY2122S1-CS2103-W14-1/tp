@@ -10,12 +10,12 @@ import seedu.address.model.ReadOnlyAppointmentBook;
 /**
  * Represents a storage for {@link seedu.address.model.AppointmentBook}.
  */
-public interface AppointmentBookStorage {
+public interface ArchivedAppointmentBookStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    Path getAppointmentBookFilePath();
+    Path getArchivedAppointmentBookFilePath();
 
     /**
      * Returns AppointmentBook data as a {@link ReadOnlyAppointmentBook}.
@@ -23,22 +23,23 @@ public interface AppointmentBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook() throws DataConversionException, IOException;
 
     /**
-     * @see #getAppointmentBookFilePath()
+     * @see #getArchivedAppointmentBookFilePath()
      */
-    Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(Path filePath) throws DataConversionException,
+            IOException;
 
     /**
      * Saves the given {@link ReadOnlyAppointmentBook} to the storage.
      * @param appointmentBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException;
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException;
 
     /**
-     * @see #saveAppointmentBook(ReadOnlyAppointmentBook)
+     * @see #saveArchivedAppointmentBook(ReadOnlyAppointmentBook)
      */
-    void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException;
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException;
 }

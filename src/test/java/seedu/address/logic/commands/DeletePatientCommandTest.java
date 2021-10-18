@@ -13,10 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.AppointmentBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.model.person.Patient;
 
 /**
@@ -24,7 +21,8 @@ import seedu.address.model.person.Patient;
  */
 public class DeletePatientCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(),
+            new ArchivedAppointmentBook(), new UserPrefs());
 
 
     @Test
@@ -34,7 +32,8 @@ public class DeletePatientCommandTest {
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(),
+                new ArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -55,7 +54,8 @@ public class DeletePatientCommandTest {
 
         String expectedMessage = String.format(DeletePatientCommand.MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new AppointmentBook(),
+                new ArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deletePatient(patientToDelete);
         showNoPerson(expectedModel);
 

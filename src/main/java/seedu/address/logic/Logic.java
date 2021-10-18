@@ -47,6 +47,13 @@ public interface Logic {
      */
     ReadOnlyAppointmentBook getAppointmentBook();
 
+    /**
+     * Returns the ArchivedAppointmentBook.
+     *
+     * @see seedu.address.model.Model#getArchivedAppointmentBook()
+     */
+    ReadOnlyAppointmentBook getArchivedAppointmentBook();
+
     /** Returns an unmodifiable view of the filtered list of appointments */
     ObservableList<Appointment> getFilteredAppointmentList();
 

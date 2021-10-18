@@ -24,7 +24,8 @@ import seedu.address.model.appointment.Appointment;
 
 
 public class DeleteAppointmentCommandTest {
-    private final Model model = new ModelManager(new AddressBook(), getTypicalAppointmentList(), new UserPrefs());
+    private final Model model = new ModelManager(new AddressBook(), getTypicalAppointmentList(),
+            getTypicalAppointmentList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -35,7 +36,8 @@ public class DeleteAppointmentCommandTest {
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 appointmentToDelete);
 
-        ModelManager expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+                model.getArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);
 
         assertCommandSuccess(deleteAppointmentCommand, model, expectedMessage, expectedModel);
@@ -58,7 +60,8 @@ public class DeleteAppointmentCommandTest {
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 appointmentToDelete);
 
-        Model expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+                model.getArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);
         showNoAppointment(expectedModel);
 

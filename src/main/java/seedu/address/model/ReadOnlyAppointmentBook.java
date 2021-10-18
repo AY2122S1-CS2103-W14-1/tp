@@ -13,5 +13,4 @@ public interface ReadOnlyAppointmentBook {
      * This list will not contain any duplicate appointment.
      */
     ObservableList<Appointment> getAppointmentList();
-
 }

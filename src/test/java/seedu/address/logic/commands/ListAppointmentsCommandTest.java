@@ -25,8 +25,10 @@ public class ListAppointmentsCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(new AddressBook(), getTypicalAppointmentList(), new UserPrefs());
-        expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(), new UserPrefs());
+        model = new ModelManager(new AddressBook(), getTypicalAppointmentList(),
+                getTypicalAppointmentList(), new UserPrefs());
+        expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+                model.getArchivedAppointmentBook(), new UserPrefs());
     }
 
     @Test
