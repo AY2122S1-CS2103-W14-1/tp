@@ -22,6 +22,7 @@ public class AppointmentCommandTestUtil {
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
         final int id = 0;
         model.updateFilteredAppointmentList(new AppointmentContainsKeywordsPredicate(Arrays.asList(id)));
+        // TODO: AppointmentContainsKeywordsPredicate needs to be modified as Appointmnet no longer uses id
 
         assertEquals(1, model.getFilteredAppointmentList().size());
     }

@@ -88,7 +88,7 @@ public class AddressBookParserTest {
         Appointment appointment = APPOINTMENT_1;
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand("appt "
                 + AppointmentUtil.getAddCommand(appointment));
-        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), ""), command);
+        assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), appointment.getDatetime()), command);
     }
 
     @Test
