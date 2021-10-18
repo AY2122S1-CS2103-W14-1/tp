@@ -22,6 +22,7 @@ public class ModelManager implements Model {
 
     private final AddressBook addressBook;
     private final AppointmentBook appointmentBook;
+    private final ArchivedAppointmentBook archivedAppointmentBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Patient> filteredPatients;
     private final FilteredList<Appointment> filteredAppointments;
@@ -30,15 +31,16 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook, appointmentBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyAppointmentBook appointmentBook,
-        ReadOnlyUserPrefs userPrefs) {
+        ReadOnlyAppointmentBook archivedAppointmentBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, appointmentBook, userPrefs);
+        requireAllNonNull(addressBook, appointmentBook, archivedAppointmentBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " appointment book: " + appointmentBook + " and "
-            + "user prefs " + userPrefs);
+            + "archived appointment book: " + archivedAppointmentBook + "and" + "user prefs " + userPrefs);
 
         this.addressBook = new AddressBook(addressBook);
         this.appointmentBook = new AppointmentBook(appointmentBook);
+        this.archivedAppointmentBook = new ArchivedAppointmentBook(archivedAppointmentBook);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredPatients = new FilteredList<>(this.addressBook.getPersonList());
@@ -46,7 +48,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new AppointmentBook(), new UserPrefs());
+        this(new AddressBook(), new AppointmentBook(), new AppointmentBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -161,6 +163,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ReadOnlyAppointmentBook getArchivedAppointmentBook() {
+        return archivedAppointmentBook;
+    }
+
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         requireNonNull(appointment);
         return appointmentBook.hasAppointment(appointment);
@@ -179,7 +186,8 @@ public class ModelManager implements Model {
 
     @Override
     public void archiveAppointment(Appointment target) {
-        appointmentBook.archiveAppointment(target);
+        appointmentBook.removeAppointment(target);
+        archivedAppointmentBook.addAppointment(target);
     }
 
     @Override
@@ -189,7 +197,7 @@ public class ModelManager implements Model {
         appointmentBook.setAppointment(target, editedAppointment);
     }
 
-    // TODO: Remove and replace with appointment view in UI
+    //=========== ArchivedAppointmentBook =======================================================================
 
     /**
      * Temporarily returns appointment list to be printed in CommandResult.
@@ -202,7 +210,7 @@ public class ModelManager implements Model {
      * Temporarily returns archived appointment list to be printed in CommandResult.
      */
     public String getArchivedAppointments() {
-        return appointmentBook.archivedToString();
+        return archivedAppointmentBook.toString();
     }
 
     //=========== Filtered Appointment List Accessors =============================================================
@@ -240,6 +248,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredPatients.equals(other.filteredPatients)
                 && appointmentBook.equals(other.appointmentBook)
+                && archivedAppointmentBook.equals(other.archivedAppointmentBook)
                 && filteredAppointments.equals(other.filteredAppointments);
     }
 

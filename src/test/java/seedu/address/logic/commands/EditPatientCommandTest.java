@@ -22,6 +22,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPatientCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.AppointmentBook;
+import seedu.address.model.ArchivedAppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,7 +35,8 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditPatientCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(),
+            new ArchivedAppointmentBook(), new UserPrefs());
 
 
     @Test
@@ -46,7 +48,8 @@ public class EditPatientCommandTest {
         String expectedMessage = String.format(EditPatientCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPatient);
 
         Model expectedModel =
-            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(), new UserPrefs());
+            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(),
+                    new ArchivedAppointmentBook(), new UserPrefs());
         expectedModel.setPatient(model.getFilteredPatientList().get(0), editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -69,7 +72,8 @@ public class EditPatientCommandTest {
         String expectedMessage = String.format(EditPatientCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPatient);
 
         Model expectedModel =
-            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(), new UserPrefs());
+            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(),
+                    new ArchivedAppointmentBook(), new UserPrefs());
         expectedModel.setPatient(lastPatient, editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -82,7 +86,8 @@ public class EditPatientCommandTest {
         String expectedMessage = String.format(EditPatientCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPatient);
 
         Model expectedModel =
-            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(), new UserPrefs());
+            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(),
+                    new ArchivedAppointmentBook(), new UserPrefs());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -98,7 +103,8 @@ public class EditPatientCommandTest {
         String expectedMessage = String.format(EditPatientCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPatient);
 
         Model expectedModel =
-            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(), new UserPrefs());
+            new ModelManager(new AddressBook(model.getAddressBook()), new AppointmentBook(),
+                    new ArchivedAppointmentBook(), new UserPrefs());
         expectedModel.setPatient(model.getFilteredPatientList().get(0), editedPatient);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);

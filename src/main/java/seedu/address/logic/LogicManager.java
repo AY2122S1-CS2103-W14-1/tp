@@ -39,7 +39,8 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
-    @Override public CommandResult execute(String commandText) throws CommandException, ParseException {
+    @Override
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
@@ -49,6 +50,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveAppointmentBook(model.getAppointmentBook(), model.getAddressBook());
+            storage.saveArchivedAppointmentBook(model.getArchivedAppointmentBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -56,35 +58,48 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    @Override public ReadOnlyAddressBook getAddressBook() {
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
 
-    @Override public ObservableList<Patient> getFilteredPersonList() {
+    @Override
+    public ObservableList<Patient> getFilteredPersonList() {
         return model.getFilteredPatientList();
     }
 
-    @Override public Path getAddressBookFilePath() {
+    @Override
+    public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
     }
 
-    @Override public ReadOnlyAppointmentBook getAppointmentBook() {
+    @Override
+    public ReadOnlyAppointmentBook getAppointmentBook() {
         return model.getAppointmentBook();
     }
 
-    @Override public ObservableList<Appointment> getFilteredAppointmentList() {
+    @Override
+    public ReadOnlyAppointmentBook getArchivedAppointmentBook() {
+        return model.getArchivedAppointmentBook();
+    }
+
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();
     }
 
-    @Override public Path getAppointmentBookFilePath() {
+    @Override
+    public Path getAppointmentBookFilePath() {
         return model.getAppointmentBookFilePath();
     }
 
-    @Override public GuiSettings getGuiSettings() {
+    @Override
+    public GuiSettings getGuiSettings() {
         return model.getGuiSettings();
     }
 
-    @Override public void setGuiSettings(GuiSettings guiSettings) {
+    @Override
+    public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
 }

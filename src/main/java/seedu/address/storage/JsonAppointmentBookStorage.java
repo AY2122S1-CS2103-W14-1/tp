@@ -32,7 +32,8 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
         return filePath;
     }
 
-    @Override public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
+    @Override
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
         throws DataConversionException {
         return readAppointmentBook(addressBook, filePath);
     }
@@ -62,7 +63,8 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
         }
     }
 
-    @Override public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
+    @Override
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
         throws IOException {
         saveAppointmentBook(appointmentBook, addressBook, filePath);
     }

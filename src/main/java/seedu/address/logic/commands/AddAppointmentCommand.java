@@ -45,7 +45,8 @@ public class AddAppointmentCommand extends Command {
         this.datetime = datetime;
     }
 
-    @Override public CommandResult execute(Model model) throws CommandException {
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Patient> lastShownList = model.getFilteredPatientList();
 
@@ -65,7 +66,8 @@ public class AddAppointmentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddAppointmentCommand // instanceof handles nulls
             && targetPatientIndex.equals(((AddAppointmentCommand) other).targetPatientIndex)

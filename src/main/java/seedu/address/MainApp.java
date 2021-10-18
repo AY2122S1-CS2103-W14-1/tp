@@ -17,6 +17,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.AppointmentBook;
+import seedu.address.model.ArchivedAppointmentBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -26,8 +27,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.AppointmentBookStorage;
+import seedu.address.storage.ArchivedAppointmentBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonAppointmentBookStorage;
+import seedu.address.storage.JsonArchivedAppointmentBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -50,7 +53,8 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
-    @Override public void init() throws Exception {
+    @Override
+    public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
@@ -62,7 +66,10 @@ public class MainApp extends Application {
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         AppointmentBookStorage appointmentBookStorage =
             new JsonAppointmentBookStorage(userPrefs.getAppointmentBookFilePath());
-        storage = new StorageManager(addressBookStorage, appointmentBookStorage, userPrefsStorage);
+        ArchivedAppointmentBookStorage archivedAppointmentBookStorage =
+                new JsonArchivedAppointmentBookStorage(userPrefs.getArchivedAppointmentBookFilePath());
+        storage = new StorageManager(addressBookStorage, appointmentBookStorage,
+                archivedAppointmentBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -81,8 +88,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyAppointmentBook> appointmentBookOptional;
+        Optional<ReadOnlyAppointmentBook> archivedAppointmentBookOptional;
         ReadOnlyAddressBook initialData;
         ReadOnlyAppointmentBook initialAppointmentData;
+        ReadOnlyAppointmentBook initialArchivedAppointmentData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -112,7 +121,23 @@ public class MainApp extends Application {
             initialAppointmentData = new AppointmentBook();
         }
 
-        return new ModelManager(initialData, initialAppointmentData, userPrefs);
+        //Storage and Data for Archived Appointments
+        try {
+            archivedAppointmentBookOptional = storage.readArchivedAppointmentBook();
+            if (!archivedAppointmentBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample AppointmentBook");
+            }
+            initialArchivedAppointmentData = archivedAppointmentBookOptional.orElseGet(
+                    SampleDataUtil::getSampleArchivedAppointmentBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AppointmentBook");
+            initialArchivedAppointmentData = new ArchivedAppointmentBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty AppointmentBook");
+            initialArchivedAppointmentData = new ArchivedAppointmentBook();
+        }
+
+        return new ModelManager(initialData, initialAppointmentData, initialArchivedAppointmentData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -185,12 +210,14 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    @Override public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
-    @Override public void stop() {
+    @Override
+    public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());

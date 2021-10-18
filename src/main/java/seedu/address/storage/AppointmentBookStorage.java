@@ -50,5 +50,4 @@ public interface AppointmentBookStorage {
      */
     void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook, Path filePath)
         throws IOException;
-
 }
