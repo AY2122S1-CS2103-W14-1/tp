@@ -13,24 +13,41 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, AppointmentBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, AppointmentBookStorage,
+        ArchivedAppointmentBookStorage, UserPrefsStorage {
 
-    @Override Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
+    @Override
+    Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
-    @Override void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
+    @Override
+    void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Override Path getAddressBookFilePath();
+    @Overrid
+    Path getAddressBookFilePath();
 
-    @Override Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    @Override
+    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
-    @Override void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    @Override
+    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
-    @Override Path getAppointmentBookFilePath();
+    @Override 
+    Path getAppointmentBookFilePath();
 
-    @Override Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
+    @Override
+    Path getArchivedAppointmentBookFilePath();
+
+    @Override
+    Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
         throws DataConversionException, IOException;
 
-    @Override void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
+    @Override
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook() throws DataConversionException, IOException;
+
+    @Override
+    void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
         throws IOException;
 
+    @Override
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook) throws IOException;
 }

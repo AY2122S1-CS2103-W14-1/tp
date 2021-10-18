@@ -49,6 +49,5 @@ public interface AppointmentBookStorage {
      * @see #saveAppointmentBook(ReadOnlyAppointmentBook, ReadOnlyAddressBook)
      */
     void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook, Path filePath)
-        throws IOException;
-
+        throws IOException}
 }

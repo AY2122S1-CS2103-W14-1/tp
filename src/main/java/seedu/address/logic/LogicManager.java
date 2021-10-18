@@ -49,6 +49,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getAddressBook());
             storage.saveAppointmentBook(model.getAppointmentBook(), model.getAddressBook());
+            storage.saveArchivedAppointmentBook(model.getArchivedAppointmentBook());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -72,7 +73,13 @@ public class LogicManager implements Logic {
         return model.getAppointmentBook();
     }
 
-    @Override public ObservableList<Appointment> getFilteredAppointmentList() {
+    @Override
+    public ReadOnlyAppointmentBook getArchivedAppointmentBook() {
+        return model.getArchivedAppointmentBook();
+    }
+
+    @Override
+    public ObservableList<Appointment> getFilteredAppointmentList() {
         return model.getFilteredAppointmentList();
     }
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.AppointmentBook;
+import seedu.address.model.ArchivedAppointmentBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.appointment.Appointment;
@@ -55,6 +56,14 @@ public class SampleDataUtil {
         };
     }
 
+    public static Appointment[] getSampleArchivedAppointments() {
+        return new Appointment[] {
+            new Appointment(58, "2009-10-17"),
+            new Appointment(56, "2009-10-17"),
+            new Appointment(98, "2009-10-17"),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Patient samplePatient : getSamplePersons()) {
@@ -66,6 +75,14 @@ public class SampleDataUtil {
     public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
         AppointmentBook sampleAb = new AppointmentBook();
         for (Appointment sampleAppointment : getSampleAppointments()) {
+            sampleAb.addAppointment(sampleAppointment);
+        }
+        return sampleAb;
+    }
+
+    public static ReadOnlyAppointmentBook getSampleArchivedAppointmentBook() {
+        ArchivedAppointmentBook sampleAb = new ArchivedAppointmentBook();
+        for (Appointment sampleAppointment : getSampleArchivedAppointments()) {
             sampleAb.addAppointment(sampleAppointment);
         }
         return sampleAb;

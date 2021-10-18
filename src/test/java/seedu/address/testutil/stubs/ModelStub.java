@@ -123,6 +123,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ReadOnlyAppointmentBook getArchivedAppointmentBook() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasAppointment(Appointment appointment) {
         throw new AssertionError("This method should not be called.");
     }
@@ -137,6 +142,7 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
     public String getAppointments() {
         throw new AssertionError("This method should not be called.");
     }
