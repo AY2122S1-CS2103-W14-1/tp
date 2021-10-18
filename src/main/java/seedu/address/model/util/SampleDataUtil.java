@@ -56,11 +56,10 @@ public class SampleDataUtil {
         };
     }
 
+
     public static Appointment[] getSampleArchivedAppointments() {
         return new Appointment[] {
-            new Appointment(58, "2009-10-17"),
-            new Appointment(56, "2009-10-17"),
-            new Appointment(98, "2009-10-17"),
+            new Appointment(patientAlex, "2009-10-17")
         };
     }
 
