@@ -99,11 +99,13 @@ public class AddressBookTest {
             return patients;
         }
 
-        @Override public Patient getPatientOfIndex(Index index) {
+        @Override
+        public Patient getPatientOfIndex(Index index) {
             return null;
         }
 
-        @Override public Index getIndexOfPatient(Patient patient) {
+        @Override
+        public Index getIndexOfPatient(Patient patient) {
             return null;
         }
     }

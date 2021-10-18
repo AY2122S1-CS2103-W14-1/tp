@@ -17,7 +17,8 @@ import seedu.address.model.appointment.Appointment;
 /**
  * An Immutable AppointmentBook that is serializable to JSON format.
  */
-@JsonRootName(value = "appointmentBook") class JsonSerializableAppointmentBook {
+@JsonRootName(value = "appointmentBook")
+class JsonSerializableAppointmentBook {
 
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointments list contains duplicate appointment(s).";
 
@@ -26,7 +27,8 @@ import seedu.address.model.appointment.Appointment;
     /**
      * Constructs a {@code JsonSerializableAppointmentBook} with the given appointments.
      */
-    @JsonCreator public JsonSerializableAppointmentBook(
+    @JsonCreator
+    public JsonSerializableAppointmentBook(
         @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.appointments.addAll(appointments);
     }

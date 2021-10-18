@@ -53,7 +53,8 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
 
-    @Override public void init() throws Exception {
+    @Override
+    public void init() throws Exception {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
@@ -209,12 +210,14 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    @Override public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
         logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
-    @Override public void stop() {
+    @Override
+    public void stop() {
         logger.info("============================ [ Stopping Address Book ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());

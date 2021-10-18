@@ -50,7 +50,8 @@ public class Appointment {
      * Returns true if both appointments have the same identity and data fields. This defines a stronger notion of
      * equality between two appointments.
      */
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
@@ -64,12 +65,14 @@ public class Appointment {
             .equals(getDatetime());
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(patient, datetime);
     }
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         return "" + getPatient() + "; Datetime: " + getDatetime() + "\n";
     }
 
