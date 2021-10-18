@@ -25,7 +25,7 @@ import seedu.address.model.util.SampleDataUtil;
 
 
 public class DeleteAppointmentCommandTest {
-    private final Model model = new ModelManager(SampleDataUtil.getSampleAddressBook(), , getTypicalAppointmentList(),
+    private final Model model = new ModelManager(SampleDataUtil.getSampleAddressBook(), getTypicalAppointmentList(),
             getTypicalAppointmentList(), new UserPrefs());
 
     @Test

@@ -123,7 +123,7 @@ public class MainApp extends Application {
 
         //Storage and Data for Archived Appointments
         try {
-            archivedAppointmentBookOptional = storage.readArchivedAppointmentBook();
+            archivedAppointmentBookOptional = storage.readArchivedAppointmentBook(initialData);
             if (!archivedAppointmentBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AppointmentBook");
             }

@@ -42,12 +42,14 @@ public interface Storage extends AddressBookStorage, AppointmentBookStorage,
         throws DataConversionException, IOException;
 
     @Override
-    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(ReadOnlyAddressBook addressBook)
+            throws DataConversionException, IOException;
 
     @Override
     void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
         throws IOException;
 
     @Override
-    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook) throws IOException;
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook,
+                                     ReadOnlyAddressBook addressBook) throws IOException;
 }

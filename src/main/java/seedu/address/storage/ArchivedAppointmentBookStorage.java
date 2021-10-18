@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 
 /**
@@ -23,23 +24,26 @@ public interface ArchivedAppointmentBookStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(ReadOnlyAddressBook addressBook)
+            throws DataConversionException, IOException;
 
     /**
      * @see #getArchivedAppointmentBookFilePath()
      */
-    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(Path filePath) throws DataConversionException,
-            IOException;
+    Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(ReadOnlyAddressBook addressBook, Path filePath)
+            throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyAppointmentBook} to the storage.
      * @param appointmentBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException;
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook,
+                                     ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
      * @see #saveArchivedAppointmentBook(ReadOnlyAppointmentBook)
      */
-    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException;
+    void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook,
+                                     Path filePath) throws IOException;
 }

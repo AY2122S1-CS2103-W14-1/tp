@@ -37,7 +37,8 @@ public class AddAppointmentCommandTest {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         Appointment validAppointment = defaultAppointment;
 
-        CommandResult commandResult = new AddAppointmentCommand(defaultPatientIndex, defaultDateTime).execute(modelStub);
+        CommandResult commandResult = new AddAppointmentCommand(defaultPatientIndex,
+                defaultDateTime).execute(modelStub);
 
         assertEquals(String.format(AddAppointmentCommand.MESSAGE_SUCCESS, validAppointment),
                 commandResult.getFeedbackToUser());
