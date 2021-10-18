@@ -30,7 +30,8 @@ public class StorageManagerTest {
         JsonArchivedAppointmentBookStorage archivedAppointmentBookStorage =
                 new JsonArchivedAppointmentBookStorage(getTempFilePath("aapb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, appointmentBookStorage, archivedAppointmentBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, appointmentBookStorage,
+                archivedAppointmentBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

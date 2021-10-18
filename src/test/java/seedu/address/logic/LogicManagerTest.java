@@ -87,7 +87,8 @@ public class LogicManagerTest {
         JsonAppointmentBookStorage appointmentBookStorage =
             new JsonAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAppointmentBook.json"));
         JsonArchivedAppointmentBookStorage archivedAppointmentBookStorage =
-                new JsonArchivedAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionArchivedAppointmentBook.json"));
+                new JsonArchivedAppointmentBookIoExceptionThrowingStub(temporaryFolder.resolve(
+                        "ioExceptionArchivedAppointmentBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
         StorageManager storage = new StorageManager(addressBookStorage, appointmentBookStorage,
@@ -200,7 +201,8 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
+        public void saveArchivedAppointmentBook(
+                ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
