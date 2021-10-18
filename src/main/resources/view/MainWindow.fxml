@@ -14,83 +14,83 @@
 <?import javafx.stage.Stage?>
 
 <fx:root minHeight="600" minWidth="650" onCloseRequest="#handleExit" title="Doc'it" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-<!--  <icons>-->
-<!--    <Image url="@/images/address_book_32.png" />-->
-<!--  </icons>-->
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@Fonts.css" />
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
+    <!--  <icons>-->
+    <!--    <Image url="@/images/address_book_32.png" />-->
+    <!--  </icons>-->
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@Fonts.css" />
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
 
-      <VBox prefWidth="1038.0">
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="Doc'it">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-            <SplitPane dividerPositions="0.2, 0.7" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-              <items>
-      
-                          <VBox fx:id="patientList" minWidth="297.0" prefHeight="722.0" prefWidth="297.0" styleClass="pane-without-border">
-                <padding>
-                  <Insets bottom="10" left="10" right="10" top="10" />
-                </padding>
-                     <Label styleClass="label-header" text="Patients">
-                        <font>
-                           <Font name="Segoe UI" size="24.0" />
-                        </font>
-                     </Label>
-                <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-              </VBox>
-                  <VBox fx:id="appointmentList" minWidth="340" prefWidth="456.0" styleClass="pane-without-border">
-                     <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                     </padding>
-                     <children>
-                        <Label styleClass="label-header" text="Appointments">
-                           <font>
-                              <Font name="Segoe UI" size="24.0" />
-                           </font>
-                        </Label>
-                        <StackPane fx:id="apptListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-                  <VBox fx:id="archivedAppointmentList" minWidth="276.0" prefHeight="722.0" prefWidth="276.0" styleClass="pane-without-border">
-                     <padding>
-                        <Insets bottom="10" left="10" right="10" top="10" />
-                     </padding>
-                     <children>
-                        <Label styleClass="label-header-italic" text="Archive">
-                           <font>
-                              <Font name="Segoe UI" size="24.0" />
-                           </font>
-                        </Label>
-                        <StackPane fx:id="archiveListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-              </items>
-            </SplitPane>
+            <VBox prefWidth="1038.0">
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="Doc'it">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+                    </Menu>
+                </MenuBar>
+                <SplitPane dividerPositions="0.2, 0.7" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                    <items>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="202.0" minHeight="100" prefHeight="150.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                        <VBox fx:id="patientList" minWidth="297.0" prefHeight="722.0" prefWidth="297.0" styleClass="pane-without-border">
+                            <padding>
+                                <Insets bottom="10" left="10" right="10" top="10" />
+                            </padding>
+                            <Label styleClass="label-header" text="Patients">
+                                <font>
+                                    <Font name="Segoe UI" size="24.0" />
+                                </font>
+                            </Label>
+                            <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                        </VBox>
+                        <VBox fx:id="appointmentList" minWidth="340" prefWidth="456.0" styleClass="pane-without-border">
+                            <padding>
+                                <Insets bottom="10" left="10" right="10" top="10" />
+                            </padding>
+                            <children>
+                                <Label styleClass="label-header" text="Appointments">
+                                    <font>
+                                        <Font name="Segoe UI" size="24.0" />
+                                    </font>
+                                </Label>
+                                <StackPane fx:id="apptListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+                        <VBox fx:id="archivedAppointmentList" minWidth="276.0" prefHeight="722.0" prefWidth="276.0" styleClass="pane-without-border">
+                            <padding>
+                                <Insets bottom="10" left="10" right="10" top="10" />
+                            </padding>
+                            <children>
+                                <Label styleClass="label-header-italic" text="Archive">
+                                    <font>
+                                        <Font name="Segoe UI" size="24.0" />
+                                    </font>
+                                </Label>
+                                <StackPane fx:id="archiveListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                            </children>
+                        </VBox>
+                    </items>
+                </SplitPane>
 
-        <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-without-border" VBox.vgrow="NEVER">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-        </StackPane>
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="202.0" minHeight="100" prefHeight="150.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
+                </StackPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+                <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-without-border" VBox.vgrow="NEVER">
+                    <padding>
+                        <Insets bottom="5" left="10" right="10" top="5" />
+                    </padding>
+                </StackPane>
+
+                <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>
