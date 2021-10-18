@@ -22,7 +22,7 @@ public interface Storage extends AddressBookStorage, AppointmentBookStorage,
     @Override
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    @Overrid
+    @Override
     Path getAddressBookFilePath();
 
     @Override
@@ -31,7 +31,7 @@ public interface Storage extends AddressBookStorage, AppointmentBookStorage,
     @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
-    @Override 
+    @Override
     Path getAppointmentBookFilePath();
 
     @Override
