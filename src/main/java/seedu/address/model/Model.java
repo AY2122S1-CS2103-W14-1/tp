@@ -150,9 +150,15 @@ public interface Model {
     ObservableList<Appointment> getFilteredAppointmentList();
 
     /**
+     * Returns an unmodifiable view of the filtered appointment list
+     */
+    ObservableList<Appointment> getArchivedAppointmentList();
+
+    /**
      * Updates the filter of the filtered appointment list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
+
 }

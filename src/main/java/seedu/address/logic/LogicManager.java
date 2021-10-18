@@ -89,6 +89,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Appointment> getArchivedAppointmentList() {
+        return model.getArchivedAppointmentList();
+    }
+
+    @Override
     public Path getAppointmentBookFilePath() {
         return model.getAppointmentBookFilePath();
     }

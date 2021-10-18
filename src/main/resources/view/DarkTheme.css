@@ -18,10 +18,19 @@
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 24pt;
     -fx-font-family: "Segoe UI Bold";
     -fx-text-fill: white;
     -fx-opacity: 1;
+    -fx-padding: 5;
+}
+
+.label-header-italic {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI Italic";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-padding: 5;
 }
 
 .text-field {
@@ -100,7 +109,6 @@
     -fx-background-radius: 15px;
     -fx-background-insets: 3px;
     -fx-border-radius: 15px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
 }
 
 .list-cell:filled:even {
@@ -126,7 +134,7 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
@@ -141,10 +149,18 @@
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
+.pane-without-border {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-border-width: 0px;
+     -fx-border-radius: 0px;
+}
+
 .pane-with-border {
      -fx-background-color: derive(#1d1d1d, 20%);
      -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-border-width: 1px;
+     -fx-border-radius: 0px;
 }
 
 .status-bar {
@@ -341,7 +357,7 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #patientListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
