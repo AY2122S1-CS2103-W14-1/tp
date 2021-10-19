@@ -38,12 +38,6 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private Label medicalHistory;
-    @FXML
     private Label date;
     @FXML
     private FlowPane tags;
@@ -58,12 +52,9 @@ public class AppointmentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
         phone.setText("\uD83D\uDCDE\t" + patient.getPhone().value);
-        address.setText("\uD83C\uDFE0\t" + patient.getAddress().value);
-        email.setText("\uD83D\uDCE7\t" + patient.getEmail().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        medicalHistory.setText("\uD83C\uDFE5\t" + patient.getMedicalHistory());
         date.setText("\uD83D\uDCC5\t" + appointment.getDatetime());
     }
 

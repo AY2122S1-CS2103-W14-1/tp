@@ -34,7 +34,7 @@
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                     </Menu>
                 </MenuBar>
-                <SplitPane dividerPositions="0.2, 0.7" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
+                <SplitPane dividerPositions="0.2, 0.7" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                     <items>
 
                         <VBox fx:id="patientList" minWidth="297.0" prefHeight="722.0" prefWidth="297.0" styleClass="pane-without-border">
@@ -46,7 +46,7 @@
                                     <Font name="Segoe UI" size="24.0" />
                                 </font>
                             </Label>
-                            <StackPane fx:id="patientListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                            <StackPane fx:id="patientListPanelPlaceholder" styleClass="pane-with-shadow" VBox.vgrow="ALWAYS" />
                         </VBox>
                         <VBox fx:id="appointmentList" minWidth="340" prefWidth="456.0" styleClass="pane-without-border">
                             <padding>
@@ -58,7 +58,7 @@
                                         <Font name="Segoe UI" size="24.0" />
                                     </font>
                                 </Label>
-                                <StackPane fx:id="apptListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                <StackPane fx:id="apptListPanelPlaceholder" styleClass="pane-with-shadow" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
                         <VBox fx:id="archivedAppointmentList" minWidth="276.0" prefHeight="722.0" prefWidth="276.0" styleClass="pane-without-border">
@@ -71,13 +71,13 @@
                                         <Font name="Segoe UI" size="24.0" />
                                     </font>
                                 </Label>
-                                <StackPane fx:id="archiveListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                                <StackPane fx:id="archiveListPanelPlaceholder" styleClass="pane-with-shadow" VBox.vgrow="ALWAYS" />
                             </children>
                         </VBox>
                     </items>
                 </SplitPane>
 
-                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="202.0" minHeight="100" prefHeight="150.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="NEVER">
+                <StackPane fx:id="resultDisplayPlaceholder" maxHeight="202.0" minHeight="100" prefHeight="150.0" prefWidth="1038.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5" />
                     </padding>
