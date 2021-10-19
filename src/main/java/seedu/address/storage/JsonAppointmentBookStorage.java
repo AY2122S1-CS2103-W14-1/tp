@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 
 /**
@@ -32,27 +33,30 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException {
-        return readAppointmentBook(filePath);
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
+        throws DataConversionException {
+        return readAppointmentBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #readAppointmentBook()}.
+     * Similar to {@link AppointmentBookStorage#readAppointmentBook(ReadOnlyAddressBook)}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param addressBook address book
+     * @param filePath    location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath) throws DataConversionException {
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook, Path filePath)
+        throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAppointmentBook> jsonAppointmentBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAppointmentBook.class);
+        Optional<JsonSerializableAppointmentBook> jsonAppointmentBook =
+            JsonUtil.readJsonFile(filePath, JsonSerializableAppointmentBook.class);
         if (!jsonAppointmentBook.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAppointmentBook.get().toModelType());
+            return Optional.of(jsonAppointmentBook.get().toModelType(addressBook));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -60,21 +64,24 @@ public class JsonAppointmentBookStorage implements AppointmentBookStorage {
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException {
-        saveAppointmentBook(appointmentBook, filePath);
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
+        throws IOException {
+        saveAppointmentBook(appointmentBook, addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAppointmentBook(ReadOnlyAppointmentBook)}.
+     * Similar to {@link AppointmentBookStorage#saveAppointmentBook(ReadOnlyAppointmentBook, ReadOnlyAddressBook)}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param addressBook address book
+     * @param filePath    location of the data. Cannot be null.
      */
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook,
+        Path filePath) throws IOException {
         requireNonNull(appointmentBook);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAppointmentBook(appointmentBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableAppointmentBook(appointmentBook, addressBook), filePath);
     }
 
 }

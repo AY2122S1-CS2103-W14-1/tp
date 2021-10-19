@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ArchivedAppointmentBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyAppointmentBook;
 import seedu.address.model.appointment.Appointment;
 
@@ -37,8 +38,9 @@ class JsonSerializableArchivedAppointmentBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAppointmentBook}.
      */
-    public JsonSerializableArchivedAppointmentBook(ReadOnlyAppointmentBook source) {
-        archivedAppointments.addAll(source.getAppointmentList().stream().map(JsonAdaptedAppointment::new)
+    public JsonSerializableArchivedAppointmentBook(ReadOnlyAppointmentBook source, ReadOnlyAddressBook addressBook) {
+        archivedAppointments.addAll(source.getAppointmentList().stream()
+            .map(x -> new JsonAdaptedAppointment(x, addressBook))
             .collect(Collectors.toList()));
     }
 
@@ -47,10 +49,10 @@ class JsonSerializableArchivedAppointmentBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ArchivedAppointmentBook toModelType() throws IllegalValueException {
+    public ArchivedAppointmentBook toModelType(ReadOnlyAddressBook addressBook) throws IllegalValueException {
         ArchivedAppointmentBook appointmentBook = new ArchivedAppointmentBook();
         for (JsonAdaptedAppointment jsonAdaptedAppointment : archivedAppointments) {
-            Appointment archivedAppointment = jsonAdaptedAppointment.toModelType();
+            Appointment archivedAppointment = jsonAdaptedAppointment.toModelType(addressBook);
             if (appointmentBook.hasAppointment(archivedAppointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }

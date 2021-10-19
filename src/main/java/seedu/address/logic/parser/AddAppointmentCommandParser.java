@@ -6,9 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.appointment.Appointment;
 
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
@@ -29,13 +29,18 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        // TODO: Parse patientId and string
-        int patientId = Integer.parseInt(argMultimap.getValue(PREFIX_NAME).get());
+        Index patientIndex;
+        // Parse patientId and string
+        try {
+            patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_NAME).get());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE), pe);
+        }
+
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();
 
-        Appointment appointment = new Appointment(patientId, datetime);
-
-        return new AddAppointmentCommand(appointment);
+        return new AddAppointmentCommand(patientIndex, datetime);
     }
 
     /**

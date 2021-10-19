@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
+import seedu.address.model.person.Patient;
+
 /**
  * Represents an Appointment in the appointment book. Guarantees: details are present and not null, field values are
  * validated, immutable.
@@ -11,22 +13,20 @@ import java.util.Objects;
 public class Appointment {
 
     // Identity fields
-    private final int patientId;
+    private final Patient patient;
     private final String datetime;
-
-    // Data fields
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(int patientId, String datetime) {
-        requireAllNonNull(patientId, datetime);
-        this.patientId = patientId;
+    public Appointment(Patient patient, String datetime) {
+        requireAllNonNull(patient, datetime);
+        this.patient = patient;
         this.datetime = datetime;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
     public String getDatetime() {
@@ -42,7 +42,7 @@ public class Appointment {
             return true;
         }
 
-        return otherAppointment != null && otherAppointment.getPatientId() == getPatientId()
+        return otherAppointment != null && otherAppointment.getPatient().equals(getPatient())
             && otherAppointment.getDatetime().equals(getDatetime());
     }
 
@@ -50,7 +50,8 @@ public class Appointment {
      * Returns true if both appointments have the same identity and data fields. This defines a stronger notion of
      * equality between two appointments.
      */
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         if (other == this) {
             return true;
         }
@@ -60,19 +61,19 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return otherAppointment.getPatientId() == (getPatientId()) && otherAppointment.getDatetime()
+        return otherAppointment.getPatient().equals(getPatient()) && otherAppointment.getDatetime()
             .equals(getDatetime());
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patientId, datetime);
+        return Objects.hash(patient, datetime);
     }
 
-    @Override public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getPatientId()).append("; Datetime: ").append(getDatetime());
-        return builder.toString();
+    @Override
+    public String toString() {
+        return "" + getPatient() + "; Datetime: " + getDatetime() + "\n";
     }
 
 }

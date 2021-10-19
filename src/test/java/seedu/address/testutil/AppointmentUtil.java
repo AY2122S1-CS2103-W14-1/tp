@@ -26,7 +26,7 @@ public class AppointmentUtil {
      */
     public static String getAppointmentDetails(Appointment appointment) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + String.valueOf(appointment.getPatientId()) + " ");
+        sb.append(PREFIX_NAME + String.valueOf(1) + " "); // Changed patientId to arbitrary index
         sb.append(PREFIX_DATETIME + appointment.getDatetime() + " ");
         return sb.toString();
     }

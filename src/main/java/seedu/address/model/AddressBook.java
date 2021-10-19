@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePersonList;
 
@@ -92,6 +93,28 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Patient key) {
         persons.remove(key);
     }
+
+
+    /**
+     * Returns patient at index position or null if not exist.
+     */
+    @Override
+    public Patient getPatientOfIndex(Index index) {
+        requireNonNull(index);
+        return persons.get(index);
+    }
+
+    /**
+     * Returns index of patient in the list.
+     */
+    @Override
+    public Index getIndexOfPatient(Patient patient) {
+        requireNonNull(patient);
+        return persons.indexOf(patient);
+    }
+
+
+
 
     //// util methods
 

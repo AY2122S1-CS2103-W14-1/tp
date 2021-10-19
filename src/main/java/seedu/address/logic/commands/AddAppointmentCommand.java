@@ -4,9 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.person.Patient;
 
 /**
  * Adds an appointment to the appointment book.
@@ -25,18 +30,33 @@ public class AddAppointmentCommand extends Command {
     public static final String MESSAGE_DUPLICATE_APPOINTMENT =
         "This appointment already exists in the appointment book";
 
-    private final Appointment toAdd;
+    private final Index targetPatientIndex;
+    private final String datetime;
+    private Appointment toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Appointment}
+     * @param targetPatientIndex patient index to make appointment
+     * @param datetime date and time of appointment
      */
-    public AddAppointmentCommand(Appointment appointment) {
-        requireNonNull(appointment);
-        toAdd = appointment;
+    public AddAppointmentCommand(Index targetPatientIndex, String datetime) {
+        requireNonNull(targetPatientIndex, datetime);
+        this.targetPatientIndex = targetPatientIndex;
+        this.datetime = datetime;
     }
 
-    @Override public CommandResult execute(Model model) throws CommandException {
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Patient> lastShownList = model.getFilteredPatientList();
+
+        if (targetPatientIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Patient patientToMakeAppointment = lastShownList.get(targetPatientIndex.getZeroBased());
+
+        toAdd = new Appointment(patientToMakeAppointment, datetime);
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
@@ -46,9 +66,11 @@ public class AddAppointmentCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AddAppointmentCommand // instanceof handles nulls
-            && toAdd.equals(((AddAppointmentCommand) other).toAdd));
+            && targetPatientIndex.equals(((AddAppointmentCommand) other).targetPatientIndex)
+            && datetime.equals(((AddAppointmentCommand) other).datetime));
     }
 }

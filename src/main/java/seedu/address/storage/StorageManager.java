@@ -97,50 +97,57 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook() throws DataConversionException, IOException {
-        return readAppointmentBook(appointmentBookStorage.getAppointmentBookFilePath());
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook)
+        throws DataConversionException, IOException {
+        return readAppointmentBook(addressBook, appointmentBookStorage.getAppointmentBookFilePath());
+
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(Path filePath) throws DataConversionException,
-        IOException {
+    public Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook, Path filePath)
+        throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return appointmentBookStorage.readAppointmentBook(filePath);
+        return appointmentBookStorage.readAppointmentBook(addressBook, filePath);
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook() throws DataConversionException, IOException {
-        return readArchivedAppointmentBook(archivedAppointmentBookStorage.getArchivedAppointmentBookFilePath());
+    public Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(ReadOnlyAddressBook addressBook)
+            throws DataConversionException, IOException {
+        return readArchivedAppointmentBook(addressBook,
+                archivedAppointmentBookStorage.getArchivedAppointmentBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(Path filePath) throws DataConversionException,
-            IOException {
+    public Optional<ReadOnlyAppointmentBook> readArchivedAppointmentBook(ReadOnlyAddressBook addressBook, Path filePath)
+            throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return archivedAppointmentBookStorage.readArchivedAppointmentBook(filePath);
+        return archivedAppointmentBookStorage.readArchivedAppointmentBook(addressBook, filePath);
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook) throws IOException {
-        saveAppointmentBook(appointmentBook, appointmentBookStorage.getAppointmentBookFilePath());
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook)
+        throws IOException {
+        saveAppointmentBook(appointmentBook, addressBook, appointmentBookStorage.getAppointmentBookFilePath());
     }
 
     @Override
-    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
+    public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook,
+        Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        appointmentBookStorage.saveAppointmentBook(appointmentBook, filePath);
+        appointmentBookStorage.saveAppointmentBook(appointmentBook, addressBook, filePath);
     }
 
     @Override
-    public void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook) throws IOException {
-        saveAppointmentBook(archivedAppointmentBook,
+    public void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook,
+                                            ReadOnlyAddressBook addressBook) throws IOException {
+        saveAppointmentBook(archivedAppointmentBook, addressBook,
                 archivedAppointmentBookStorage.getArchivedAppointmentBookFilePath());
     }
 
     @Override
     public void saveArchivedAppointmentBook(ReadOnlyAppointmentBook archivedAppointmentBook,
-                                           Path filePath) throws IOException {
+                                            ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        archivedAppointmentBookStorage.saveArchivedAppointmentBook(archivedAppointmentBook, filePath);
+        archivedAppointmentBookStorage.saveArchivedAppointmentBook(archivedAppointmentBook, addressBook, filePath);
     }
 }

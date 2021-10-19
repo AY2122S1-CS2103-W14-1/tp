@@ -8,7 +8,7 @@ import java.util.Arrays;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.appointment.AppointmentContainsIdPredicate;
+import seedu.address.model.appointment.AppointmentContainsKeywordsPredicate;
 
 public class AppointmentCommandTestUtil {
 
@@ -20,8 +20,9 @@ public class AppointmentCommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
 
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
-        final int id = appointment.getPatientId();
-        model.updateFilteredAppointmentList(new AppointmentContainsIdPredicate(Arrays.asList(id)));
+        final int id = 0;
+        model.updateFilteredAppointmentList(new AppointmentContainsKeywordsPredicate(Arrays.asList(id)));
+        // TODO: AppointmentContainsKeywordsPredicate needs to be modified as Appointmnet no longer uses id
 
         assertEquals(1, model.getFilteredAppointmentList().size());
     }
