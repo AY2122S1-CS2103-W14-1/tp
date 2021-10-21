@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -155,6 +156,22 @@ public class ModelManager implements Model {
     @Override
     public void setAppointmentBook(ReadOnlyAppointmentBook appointmentBook) {
         this.appointmentBook.resetData(appointmentBook);
+    }
+
+    @Override
+    public void updateAppointmentBook(Patient target, Patient editedPatient) {
+        requireAllNonNull(target, editedPatient);
+
+        appointmentBook.updatePatient(target, editedPatient);
+    }
+
+    @Override
+    public void updateAppointmentBook(Patient target, boolean isPatientRemoval) {
+        if (isPatientRemoval) {
+            appointmentBook.removePatient(target);
+        } else {
+            logger.log(Level.INFO, "No changes were made to Patient name: " + target.getName());
+        }
     }
 
     @Override
