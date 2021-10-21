@@ -158,6 +158,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public ObservableList<Appointment> getArchivedAppointmentList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         throw new AssertionError("This method should not be called.");
     }

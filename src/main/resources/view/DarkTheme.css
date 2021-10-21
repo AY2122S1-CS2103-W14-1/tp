@@ -1,6 +1,6 @@
 .background {
-    -fx-background-color: "#2d2d2d";
-    background-color: #2d2d2d; /* Used in the default.html file */
+    -fx-background-color: "#FFFFFF";
+    background-color: #FFFFFF; /* Used in the default.html file */
 }
 
 .label {
@@ -13,15 +13,24 @@
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Bold";
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
     -fx-opacity: 1;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 24pt;
     -fx-font-family: "Segoe UI Bold";
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
     -fx-opacity: 1;
+    -fx-padding: 5;
+}
+
+.label-header-italic {
+    -fx-font-size: 24pt;
+    -fx-font-family: "Segoe UI Italic";
+    -fx-text-fill: #444444;
+    -fx-opacity: 1;
+    -fx-padding: 5;
 }
 
 .text-field {
@@ -40,9 +49,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #ffffff;
+    -fx-control-inner-background: #ffffff;
+    -fx-background-color: #ffffff;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -67,7 +76,7 @@
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Bold";
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -77,20 +86,20 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-border-color: transparent transparent transparent #4d4d4d;
+    -fx-background-color: derive(#ffffff, 20%);
+    -fx-border-color: transparent transparent transparent #ffffff;
 }
 
 .split-pane {
     -fx-border-radius: 15px;
     -fx-border-width: 0;
-    -fx-background-color: derive(#454545, 20%);
+    -fx-background-color: derive(#ffffff, 20%);
 }
 
 .list-view {
     -fx-background-insets: 5;
     -fx-padding: 5;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#ffffff, 20%);
 }
 
 .list-cell {
@@ -100,33 +109,32 @@
     -fx-background-radius: 15px;
     -fx-background-insets: 3px;
     -fx-border-radius: 15px;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 5, 0, 0, 0);
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 15, 0, 0, 0);
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #5c5c5c;
+    -fx-background-color: #ffffff;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #5c5c5c;
+    -fx-background-color: #ffffff;
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #1e7277;
+    -fx-background-color: #fcfcff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 2, 2);
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
-    -fx-border-radius: 15px;
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #222222;
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-family: "Segoe UI";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
@@ -138,24 +146,45 @@
 }
 
 .stack-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#ffffff, 20%);
+}
+
+.pane-without-border {
+     -fx-background-color: derive(#ffffff, 50%);
+     -fx-background-radius: 10px;
+     -fx-border-color: derive(#eeeeee, 50%);
+     -fx-border-width: 0px;
+     -fx-border-radius: 10px;
 }
 
 .pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
+     -fx-background-color: derive(ffffff, 50%);
+     -fx-border-color: derive(#cccccc, 50%);
+     -fx-border-width: 1px;
+}
+
+.pane-with-shadow {
+     -fx-background-color: derive(dddddd, 50%);
+     -fx-background-radius: 10px;
+     -fx-border-color: derive(#cccccc, 50%);
+     -fx-border-width: 0px;
+     -fx-border-radius: 15px;
+     -fx-effect: innershadow(gaussian, #bbbbbb, 15, 0, 0, 0);
+}
+
+.pane-transparent {
+    -fx-background-color: transparent;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#ffffff, 30%);
 }
 
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "Droid Sans Mono";
     -fx-font-size: 10pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
 }
 
 .result-display .label {
@@ -164,37 +193,37 @@
 
 .status-bar .label {
     -fx-font-family: "Droid Sans Mono";
-    -fx-text-fill: white;
+    -fx-text-fill: #888888;
     -fx-padding: 4px;
     -fx-pref-height: 30px;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#454545, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 0px;
+    -fx-background-color: derive(#ffffff, 30%);
+    -fx-border-color: derive(#eeeeee, 25%);
+    -fx-border-width: 1px;
     -fx-border-radius: 15px;
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: white;
-    -fx-border-width: 0px;
+    -fx-text-fill: #888888;
+    -fx-border-width: 1px;
     -fx-border-radius: 15px;
 }
 
 .grid-pane {
-    -fx-background-color: derive(#454545, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#ffffff, 30%);
+    -fx-border-color: derive(#eeeeee, 30%);
     -fx-border-width: 0px;
     -fx-border-radius: 15px;
 }
 
 .grid-pane .stack-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#ffffff, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 10%);
+    -fx-background-color: derive(#ffffff, 10%);
 }
 
 .context-menu .label {
@@ -202,13 +231,14 @@
 }
 
 .menu-bar {
-    -fx-background-color: "#1e7277";
+    -fx-background-color: "#a2e8dc";
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0, 0, 0);
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI";
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
     -fx-opacity: 0.9;
 }
 
@@ -269,37 +299,38 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #ffffff;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #ffffff;
 }
 
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#ffffff, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
-    -fx-text-fill: white;
+    -fx-text-fill: #444444;
 }
 
 .scroll-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: transparent;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#ffffff, 20%);
     -fx-background-insets: 3;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -320,17 +351,15 @@
 }
 
 #cardPane {
-    -fx-background-color: transparent;
-    -fx-border-width: 15;
 }
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #222222;
 }
 
 #commandTextField {
-    -fx-background-color: derive(#454545, 20%);
+    -fx-background-color: derive(#ffffff, 20%);
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #454545 #383838;
     -fx-border-insets: 0;
@@ -338,16 +367,19 @@
     -fx-border-radius: 15px;
     -fx-font-family: "Droid Sans Mono";
     -fx-font-size: 13pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #222222;
+    -fx-effect: innershadow(gaussian, #cccccc, 7, 0, 0, 0);
 }
 
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+#filterField, #patientListPanel, #personWebpage {
+    -fx-effect: innershadow(gaussian, #cccccc, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
-    -fx-background-radius: 0;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 15px;
+    -fx-effect: innershadow(gaussian, #cccccc, 10, 0, 0, 0);
 }
 
 #tags {

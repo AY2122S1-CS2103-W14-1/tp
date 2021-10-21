@@ -213,6 +213,14 @@ public class ModelManager implements Model {
         return archivedAppointmentBook.toString();
     }
 
+    /**
+     * Returns an unmodifiable view of the list of archived {@code Appointment}s.
+     */
+    @Override
+    public ObservableList<Appointment> getArchivedAppointmentList() {
+        return archivedAppointmentBook.getAppointmentList();
+    }
+
     //=========== Filtered Appointment List Accessors =============================================================
 
     /**
