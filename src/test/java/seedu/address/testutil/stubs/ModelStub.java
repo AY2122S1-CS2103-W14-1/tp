@@ -118,6 +118,16 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateAppointmentBook(Patient target, Patient editedPatient) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateAppointmentBook(Patient target, boolean isPatientRemoval) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public ReadOnlyAppointmentBook getAppointmentBook() {
         throw new AssertionError("This method should not be called.");
     }

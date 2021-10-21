@@ -104,6 +104,18 @@ public interface Model {
     void setAppointmentBook(ReadOnlyAppointmentBook appointmentBook);
 
     /**
+     * Updates appointments' details in appointment Book data with {@code editedPatient}'s details.
+     */
+    void updateAppointmentBook(Patient target, Patient editedPatient);
+
+    /**
+     * Updates appointments' details in appointment Book data when a Patient is removed. If
+     * ({@code isPatientRemoval} is true, default value false),
+     * appointments with the Patient will be deleted.
+     */
+    void updateAppointmentBook(Patient target, boolean isPatientRemoval);
+
+    /**
      * Returns the AppointmentBook
      */
     ReadOnlyAppointmentBook getAppointmentBook();

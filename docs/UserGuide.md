@@ -264,8 +264,7 @@ Archives an old appointment that is already past its date.
 
 **Expected Outcome:**
 ```
-Old appointment archived:
-Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Address: Blk 436 Serangoon Gardens Street 26, #16-43; Tags: [family]; Medical History: lovesick; Datetime: 2022-05-05 1300
 ```
 
 ---
