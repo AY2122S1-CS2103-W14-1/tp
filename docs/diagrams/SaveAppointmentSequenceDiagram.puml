@@ -1,0 +1,44 @@
+@startuml
+!include style.puml
+
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+Participant ":JsonUtil" as jsonutil USER_COLOR
+
+box Model MODEL_COLOR_T1
+participant ":Model" as model MODEL_COLOR
+participant ":JsonAdaptedAppointment" as jaa MODEL_COLOR
+participant ":Appointment" as appointment MODEL_COLOR
+participant ":AddressBook" as addressbook MODEL_COLOR
+end box
+
+[-> logic: execute(anyCommand)
+activate logic LOGIC_COLOR
+
+logic -> model : getAddressBook()
+activate model MODEL_COLOR
+deactivate model
+
+logic -> model : getAppointmentBook()
+activate model MODEL_COLOR
+deactivate model
+
+logic -> storage : saveAppointmentBook(appointmentBook, addressBook)
+activate storage STORAGE_COLOR
+
+create jaa
+storage -> jaa : JsonAdaptedAppointment()
+activate jaa MODEL_COLOR
+jaa -> appointment : getPatient()
+activate appointment MODEL_COLOR
+deactivate appointment
+jaa -> addressbook : getIndexOfPatient(patient)
+activate addressbook MODEL_COLOR
+deactivate addressbook
+deactivate jaa
+
+storage -> jsonutil : Save JSON File
+activate jsonutil USER_COLOR
+deactivate jsonutil
+deactivate storage
+@enduml
