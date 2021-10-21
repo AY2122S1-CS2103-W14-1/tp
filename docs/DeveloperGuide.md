@@ -170,7 +170,7 @@ Major changes involved to implement this feature:
 
 Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
 
-Step 1: The user launches the application for the first time. `Patient` objects will be loaded first to an `AddressBook` object. Using this address book, the appointment book is loaded through the method `StorageManager#readAppointmentBook()`. This method cascades and calls `JsonAdaptedAppointment#toModelType()`, which in turn calls `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the specified index. The Appointment object is then instantiated. 
+Step 1: The user launches the application for the first time. `Patient` objects will be loaded first to an `AddressBook` object. Using this address book, the appointment book is loaded through the method `StorageManager#readAppointmentBook()`. This method cascades and calls `JsonAdaptedAppointment#toModelType()`, which in turn calls `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the specified index. The Appointment object is then instantiated.
 
 ![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
 
@@ -180,7 +180,7 @@ Step 2: The user executes `appt add n/1 d/2021-10-19 1800` to add an appointment
 
 Step 3: \[Proposed\] The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `Patient#deleteAllAppointments()` to delete all appointments to that patient before deleting the patient.
 
-After every step that the user makes any modification to the address book, appointments are saved. After every command, `LogicManager` calls `StorageManager#saveAppointmentBook`. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
+After every step that the user makes any modification to the address book, appointments are saved. After every command, `LogicManager` calls `StorageManager#saveAppointmentBook`. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage. 
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram.png)
 
