@@ -8,11 +8,6 @@ Participant ":Model" as model MODEL_COLOR
 
 [-[#grey]> main: App launch
 activate main #grey
-create storage
-main -[#grey]> storage :
-activate storage STORAGE_COLOR
-storage --> main :
-deactivate storage
 
 main -> main : initModelManager()
 activate main #grey
