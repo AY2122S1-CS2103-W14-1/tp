@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddAppointmentCommand" as AddAppointmentCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "lastShownList:LastShownList" as LastShownList MODEL_COLOR
+participant "toAdd:Appointment" as Appointment MODEL_COLOR
+end box
+
+[-> AddAppointmentCommand : execute()
+activate AddAppointmentCommand
+
+AddAppointmentCommand -> Model : getFilteredPatientList()
+activate Model
+
+Model --> AddAppointmentCommand : lastShownList
+deactivate Model
+
+AddAppointmentCommand -> LastShownList : get(targetPatientIndex)
+activate LastShownList
+LastShownList ---> AddAppointmentCommand : patientToMakeAppointment
+deactivate LastShownList
+
+create Appointment
+AddAppointmentCommand -> Appointment
+activate Appointment
+Appointment ---> AddAppointmentCommand
+deactivate Appointment
+
+AddAppointmentCommand -> Model : addAppointment(toAdd)
+activate Model
+Model ---> AddAppointmentCommand
+deactivate Model
+
+create CommandResult
+AddAppointmentCommand -> CommandResult
+activate CommandResult
+CommandResult ---> AddAppointmentCommand
+deactivate CommandResult
+
+[<--AddAppointmentCommand : result
+deactivate AddAppointmentCommand
+
+@enduml

@@ -159,19 +159,20 @@ This section describes some noteworthy details on how certain features are imple
 #### Implementation
 
 Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this is true, 
-modifications were made to how Appointment is added, loaded and stored.
+modifications were made to how `Appointment` is added, loaded and stored.
 
-Hence, `Appointment` implements `Appointment#getPatient()` - to return the patient involved in this appointment.
+`Appointment` implements `Appointment#getPatient()` - to return the patient involved in this appointment.
 
 Major changes involved to implement this feature:
-* When adding a new appointment, the list of patients is retrieved at `AddAppointmentCommand#execute()` to create a 
-  new appointment composed of the patient object at the given index.
-* When loading an appointment from JSON, the loaded `AddressBook` of a list of patients must be passed as argument to 
+* When adding a new appointment, the list of patients is retrieved in 
+  `AddAppointmentCommand#execute()` to create a new appointment composed of the patient object at the given index.
+* When loading an appointment from JSON, `AddressBook` representing the list of patients must be passed as argument to 
   `Storage#readAppointmentBook()` to instantiate appointments with corresponding patients.
-* When storing an appointment to JSON, `JSONAdaptedAppointments` stores the index of the patient in `AddressBook`.
+* When storing an appointment to JSON, the index of the patient and other data fields of `Appointment` is stored in 
+  `JSONAdaptedAppointments`.
 
 
-Given below are three example usage scenarios and how the Appointment composed of a Valid Patient feature behaves at 
+Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at 
 each step.
 
 Step 1: The user launches the application for the first time. `Patient` objects will be loaded first to an 
@@ -180,19 +181,24 @@ Step 1: The user launches the application for the first time. `Patient` objects 
 in turn calls `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the 
 specified index. The Appointment object is then instantiated. 
 
+![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
+
 Step 2: The user executes `appt add n/1 d/2021-10-19 1800` to add an appointment to the first patient of the 
 address book. The `appt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets 
 the Patient object at the inputted index. A new Appointment is created with that Patient as a required parameter, 
 and the command calls `Model#addAppointment()` to add this appointment to the appointment book.
 
+![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
+
 Step 3: \[Proposed\] The user executes `delete 1` to delete the first patient in the address book. The patient is 
 deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` 
 command calls `Patient#deleteAllAppointments()` to delete all appointments to that patient before deleting the patient.
 
-Step *: The user makes any modification to the address book. After every command, 
+After every step, the user makes any modification to the address book. After every command, 
 `LogicManager` calls `StorageManager#saveAddressBook` and `StorageManager#saveAppointmentBook`. In converting 
 model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the 
 corresponding index of the patient for storage.
+
 
 
 #### Design considerations
