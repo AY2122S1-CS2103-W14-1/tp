@@ -2,12 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.person.Patient;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSameAppointment comparison)
@@ -83,6 +85,40 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         requireNonNull(editedAppointment);
 
         appointments.setAppointment(target, editedAppointment);
+    }
+
+    /**
+     * Updates appointments in the list with {@code target} when there are changes to the patient's details.
+     * The appointment identity of {@code editedAppointment} must not be the same as another
+     * existing appointment in the address book.
+     */
+    public void updatePatient(Patient target, Patient editedPatient) {
+        requireNonNull(editedPatient);
+
+        for (Appointment appointment : appointments) {
+            if (appointment.getPatient().equals(target)) {
+                Appointment editedAppointment = new Appointment(editedPatient, appointment.getDatetime());
+                setAppointment(appointment, editedAppointment);
+            }
+        }
+    }
+
+    /**
+     * Removes/updates appointments in the list with {@code target} when a patient is removed from the AddressBook.
+     */
+    public void removePatient(Patient target) {
+        ArrayList<Appointment> appointmentsToRemove = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+
+            if (appointment.getPatient().equals(target)) {
+                appointmentsToRemove.add(appointment);
+            }
+        }
+
+        for (Appointment appointmentToRemove : appointmentsToRemove) {
+            removeAppointment(appointmentToRemove);
+        }
     }
 
     /**
