@@ -41,7 +41,7 @@ public class DeletePatientCommand extends Command {
 
         Patient patientToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deletePatient(patientToDelete);
-        model.updateAppointmentBook(patientToDelete, true);
+        model.deleteAppointmentsWithPatient(patientToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, patientToDelete));
     }
 

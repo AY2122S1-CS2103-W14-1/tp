@@ -261,6 +261,37 @@ After every command that the user makes, appointments are saved. In `LogicManage
     Appointment by traversing the `AddressBook` and `AppointmentBook` respectively. 
   * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
 
+### Archiving an Appointment
+
+A user is able archives an appointment when the appointment is past its date, i.e. the patient has either missed his/her appointment
+or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff 
+are able to view what medicine was prescribed to the patient during previous appointments.
+
+#### How Archiving is Implemented
+
+Archiving is facilitated by the `ArchivedAppointmentBook`. As opposed to the regular `AppointmentBook`, it does not allow
+users to directly modify the data of appointments as archived data should not be edited. Hence, the following operations
+have the `private` access modifier:
+
+- `ArchivedAppointmentBook#setAppointment(Appointment target, Appointment editedAppointment)` - edits the `target` Appointment
+to be replaced with `editedAppointment`.
+  
+
+- `ArchivedAppointmentBook#removeAppointment(Appointment key)` - removes the target Appointment `key`.
+
+The reason these methods exist in the class is so to support the methods `ArchivedAppointmentBook#updatePatient(Patient target, Patient editedPatient)`
+and `ArchivedAppointmentBook#removePatient(Patient target)`, which are called to accurately reflect any updates/removals of patient
+details.
+
+#### Auto-Archiving Implementation
+
+The proposed archiving implementation involves scanning through all appointments in a day and comparing it to 
+the current date (not time) of the user system. If the current date is 1 day ahead of the appointment, the appointment is 
+automatically archived.
+
+In the case where there are many scheduled appointments, this saves the user trouble of archiving past appointments when
+they are already over.
+
 
 ### \[Proposed\] Undo/redo feature
 
