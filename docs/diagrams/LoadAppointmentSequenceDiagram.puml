@@ -1,0 +1,45 @@
+@startuml
+!include style.puml
+
+Participant ":Main" as main #grey
+Participant ":Storage" as storage STORAGE_COLOR
+Participant ":JsonUtil" as jsonutil USER_COLOR
+Participant ":Model" as model MODEL_COLOR
+
+[-[#grey]> main: App launch
+activate main #grey
+
+main -> main : initModelManager()
+activate main #grey
+
+main -> storage : readAddressBook()
+activate storage STORAGE_COLOR
+storage --> main
+deactivate storage STORAGE_COLOR
+
+main -> storage : readAppointmentBook(addressBook)
+activate storage STORAGE_COLOR
+storage -> jsonutil : Read from JSON file
+activate jsonutil USER_COLOR
+jsonutil --> storage
+deactivate jsonutil
+
+storage -> storage : toModelType(addressBook)
+activate storage STORAGE_COLOR
+
+storage -> storage : getPatientOfIndex()
+activate storage STORAGE_COLOR
+
+storage --> storage : patientToAppointment
+deactivate storage
+
+create model
+storage -> model : Appointment()
+activate model MODEL_COLOR
+model --> storage
+deactivate model
+storage --> storage
+deactivate storage
+storage --> main : Loaded appointment book
+deactivate storage
+@enduml

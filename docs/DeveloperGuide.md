@@ -3,7 +3,7 @@ layout: page
 title: Developer Guide
 ---
 * Table of Contents
-{:toc}
+  {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -104,7 +104,7 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
 1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a person).
+1. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
@@ -125,17 +125,17 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<img src="images/ModelClassDiagram.png" width="450" />
+<img src="images/ModelClassDiagram.png" width="800" />
 
 
 The `Model` component,
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data and appointment book data (both upcoming and archived) i.e., all `Patient`, `Appointment` objects (which are contained in `UniquePersonList` and `UniqueAppointmentList` objects).
+* stores the currently 'selected' `Patient` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Patient` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -146,11 +146,11 @@ The `Model` component,
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
 
-<img src="images/StorageClassDiagram.png" width="550" />
+<img src="images/StorageClassDiagram.png" width="600" />
 
 The `Storage` component,
-* can save both address book data and user preference data in json format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* can save address book data, appointment book data, and user preference data in json format, and read them back into corresponding objects.
+* inherits from `AddressBookStorage`, `AppointmentBookStorage` and `ArchivedAppointmentBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -162,6 +162,105 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Recording a Patient's Medical History feature
+
+Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient. 
+
+#### How Medical History is implemented
+The proposed medical history mechanism was built with a class, ```MedicalHistory```. Within the ```MedicalHistory``` class, each entry of a pateint's medical history is stored under a private variable ```listOfEntries```. An entry of ```MedicalHistory``` is a private inner (nested) class within the ```MedicalHistory``` class, ```MedicalHistoryEntry```.
+
+These are the following methods created for the MedicalHistory feature: 
+* ```MedicalHistory#addEntry(String s)```- adds a new entry of medical history into the patient.
+* ```MedicalHistory#editEntry(int index, String s)```- edits an entry of medical history that has been recorded and saved.
+* ```MedicalHistory#removeEntry(int index, String s)```- removes an entry of medical history, so the entry is no longer recorded.
+
+These operations are exposed via the ```Patient``` class as `Patient#addMedicalHistory(String s)`, `Patient#editMedicalHistory(int i, String s)` and `Patient#removeMedicalHistory(int i)` respectively.
+
+#### Reason for implementation of MedicalHistory
+```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```. 
+
+Since the whole-part relationship also exists between ```MedicalHistory``` and ```MedicalHistoryEntry```, ```MedicalHistoryEntry``` is composed within ```MedicalHistory``` as well. However, since the multiplicity of the relationship between ```MedicalHistory``` and ```MedicalHistoryEntry``` is 1 to any number, that is, a medical history can have any number of medical history entries, the composition is wrapped by an ArrayList<MedicalHistoryEntry>, which stores an expandable list of medical history entries.
+  
+  <img src="images/MedicalHistoryClassDiagram.png" width="150" />
+
+### Alternatives considered
+
+  1. Storing an entry of MedicalHistory as a String
+  
+  An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff. 
+
+### Appointment composed of a Valid Patient when added, loaded and stored
+
+#### How Appointment is implemented
+
+Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
+
+Major changes involved to implement this feature:
+* Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
+* Loading an appointment on app launch  —  
+  * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+  * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+* Storing an appointment after every command  —  
+  * The app runs `LogicManager#saveAppointmentBook()`.
+  * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+
+
+Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
+
+Step 1: The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
+
+![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
+
+Step 2: The user executes `appt add n/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `appt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
+
+![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
+
+Step 3: The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `AddressBook#deleteAllAppointmentsOfPatient()` to delete all appointments to that patient before deleting the patient.
+
+After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage. 
+
+![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram.png)
+
+#### Design considerations
+
+**Aspect: How Appointments are instantiated**
+
+* **Alternative 1 (current choice):** Appointment is composed of a Patient. 
+  * **Justification:** Appointment can only be instantiated with a Patient, and without Patients, 
+  Appointments cannot exist.
+  Hence, for an appointment to be instantiated, it requires a reference to the related Patient object. 
+  * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
+  * **Pros:** Easy to find the patient of the appointment.
+  * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook` 
+    must be loaded to memory before `AppointmentBook`. 
+* **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and 
+  Appointment only requires date and time to instantiate.
+  * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
+  * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same 
+    date and time at the same clinic that can be served by different doctors.
+  * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed 
+    because Appointment has no Patient field.
+
+**Aspect: How Appointments are stored and loaded**
+
+* **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and 
+  datetime.
+  * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order 
+    of `AddressBook` is saved each time `AppointmentBook` is saved.
+  * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using 
+    indices in commands.
+  * **Pros:** Index of patient is guaranteed to be a unique identifier.
+  * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the 
+    appointments will become incorrect.
+* **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment 
+  object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. 
+  * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of 
+    data.
+  * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and 
+    Appointment by traversing the `AddressBook` and `AppointmentBook` respectively. 
+  * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
+
 
 ### \[Proposed\] Undo/redo feature
 
@@ -181,11 +280,11 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 ![UndoRedoState0](images/UndoRedoState0.png)
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th patient in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 ![UndoRedoState1](images/UndoRedoState1.png)
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new patient. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 ![UndoRedoState2](images/UndoRedoState2.png)
 
@@ -193,7 +292,7 @@ Step 3. The user executes `add n/David …​` to add a new person. The `add` co
 
 </div>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 ![UndoRedoState3](images/UndoRedoState3.png)
 
@@ -233,13 +332,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -266,42 +365,112 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Authorised staff from small family clinics (both receptionist and doctors)
+* Clinics lacking access to the cloud and are undeveloped compared to hospitals
+* Young clinics that do not have technological capabilities
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+
+**Value proposition**:
+Today, small family clinics often record patient information using paper application forms.
+Such recording of patient information results in the clinic having a messy and inefficient patient record information;
+the family clinic will have to flip through files and documents in order to find the patient. Doc’it aims to provide a
+centralised platform for authorised staff from small family clinics to view, update and onboard patients.
+With Doc’it, small family clinics are able to reduce man hours from managing paper documents,
+and translate these ‘saved’ hours into providing better frontline service to patients, focusing on what they do best.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                  | I want to …​                                              | So that I can…​                                                           |
+| -------- | --------------------------- | ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `* * *`  | clinic staff                | create new patient details                                                                 | add data of new patients in our clinic                                       |
+| `* * *`  | clinic staff                | add medical history to patient details                                                     | have a background on the patient                                             |
+| `* * *`  | clinic staff                | view patient details                                                                       | better prescribe medication and treatments to my out-patients                |
+| `* * *`  | clinic staff                | delete patient details                                                                     | manage patients’ need for privacy when patients no longer visit the clinic   |
+| `* * *`  | clinic staff                | view the prescriptions currently prescribed to my patients                                 | provide correct prescriptions to them                                        |
+| `* * *`  | clinic staff                | create new appointments from patients                                                      | track upcoming appointments                                                  |
+| `* * *`  | clinic staff                | view appointments from patients                                                            | know at-a-glance what are the upcoming appointments and the patients involved|
+| `* * *`  | clinic staff                | delete appointments from patients                                                          | re-organise appointments when either side cancels their appointments         |
+| `* * *`  | clinic staff                | have appointments moved to appointment history                                             | separate what are the upcoming appointments from past appointments           |
+| `* * *`  | clinic staff                | view past appointments                                                                     | track their medical history                                                  |
+| `* *`    | clinic staff                | edit appointments from patients                                                            | ensure appointment records are up-to-date                                    |
+| `* *`    | clinic staff                | modify patient details                                                                     | ensure that any changes in their information are up-to-date                  |
+| `* *`    | clinic staff                | edit prescriptions                                                                         | ensure my patients’ current prescriptions are up-to-date                     |
+| `* *`    | clinic staff                | view the duration of prescriptions                                                         | decide whether they should be given additional prescriptions                 |
+| `* *`    | clinic staff                | move prescriptions to prescription history when patients have finished that prescription   |                                                                              |
+| `* *`    | clinic staff                | view the prescription history of patients                                                  | know what drugs my patients have taken before                                |
+| `* *`    | clinic staff                | cannot edit past prescriptions                                                             | prevent erroneous edits                                                      |
+| `* *`    | clinic staff                | verify that the patient has paid for his appointment                                       | record that the patient has paid the bills                                   |
+| `* *`    | clinic staff                | input the bill and price of the patient appointment                                        | record the amount that the patient has paid                                  |
+| `* *`    | clinic staff                | prevent editing past appointments                                                          | ensure past records cannot be incorrectly modified                           |
+| `* *`    | clinic staff                | filter patients by name                                                                    | pull up patient records easily when requested                                |
+| `* *`    | clinic staff                | filter patients by the date of their appointment                                           | know the list of patients per appointment day                                |
+| `* *`    | clinic staff                | filter patients by their prescriptions                                                     | gauge the demand of prescription_drug needed by the clinic                   |
+| `* *`    | new clinic staff            | go through a tutorial at the beginning                                                     | familiarise myself with how the app works and what it can do                 |
+| `* *`    | new clinic staff            | type a command to get all available commands and how they work                             | easily refer to the commands I can make                                      |
+| `* *`    | clinic staff                | purge all current data                                                                     | delete any experimental records                                              |
+| `* *`    | long term clinic staff      | use shortened command aliases                                                              | speed up my work                                                             |
+| `* *`    | clinic staff                | easily make changes to the patient records without too many commands                       | my work can be done faster                                                   |
+| `* *`    | clinic staff                | view information on an appealing GUI                                                       | view information that is neatly organised                                    |
+| `* *`    | clinic staff                | share a single patient database with other clinic staff                                    | ensure all changes are synced                                                |
+
+
 
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Doc'it` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC01 - List all patients**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list patients.
+2.  Doc'it displays all patients.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+**Use case: UC02 - Add a patient**
+
+**MSS**
+
+1.  User requests to add a patient.
+2.  Doc'it adds the patient with necessary information.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. Necessary details of patient are absent (name, NRIC).
+
+    * 1a1. Doc'it shows an error message.
+
+  Use case resumes at step 1.
+
+* 1b. Patient details conflict with existing patient list.
+
+    * 1b1. Doc'it shows an error message.
+
+  Use case resumes at step 1.
+
+
+**Use case: UC03 - Delete a patient**
+
+**MSS**
+
+1.  User requests to list patients.
+2.  Doc'it shows a list of patients.
+3.  User requests to delete a specific patient in the list.
+4.  Doc'it deletes the patient.
 
     Use case ends.
 
@@ -313,19 +482,133 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. Doc'it shows an error message.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC04 - View the records of a patient**
+
+**MSS**
+
+1.  User requests to view a patient record.
+2.  Doc'it shows the details of the patient.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The specified patient does not exist.
+
+    * 1a1. Doc'it shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC05 - List all appointments**
+
+**MSS**
+
+1.  User requests to list appointments.
+2.  Doc'it displays all appointments.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. The list is empty.
+
+  Use case ends.
+
+**Use case: UC06 - Add an appointment**
+
+**MSS**
+
+1.  User requests to list patients.
+2.  Doc'it displays all patients.
+3.  User adds an appointment, matching the appointment to the specific patient.
+4.  Doc'it adds the appointment and tags it to the patient.
+
+    Use case ends.
+
+**Extensions**
+
+* 3a. The date of the appointment AND/OR the specified patient are invalid.
+
+    * 3a1. Doc'it shows an error message.
+
+      Use case resumes at step 3.
+
+**Use case: UC07 - Delete an appointment**
+
+**MSS**
+
+1.  User requests to list appointments.
+2.  Doc'it displays all appointments.
+3.  User requests to delete a specific appointment in the list.
+4.  Doc'it deletes the appointment and removes the appointment tag from the originally tagged patient.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. Doc'it shows an error message.
+
+      Use case resumes at step 2.
+
+**Use case: UC08 - Archive an appointment**
+
+**MSS**
+
+1.  User requests to list appointments.
+2.  Doc'it displays all appointments.
+3.  User requests to archive all appointments that are past its date.
+4.  Doc'it archives all appointments that are past its date.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. No appointments are past its date.
+
+  Use case ends.
+
+**Use case: UC08 - Exit program**
+
+**MSS**
+
+1.  User requests to exit the program.
+2.  Doc'it saves and writes all files.
+3.  Doc'it exits and closes.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. Doc'it is unable to save file.
+
+    * 2a1. Doc'it shows an error message.
+
+      Use case resumes at step 1.
+
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+2.  Should be able to hold up to 1000 patients without noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  Should not require an external installer or launcher.
+5.  Data should be stored locally in an easily-editable text file.
+6.  Should not depend on any cloud-based remote server.
+7.  Data should not be stored in an external Database Management System (DBMS) or data warehouse.
 
 ### Glossary
 
@@ -347,33 +630,33 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
+    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
+    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
+### Deleting a patient
 
-1. Deleting a person while all persons are being shown
+1. Deleting a patient while all patients are being shown
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    1. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+    1. Test case: `delete 0`<br>
+       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
 
@@ -381,6 +664,6 @@ testers are expected to do more *exploratory* testing.
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 
 1. _{ more test cases …​ }_

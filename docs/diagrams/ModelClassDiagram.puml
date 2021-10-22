@@ -6,10 +6,14 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyAppointmentBook <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
 Interface Model <<Interface>>
 Class AddressBook
+Class AppointmentBook
+Class ArchivedAppointmentBook
 Class ReadOnlyAddressBook
+Class ReadOnlyAppointmentBook
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -17,13 +21,18 @@ Class ReadOnlyUserPrefs
 
 
 Class UniquePersonList
-Class Person
+Class UniqueAppointmentList
+Class Patient
 Class Address
 Class Email
 Class Name
 Class Phone
 Class Tag
+Class MedicalHistory
+Class MedicalHistoryEntry
 
+Class Appointment
+Class Date
 }
 
 Class HiddenOutside #FFFFFF
@@ -31,24 +40,38 @@ HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
 
+AppointmentBook .up.|> ReadOnlyAppointmentBook
+ArchivedAppointmentBook .up.|> ReadOnlyAppointmentBook
+
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
+Model .right.> ReadOnlyAppointmentBook
 ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
+ModelManager -right-> "1" AppointmentBook
+ModelManager -right-> "1" ArchivedAppointmentBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+AppointmentBook *--> "1" UniqueAppointmentList
+ArchivedAppointmentBook *--> "1" UniqueAppointmentList
+UniquePersonList --> "~* all" Patient
+Patient *--> Name
+Patient *--> Phone
+Patient *--> Email
+Patient *--> Address
+Patient *--> MedicalHistory
+Patient *--> "*" Tag
+MedicalHistory *--> "*" MedicalHistoryEntry
+
+UniqueAppointmentList --> "~* all" Appointment
+Appointment *--> Date
+Appointment *--> "1" Patient
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
-ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Patient
 @enduml

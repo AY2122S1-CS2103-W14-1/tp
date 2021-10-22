@@ -3,7 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICAL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -18,8 +20,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Patient;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+
+
+
 
 /**
  * Contains helper methods for testing commands.
@@ -36,6 +41,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_MEDICAL_BOB = "lovesick";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -47,6 +53,7 @@ public class CommandTestUtil {
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String MEDICAL_DESC_PATIENT = " " + PREFIX_MEDICAL + "lovesick";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -57,16 +64,54 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final String VALID_PATIENT_ID_0 = "0";
+    public static final String VALID_PATIENT_ID_1 = "1";
+    public static final String VALID_PATIENT_ID_2 = "2";
+
+    public static final String VALID_PATIENT_ID_DESC_0 = " " + PREFIX_NAME + VALID_PATIENT_ID_0;
+    public static final String VALID_PATIENT_ID_DESC_1 = " " + PREFIX_NAME + VALID_PATIENT_ID_1;
+    public static final String VALID_PATIENT_ID_DESC_2 = " " + PREFIX_NAME + VALID_PATIENT_ID_2;
+
+    public static final String INVALID_PATIENT_ID_MINUS_1 = "-1";
+
+    public static final String INVALID_PATIENT_ID_DESC_MINUS_1 = " " + PREFIX_NAME + INVALID_PATIENT_ID_MINUS_1;
+
+    public static final String VALID_APPOINTMENT_DATE_TIME = "2020-1-10 1600";
+    public static final String INVALID_APPOINTMENT_DATE_TIME_MONTH = "2020-13-10 1600"; // invalid month
+    public static final String INVALID_APPOINTMENT_DATE_TIME_YEAR = "-1-13-10 1600"; // invalid year
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DATE = "2020-1-43 1600"; // invalid date
+    public static final String INVALID_APPOINTMENT_DATE_TIME_TIME = "2020-12-10 3400"; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_ALL = "-1-13-33 9900"; // invalid datetime
+    public static final String INVALID_APPOINTMENT_DATE_TIME_NULL = ""; // invalid entry
+    public static final String INVALID_APPOINTMENT_DATE_TIME_RANDOM = "asfdsafsfs"; // invalid entry
+
+    public static final String VALID_APPOINTMENT_DATE_TIME_DESC =
+            " " + PREFIX_DATETIME + VALID_APPOINTMENT_DATE_TIME;
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_MONTH; // invalid month
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_YEAR =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_YEAR; // invalid year
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_DATE =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_DATE; // invalid date
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_TIME =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_TIME; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_ALL =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_ALL; // invalid datetime
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_NULL =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_NULL; // invalid entry
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_RANDOM =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_RANDOM; // invalid entry
+
+    public static final EditPatientCommand.EditPersonDescriptor DESC_AMY;
+    public static final EditPatientCommand.EditPersonDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_FRIEND).withMedicalHistory(MEDICAL_DESC_PATIENT).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).withMedicalHistory(MEDICAL_DESC_PATIENT).build();
     }
 
     /**
@@ -105,24 +150,24 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Patient> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPatientList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPatientList());
     }
     /**
      * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPatientList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Patient patient = model.getFilteredPatientList().get(targetIndex.getZeroBased());
+        final String[] splitName = patient.getName().fullName.split("\\s+");
+        model.updateFilteredPatientList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredPatientList().size());
     }
 
 }
