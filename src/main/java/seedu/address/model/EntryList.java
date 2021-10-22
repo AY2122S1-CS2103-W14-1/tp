@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * EntryList is a class that uses only three main functions of a list - add, delete, sort
+ * EntryList is a class that uses only four main functions of a list - add, delete, sort, size
  */
 public class EntryList<Entry> {
     private ArrayList<Entry> list = new ArrayList<>();
@@ -21,4 +21,11 @@ public class EntryList<Entry> {
         list.sort(c);
     }
 
+    public int size() {
+        return list.size();
+    }
+
+    public Entry get(int i) {
+        return list.get(i);
+    }
 }

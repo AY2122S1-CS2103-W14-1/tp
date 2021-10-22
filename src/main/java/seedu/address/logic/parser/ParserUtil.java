@@ -124,6 +124,7 @@ public class ParserUtil {
     }
 
     public static MedicalHistory parseMedicalHistory(String medicalHistory) throws ParseException {
-        return new MedicalHistory(medicalHistory);
+        String trimmedMh = medicalHistory.trim();
+        return new MedicalHistory(trimmedMh);
     }
 }
