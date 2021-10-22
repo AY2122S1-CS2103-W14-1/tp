@@ -1,0 +1,69 @@
+@font-face {
+    font-family: "Open Sans";
+    src: url("/fonts/open-sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans SemiBold";
+    src: url("/fonts/open-sans/OpenSans-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Light";
+    src: url("/fonts/open-sans/OpenSans-Light.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Bold Italic";
+    src: url("/fonts/open-sans/OpenSans-BoldItalic.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Extra Bold";
+    src: url("/fonts/open-sans/OpenSans-ExtraBold.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Extra Bold Italic";
+    src: url("/fonts/open-sans/OpenSans-ExtraBoldItalic.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Italic";
+    src: url("/fonts/open-sans/OpenSans-Italic.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans Light Italic";
+    src: url("/fonts/open-sans/OpenSans-LightItalic.ttf");
+}
+
+@font-face {
+    font-family: "Open Sans SemiBold Italic";
+    src: url("/fonts/open-sans/OpenSans-SemiBoldItalic.ttf");
+}
+
+@font-face {
+    font-family: "Segoe UI";
+    src: url("/fonts/segoe-ui/Segoe-UI.ttf");
+}
+
+@font-face {
+    font-family: "Segoe UI Italic";
+    src: url("/fonts/segoe-ui/Segoe-UI-Italic.ttf");
+}
+
+@font-face {
+    font-family: "Segoe UI Bold Italic";
+    src: url("/fonts/segoe-ui/Segoe-UI-Bold-Italic.ttf");
+}
+
+@font-face {
+    font-family: "Segoe UI Bold";
+    src: url("/fonts/segoe-ui/Segoe-UI-Bold.ttf");
+}
+
+@font-face {
+    font-family: "Droid Sans Mono";
+    src: url("/fonts/droid-sans-mono/DroidSansMono.ttf");
+}

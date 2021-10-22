@@ -94,9 +94,9 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -113,11 +113,32 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+**Breakdown of Commands** <br>
+In the original **AB3**, all commands extend the `Command` abstract class.
+`Doc'it` supports three types of commands – general, patient-related, and appointment-related. As such, we introduce three abstract classes `BasicCommand`, `PatientCommand`, and `AppointmentCommand` in place of `Command`. As the names suggest, `BasicCommand` deals with app-related operations, `PatientCommand` deals with patient-related CRUD operations, and `AppointmentCommand` deal with appointment-related CRUD operations.
+
+The following is a list of commands that extend the three abstract classes:
+- `BasicCommand`
+  - `ExitCommand`
+  - `ClearCommand`
+- `PatientCommand`
+  - `AddPatientCommand`
+  - `EditPatientCommand`
+  - `DeletePatientCommand`
+  - `ListPatientCommand`
+  - `FindPatientCommand`
+- `AppointmentCommand`
+  - `AddAppointmentCommand`
+  - `EditAppointmentCommand`
+  - `DeleteAppointmentCommand`
+  - `ListAppointmentsCommand`
+
+This taxonomy of commands is reflected on the `Parser`'s side as well.
+
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="800" />
-
 
 The `Model` component,
 
