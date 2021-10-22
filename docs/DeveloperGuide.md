@@ -274,7 +274,7 @@ The reason these methods exist in the class is so to support the methods `Archiv
 and `ArchivedAppointmentBook#removePatient(Patient target)`, which are called to accurately reflect any updates/removals of patient
 details.
 
-#### Proposed Implementation
+#### Auto-Archiving Implementation
 
 The proposed archiving implementation involves scanning through all appointments in a day and comparing it to 
 the current date (not time) of the user system. If the current date is 1 day ahead of the appointment, the appointment is 
