@@ -2,12 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.UniqueAppointmentList;
+import seedu.address.model.person.Patient;
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSameAppointment comparison)
@@ -72,6 +74,58 @@ public class ArchivedAppointmentBook implements ReadOnlyAppointmentBook {
      */
     public void addAppointment(Appointment p) {
         archivedAppointments.add(p);
+    }
+
+    /**
+     * Replaces the given appointment {@code target} in the list with {@code editedAppointment}. {@code target} must
+     * exist in the address book. The appointment identity of {@code editedAppointment} must not be the same as another
+     * existing appointment in the address book.
+     */
+    private void setAppointment(Appointment target, Appointment editedAppointment) {
+        requireNonNull(editedAppointment);
+
+        archivedAppointments.setAppointment(target, editedAppointment);
+    }
+
+    /**
+     * Removes {@code key} from this {@code AppointmentBook}. {@code key} must exist in the address book.
+     */
+    private void removeAppointment(Appointment key) {
+        archivedAppointments.remove(key);
+    }
+
+    /**
+     * Updates appointments in the list with {@code target} when there are changes to the patient's details.
+     * The appointment identity of {@code editedAppointment} must not be the same as another
+     * existing appointment in the address book.
+     */
+    public void updatePatient(Patient target, Patient editedPatient) {
+        requireNonNull(editedPatient);
+
+        for (Appointment appointment : archivedAppointments) {
+            if (appointment.getPatient().equals(target)) {
+                Appointment editedAppointment = new Appointment(editedPatient, appointment.getDatetime());
+                setAppointment(appointment, editedAppointment);
+            }
+        }
+    }
+
+    /**
+     * Removes/updates appointments in the list with {@code target} when a patient is removed from the AddressBook.
+     */
+    public void removePatient(Patient target) {
+        ArrayList<Appointment> appointmentsToRemove = new ArrayList<>();
+
+        for (Appointment appointment : archivedAppointments) {
+
+            if (appointment.getPatient().equals(target)) {
+                appointmentsToRemove.add(appointment);
+            }
+        }
+
+        for (Appointment appointmentToRemove : appointmentsToRemove) {
+            removeAppointment(appointmentToRemove);
+        }
     }
 
     //// util methods

@@ -109,11 +109,10 @@ public interface Model {
     void updateAppointmentBook(Patient target, Patient editedPatient);
 
     /**
-     * Updates appointments' details in appointment Book data when a Patient is removed. If
-     * ({@code isPatientRemoval} is true, default value false),
-     * appointments with the Patient will be deleted.
+     * Removes appointments in appointment Book data when a Patient is removed.
+     * Appointments with the Patient will be deleted.
      */
-    void updateAppointmentBook(Patient target, boolean isPatientRemoval);
+    void deleteAppointmentsWithPatient(Patient target);
 
     /**
      * Returns the AppointmentBook
