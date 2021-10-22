@@ -121,12 +121,12 @@ How the parsing works:
 
 The `Model` component,
 
-* stores the address book data and appointment book data (both upcoming and archived) i.e., all `Person`, `Appointment` objects (which are contained in `UniquePersonList` and `UniqueAppointmentList` objects).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the address book data and appointment book data (both upcoming and archived) i.e., all `Patient`, `Appointment` objects (which are contained in `UniquePersonList` and `UniqueAppointmentList` objects).
+* stores the currently 'selected' `Patient` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Patient` needing their own `Tag` objects.<br>
 
 <img src="images/BetterModelClassDiagram.png" width="450" />
 
@@ -153,6 +153,31 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 ## **Implementation**
 
 This section describes some noteworthy details on how certain features are implemented.
+
+### Recording a Patient's Medical History feature
+
+Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient. 
+
+### How Medical History is implemented
+The proposed medical history mechanism was built with a class, ```MedicalHistory```. Within the ```MedicalHistory``` class, each entry of a pateint's medical history is stored under a private variable ```listOfEntries```. An entry of ```MedicalHistory``` is a private inner (nested) class within the ```MedicalHistory``` class, ```MedicalHistoryEntry```.
+
+These are the following methods created for the MedicalHistory feature: 
+* ```MedicalHistory#addEntry(String s)```- adds a new entry of medical history into the patient.
+* ```MedicalHistory#editEntry(int index, String s)```- edits an entry of medical history that has been recorded and saved.
+* ```MedicalHistory#removeEntry(int index, String s)```- removes an entry of medical history, so the entry is no longer recorded.
+
+These operations are exposed via the ```Patient``` class as `Patient#addMedicalHistory(String s)`, `Patient#editMedicalHistory(int i, String s)` and `Patient#removeMedicalHistory(int i)` respectively.
+
+### Reason for implementation of MedicalHistory
+```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```. 
+
+Since the whole-part relationship also exists between ```MedicalHistory``` and ```MedicalHistoryEntry```, ```MedicalHistoryEntry``` is composed within ```MedicalHistory``` as well. However, since the multiplicity of the relationship between ```MedicalHistory``` and ```MedicalHistoryEntry``` is 1 to any number, that is, a medical history can have any number of medical history entries, the composition is wrapped by an ArrayList<MedicalHistoryEntry>, which stores an expandable list of medical history entries.
+
+### Alternatives considered
+
+  1. Storing an entry of MedicalHistory as a String
+  
+  An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff. 
 
 ### \[Proposed\] Undo/redo feature
 
