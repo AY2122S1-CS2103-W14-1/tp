@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
- * EntryList is an abstract class that uses only two main functions of a list - add, delete
+ * EntryList is an abstract class that uses only three main functions of a list - add, delete, sort
  */
 public abstract class EntryList<Entry> {
     private ArrayList<Entry> list = new ArrayList<>();
