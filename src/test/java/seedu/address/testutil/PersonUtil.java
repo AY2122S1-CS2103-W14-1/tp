@@ -35,6 +35,7 @@ public class PersonUtil {
         sb.append(PREFIX_PHONE + patient.getPhone().value + " ");
         sb.append(PREFIX_EMAIL + patient.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + patient.getAddress().value + " ");
+
         patient.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
@@ -54,11 +55,13 @@ public class PersonUtil {
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG);
+                sb.append(PREFIX_TAG + " ");
             } else {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
         }
+        descriptor.getMedicalHistory().ifPresent(medicalHistory ->
+                sb.append(PREFIX_MEDICAL).append(medicalHistory.toString()).append(" "));
         return sb.toString();
     }
 }

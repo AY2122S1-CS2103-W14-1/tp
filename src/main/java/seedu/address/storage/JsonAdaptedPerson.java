@@ -123,9 +123,9 @@ class JsonAdaptedPerson {
                 String[] entry = (String[]) detailedEntries[i];
 
                 if (entry.length == 1) { // no date
-                    modelMedicalHistory.add(entry[0]);
+                    modelMedicalHistory.add(entry[0].trim());
                 } else {
-                    modelMedicalHistory.add(entry[0], entry[1]);
+                    modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
                 }
             }
         }

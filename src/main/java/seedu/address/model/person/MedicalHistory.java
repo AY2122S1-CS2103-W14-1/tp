@@ -47,6 +47,19 @@ public class MedicalHistory {
             String dateToString = dateOfEntry.format(formatter);
             return dateToString + " | " + this.description;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof MedicalEntry) {
+                MedicalEntry m = (MedicalEntry) o;
+
+                if ((this.description.equals(m.description) || this.description == m.description)
+                        && this.dateOfEntry.equals(m.dateOfEntry)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /**
@@ -98,6 +111,28 @@ public class MedicalHistory {
             }
         }
         return toReturn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof MedicalHistory) {
+            MedicalHistory m = (MedicalHistory) o;
+
+            if (m.entryList.size() != this.entryList.size()) {
+                return false;
+            }
+
+            int len = this.entryList.size();
+
+            for (int i = 0; i < len; i++) {
+                if (!this.entryList.get(i).equals(m.entryList.get(i))) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        return false;
     }
 
 }
