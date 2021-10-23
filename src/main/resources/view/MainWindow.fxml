@@ -3,38 +3,55 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="650" onCloseRequest="#handleExit" title="Doc'it" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <!--  <icons>-->
-    <!--    <Image url="@/images/address_book_32.png" />-->
-    <!--  </icons>-->
+<fx:root minHeight="700" minWidth="1200" onCloseRequest="#handleExit" title="Doc'it" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/DocitIcon.png" />
+    </icons>
     <scene>
         <Scene>
             <stylesheets>
                 <URL value="@Fonts.css" />
-                <URL value="@DarkTheme.css" />
+                <URL value="@LightTheme.css" />
                 <URL value="@Extensions.css" />
             </stylesheets>
 
             <VBox prefWidth="1038.0">
-                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-                    <Menu mnemonicParsing="false" text="Doc'it">
-                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-                    </Menu>
-                    <Menu mnemonicParsing="false" text="Help">
-                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                    </Menu>
-                </MenuBar>
-                <SplitPane dividerPositions="0.2, 0.7" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
+            <HBox styleClass="pane-with-border" stylesheets="@LightTheme.css">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/DocitHeader.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ButtonBar fx:id="menuBar" buttonMinWidth="40.0" minWidth="40.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="52.0" prefWidth="868.0" styleClass="pane-transparent" stylesheets="@LightTheme.css" HBox.hgrow="ALWAYS">
+                    <buttons>
+                        <Button id="menuButton" fx:id="helpButton" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#handleHelp" prefHeight="40.0" prefWidth="40.0" styleClass="button-icon" stylesheets="@LightTheme.css" />
+                        <Button id="menuButton" fx:id="exitButton" minHeight="40.0" minWidth="40.0" mnemonicParsing="false" onAction="#handleExit" prefHeight="40.0" prefWidth="40.0" stylesheets="@LightTheme.css" />
+                    </buttons>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </ButtonBar>
+               </children>
+            </HBox>
+                <SplitPane dividerPositions="0.3166023166023166" prefHeight="724.0" prefWidth="1038.0" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
                     <items>
 
                         <VBox fx:id="patientList" minWidth="297.0" prefHeight="722.0" prefWidth="297.0" styleClass="pane-without-border">
@@ -58,20 +75,20 @@
                                         <Font name="Segoe UI" size="24.0" />
                                     </font>
                                 </Label>
-                                <StackPane fx:id="apptListPanelPlaceholder" styleClass="pane-with-shadow" VBox.vgrow="ALWAYS" />
-                            </children>
-                        </VBox>
-                        <VBox fx:id="archivedAppointmentList" minWidth="276.0" prefHeight="722.0" prefWidth="276.0" styleClass="pane-without-border">
-                            <padding>
-                                <Insets bottom="10" left="10" right="10" top="10" />
-                            </padding>
-                            <children>
-                                <Label styleClass="label-header-italic" text="Archive">
-                                    <font>
-                                        <Font name="Segoe UI" size="24.0" />
-                                    </font>
-                                </Label>
-                                <StackPane fx:id="archiveListPanelPlaceholder" styleClass="pane-with-shadow" VBox.vgrow="ALWAYS" />
+                        <TabPane prefHeight="200.0" prefWidth="427.0" stylesheets="@LightTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                          <tabs>
+                            <Tab text="Upcoming">
+                                 <content>
+                                            <StackPane fx:id="apptListPanelPlaceholder" styleClass="pane-with-shadow" />
+                                 </content>
+                            </Tab>
+                            <Tab text="Archive">
+                                 <content>
+                                            <StackPane fx:id="archiveListPanelPlaceholder" styleClass="pane-with-shadow" />
+                                 </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
                             </children>
                         </VBox>
                     </items>

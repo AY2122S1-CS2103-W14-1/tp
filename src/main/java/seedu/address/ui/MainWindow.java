@@ -1,11 +1,14 @@
 package seedu.address.ui;
 
+import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
@@ -41,7 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private Button exitButton;
+
+    @FXML
+    private Button helpButton;
 
     @FXML
     private StackPane patientListPanelPlaceholder;
@@ -81,15 +87,15 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(helpButton, KeyCombination.valueOf("F1"));
     }
 
     /**
      * Sets the accelerator of a MenuItem.
      * @param keyCombination the KeyCombination value of the accelerator
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
+    private void setAccelerator(Button menuItem, KeyCombination keyCombination) {
+        //menuItem.setAccelerator(keyCombination);
 
         /*
          * TODO: the code below can be removed once the bug reported here
@@ -112,6 +118,21 @@ public class MainWindow extends UiPart<Stage> {
                 event.consume();
             }
         });
+    }
+
+    /**
+     * Fills up buttons with icons.
+     *
+     * @throws FileNotFoundException When images are not found.
+     */
+    void fillButtons() throws FileNotFoundException {
+        Image exitImage = new Image("images/exitButton.png");
+        ImageView exitImageView = new ImageView(exitImage);
+        exitButton.setGraphic(exitImageView);
+
+        Image helpImage = new Image("images/helpButton.png");
+        ImageView helpImageView = new ImageView(helpImage);
+        helpButton.setGraphic(helpImageView);
     }
 
     /**

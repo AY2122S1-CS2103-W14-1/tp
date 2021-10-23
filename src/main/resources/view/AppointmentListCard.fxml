@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,38 +11,73 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="apptCardPane" fx:id="apptCardPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+<HBox fx:id="apptCardPane" styleClass="pane-transparent" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane mouseTransparent="true" styleClass="grid-pane" stylesheets="@LightTheme.css" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
-            </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label fx:id="id" styleClass="cell_big_label">
+      <SplitPane dividerPositions="0.25, 0.5" stylesheets="@LightTheme.css">
+        <items>
+                <Label fx:id="id" styleClass="cell_bigger_label" textAlignment="RIGHT">
                     <minWidth>
                         <!-- Ensures that the label text is never truncated -->
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+               </padding>
                 </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$first">
-                    <HBox.margin>
+              <VBox alignment="CENTER_LEFT" minHeight="105">
+                  <padding>
+                      <Insets bottom="5" left="15" right="5" top="5" />
+                  </padding>
+                  <HBox alignment="CENTER_LEFT" spacing="5">
+                      <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                          <HBox.margin>
+                              <Insets />
+                          </HBox.margin>
+                  </Label>
+                      <opaqueInsets>
+                          <Insets />
+                      </opaqueInsets>
+                  </HBox>
+                  <FlowPane fx:id="tags">
+                      <padding>
+                          <Insets bottom="5.0" />
+                      </padding>
+               </FlowPane>
+      
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+              </VBox>
+            <VBox alignment="CENTER_LEFT" minHeight="105">
+               <padding>
+                  <Insets bottom="5" left="15" right="5" top="5" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5">
+                     <opaqueInsets>
                         <Insets />
-                    </HBox.margin></Label>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-            </HBox>
-            <FlowPane fx:id="tags">
-                <padding>
-                    <Insets bottom="5.0" />
-                </padding></FlowPane>
-
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-        </VBox>
+                     </opaqueInsets>
+                     <children>
+                        <Label fx:id="date" styleClass="cell_bigger_label" text="\$date">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <FlowPane fx:id="tags1">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </VBox>
+        </items>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </SplitPane>
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
