@@ -123,6 +123,12 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parases {@code String medicalHistory} into a {@Code MedicalHistory}.
+     * @param medicalHistory medicalHistory to be parsed.
+     * @return {@code MedicalHistory} object.
+     * @throws ParseException if the given string is invalid.
+     */
     public static MedicalHistory parseMedicalHistory(String medicalHistory) throws ParseException {
         String trimmedMh = medicalHistory.trim();
         return new MedicalHistory(trimmedMh);

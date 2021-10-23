@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,8 +38,9 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged, @JsonProperty("medicalHistory") String medical) {
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                             @JsonProperty("medicalHistory") String medical) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -46,7 +48,8 @@ class JsonAdaptedPerson {
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
-        this.medicalHistory = "lovesick";
+        this.medicalHistory = medical;
+
     }
 
     /**
@@ -60,7 +63,7 @@ class JsonAdaptedPerson {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        medicalHistory = "lovesick";
+        medicalHistory = source.getMedicalHistory().toString();
     }
 
     /**
@@ -107,8 +110,33 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final MedicalHistory modelMedicalHistory = new MedicalHistory(medicalHistory);
+
+        Object[] detailedEntries = breakIntoEntries(medicalHistory);
+
+        final MedicalHistory modelMedicalHistory = new MedicalHistory("");
+
+        if (detailedEntries.length > 0) { // has at least one medical entry
+            modelMedicalHistory.delete(0);
+
+            for (int i = 0; i < detailedEntries.length; i++) {
+                @SuppressWarnings("unchecked")
+                String[] entry = (String[]) detailedEntries[i];
+
+                if (entry.length == 1) { // no date
+                    modelMedicalHistory.add(entry[0]);
+                } else {
+                    modelMedicalHistory.add(entry[0], entry[1]);
+                }
+            }
+        }
+
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalHistory);
+    }
+
+    public static Object[] breakIntoEntries(String medicalHistory) {
+        String[] entries = medicalHistory.split(", ");
+        Object[] entriesDateDesc = Arrays.stream(entries).map(x -> x.split("\\| ")).toArray();
+        return entriesDateDesc;
     }
 
 }
