@@ -123,13 +123,13 @@ public class MedicalHistory {
                 return false;
             }
 
-            return checkIsEqual(this.entryList, m.entryList);
+            return checkIsEqual(m.entryList);
 
         }
         return false;
     }
 
-    private boolean checkIsEqual(EntryList<Entry<MedicalEntry>> entryList, EntryList<Entry<MedicalEntry>> otherList) {
+    private boolean checkIsEqual(EntryList<Entry<MedicalEntry>> otherList) {
         int len = this.entryList.size();
 
         for (int i = 0; i < len; i++) {
