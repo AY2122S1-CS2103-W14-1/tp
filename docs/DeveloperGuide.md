@@ -128,20 +128,20 @@ In the original AB3, all commands extend the `Command` abstract class. Doc'it su
 The following is a list of commands that extend the three abstract classes:
 
 - BasicCommand
-  - ExitCommand
-  - ClearCommand
-  - HelpCommand
+    - ExitCommand
+    - ClearCommand
+    - HelpCommand
 - PatientCommand
-  - AddPatientCommand
-  - EditPatientCommand
-  - DeletePatientCommand
-  - ListPatientCommand
-  - FindPatientCommand
+    - AddPatientCommand
+    - EditPatientCommand
+    - DeletePatientCommand
+    - ListPatientCommand
+    - FindPatientCommand
 - AppointmentCommand
-  - AddAppointmentCommand
-  - EditAppointmentCommand
-  - DeleteAppointmentCommand
-  - ListAppointmentsCommand
+    - AddAppointmentCommand
+    - EditAppointmentCommand
+    - DeleteAppointmentCommand
+    - ListAppointmentsCommand
 
 > This taxonomy of commands is reflected on the Parser's side as well.
 
@@ -188,12 +188,12 @@ This section describes some noteworthy details on how certain features are imple
 
 ### Recording a Patient's Medical History feature
 
-Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient. 
+Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient.
 
 #### How Medical History is implemented
 The proposed medical history mechanism was built with a class, ```MedicalHistory```. Within the ```MedicalHistory``` class, each entry of a pateint's medical history is stored under a private variable ```listOfEntries```. An entry of ```MedicalHistory``` is a private inner (nested) class within the ```MedicalHistory``` class, ```MedicalHistoryEntry```.
 
-These are the following methods created for the MedicalHistory feature: 
+These are the following methods created for the MedicalHistory feature:
 * ```MedicalHistory#addEntry(String s)```- adds a new entry of medical history into the patient.
 * ```MedicalHistory#editEntry(int index, String s)```- edits an entry of medical history that has been recorded and saved.
 * ```MedicalHistory#removeEntry(int index, String s)```- removes an entry of medical history, so the entry is no longer recorded.
@@ -201,17 +201,17 @@ These are the following methods created for the MedicalHistory feature:
 These operations are exposed via the ```Patient``` class as `Patient#addMedicalHistory(String s)`, `Patient#editMedicalHistory(int i, String s)` and `Patient#removeMedicalHistory(int i)` respectively.
 
 #### Reason for implementation of MedicalHistory
-```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```. 
+```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```.
 
 Since the whole-part relationship also exists between ```MedicalHistory``` and ```MedicalHistoryEntry```, ```MedicalHistoryEntry``` is composed within ```MedicalHistory``` as well. However, since the multiplicity of the relationship between ```MedicalHistory``` and ```MedicalHistoryEntry``` is 1 to any number, that is, a medical history can have any number of medical history entries, the composition is wrapped by an ArrayList<MedicalHistoryEntry>, which stores an expandable list of medical history entries.
-  
+
   <img src="images/MedicalHistoryClassDiagram.png" width="150" />
 
 ### Alternatives considered
 
-  1. Storing an entry of MedicalHistory as a String
-  
-  An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff. 
+1. Storing an entry of MedicalHistory as a String
+
+An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff.
 
 ### Appointment composed of a Valid Patient when added, loaded and stored
 
@@ -221,12 +221,12 @@ Each `Appointment` in memory contains a reference to a valid `Patient` object. T
 
 Major changes involved to implement this feature:
 * Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
-* Loading an appointment on app launch  —  
-  * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
-  * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
-* Storing an appointment after every command  —  
-  * The app runs `LogicManager#saveAppointmentBook()`.
-  * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+* Loading an appointment on app launch  —
+    * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+    * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+* Storing an appointment after every command  —
+    * The app runs `LogicManager#saveAppointmentBook()`.
+    * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
 
 
 Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
@@ -241,7 +241,7 @@ Step 2: The user executes `appt add n/1 d/2021-10-19 1800` to add an appointment
 
 Step 3: The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `AddressBook#deleteAllAppointmentsOfPatient()` to delete all appointments to that patient before deleting the patient.
 
-After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage. 
+After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram.png)
 
@@ -249,45 +249,45 @@ After every command that the user makes, appointments are saved. In `LogicManage
 
 **Aspect: How Appointments are instantiated**
 
-* **Alternative 1 (current choice):** Appointment is composed of a Patient. 
-  * **Justification:** Appointment can only be instantiated with a Patient, and without Patients, 
-  Appointments cannot exist.
-  Hence, for an appointment to be instantiated, it requires a reference to the related Patient object. 
-  * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
-  * **Pros:** Easy to find the patient of the appointment.
-  * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook` 
-    must be loaded to memory before `AppointmentBook`. 
-* **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and 
+* **Alternative 1 (current choice):** Appointment is composed of a Patient.
+    * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
+      Appointments cannot exist.
+      Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
+    * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
+    * **Pros:** Easy to find the patient of the appointment.
+    * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
+      must be loaded to memory before `AppointmentBook`.
+* **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and
   Appointment only requires date and time to instantiate.
-  * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
-  * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same 
-    date and time at the same clinic that can be served by different doctors.
-  * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed 
-    because Appointment has no Patient field.
+    * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
+    * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
+      date and time at the same clinic that can be served by different doctors.
+    * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
+      because Appointment has no Patient field.
 
 **Aspect: How Appointments are stored and loaded**
 
-* **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and 
+* **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and
   datetime.
-  * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order 
-    of `AddressBook` is saved each time `AppointmentBook` is saved.
-  * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using 
-    indices in commands.
-  * **Pros:** Index of patient is guaranteed to be a unique identifier.
-  * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the 
-    appointments will become incorrect.
-* **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment 
-  object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. 
-  * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of 
-    data.
-  * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and 
-    Appointment by traversing the `AddressBook` and `AppointmentBook` respectively. 
-  * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
+    * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
+      of `AddressBook` is saved each time `AppointmentBook` is saved.
+    * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
+      indices in commands.
+    * **Pros:** Index of patient is guaranteed to be a unique identifier.
+    * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
+      appointments will become incorrect.
+* **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment
+  object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID.
+    * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
+      data.
+    * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
+      Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
+    * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
 
 ### Archiving an Appointment
 
 A user is able archives an appointment when the appointment is past its date, i.e. the patient has either missed his/her appointment
-or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff 
+or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff
 are able to view what medicine was prescribed to the patient during previous appointments.
 
 #### How Archiving is Implemented
@@ -297,8 +297,8 @@ users to directly modify the data of appointments as archived data should not be
 have the `private` access modifier:
 
 - `ArchivedAppointmentBook#setAppointment(Appointment target, Appointment editedAppointment)` - edits the `target` Appointment
-to be replaced with `editedAppointment`.
-  
+  to be replaced with `editedAppointment`.
+
 
 - `ArchivedAppointmentBook#removeAppointment(Appointment key)` - removes the target Appointment `key`.
 
@@ -308,8 +308,8 @@ details.
 
 #### Auto-Archiving Implementation
 
-The proposed archiving implementation involves scanning through all appointments in a day and comparing it to 
-the current date (not time) of the user system. If the current date is 1 day ahead of the appointment, the appointment is 
+The proposed archiving implementation involves scanning through all appointments in a day and comparing it to
+the current date (not time) of the user system. If the current date is 1 day ahead of the appointment, the appointment is
 automatically archived.
 
 In the case where there are many scheduled appointments, this saves the user trouble of archiving past appointments when
