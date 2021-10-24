@@ -15,6 +15,10 @@ import seedu.address.model.person.Patient;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
+    private static final String ADDRESS_ICON = "\uD83C\uDFE0";
+    private static final String EMAIL_ICON = "\uD83D\uDCE7";
+    private static final String PHONE_ICON = "\uD83D\uDCDE";
+    private static final String MEDICAL_HISTORY_ICON = "\uD83C\uDFE5";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,11 +29,6 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Patient patient;
-
-    private final String PHONE_EMOJI = "\uD83D\uDCDE";
-    private final String ADDRESS_EMOJI = "\uD83C\uDFE0";
-    private final String EMAIL_EMOJI = "\uD83D\uDCE7";
-    private final String MEDICAL_HISTORY_EMOJI = "\uD83C\uDFE5";
 
 
     @FXML
@@ -57,14 +56,14 @@ public class PersonCard extends UiPart<Region> {
         this.patient = patient;
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
-        phone.setText(PHONE_EMOJI +"\t" + patient.getPhone().value);
-        address.setText(ADDRESS_EMOJI + "\t" + patient.getAddress().value);
-        email.setText(EMAIL_EMOJI + "\t" + patient.getEmail().value);
+        phone.setText(PHONE_ICON + "\t" + patient.getPhone().value);
+        address.setText(ADDRESS_ICON + "\t" + patient.getAddress().value);
+        email.setText(EMAIL_ICON + "\t" + patient.getEmail().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         if (!patient.getMedicalHistory().isEmpty()) {
-            medicalHistory.setText(MEDICAL_HISTORY_EMOJI + "\t" + patient.getMedicalHistory());
+            medicalHistory.setText(MEDICAL_HISTORY_ICON + "\t" + patient.getMedicalHistory());
         } else {
             medicalHistory.setVisible(false);
         }

@@ -164,7 +164,23 @@ public class ParserUtil {
      */
     public static MedicalHistory parseMedicalHistory(Collection<String> medicalEntries) {
         requireNonNull(medicalEntries);
-        return MedicalHistory.EMPTY_MEDICAL_HISTORY;
+
+        MedicalHistory toParseMh = new MedicalHistory("");
+        toParseMh.delete(0);
+
+        for (String medicalEntry : medicalEntries) {
+            MedicalHistory mh = parseMedicalHistory(medicalEntry);
+            if (mh.equals(MedicalHistory.EMPTY_MEDICAL_HISTORY)) {
+                toParseMh = MedicalHistory.EMPTY_MEDICAL_HISTORY;
+                break;
+            } else {
+                toParseMh.append(parseMedicalHistory(medicalEntry));
+            }
+        }
+
+        System.out.println(toParseMh.equals(MedicalHistory.EMPTY_MEDICAL_HISTORY));
+
+        return toParseMh.size() == 0 ? MedicalHistory.EMPTY_MEDICAL_HISTORY : toParseMh;
     }
 
     private static Object[] breakMhIntoEntries(String medicalHistory) {
@@ -174,6 +190,6 @@ public class ParserUtil {
     }
 
     private static boolean isValidMh(String entry) {
-        return !(entry == "" || entry == " " || entry == null);
+        return !(entry.length() == 0 || entry == " " || entry == null);
     }
 }

@@ -93,6 +93,16 @@ public class MedicalHistory {
     }
 
     /**
+     * Appends medical entries of another {@code MedicalHistory} object to this {@code MedicalHistory} object.
+     * @param mh {@code MedicalHistory} object that is to be added to
+     */
+    public void append(MedicalHistory mh) {
+        for (int i = 0; i < mh.size(); i++) {
+            this.entryList.add(mh.entryList.get(i));
+        }
+    }
+
+    /**
      * Returns the count of medical entries within the medical history.
      * @return count of medical entries.
      */
