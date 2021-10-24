@@ -60,7 +60,7 @@ public class EditPatientCommandParser implements Parser<EditPatientCommand> {
         }
         if (argMultimap.getValue(PREFIX_MEDICAL).isPresent()) {
             editPersonDescriptor
-                    .setMedicalHistory(ParserUtil.parseMedicalHistory(argMultimap.getValue(PREFIX_MEDICAL).get()));
+                    .setMedicalHistory(ParserUtil.parseMedicalHistory(argMultimap.getAllValues(PREFIX_MEDICAL)));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

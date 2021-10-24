@@ -123,13 +123,13 @@ class JsonAdaptedPerson {
                 String[] entry = (String[]) detailedEntries[i];
 
                 if (entry.length == 1) { // no date
-                    if (entry[0] == "" || entry[0] == " " || entry[0] == null) {
+                    if (!isValidMh(entry[0])) {
                         modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
                     } else {
                         modelMedicalHistory.add(entry[0].trim());
                     }
                 } else {
-                    if (entry[1] == "" || entry[1] == " " || entry[1] == null) {
+                    if (!isValidMh(entry[1])) {
                         modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
                     } else {
                         modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
@@ -145,6 +145,10 @@ class JsonAdaptedPerson {
         String[] entries = medicalHistory.split(", ");
         Object[] entriesDateDesc = Arrays.stream(entries).map(x -> x.split("\\| ")).toArray();
         return entriesDateDesc;
+    }
+
+    private static boolean isValidMh(String entry) {
+        return !(entry == "" || entry == " " || entry == null);
     }
 
 }
