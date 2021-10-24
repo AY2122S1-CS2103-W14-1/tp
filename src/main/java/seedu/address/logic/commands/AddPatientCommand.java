@@ -26,7 +26,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_EMAIL + "EMAIL "
             + PREFIX_ADDRESS + "ADDRESS "
             + "[" + PREFIX_TAG + "TAG]... "
-            + PREFIX_MEDICAL + "MEDICALHISTORY\n"
+            + "[" + PREFIX_MEDICAL + "MEDICAL HISTORY]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "

@@ -36,7 +36,7 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                     PREFIX_TAG, PREFIX_MEDICAL);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_MEDICAL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPatientCommand.MESSAGE_USAGE));
         }
@@ -46,7 +46,7 @@ public class AddPatientCommandParser implements Parser<AddPatientCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        MedicalHistory medicalHistory = ParserUtil.parseMedicalHistory(argMultimap.getValue(PREFIX_MEDICAL).get());
+        MedicalHistory medicalHistory = ParserUtil.parseMedicalHistory(argMultimap.getAllValues(PREFIX_MEDICAL));
 
         Patient patient = new Patient(name, phone, email, address, tagList, medicalHistory);
 

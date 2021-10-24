@@ -129,7 +129,7 @@ public class ParserUtil {
      */
     public static MedicalHistory parseMedicalHistory(String medicalHistory) {
         Object[] detailedEntries = breakMhIntoEntries(medicalHistory);
-        MedicalHistory toParseMh = new MedicalHistory("");
+        MedicalHistory toParseMh = MedicalHistory.EMPTY_MEDICAL_HISTORY;
 
         if (detailedEntries.length > 0) { // has at least one medical entry
             toParseMh.delete(0);
@@ -147,6 +147,16 @@ public class ParserUtil {
         }
 
         return toParseMh;
+    }
+
+    /**
+     * Overloads method to ensure that medical history can be an optional
+     * @param medicalEntries
+     * @return
+     */
+    public static MedicalHistory parseMedicalHistory(Collection<String> medicalEntries) {
+        requireNonNull(medicalEntries);
+        return MedicalHistory.EMPTY_MEDICAL_HISTORY;
     }
 
     private static Object[] breakMhIntoEntries(String medicalHistory) {

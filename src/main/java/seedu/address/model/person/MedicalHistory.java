@@ -8,6 +8,7 @@ import seedu.address.model.Entry;
 import seedu.address.model.EntryList;
 
 public class MedicalHistory {
+    public static final MedicalHistory EMPTY_MEDICAL_HISTORY = new MedicalHistory(null);
     private EntryList<Entry<MedicalEntry>> entryList = new EntryList<>();
 
     /**
@@ -138,6 +139,10 @@ public class MedicalHistory {
         }
 
         return true;
+    }
+
+    public boolean isEmpty() {
+        return this.equals(EMPTY_MEDICAL_HISTORY);
     }
 
 }

@@ -26,6 +26,12 @@ public class PersonCard extends UiPart<Region> {
 
     public final Patient patient;
 
+    private final String PHONE_EMOJI = "\uD83D\uDCDE";
+    private final String ADDRESS_EMOJI = "\uD83C\uDFE0";
+    private final String EMAIL_EMOJI = "\uD83D\uDCE7";
+    private final String MEDICAL_HISTORY_EMOJI = "\uD83C\uDFE5";
+
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -51,13 +57,18 @@ public class PersonCard extends UiPart<Region> {
         this.patient = patient;
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
-        phone.setText("\uD83D\uDCDE\t" + patient.getPhone().value);
-        address.setText("\uD83C\uDFE0\t" + patient.getAddress().value);
-        email.setText("\uD83D\uDCE7\t" + patient.getEmail().value);
+        phone.setText(PHONE_EMOJI +"\t" + patient.getPhone().value);
+        address.setText(ADDRESS_EMOJI + "\t" + patient.getAddress().value);
+        email.setText(EMAIL_EMOJI + "\t" + patient.getEmail().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        medicalHistory.setText("\uD83C\uDFE5\t" + patient.getMedicalHistory());
+        if (!patient.getMedicalHistory().isEmpty()) {
+            medicalHistory.setText(MEDICAL_HISTORY_EMOJI + "\t" + patient.getMedicalHistory());
+        } else {
+            medicalHistory.setVisible(false);
+        }
+
     }
 
     @Override

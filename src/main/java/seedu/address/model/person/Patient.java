@@ -120,15 +120,16 @@ public class Patient {
                 .append("; Address: ")
                 .append(getAddress());
 
-
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
             builder.append("; Tags: ");
             tags.forEach(builder::append);
         }
 
-        builder.append("; Medical History: ")
-               .append(getMedicalHistory());
+        if (!getMedicalHistory().isEmpty()) {
+            builder.append("; Medical History: ")
+                .append(getMedicalHistory());
+        }
 
         return builder.toString();
     }

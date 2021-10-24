@@ -113,7 +113,7 @@ class JsonAdaptedPerson {
 
         Object[] detailedEntries = breakIntoEntries(medicalHistory);
 
-        final MedicalHistory modelMedicalHistory = new MedicalHistory("");
+        final MedicalHistory modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
 
         if (detailedEntries.length > 0) { // has at least one medical entry
             modelMedicalHistory.delete(0);
