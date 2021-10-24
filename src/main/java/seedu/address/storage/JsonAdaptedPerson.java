@@ -148,7 +148,7 @@ class JsonAdaptedPerson {
     }
 
     private static boolean isValidMh(String entry) {
-        return !(entry == "" || entry == " " || entry == null);
+        return !(entry.length() == 0 || entry == " " || entry == null);
     }
 
 }
