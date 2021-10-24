@@ -62,11 +62,7 @@ public class PersonCard extends UiPart<Region> {
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        if (!patient.getMedicalHistory().isEmpty()) {
-            medicalHistory.setText(MEDICAL_HISTORY_ICON + "\t" + patient.getMedicalHistory());
-        } else {
-            medicalHistory.setVisible(false);
-        }
+        medicalHistory.setText(patient.getMedicalHistory().display(MEDICAL_HISTORY_ICON));
 
     }
 

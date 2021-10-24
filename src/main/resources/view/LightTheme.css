@@ -193,6 +193,13 @@
     -fx-text-fill: #010504;
 }
 
+.cell_small_label_bold {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #010504;
+}
+
 .stack-pane {
      -fx-background-color: derive(#ffffff, 20%);
 }
@@ -202,13 +209,14 @@
      -fx-background-radius: 10px;
      -fx-border-color: derive(#eeeeee, 50%);
      -fx-border-width: 0px;
-     -fx-border-radius: 10px;
+     -fx-border-radius: 10;
 }
 
 .pane-with-border {
      -fx-background-color: derive(ffffff, 50%);
      -fx-border-color: derive(#cccccc, 50%);
      -fx-border-width: 1px;
+     -fx-border-radius: 10;
 }
 
 .pane-with-shadow {
@@ -222,6 +230,7 @@
 
 .pane-transparent {
     -fx-background-color: transparent;
+    -fx-border-radius: 10;
 }
 
 .status-bar {
@@ -233,10 +242,12 @@
     -fx-font-family: "Droid Sans Mono";
     -fx-font-size: 10pt;
     -fx-text-fill: #444444;
+    -fx-border-radius: 10;
 }
 
 .result-display .label {
     -fx-text-fill: black !important;
+    -fx-border-radius: 10;
 }
 
 .status-bar .label {

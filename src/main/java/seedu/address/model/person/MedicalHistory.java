@@ -110,6 +110,30 @@ public class MedicalHistory {
         return this.entryList.size();
     }
 
+    /**
+     * Returns the string representation of Medical History as displayed on the app.
+     * @return string representation for GUI.
+     */
+    public String display(String emoji) {
+        if (this.isEmpty()) {
+            return "No medical history recorded.";
+        }
+        int size = entryList.size();
+        StringBuilder s = new StringBuilder();
+        StringBuilder icon = new StringBuilder(emoji + "\t");
+
+        for (int i = 0; i < size; i++) {
+            if (i == size - 1) {
+                s = s.append(icon).append(entryList.get(i));
+            } else {
+                s = s.append(icon).append(entryList.get(i)).append("\n");
+            }
+        }
+
+        return s.toString();
+
+    }
+
     @Override
     public String toString() { // to store the list into a CSV format
         int size = this.entryList.size();

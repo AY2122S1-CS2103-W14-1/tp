@@ -10,40 +10,62 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.SplitPane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-            <padding>
-                <Insets bottom="5" left="15" right="5" top="5" />
-            </padding>
-            <HBox alignment="CENTER_LEFT" spacing="5">
-                <Label fx:id="id" styleClass="cell_big_label">
-                    <minWidth>
-                        <!-- Ensures that the label text is never truncated -->
-                        <Region fx:constant="USE_PREF_SIZE" />
-                    </minWidth>
-                </Label>
-                <Label fx:id="name" styleClass="cell_big_label" text="\$first">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin></Label>
-                <opaqueInsets>
-                    <Insets />
-                </opaqueInsets>
-            </HBox>
-            <FlowPane fx:id="tags">
-                <padding>
-                    <Insets bottom="5.0" />
-                </padding></FlowPane>
-
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-            <Label fx:id="medicalHistory" styleClass="cell_small_label" text="\$medicalHistory" />
-        </VBox>
+        <SplitPane dividerPositions="0.6" stylesheets="@LightTheme.css">
+            <items>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" prefWidth="250">
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5" />
+                    </padding>
+                    <HBox alignment="CENTER_LEFT" spacing="5">
+                        <Label fx:id="id" styleClass="cell_big_label">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin></Label>
+                        <opaqueInsets>
+                            <Insets />
+                        </opaqueInsets>
+                    </HBox>
+                    <FlowPane fx:id="tags">
+                        <padding>
+                            <Insets bottom="5.0" />
+                        </padding></FlowPane>
+                    <children>
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true"/>
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true"/>
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true"/>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1" prefWidth="90">
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5" />
+                    </padding>
+                    <HBox alignment="TOP_CENTER" spacing="5">
+                        <Label text="Medical History" styleClass="cell_small_label_bold">
+                            <minWidth>
+                                <!-- Ensures that the label text is never truncated -->
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                    </HBox>
+                    <children>
+                        <Label fx:id="medicalHistory" styleClass="cell_small_label" text="\$medicalHistory"
+                               wrapText="true"/>
+                    </children>
+                </VBox>
+            </items>
+        </SplitPane>
         <rowConstraints>
             <RowConstraints />
         </rowConstraints>
