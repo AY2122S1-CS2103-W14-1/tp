@@ -122,17 +122,22 @@ public class MedicalHistory {
                 return false;
             }
 
-            int len = this.entryList.size();
+            return checkIsEqual(this.entryList, m.entryList);
 
-            for (int i = 0; i < len; i++) {
-                if (!this.entryList.get(i).equals(m.entryList.get(i))) {
-                    return false;
-                }
-            }
-
-            return true;
         }
         return false;
+    }
+
+    private boolean checkIsEqual(EntryList<Entry<MedicalEntry>> entryList, EntryList<Entry<MedicalEntry>> otherList) {
+        int len = this.entryList.size();
+
+        for (int i = 0; i < len; i++) {
+            if (!this.entryList.get(i).equals(otherList.get(i))) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
