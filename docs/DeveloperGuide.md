@@ -122,6 +122,29 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
+**Breakdown of Commands** <br>
+In the original AB3, all commands extend the `Command` abstract class. Doc'it supports three types of commands – general, patient-related, and appointment-related. As such, we introduce three abstract classes `BasicCommand`, `PatientCommand`, and `AppointmentCommand` in place of `Command`. As the names suggest, `BasicCommand` deals with app-related operations, `PatientCommand` deals with patient-related CRUD operations, and `AppointmentCommand` deal with appointment-related CRUD operations.
+
+The following is a list of commands that extend the three abstract classes:
+
+- BasicCommand
+  - ExitCommand
+  - ClearCommand
+  - HelpCommand
+- PatientCommand
+  - AddPatientCommand
+  - EditPatientCommand
+  - DeletePatientCommand
+  - ListPatientCommand
+  - FindPatientCommand
+- AppointmentCommand
+  - AddAppointmentCommand
+  - EditAppointmentCommand
+  - DeleteAppointmentCommand
+  - ListAppointmentsCommand
+
+> This taxonomy of commands is reflected on the Parser's side as well.
+
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
