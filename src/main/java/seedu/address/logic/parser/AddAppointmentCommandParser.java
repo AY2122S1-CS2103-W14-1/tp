@@ -17,8 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand> {
 
-
-    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
+    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+    public static final DateTimeFormatter FANCY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddAppointmentCommand and returns an
