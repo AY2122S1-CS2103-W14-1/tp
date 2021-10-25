@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.model.person.MedicalHistory;
-
 /**
  * Entry represents an object that is either empty or is something.
  * @param <T> type that is stored within an entry.

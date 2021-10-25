@@ -30,7 +30,7 @@ public class EntryList<Entry> {
         return list.get(i);
     }
 
-    public Stream<Entry>  toStream() {
+    public Stream<Entry> toStream() {
         return list.stream();
     }
 }

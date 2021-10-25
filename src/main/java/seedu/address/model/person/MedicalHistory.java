@@ -180,6 +180,10 @@ public class MedicalHistory {
         return this.equals(EMPTY_MEDICAL_HISTORY);
     }
 
+    /**
+     * Converts the MedicalHistory object into a stream representation.
+     * @return stream representation of MedicalHistory object.
+     */
     public Stream<String> toStream() {
         return this.isEmpty()
             ? Stream.of("")
