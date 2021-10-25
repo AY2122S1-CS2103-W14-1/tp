@@ -22,7 +22,7 @@ import seedu.address.testutil.stubs.ModelStubWithAppointment;
 
 public class AddAppointmentCommandTest {
     private final Index defaultPatientIndex = Index.fromOneBased(1);
-    private final LocalDateTime defaultDateTime = LocalDateTime.of(2020,12,31, 12, 0);
+    private final LocalDateTime defaultDateTime = LocalDateTime.of(2020, 12, 31, 12, 0);
     private Appointment defaultAppointment = new Appointment(SampleDataUtil.getSamplePersons()[0], defaultDateTime);
 
     @Test

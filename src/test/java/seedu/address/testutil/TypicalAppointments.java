@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,30 +13,30 @@ import seedu.address.model.util.SampleDataUtil;
  * A utility class containing a list of {@code Appointment} objects to be used in tests.
  */
 public class TypicalAppointments {
-    public static final Appointment APPOINTMENT_1 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-1-1 "
-        + "1600");
-    public static final Appointment APPOINTMENT_2 = new Appointment(SampleDataUtil.getSamplePersons()[1], "2021-2-2 "
-        + "1600");
-    public static final Appointment APPOINTMENT_3 = new Appointment(SampleDataUtil.getSamplePersons()[2], "2021-3-3 "
-        + "1600");
-    public static final Appointment APPOINTMENT_4 = new Appointment(SampleDataUtil.getSamplePersons()[3], "2021-4-1 "
-        + "1600");
-    public static final Appointment APPOINTMENT_5 = new Appointment(SampleDataUtil.getSamplePersons()[4], "2021-5-2 "
-        + "1600");
-    public static final Appointment APPOINTMENT_6 = new Appointment(SampleDataUtil.getSamplePersons()[5], "2021-6-3 "
-        + "1600");
-    public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-7-1 "
-        + "1600");
-    public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-8-2 "
-        + "1600");
-    public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-9-3 "
-        + "1600");
-    public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-10"
-        + "-1 1600");
-    public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-11-2"
-        + " 1600");
-    public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2021-12-3"
-        + " 1600");
+    public static final Appointment APPOINTMENT_1 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 1, 1, 16, 0));
+    public static final Appointment APPOINTMENT_2 = new Appointment(SampleDataUtil.getSamplePersons()[1],
+        LocalDateTime.of(2021, 2, 2, 16, 0));
+    public static final Appointment APPOINTMENT_3 = new Appointment(SampleDataUtil.getSamplePersons()[2],
+        LocalDateTime.of(2021, 3, 3, 16, 0));
+    public static final Appointment APPOINTMENT_4 = new Appointment(SampleDataUtil.getSamplePersons()[3],
+        LocalDateTime.of(2021, 4, 1, 16, 0));
+    public static final Appointment APPOINTMENT_5 = new Appointment(SampleDataUtil.getSamplePersons()[4],
+        LocalDateTime.of(2021, 5, 1, 16, 0));
+    public static final Appointment APPOINTMENT_6 = new Appointment(SampleDataUtil.getSamplePersons()[5],
+        LocalDateTime.of(2021, 6, 1, 16, 0));
+    public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 7, 1, 16, 0));
+    public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 8, 1, 16, 0));
+    public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 9, 1, 16, 0));
+    public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 10, 1, 16, 0));
+    public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 11, 1, 16, 0));
+    public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePersons()[0],
+        LocalDateTime.of(2021, 12, 1, 16, 0));
 
 
     private TypicalAppointments() {} // prevents instantiation

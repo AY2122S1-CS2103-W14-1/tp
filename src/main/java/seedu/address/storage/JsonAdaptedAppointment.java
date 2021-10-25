@@ -66,7 +66,8 @@ class JsonAdaptedAppointment {
         }
 
         if (datetime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
         }
 
         LocalDateTime localDateTime;
