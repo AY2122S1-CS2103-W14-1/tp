@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Stream;
 
 /**
  * EntryList is a class that uses only four main functions of a list - add, delete, sort, size
@@ -27,5 +28,9 @@ public class EntryList<Entry> {
 
     public Entry get(int i) {
         return list.get(i);
+    }
+
+    public Stream<Entry>  toStream() {
+        return list.stream();
     }
 }
