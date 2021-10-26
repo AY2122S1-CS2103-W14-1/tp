@@ -10,7 +10,7 @@ import seedu.address.model.person.PatientContainsKeywordsPredicate;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FindPatientCommand extends Command {
+public class FindPatientCommand extends PatientCommand {
 
     public static final String COMMAND_WORD = "find";
 

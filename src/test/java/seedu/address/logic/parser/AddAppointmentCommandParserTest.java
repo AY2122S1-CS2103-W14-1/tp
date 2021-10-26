@@ -15,8 +15,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DAT
 import static seedu.address.logic.commands.CommandTestUtil.VALID_APPOINTMENT_DATE_TIME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID_0;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PATIENT_ID_DESC_0;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.AppointmentCommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
 
 import java.time.LocalDateTime;
 

@@ -24,14 +24,14 @@ import seedu.address.model.tag.Tag;
 /**
  * Parses input arguments and creates a new AddPatientCommand object
  */
-public class AddPatientCommandParser implements Parser<AddPatientCommand> {
+public class AddPatientCommandParser implements PatientParser<AddPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPatientCommand
      * and returns an AddPatientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddPatientCommand parse(String args) throws ParseException {
+    public AddPatientCommand parsePatientCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
                     PREFIX_TAG, PREFIX_MEDICAL);

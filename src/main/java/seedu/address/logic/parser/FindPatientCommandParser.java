@@ -11,14 +11,14 @@ import seedu.address.model.person.PatientContainsKeywordsPredicate;
 /**
  * Parses input arguments and creates a new FindPatientCommand object
  */
-public class FindPatientCommandParser implements Parser<FindPatientCommand> {
+public class FindPatientCommandParser implements PatientParser<FindPatientCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindPatientCommand
      * and returns a FindPatientCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public FindPatientCommand parse(String args) throws ParseException {
+    public FindPatientCommand parsePatientCommand(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

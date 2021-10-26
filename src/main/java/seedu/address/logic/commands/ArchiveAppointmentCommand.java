@@ -13,7 +13,7 @@ import seedu.address.model.appointment.Appointment;
 /**
  * Archives an appointment identified using it's displayed index from the appointment book.
  */
-public class ArchiveAppointmentCommand extends Command {
+public class ArchiveAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "archive";
 

@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new ArchiveAppointmentCommand object
  */
-public class ArchiveAppointmentCommandParser implements Parser<ArchiveAppointmentCommand> {
+public class ArchiveAppointmentCommandParser implements AppointmentParser<ArchiveAppointmentCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the ArchiveAppointmentCommand and returns a
@@ -17,7 +17,7 @@ public class ArchiveAppointmentCommandParser implements Parser<ArchiveAppointmen
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ArchiveAppointmentCommand parse(String args) throws ParseException {
+    public ArchiveAppointmentCommand parseAppointmentCommand(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new ArchiveAppointmentCommand(index);

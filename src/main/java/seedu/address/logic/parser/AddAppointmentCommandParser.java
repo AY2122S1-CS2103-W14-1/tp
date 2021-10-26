@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new AddAppointmentCommand object
  */
-public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand> {
+public class AddAppointmentCommandParser implements AppointmentParser<AddAppointmentCommand> {
 
     public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
     public static final DateTimeFormatter FANCY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
@@ -26,7 +26,7 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddAppointmentCommand parse(String args) throws ParseException {
+    public AddAppointmentCommand parseAppointmentCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DATETIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DATETIME) || !argMultimap.getPreamble().isEmpty()) {

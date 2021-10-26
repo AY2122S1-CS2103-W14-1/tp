@@ -40,6 +40,7 @@ import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+    private static final String PT_PREFIX = "pt ";
 
     @TempDir
     public Path temporaryFolder;
@@ -69,13 +70,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "delete 9";
+        String deleteCommand = "pt delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = ListPatientCommand.COMMAND_WORD;
+        String listCommand = "pt " + ListPatientCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListPatientCommand.MESSAGE_SUCCESS, model);
     }
 
@@ -96,8 +97,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddPatientCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY + MEDICAL_DESC_PATIENT;
+        String addCommand = PT_PREFIX + AddPatientCommand.COMMAND_WORD + NAME_DESC_AMY
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEDICAL_DESC_PATIENT;
         Patient expectedPatient = new PersonBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(expectedPatient);

@@ -13,7 +13,7 @@ import seedu.address.model.appointment.Appointment;
 /**
  * Deletes an appointment identified using it's displayed index from the appointment book.
  */
-public class DeleteAppointmentCommand extends Command {
+public class DeleteAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "delete";
 
