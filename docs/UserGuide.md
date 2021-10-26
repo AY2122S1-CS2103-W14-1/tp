@@ -12,7 +12,6 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
 1. Quick Start
 2. Overview of Features
     1. Patient-related Features
-        - Help
         - Add a patient
         - List all patients
         - Edit a patient
@@ -24,6 +23,7 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
         - Delete an appointment
         - Archive an appointment
     3. Upcoming Commands
+        - Help
         - Clear all entries
         - Saving all data
         - Editing data files
@@ -47,9 +47,9 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-* **`list -p`** : Lists all patients.
+* **`pt list`** : Lists all patients.
 
-* **`exit`** : Exits the app.
+* **`doc exit`** : Exits the app.
 
 1. Refer to the **Features** section below for details of each command.
 
@@ -63,15 +63,20 @@ This section provides a brief overview of Doc’It. The intention is for users t
 understanding of basic functionalities of Doc’It, before diving into specific commands.
 </div>
 
-1. **Managing Patient Records**
+1. **General Commands**
+    1. Clear all records
+    2. Get Help
+    3. Exit app
+2. **Managing Patient Records**
    1. Create a new patient record
-   2. View details of patient records
-   3. Delete patient records
-2. **Managing Patient Appointments**
-   1. Create a new appointment
-   2. View appointments
-   3. Delete appointments
-   4. Archive appointments
+   2. View details of patient record
+   3. Delete patient record
+   4. Edit patient record 
+3. **Managing Patient Appointments**
+      1. Create a new appointment
+      2. View appointment
+      3. Delete appointment
+      4. Archive appointment
 
 ## Features
 
@@ -99,13 +104,35 @@ understanding of basic functionalities of Doc’It, before diving into specific 
 
 </div>
 
-### Help : `help`
+## General Commands
+
+### Clear all records : `doc clear`
+
+Clears all patient records and information. This is an irreversible operation.
+
+Format: `doc clear`
+
+---
+
+### Help : `doc help`
 
 Shows the user manual for `Doc'it` explaining how to access the help page.
 
-Format: `help`
+Format: `doc help`
 
 ---
+
+### Exit the program : `exit`
+
+Exits the program.
+
+Format: `exit`
+
+---
+
+## Patient Commands
+A patient is the primary entity in `Doc'it`. This section documents how to perform CRUD operations on patient
+records. Do not that _all_ patient-related commands have `pt` in front of them.
 
 ### Add a patient: `pt add`
 
@@ -131,14 +158,6 @@ New patient created: Joshen Lim; Patient ID: 0001
 Shows a list of all patients in the record system.
 
 Format: `pt list`
-
----
-
-### Clear all records : `clear`
-
-Clears all patient records and information. This is an irreversible operation.
-
-Format: `clear`
 
 ---
 
@@ -188,28 +207,20 @@ Patient ID: 1
 
 ---
 
-### Exit the program : `exit`
-
-Exits the program.
-
-Format: `exit`
-
----
-
-## Appointments
+## Appointment Commands
 A patient in our patient record may have appointments to visit the family clinic. In the appointment view, each appointment on the appointment list indicates an upcoming visit to the clinic. To help small family clinics manage their upcoming appointments for its patients, Doc’It records the following attributes for appointment:
 
-* Patient’s `INDEX`: The index of the patient in the list, starting from 1.
+* Patient’s `INDEX`: The index of the patient in the list, starting from `1`.
 * Appointment Date: The date of the appointment.
+* All appointment-related commands have the keyword `apmt` in front of them.
 
-
-## List all appointments: `appt list`
+## List all appointments: `apmt list`
 Shows a list of all appointments.
 
-**Format:** `appt list`
+**Format:** `apmt list`
 
 **Examples:**
-* `appt list`  Lists all appointments.
+* `apmt list`  Lists all appointments.
 
 **Expected Outcome:**
 ```
@@ -217,14 +228,14 @@ Shows a list of all appointments.
 2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
 ```
 
-## Add an appointment: `appt add`
+## Add an appointment: `apmt add`
 Adds an appointment for the patient of the specified patient id.
 
-**Format:** `appt add INDEX d/DATE`
+**Format:** `apmt add INDEX d/DATE`
 
 **Examples:**
 * `list` List all patients.
-* `appt add 1 d/2021-10-05`  Adds appointment to patient of ID 1.
+* `apmt add 1 d/2021-10-05`  Adds appointment to patient of ID 1.
 
 **Expected Outcome:**
 ```
@@ -232,17 +243,17 @@ New appointment added:
 Patient Name: Joshen Lim |  Appointment Date: 2021-10-05
 ```
 
-## Delete an appointment: `appt delete`
+## Delete an appointment: `apmt delete`
 Deletes the appointment at the specified index.
 
-**Format:** `appt delete INDEX`
+**Format:** `apmt delete INDEX`
 * Deletes the appointment at the specified INDEX.
 * The index refers to the index number shown in the displayed appointment list.
 * The index must be a positive integer 1, 2, 3, ...
 
 **Examples:**
-* `appt list`  Lists all appointments.
-* `appt delete 1`  Deletes appointment at index 1.
+* `apmt list`  Lists all appointments.
+* `apmt delete 1`  Deletes appointment at index 1.
 
 **Expected Outcome:**
 ```
@@ -250,17 +261,17 @@ Appointment deleted:
 Patient Name: Joshen Lim | Appointment Date: 2021-10-05
 ```
 
-## Archive an appointment:  `appt archive`
+## Archive an appointment:  `apmt archive`
 Archives an old appointment that is already past its date.
 
-**Format:** `appt archive INDEX`
+**Format:** `apmt archive INDEX`
 * Archives the appointment at the specified INDEX.
 * The index refers to the index number shown in the displayed appointment list.
 * The index must be a positive integer 1, 2, 3, ...
 
 **Examples:**
-* `appt list`  Lists all appointments.
-* `appt archive 1`  Archives appointment at index 1.
+* `apmt list`  Lists all appointments.
+* `apmt archive 1`  Archives appointment at index 1.
 
 **Expected Outcome:**
 ```
@@ -288,9 +299,9 @@ Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Add
 ### General Commands
 | Command     | Format        |
 |-------------|---------------|
-| User Manual | `help`        |
-| Clear       | `cleat`       |
-| Exit        | `exit`        |
+| User Manual | `doc help`    |
+| Clear       | `doc clear`   |
+| Exit        | `doc exit`    |
 
 ### Patient-related Commands
 | Command | Format                                                                  | Sample                                                                                                |
@@ -304,10 +315,10 @@ Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Add
 ### Appointment-related Commands
 | Command | Format                  | Sample                    |
 |---------|-------------------------|---------------------------|
-| Add     | `appt add INDEX d/DATE` | `appt add 1 d/2021-10-05` |
-| Delete  | `appt delete INDEX`     | `appt delete 1`           |
-| Archive | `appt archive INDEX`    | `appt archive 1`          |
-| List    | `appt list`             | -                         |
+| Add     | `apmt add INDEX d/DATE` | `apmt add 1 d/2021-10-05` |
+| Delete  | `apmt delete INDEX`     | `apmt delete 1`           |
+| Archive | `apmt archive INDEX`    | `apmt archive 1`          |
+| List    | `apmt list`             | -                         |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -317,4 +328,4 @@ Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Add
 | Appointment    | A scheduled consult between a patient and the clinic's doctor.                            |
 | Archive        | Storage for data that is non-urgent, e.g. appointment records that are past their date.   |
 | Patient Record | A record of a patient's details, medical history, medication, appointment list, and name. |
-| Prescription   | The issued medication/treatment for a patient.
+| Prescription   | The issued medication/treatment for a patient along with a duration and volume.           |
