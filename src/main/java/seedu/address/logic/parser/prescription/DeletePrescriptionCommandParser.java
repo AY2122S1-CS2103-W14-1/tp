@@ -3,7 +3,7 @@ package seedu.address.logic.parser.prescription;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.logic.parser.ParserUtil.hasAllPrefixes;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.prescription.DeletePrescriptionCommand;
@@ -25,7 +25,7 @@ public class DeletePrescriptionCommandParser implements Parser<DeletePrescriptio
     public DeletePrescriptionCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INDEX)
+        if (!hasAllPrefixes(argMultimap, PREFIX_NAME, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));

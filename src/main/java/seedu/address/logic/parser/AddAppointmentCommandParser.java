@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.logic.parser.ParserUtil.hasAllPrefixes;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +28,7 @@ public class AddAppointmentCommandParser implements AppointmentParser<AddAppoint
     public AddAppointmentCommand parseAppointmentCommand(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_DATETIME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_DATETIME) || !argMultimap.getPreamble().isEmpty()) {
+        if (!hasAllPrefixes(argMultimap, PREFIX_INDEX, PREFIX_DATETIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
         }

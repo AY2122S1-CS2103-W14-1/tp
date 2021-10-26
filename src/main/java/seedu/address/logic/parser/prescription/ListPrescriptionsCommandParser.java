@@ -2,7 +2,7 @@ package seedu.address.logic.parser.prescription;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+import static seedu.address.logic.parser.ParserUtil.hasAllPrefixes;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.prescription.ListPrescriptionsCommand;
@@ -27,7 +27,7 @@ public class ListPrescriptionsCommandParser implements Parser<ListPrescriptionsC
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX)
+        if (!hasAllPrefixes(argMultimap, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ListPrescriptionsCommand.MESSAGE_USAGE));

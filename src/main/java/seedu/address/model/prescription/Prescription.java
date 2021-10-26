@@ -58,7 +58,7 @@ public class Prescription {
      * @param p The other prescription
      * @return Boolean indicating if the two prescriptions have the same name.
      */
-    public boolean isSamePrescription(Prescription p) {
+    public boolean hasSameMedicalName(Prescription p) {
         return this.getMedicine().equals(p.getMedicine());
     }
 

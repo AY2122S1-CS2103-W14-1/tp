@@ -77,7 +77,13 @@ public class UniquePrescriptionList {
                 ? Index.fromZeroBased(prescriptions.indexOf(prescription)) : null;
     }
 
-    private String findSomething(Parameter variable, String term) {
+    /**
+     * A private function that allows searching of terms in prescription variables
+     * @param variable Variable to be searched
+     * @param term Term to be searched
+     * @return List of {@code Prescriptions} with term in the variable
+     */
+    private String searchInParameter(Parameter variable, String term) {
         StringBuilder sb = new StringBuilder();
         Integer counter = 1;
         for (Prescription p: prescriptions) {
@@ -109,15 +115,15 @@ public class UniquePrescriptionList {
     }
 
     public String findMedicine(String medicine) {
-        return findSomething(Parameter.MEDICINE, medicine);
+        return searchInParameter(Parameter.MEDICINE, medicine);
     }
 
     public String findVolume(String volume) {
-        return findSomething(Parameter.VOLUME, volume);
+        return searchInParameter(Parameter.VOLUME, volume);
     }
 
     public String findDuration(String duration) {
-        return findSomething(Parameter.DURATION, duration);
+        return searchInParameter(Parameter.DURATION, duration);
     }
 
     /**
@@ -139,7 +145,7 @@ public class UniquePrescriptionList {
      */
     public boolean contains(Prescription prescription) {
         requireNonNull(prescription);
-        return prescriptions.stream().anyMatch(prescription::isSamePrescription);
+        return prescriptions.stream().anyMatch(prescription::hasSameMedicalName);
     }
 
 
