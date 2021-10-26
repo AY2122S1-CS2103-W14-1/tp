@@ -124,7 +124,7 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: " + getPrescriptions() + + "\n";
+        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: " + getPrescriptions() + "\n";
     }
 
     public boolean containsPrescription(Prescription p) {
