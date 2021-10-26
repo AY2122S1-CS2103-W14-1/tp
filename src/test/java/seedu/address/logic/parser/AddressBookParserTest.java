@@ -31,8 +31,8 @@ import seedu.address.logic.commands.ListAppointmentsCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.PatientContainsKeywordsPredicate;
 import seedu.address.testutil.AppointmentUtil;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -72,7 +72,7 @@ public class AddressBookParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindPatientCommand command = (FindPatientCommand) parser.parseCommand(
                 FindPatientCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindPatientCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindPatientCommand(new PatientContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

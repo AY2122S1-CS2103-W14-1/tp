@@ -50,6 +50,11 @@ public abstract class Entry<T> {
         public boolean equals(Object o) {
             return (o == EMPTY);
         }
+
+        @Override
+        public Object get() {
+            return null;
+        }
     }
 
     private static final class Some<S> extends Entry<S> {
@@ -79,7 +84,13 @@ public abstract class Entry<T> {
             return false;
         }
 
+        @Override
+        public S get() {
+            return this.item;
+        }
+
     }
 
+    public abstract T get();
 
 }

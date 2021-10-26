@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.stream.Stream;
 
 import seedu.address.model.Entry;
 import seedu.address.model.EntryList;
@@ -177,6 +178,20 @@ public class MedicalHistory {
 
     public boolean isEmpty() {
         return this.equals(EMPTY_MEDICAL_HISTORY);
+    }
+
+    /**
+     * Converts the MedicalHistory object into a stream representation.
+     * @return stream representation of MedicalHistory object.
+     */
+    public Stream<String> toStream() {
+        return this.isEmpty()
+            ? Stream.of("")
+            : this.entryList
+                .toStream()
+                .map(entry -> entry.get())
+                .filter(val -> val != null)
+                .map(entry -> entry.description);
     }
 
 }

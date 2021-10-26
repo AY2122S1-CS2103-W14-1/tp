@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Disabled;
@@ -21,7 +22,7 @@ import seedu.address.testutil.stubs.ModelStubWithAppointment;
 
 public class AddAppointmentCommandTest {
     private final Index defaultPatientIndex = Index.fromOneBased(1);
-    private final String defaultDateTime = "2021-12-31 1600";
+    private final LocalDateTime defaultDateTime = LocalDateTime.of(2020, 12, 31, 12, 0);
     private Appointment defaultAppointment = new Appointment(SampleDataUtil.getSamplePersons()[0], defaultDateTime);
 
     @Test
@@ -60,15 +61,16 @@ public class AddAppointmentCommandTest {
     @Test
     public void equals() {
         Appointment appointment1 = defaultAppointment;
-        Appointment appointment2 = new Appointment(SampleDataUtil.getSamplePersons()[0], "2022-12-31 1600");
-        AddAppointmentCommand addAppointment1 = new AddAppointmentCommand(Index.fromOneBased(1), "");
-        AddAppointmentCommand addAppointment2 = new AddAppointmentCommand(Index.fromOneBased(2), "");
+        Appointment appointment2 = new Appointment(SampleDataUtil.getSamplePersons()[0], defaultDateTime);
+        AddAppointmentCommand addAppointment1 = new AddAppointmentCommand(Index.fromOneBased(1), defaultDateTime);
+        AddAppointmentCommand addAppointment2 = new AddAppointmentCommand(Index.fromOneBased(2), defaultDateTime);
 
         // same object -> returns true
         assertTrue(addAppointment1.equals(addAppointment1));
 
         // same values -> returns true
-        AddAppointmentCommand addAppointmentCommandCopy = new AddAppointmentCommand(Index.fromOneBased(1), "");
+        AddAppointmentCommand addAppointmentCommandCopy =
+            new AddAppointmentCommand(Index.fromOneBased(1), defaultDateTime);
         assertTrue(addAppointment1.equals(addAppointmentCommandCopy));
 
 

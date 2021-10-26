@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -22,7 +23,7 @@ public class AddAppointmentCommand extends Command {
 
     public static final String MESSAGE_USAGE =
         "appt "
-        + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME + "ID "
+        + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME + "INDEX "
             + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1 "
             + PREFIX_DATETIME + "2021-12-31 1600";
 
@@ -31,7 +32,7 @@ public class AddAppointmentCommand extends Command {
         "This appointment already exists in the appointment book";
 
     private final Index targetPatientIndex;
-    private final String datetime;
+    private final LocalDateTime datetime;
     private Appointment toAdd;
 
     /**
@@ -39,8 +40,8 @@ public class AddAppointmentCommand extends Command {
      * @param targetPatientIndex patient index to make appointment
      * @param datetime date and time of appointment
      */
-    public AddAppointmentCommand(Index targetPatientIndex, String datetime) {
-        requireNonNull(targetPatientIndex, datetime);
+    public AddAppointmentCommand(Index targetPatientIndex, LocalDateTime datetime) {
+        requireNonNull(targetPatientIndex);
         this.targetPatientIndex = targetPatientIndex;
         this.datetime = datetime;
     }
