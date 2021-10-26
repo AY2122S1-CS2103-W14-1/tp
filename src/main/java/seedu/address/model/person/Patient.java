@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -69,12 +70,21 @@ public class Patient {
     }
 
     /**
-     * Returns a combined {@code MedicalHistory} object.
+     * Returns a {@code Patient} object that has the combined {@code MedicalHistory} object.
      * @param mH {@code MedicalHistory} object to be combined with existing patient medical history.
-     * @return combined {@code MedicalHistory} object.
+     * @return patient with combined {@code MedicalHistory} object.
      */
     public Patient addMedicalHistory(MedicalHistory mH) { // tell-don't-ask
         return new Patient(name, phone, email, address, tags, this.medicalHistory.append(mH));
+    }
+
+    /**
+     * Returns a {@code Patient} object that has the combined {@code MedicalHistory} object.
+     * @param index {@code MedicalHistory} object to be combined with existing patient medical history.
+     * @return patient with combined {@code MedicalHistory} object.
+     */
+    public Patient deleteMedicalHistory(Index index) { // tell-don't-ask
+        return new Patient(name, phone, email, address, tags, this.medicalHistory.delete(index.getZeroBased()));
     }
 
     /**

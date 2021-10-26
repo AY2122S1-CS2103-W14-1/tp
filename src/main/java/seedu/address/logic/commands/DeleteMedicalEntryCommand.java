@@ -12,13 +12,13 @@ import seedu.address.model.Model;
 import seedu.address.model.person.MedicalHistory;
 import seedu.address.model.person.Patient;
 
-public class AddMedicalEntryCommand extends PatientCommand {
-    private final Index index;
-    private final MedicalHistory medicalHistory;
+public class DeleteMedicalEntryCommand extends PatientCommand {
+    private final Index patientIndex;
+    private final Index medicalIndex;
 
-    public static final String COMMAND_WORD = "ma";
+    public static final String COMMAND_WORD = "md";
 
-    public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Adds a medical entry to the patient. \n"
+    public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Deletes a medical entry to the patient. \n"
         + "Parameters: INDEX (must be a positive integer) "
         + PREFIX_MEDICAL + "MEDICAL HISTORY\n"
         + "Example: " + "pt " + COMMAND_WORD + " "
@@ -26,11 +26,11 @@ public class AddMedicalEntryCommand extends PatientCommand {
 
     public static final String MESSAGE_SUCCESS = "Updated: ";
 
-    public AddMedicalEntryCommand(Index i, MedicalHistory m) {
-        requireNonNull(i);
-        requireNonNull(m);
-        this.index = i;
-        this.medicalHistory = m;
+    public DeleteMedicalEntryCommand(Index patientIndex, Index medicalIndex) {
+        requireNonNull(patientIndex);
+        requireNonNull(medicalIndex);
+        this.patientIndex = patientIndex;
+        this.medicalIndex = medicalIndex;
     }
 
     @Override
@@ -39,12 +39,12 @@ public class AddMedicalEntryCommand extends PatientCommand {
 
         List<Patient> lastShownList = model.getFilteredPatientList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (patientIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Patient patientToEdit = lastShownList.get(index.getZeroBased());
-        Patient editedPatient = patientToEdit.addMedicalHistory(this.medicalHistory);
+        Patient patientToEdit = lastShownList.get(patientIndex.getZeroBased());
+        Patient editedPatient = patientToEdit.deleteMedicalHistory(medicalIndex);
 
         model.setPatient(patientToEdit, editedPatient);
         model.updateAppointmentBook(patientToEdit, editedPatient);

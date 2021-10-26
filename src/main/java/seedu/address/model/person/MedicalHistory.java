@@ -17,7 +17,7 @@ public class MedicalHistory {
      *
      * @param medicalHistory Medical history of patient.
      */
-    public MedicalHistory(String medicalHistory) throws IllegalArgumentException {
+    public MedicalHistory(String medicalHistory) {
         Entry<MedicalEntry> medicalEntry = Entry.of(null);
         if (medicalHistory != "" && medicalHistory != " " && medicalHistory != null) {
             medicalEntry = Entry.of(new MedicalEntry(medicalHistory));
@@ -68,8 +68,13 @@ public class MedicalHistory {
      * Deletes a medical entry specified from the index from the list of medical entries.
      * @param i index to specify the medical entry to be deleted.
      */
-    public void delete(int i) {
+    public MedicalHistory delete(int i) {
+        if (this.isEmpty()) {
+            return this; // nothing to delete
+        }
+
         this.entryList.delete(i);
+        return this;
     }
 
     /**
@@ -143,6 +148,10 @@ public class MedicalHistory {
 
     @Override
     public String toString() { // to store the list into a CSV format
+        if (this.isEmpty()) {
+            return "";
+        }
+
         int size = this.entryList.size();
         String toReturn = "";
         for (int i = 0; i < size; i++) {
@@ -183,7 +192,7 @@ public class MedicalHistory {
     }
 
     public boolean isEmpty() {
-        return this.equals(EMPTY_MEDICAL_HISTORY);
+        return this == EMPTY_MEDICAL_HISTORY;
     }
 
     /**

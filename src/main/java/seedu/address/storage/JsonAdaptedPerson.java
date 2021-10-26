@@ -1,7 +1,10 @@
 package seedu.address.storage;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.MedicalHistory;
@@ -111,7 +115,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        Object[] detailedEntries = breakIntoEntries(medicalHistory);
+        Object[] detailedEntries = readMedicalHistory(medicalHistory);
 
         MedicalHistory modelMedicalHistory = new MedicalHistory("");
 
@@ -126,13 +130,27 @@ class JsonAdaptedPerson {
                     if (!isValidMh(entry[0])) {
                         modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
                     } else {
-                        modelMedicalHistory.add(entry[0].trim());
+                        if (modelMedicalHistory.isEmpty()) {
+                            modelMedicalHistory = new MedicalHistory(entry[0].trim());
+                        } else {
+                            modelMedicalHistory.add(entry[0].trim());
+                        }
+
                     }
                 } else {
                     if (!isValidMh(entry[1])) {
                         modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
                     } else {
-                        modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
+                        if (modelMedicalHistory.isEmpty()) {
+                            modelMedicalHistory = new MedicalHistory("");
+                            modelMedicalHistory.delete(0);
+                            modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
+//                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
+//                            LocalDate dateOfEntry = LocalDate.parse(entry[0].trim(), formatter);
+//                            modelMedicalHistory = new MedicalHistory(entry[1].trim(), dateOfEntry);
+                        } else {
+                            modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
+                        }
                     }
                 }
             }
@@ -141,7 +159,7 @@ class JsonAdaptedPerson {
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalHistory);
     }
 
-    private static Object[] breakIntoEntries(String medicalHistory) {
+    private static Object[] readMedicalHistory(String medicalHistory) {
         String[] entries = medicalHistory.split(", ");
         Object[] entriesDateDesc = Arrays.stream(entries).map(x -> x.split("\\| ")).toArray();
         return entriesDateDesc;
