@@ -134,9 +134,9 @@ public class MedicalHistory {
 
         for (int i = 0; i < size; i++) {
             if (i == size - 1) {
-                s = s.append(icon).append(entryList.get(i));
+                s = s.append(icon).append(i + 1 + ". " + entryList.get(i));
             } else {
-                s = s.append(icon).append(entryList.get(i)).append("\n");
+                s = s.append(icon).append(i + 1 + ". " + entryList.get(i)).append("\n");
             }
         }
 
