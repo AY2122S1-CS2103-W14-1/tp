@@ -5,8 +5,15 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.function.Predicate;
 
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
+import seedu.address.model.prescription.UniquePrescriptionList;
+import seedu.address.model.prescription.exceptions.DuplicatePrescriptionException;
+import seedu.address.model.prescription.exceptions.MedicineNotFoundException;
 
 /**
  * Represents an Appointment in the appointment book. Guarantees: details are present and not null, field values are
@@ -19,6 +26,8 @@ public class Appointment {
 
     // Identity fields
     private final Patient patient;
+    private final UniquePrescriptionList prescriptions;
+    private final FilteredList<Prescription> filteredPrescriptions;
     private final LocalDateTime datetime;
 
     /**
@@ -28,6 +37,8 @@ public class Appointment {
         requireAllNonNull(patient, datetime);
         this.patient = patient;
         this.datetime = datetime;
+        this.prescriptions = new UniquePrescriptionList();
+        this.filteredPrescriptions = new FilteredList<>(this.prescriptions.getPrescriptions());
     }
 
     public Patient getPatient() {
@@ -36,6 +47,28 @@ public class Appointment {
 
     public LocalDateTime getDatetime() {
         return datetime;
+    }
+
+    public String getPrescriptions() {
+        return prescriptions.toString();
+    }
+
+    public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
+        this.prescriptions.add(prescription);
+    }
+
+    public void removePrescription(String medicineName) throws MedicineNotFoundException {
+        this.prescriptions.remove(medicineName);
+    }
+
+    /**
+     * Edits the prescription associated with this Appointment
+     * @param prescription Prescription to be edited
+     * @throws MedicineNotFoundException when the prescription cannot be found.
+     */
+    public void editPrescription(Prescription prescription) throws MedicineNotFoundException {
+        removePrescription(prescription.getMedicine());
+        addPrescription(prescription);
     }
 
     public String getFormattedDatetimeString() {
@@ -56,7 +89,8 @@ public class Appointment {
         }
 
         return otherAppointment != null && otherAppointment.getPatient().equals(getPatient())
-            && otherAppointment.getDatetime().equals(getDatetime());
+            && otherAppointment.getDatetime().equals(getDatetime())
+                && otherAppointment.getPrescriptions().equals(getPrescriptions());
     }
 
     /**
@@ -74,19 +108,30 @@ public class Appointment {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return otherAppointment.getPatient().equals(getPatient()) && otherAppointment.getDatetime()
-            .equals(getDatetime());
+        return isSameAppointment(otherAppointment);
+    }
+
+    public void updateFilteredPrescriptions(Predicate<Prescription> predicate) {
+        filteredPrescriptions.setPredicate(predicate);
+    }
+
+    public ObservableList<Prescription> getFilteredPrescriptions() {
+        return filteredPrescriptions;
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patient, datetime);
+        return Objects.hash(patient, datetime, prescriptions);
     }
 
     @Override
     public String toString() {
-        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "\n";
+        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: "
+                + getPrescriptions() + "\n";
     }
 
+    public boolean containsPrescription(Prescription p) {
+        return prescriptions.contains(p);
+    }
 }
