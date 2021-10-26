@@ -30,10 +30,11 @@ public class EditAppointmentCommand extends Command {
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NEW PATIENT INDEX] \n"
+            + "[" + PREFIX_NAME + "PATIENT INDEX] \n"
             + "[" + PREFIX_DATETIME + "DATETIME] \n"
             + "Example: appt " + COMMAND_WORD + " 1 "
-            + PREFIX_DATETIME + "91234567 ";
+            + PREFIX_NAME + "2 "
+            + PREFIX_DATETIME + "2012-12-31 1600";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -86,8 +87,13 @@ public class EditAppointmentCommand extends Command {
         throws CommandException {
         assert appointmentToEdit != null;
 
-        Index updatedIndex = editAppointmentDescriptor.getPatientIndex().orElse(Index.fromZeroBased(-1));
-        Patient updatedPatient = addressBook.getPatientOfIndex(updatedIndex);
+        Patient updatedPatient = null;
+        if (editAppointmentDescriptor.getPatientIndex().isPresent()) {
+            Index updatedIndex = editAppointmentDescriptor.getPatientIndex().get();
+            updatedPatient = addressBook.getPatientOfIndex(updatedIndex);
+        } else {
+            updatedPatient = appointmentToEdit.getPatient();
+        }
         if (updatedPatient == null) {
             throw new CommandException("Patient that has the appointment does not exist.");
         }

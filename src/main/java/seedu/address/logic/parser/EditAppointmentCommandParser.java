@@ -50,7 +50,7 @@ public class EditAppointmentCommandParser implements Parser<EditAppointmentComma
         if (argMultimap.getValue(PREFIX_DATETIME).isPresent()) {
             editAppointmentDescriptor.setDatetime(
                 ParserUtil.parseDateTime(argMultimap.getValue(PREFIX_DATETIME).get(),
-                    ParserUtil.DEFAULT_DATE_TIME_FORMATTER));
+                    ParserUtil.INPUT_DATE_TIME_FORMATTER));
         }
 
         if (!editAppointmentDescriptor.isAnyFieldEdited()) {
