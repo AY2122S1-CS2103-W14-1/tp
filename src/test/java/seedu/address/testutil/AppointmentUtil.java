@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import seedu.address.logic.commands.AddAppointmentCommand;
 import seedu.address.model.appointment.Appointment;
@@ -26,7 +26,7 @@ public class AppointmentUtil {
      */
     public static String getAppointmentDetails(Appointment appointment) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + String.valueOf(1) + " "); // Changed patientId to arbitrary index
+        sb.append(PREFIX_INDEX + String.valueOf(1) + " "); // Changed patientId to arbitrary index
         sb.append(PREFIX_DATETIME + appointment.getInputFormattedDatetimeString() + " ");
         return sb.toString();
     }

@@ -42,6 +42,7 @@ public class AddressBookParserTest {
 
     public static final String PT_PREFIX = "pt ";
     public static final String APPT_PREFIX = "apmt ";
+    public static final String BASIC_CMD_PREFIX = "doc ";
     private final AddressBookParser parser = new AddressBookParser();
 
     // Patient related section
@@ -127,20 +128,20 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand("ab " + ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand("ab " + ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test
     public void parseCommand_exit() throws Exception {
-        assertTrue(parser.parseCommand("ab " + ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand("ab " + ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
     public void parseCommand_help() throws Exception {
-        assertTrue(parser.parseCommand("ab " + HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand("ab " + HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(BASIC_CMD_PREFIX + HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
 
     // Erroneous commands
