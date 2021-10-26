@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,8 +23,8 @@ public class AddAppointmentCommand extends AppointmentCommand {
 
     public static final String MESSAGE_USAGE =
         "appt "
-        + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_NAME + "INDEX "
-            + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_NAME + "1 "
+        + COMMAND_WORD + ": Adds an appointment to the appointment book. " + "Parameters: " + PREFIX_INDEX + "INDEX "
+            + PREFIX_DATETIME + "DATETIME \n" + "Example: appt " + COMMAND_WORD + " " + PREFIX_INDEX + "1 "
             + PREFIX_DATETIME + "2021-12-31 1600";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
