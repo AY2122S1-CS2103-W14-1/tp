@@ -15,6 +15,7 @@ import seedu.address.model.person.Patient;
 public class Appointment {
 
     public static final DateTimeFormatter UI_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
+    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
 
     // Identity fields
     private final Patient patient;
@@ -39,6 +40,10 @@ public class Appointment {
 
     public String getFormattedDatetimeString() {
         return getDatetime().format(UI_DATE_TIME_FORMATTER);
+    }
+
+    public String getInputFormattedDatetimeString() {
+        return getDatetime().format(INPUT_DATE_TIME_FORMATTER);
     }
 
     /**
