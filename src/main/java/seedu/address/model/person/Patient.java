@@ -69,6 +69,15 @@ public class Patient {
     }
 
     /**
+     * Returns a combined {@code MedicalHistory} object.
+     * @param mH {@code MedicalHistory} object to be combined with existing patient medical history.
+     * @return combined {@code MedicalHistory} object.
+     */
+    public Patient addMedicalHistory(MedicalHistory mH) { // tell-don't-ask
+        return new Patient(name, phone, email, address, tags, this.medicalHistory.append(mH));
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
