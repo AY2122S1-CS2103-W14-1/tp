@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.prescription;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUME;
@@ -32,16 +32,16 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
      */
     @Override
     public AddPrescriptionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPOINTMENT_INDEX,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX,
                 PREFIX_NAME, PREFIX_DURATION, PREFIX_VOLUME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_APPOINTMENT_INDEX, PREFIX_VOLUME, PREFIX_NAME, PREFIX_DURATION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_INDEX, PREFIX_VOLUME, PREFIX_NAME, PREFIX_DURATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPrescriptionCommand.MESSAGE_USAGE));
         }
         try {
-            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPOINTMENT_INDEX).get());
+            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             String medicineName = argMultimap.getValue(PREFIX_NAME).get();
             String duration = argMultimap.getValue(PREFIX_DURATION).get();
             String volume = argMultimap.getValue(PREFIX_VOLUME).get();

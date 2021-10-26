@@ -7,7 +7,13 @@ import seedu.address.logic.commands.AppointmentCommand;
 import seedu.address.logic.commands.ArchiveAppointmentCommand;
 import seedu.address.logic.commands.DeleteAppointmentCommand;
 import seedu.address.logic.commands.ListAppointmentsCommand;
+import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
+import seedu.address.logic.commands.prescription.DeletePrescriptionCommand;
+import seedu.address.logic.commands.prescription.ListPrescriptionsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.prescription.AddPrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.DeletePrescriptionCommandParser;
+import seedu.address.logic.parser.prescription.ListPrescriptionsCommandParser;
 
 /**
  * Parses user input.
@@ -30,6 +36,12 @@ public class AppointmentBookParser {
             return new ArchiveAppointmentCommandParser().parseAppointmentCommand(arguments);
         case ListAppointmentsCommand.COMMAND_WORD:
             return new ListAppointmentsCommand();
+        case AddPrescriptionCommand.COMMAND_WORD:
+            return new AddPrescriptionCommandParser().parse(arguments);
+        case DeletePrescriptionCommand.COMMAND_WORD:
+            return new DeletePrescriptionCommandParser().parse(arguments);
+        case ListPrescriptionsCommand.COMMAND_WORD:
+            return new ListPrescriptionsCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }

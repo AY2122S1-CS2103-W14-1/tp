@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.prescription;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
@@ -23,9 +23,9 @@ public class DeletePrescriptionCommandParser implements Parser<DeletePrescriptio
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePrescriptionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_APPOINTMENT_INDEX);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_INDEX);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_APPOINTMENT_INDEX)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));
@@ -34,7 +34,7 @@ public class DeletePrescriptionCommandParser implements Parser<DeletePrescriptio
 
 
         try {
-            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPOINTMENT_INDEX).get());
+            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             String medicineName = argMultimap.getValue(PREFIX_NAME).get();
             return new DeletePrescriptionCommand(appointmentIndex, medicineName);
         } catch (ParseException pe) {

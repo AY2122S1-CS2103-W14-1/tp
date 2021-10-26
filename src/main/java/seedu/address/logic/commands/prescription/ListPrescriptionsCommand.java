@@ -1,14 +1,14 @@
 package seedu.address.logic.commands.prescription;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AppointmentCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,15 +16,15 @@ import seedu.address.model.appointment.Appointment;
 
 
 
-public class ListPrescriptionsCommand extends Command {
+public class ListPrescriptionsCommand extends AppointmentCommand {
     public static final String COMMAND_WORD = "pl";
 
-    public static final String MESSAGE_USAGE = "appt "
+    public static final String MESSAGE_USAGE = "apmt "
             + COMMAND_WORD + ": List all prescriptions of an appointment "
             + "Parameters: \n"
-            + PREFIX_APPOINTMENT_INDEX + "ID OF APPOINTMENT \n"
+            + PREFIX_INDEX + "ID OF APPOINTMENT \n"
             + "Example: appt " + COMMAND_WORD + " "
-            + PREFIX_APPOINTMENT_INDEX + "1 ";
+            + PREFIX_INDEX + "1 ";
 
     public static final String MESSAGE_SUCCESS = "Listed all prescriptions of appointment";
 

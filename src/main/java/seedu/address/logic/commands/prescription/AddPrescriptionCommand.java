@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.prescription;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUME;
@@ -10,7 +10,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.AppointmentCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,19 +21,19 @@ import seedu.address.model.prescription.Prescription;
 /**
  * Adds a prescription to an appointment.
  */
-public class AddPrescriptionCommand extends Command {
+public class AddPrescriptionCommand extends AppointmentCommand {
     public static final String COMMAND_WORD = "pa";
 
     public static final String MESSAGE_USAGE =
-            "appt "
+            "apmt "
                     + COMMAND_WORD + ": Adds a prescription to an appointment. "
                     + "Parameters: \n"
-                    + PREFIX_APPOINTMENT_INDEX + "ID OF APPOINTMENT \n"
+                    + PREFIX_INDEX + "ID OF APPOINTMENT \n"
                     + PREFIX_NAME + "MEDICINE \n"
                     + PREFIX_VOLUME + "VOLUME \n"
                     + PREFIX_DURATION + "DURATION \n"
-                    + "Example: appt " + COMMAND_WORD + " "
-                    + PREFIX_APPOINTMENT_INDEX + "1 "
+                    + "Example: apmt " + COMMAND_WORD + " "
+                    + PREFIX_INDEX + "1 "
                     + PREFIX_NAME + "Penicillin "
                     + PREFIX_VOLUME + "400 ml "
                     + PREFIX_DURATION + "2 times a week ";
