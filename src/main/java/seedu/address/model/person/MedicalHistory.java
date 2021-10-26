@@ -54,11 +54,9 @@ public class MedicalHistory {
         public boolean equals(Object o) {
             if (o instanceof MedicalEntry) {
                 MedicalEntry m = (MedicalEntry) o;
-
-                if ((this.description.equals(m.description) || this.description == m.description)
-                        && this.dateOfEntry.equals(m.dateOfEntry)) {
-                    return true;
-                }
+                System.out.println(this.description);
+                System.out.println(m.description);
+                return this.description.equals(m.description) && this.dateOfEntry.equals(m.dateOfEntry);
             }
             return false;
         }
@@ -173,13 +171,17 @@ public class MedicalHistory {
                 return false;
             }
 
-            return checkIsEqual(m.entryList);
+            return isEqual(m.entryList);
 
         }
         return false;
     }
 
-    private boolean checkIsEqual(EntryList<Entry<MedicalEntry>> otherList) {
+    private boolean isEqual(EntryList<Entry<MedicalEntry>> otherList) {
+        if (this.isEmpty()) {
+            return otherList == this.entryList;
+        }
+
         int len = this.entryList.size();
 
         for (int i = 0; i < len; i++) {

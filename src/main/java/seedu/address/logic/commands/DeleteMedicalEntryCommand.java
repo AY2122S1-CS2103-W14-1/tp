@@ -1,31 +1,37 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.MedicalHistory;
 import seedu.address.model.person.Patient;
 
 public class DeleteMedicalEntryCommand extends PatientCommand {
-    private final Index patientIndex;
-    private final Index medicalIndex;
-
     public static final String COMMAND_WORD = "md";
 
     public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Deletes a medical entry to the patient. \n"
         + "Parameters: INDEX (must be a positive integer) "
-        + PREFIX_MEDICAL + "MEDICAL HISTORY\n"
-        + "Example: " + "pt " + COMMAND_WORD + " "
-        + PREFIX_MEDICAL + "diabetes";
+        + PREFIX_INDEX + "INDEX OF MEDICAL ENTRY\n"
+        + "Example: " + "pt " + COMMAND_WORD + "1 "
+        + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "Updated: ";
 
+    private final Index patientIndex;
+    private final Index medicalIndex;
+
+    /**
+     * Constructor for the DeleteMedicalEntryCommand.
+     * @param patientIndex index of the patient to delete a medical entry from.
+     * @param medicalIndex index of the medical entry to be deleted.
+     */
     public DeleteMedicalEntryCommand(Index patientIndex, Index medicalIndex) {
         requireNonNull(patientIndex);
         requireNonNull(medicalIndex);

@@ -1,10 +1,7 @@
 package seedu.address.storage;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.MedicalHistory;
@@ -145,9 +141,6 @@ class JsonAdaptedPerson {
                             modelMedicalHistory = new MedicalHistory("");
                             modelMedicalHistory.delete(0);
                             modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
-//                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
-//                            LocalDate dateOfEntry = LocalDate.parse(entry[0].trim(), formatter);
-//                            modelMedicalHistory = new MedicalHistory(entry[1].trim(), dateOfEntry);
                         } else {
                             modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
                         }

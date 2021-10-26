@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEDICAL;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -13,9 +15,6 @@ import seedu.address.model.person.MedicalHistory;
 import seedu.address.model.person.Patient;
 
 public class AddMedicalEntryCommand extends PatientCommand {
-    private final Index index;
-    private final MedicalHistory medicalHistory;
-
     public static final String COMMAND_WORD = "ma";
 
     public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Adds a medical entry to the patient. \n"
@@ -26,6 +25,14 @@ public class AddMedicalEntryCommand extends PatientCommand {
 
     public static final String MESSAGE_SUCCESS = "Updated: ";
 
+    private final Index index;
+    private final MedicalHistory medicalHistory;
+
+    /**
+     * Creates a MedicalEntry to add onto the MedicalHistory of the specified {@code Patient}
+     * @param i index of the patinet specified.
+     * @param m medical history for the entry to be added to.
+     */
     public AddMedicalEntryCommand(Index i, MedicalHistory m) {
         requireNonNull(i);
         requireNonNull(m);

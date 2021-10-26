@@ -79,12 +79,22 @@ public class Patient {
     }
 
     /**
-     * Returns a {@code Patient} object that has the combined {@code MedicalHistory} object.
-     * @param index {@code MedicalHistory} object to be combined with existing patient medical history.
-     * @return patient with combined {@code MedicalHistory} object.
+     * Returns a {@code Patient} object that has the deleted {@code MedicalHistory} object.
+     * @param index {@code MedicalHistory} object to with a specified deleted medical entry.
+     * @return patient with deleted medical entry from {@code MedicalHistory} object.
      */
     public Patient deleteMedicalHistory(Index index) { // tell-don't-ask
-        return new Patient(name, phone, email, address, tags, this.medicalHistory.delete(index.getZeroBased()));
+        int i = index.getZeroBased();
+
+        if (i >= this.medicalHistory.size()) {
+            return this;
+        }
+
+        if (this.medicalHistory.size() - 1 == 0) {
+            return new Patient(name, phone, email, address, tags, MedicalHistory.EMPTY_MEDICAL_HISTORY);
+        }
+
+        return new Patient(name, phone, email, address, tags, this.medicalHistory.delete(i));
     }
 
     /**
