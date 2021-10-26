@@ -16,6 +16,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_DATETIME = new Prefix("d/");
     public static final Prefix PREFIX_VOLUME = new Prefix("v/");
     public static final Prefix PREFIX_DURATION = new Prefix("d/");
-    public static final Prefix PREFIX_INDEX = new Prefix("i/");
 
 }
