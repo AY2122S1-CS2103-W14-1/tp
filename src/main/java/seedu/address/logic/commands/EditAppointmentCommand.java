@@ -38,7 +38,8 @@ public class EditAppointmentCommand extends Command {
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the appointment book.";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT =
+        "This appointment already exists in the appointment book.";
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
