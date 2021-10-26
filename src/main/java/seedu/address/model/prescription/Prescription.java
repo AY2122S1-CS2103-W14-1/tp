@@ -1,7 +1,8 @@
 package seedu.address.model.prescription;
-import seedu.address.model.appointment.Appointment;
 
 import java.util.Objects;
+
+import seedu.address.model.appointment.Appointment;
 
 public class Prescription {
     private String medicine;
@@ -9,6 +10,13 @@ public class Prescription {
     private String duration;
     private Appointment appointment;
 
+    /**
+     * Creates a new Prescription object with medicine, volume, duration and associated appointment
+     * @param medicine Name of medicine
+     * @param volume Volume of medicine
+     * @param duration Duration of medicine intake
+     * @param appointment Associated appointment
+     */
     public Prescription(String medicine, String volume, String duration, Appointment appointment) {
         this.appointment = appointment;
         this.medicine = medicine;
@@ -56,13 +64,17 @@ public class Prescription {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Prescription that = (Prescription) o;
-        return that.getAppointment().equals(getAppointment()) &&
-                that.getDuration().equals(getDuration()) &&
-                that.getMedicine().equals(getMedicine()) &&
-                that.getVolume().equals(getVolume());
+        return that.getAppointment().equals(getAppointment())
+                && that.getDuration().equals(getDuration())
+                && that.getMedicine().equals(getMedicine())
+                && that.getVolume().equals(getVolume());
     }
 
     @Override
@@ -72,9 +84,9 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Prescription: " +
-                "Medicine: " + medicine +
-                ", Volume: " + volume +
-                ", Duration: " + duration;
+        return "Prescription: "
+                + "Medicine: " + medicine
+                + ", Volume: " + volume
+                + ", Duration: " + duration;
     }
 }

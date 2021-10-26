@@ -1,15 +1,11 @@
 package seedu.address.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
-import seedu.address.model.person.Patient;
-import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.stubs.ModelStubAcceptingPatientAdded;
-
-import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
+
 
 public class AddPrescriptionCommandTest {
     @Test

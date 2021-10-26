@@ -1,15 +1,22 @@
 package seedu.address.logic.parser.prescription;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
-import seedu.address.logic.parser.*;
-import seedu.address.logic.parser.exceptions.ParseException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUME;
 
 import java.util.stream.Stream;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.prescription.AddPrescriptionCommand;
+import seedu.address.logic.parser.ArgumentMultimap;
+import seedu.address.logic.parser.ArgumentTokenizer;
+import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.exceptions.ParseException;
+
 
 /**
  * Parses input arguments and creates a new AddPrescriptionCommand object
@@ -28,8 +35,8 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_APPOINTMENT_INDEX,
                 PREFIX_NAME, PREFIX_DURATION, PREFIX_VOLUME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_APPOINTMENT_INDEX, PREFIX_VOLUME, PREFIX_NAME, PREFIX_DURATION) ||
-                !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_APPOINTMENT_INDEX, PREFIX_VOLUME, PREFIX_NAME, PREFIX_DURATION)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPrescriptionCommand.MESSAGE_USAGE));
         }

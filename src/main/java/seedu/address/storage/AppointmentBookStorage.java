@@ -30,6 +30,8 @@ public interface AppointmentBookStorage {
         throws DataConversionException, IOException;
 
     /**
+     * @throws DataConversionException if the data in storage is not in the expected format.
+     * @throws IOException              if there was any problem when reading from the storage.
      * @see #getAppointmentBookFilePath()
      */
     Optional<ReadOnlyAppointmentBook> readAppointmentBook(ReadOnlyAddressBook addressBook, Path filePath)
@@ -46,6 +48,7 @@ public interface AppointmentBookStorage {
         throws IOException;
 
     /**
+     * @throws IOException              if there was any problem when saving to the storage.
      * @see #saveAppointmentBook(ReadOnlyAppointmentBook, ReadOnlyAddressBook)
      */
     void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook, Path filePath)

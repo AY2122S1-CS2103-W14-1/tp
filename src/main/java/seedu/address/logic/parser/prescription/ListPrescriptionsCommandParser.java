@@ -1,7 +1,10 @@
 package seedu.address.logic.parser.prescription;
 
-import seedu.address.commons.core.index.Index;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.prescription.ListPrescriptionsCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -11,9 +14,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
-import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
+
 
 public class ListPrescriptionsCommandParser implements Parser<ListPrescriptionsCommand> {
     /**
@@ -28,7 +29,8 @@ public class ListPrescriptionsCommandParser implements Parser<ListPrescriptionsC
 
         if (!arePrefixesPresent(argMultimap, PREFIX_APPOINTMENT_INDEX)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListPrescriptionsCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListPrescriptionsCommand.MESSAGE_USAGE));
         }
 
         Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_APPOINTMENT_INDEX).get());

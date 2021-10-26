@@ -2,7 +2,6 @@ package seedu.address.model.appointment;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -10,7 +9,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Patient;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
@@ -63,6 +61,11 @@ public class Appointment {
         this.prescriptions.remove(medicineName);
     }
 
+    /**
+     * Edits the prescription associated with this Appointment
+     * @param prescription Prescription to be edited
+     * @throws MedicineNotFoundException when the prescription cannot be found.
+     */
     public void editPrescription(Prescription prescription) throws MedicineNotFoundException {
         removePrescription(prescription.getMedicine());
         addPrescription(prescription);
@@ -124,7 +127,8 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: " + getPrescriptions() + "\n";
+        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: "
+                + getPrescriptions() + "\n";
     }
 
     public boolean containsPrescription(Prescription p) {

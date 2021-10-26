@@ -1,5 +1,11 @@
 package seedu.address.logic.commands.prescription;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -8,11 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.appointment.Appointment;
 
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_APPOINTMENT_INDEX;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
 public class ListPrescriptionsCommand extends Command {
     public static final String COMMAND_WORD = "pl";
@@ -32,7 +34,7 @@ public class ListPrescriptionsCommand extends Command {
         this.targetAppointmentIndex = targetAppointmentIndex;
     }
 
-    @Override public CommandResult execute(Model model) throws CommandException{
+    @Override public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
         if (targetAppointmentIndex.getZeroBased() >= lastShownList.size()) {

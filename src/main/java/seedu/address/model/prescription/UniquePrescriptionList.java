@@ -1,28 +1,32 @@
 package seedu.address.model.prescription;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+import java.util.Objects;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.Patient;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.prescription.exceptions.DuplicatePrescriptionException;
 import seedu.address.model.prescription.exceptions.MedicineNotFoundException;
 
 
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
-
-import static java.util.Objects.requireNonNull;
-
 public class UniquePrescriptionList {
-    private enum Parameter{MEDICINE, VOLUME, DURATION};
+    private enum Parameter {
+        MEDICINE, VOLUME, DURATION
+    }
+
     private final ObservableList<Prescription> prescriptions = FXCollections.observableArrayList();
     private final ObservableList<Prescription> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(prescriptions);
 
-
+    /**
+     * Adds a new prescription to an Appointment
+     * @param p Prescription to be added
+     * @throws DuplicatePrescriptionException
+     */
     public void add(Prescription p) throws DuplicatePrescriptionException {
         if (contains(p)) {
             throw new DuplicatePrescriptionException();
@@ -30,6 +34,11 @@ public class UniquePrescriptionList {
         prescriptions.add(p);
     }
 
+    /**
+     * Removes a prescription based on medicine name
+     * @param medicineName Name of medicine to be removed
+     * @throws MedicineNotFoundException when medicine does not exist in prescription list.
+     */
     public void remove(String medicineName) throws MedicineNotFoundException {
         requireNonNull(medicineName);
         Prescription intendedDeletion = null;
@@ -47,6 +56,11 @@ public class UniquePrescriptionList {
         }
     }
 
+    /**
+     * Removes a prescription in the prescription list
+     * @param prescription Prescription to be removed
+     * @throws MedicineNotFoundException when prescription does not exist in prescription list.
+     */
     public void remove(Prescription prescription) throws MedicineNotFoundException {
         requireNonNull(prescription);
         if (!prescriptions.remove(prescription)) {
@@ -59,7 +73,8 @@ public class UniquePrescriptionList {
      */
     public Index indexOf(Prescription prescription) {
         requireNonNull(prescription);
-        return prescriptions.indexOf(prescription) != -1 ? Index.fromZeroBased(prescriptions.indexOf(prescription)) : null;
+        return prescriptions.indexOf(prescription) != -1
+                ? Index.fromZeroBased(prescriptions.indexOf(prescription)) : null;
     }
 
     private String findSomething(Parameter variable, String term) {
@@ -75,12 +90,14 @@ public class UniquePrescriptionList {
                 break;
             case DURATION : parameter = p.getDuration();
                 break;
+            default:
+                throw new RuntimeException("Operation not supported");
             }
             if (parameter.contains(term)) {
                 sb.append(counter).append(". ");
                 sb.append(p);
                 sb.append("\n");
-                counter ++;
+                counter++;
             }
         }
         return sb.toString();
@@ -132,8 +149,12 @@ public class UniquePrescriptionList {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         UniquePrescriptionList that = (UniquePrescriptionList) o;
         return prescriptions.equals(that.prescriptions);
     }
