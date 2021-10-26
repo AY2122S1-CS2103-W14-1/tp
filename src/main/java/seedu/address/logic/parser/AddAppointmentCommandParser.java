@@ -4,6 +4,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -14,6 +16,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new AddAppointmentCommand object
  */
 public class AddAppointmentCommandParser implements AppointmentParser<AddAppointmentCommand> {
+
+    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+    public static final DateTimeFormatter FANCY_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddAppointmentCommand and returns an
@@ -30,7 +35,6 @@ public class AddAppointmentCommandParser implements AppointmentParser<AddAppoint
         }
 
         Index patientIndex;
-        // Parse patientId and string
         try {
             patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_NAME).get());
         } catch (ParseException pe) {
@@ -40,7 +44,15 @@ public class AddAppointmentCommandParser implements AppointmentParser<AddAppoint
 
         String datetime = argMultimap.getValue(PREFIX_DATETIME).get();
 
-        return new AddAppointmentCommand(patientIndex, datetime);
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = ParserUtil.parseDateTime(datetime, DEFAULT_DATE_TIME_FORMATTER);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                AddAppointmentCommand.MESSAGE_USAGE), pe);
+        }
+
+        return new AddAppointmentCommand(patientIndex, localDateTime);
     }
 
     /**

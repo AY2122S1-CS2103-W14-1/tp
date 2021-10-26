@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -52,14 +53,14 @@ public class SampleDataUtil {
     // TODO: Improve sample appointments
     public static Appointment[] getSampleAppointments() {
         return new Appointment[] {
-            new Appointment(patientAlex, "2020-10-17")
+            new Appointment(patientAlex, LocalDateTime.of(2020, 10, 17, 12, 0))
         };
     }
 
 
     public static Appointment[] getSampleArchivedAppointments() {
         return new Appointment[] {
-            new Appointment(patientAlex, "2009-10-17")
+            new Appointment(patientAlex, LocalDateTime.of(2019, 10, 17, 12, 0))
         };
     }
 

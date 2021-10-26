@@ -1,10 +1,15 @@
 package seedu.address.storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Patient;
@@ -15,6 +20,7 @@ import seedu.address.model.person.Patient;
 class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
 
     private final String patientIndex;
     private final String datetime;
@@ -33,7 +39,7 @@ class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source, ReadOnlyAddressBook addressBook) {
         patientIndex = Integer.toString(addressBook.getIndexOfPatient(source.getPatient()).getZeroBased());
-        datetime = source.getDatetime();
+        datetime = source.getFormattedDatetimeString();
     }
 
     /**
@@ -43,14 +49,14 @@ class JsonAdaptedAppointment {
      */
     public Appointment toModelType(ReadOnlyAddressBook addressBook) throws IllegalValueException {
         if (patientIndex == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Patient ID"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Index.class.getSimpleName()));
         }
 
         Index modelPatientIndex;
         try {
             modelPatientIndex = Index.fromZeroBased(Integer.parseInt(patientIndex));
         } catch (NumberFormatException e) {
-            throw new IllegalValueException("Patient ID must be an integer.");
+            throw new IllegalValueException("Patient index must be an integer.");
         }
 
         Patient patientToAppointment = addressBook.getPatientOfIndex(modelPatientIndex);
@@ -59,11 +65,19 @@ class JsonAdaptedAppointment {
             throw new IllegalValueException("Patient that has appointment does not exist.");
         }
 
-
         if (datetime == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Datetime"));
+            throw new IllegalValueException(
+                String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName()));
         }
-        return new Appointment(patientToAppointment, datetime);
+
+        LocalDateTime localDateTime;
+        try {
+            localDateTime = ParserUtil.parseDateTime(datetime, DATE_TIME_FORMATTER);
+        } catch (ParseException e) {
+            throw new IllegalValueException(LocalDateTime.class.getSimpleName() + " is of incorrect format.");
+        }
+
+        return new Appointment(patientToAppointment, localDateTime);
     }
 
 }

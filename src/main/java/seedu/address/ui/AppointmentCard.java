@@ -55,7 +55,7 @@ public class AppointmentCard extends UiPart<Region> {
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        date.setText("\uD83D\uDCC5\t" + appointment.getDatetime());
+        date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDatetimeString());
     }
 
     @Override
