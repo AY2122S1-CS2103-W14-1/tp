@@ -1,7 +1,6 @@
 package seedu.docit.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_INDEX;

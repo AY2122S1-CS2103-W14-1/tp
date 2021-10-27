@@ -1,7 +1,6 @@
 package seedu.docit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
@@ -15,7 +14,6 @@ import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.commons.util.CollectionUtil;
 import seedu.docit.logic.commands.exceptions.CommandException;
-import seedu.docit.logic.parser.CliSyntax;
 import seedu.docit.model.Model;
 import seedu.docit.model.ReadOnlyAddressBook;
 import seedu.docit.model.appointment.Appointment;
@@ -76,8 +74,8 @@ public class EditAppointmentCommand extends AppointmentCommand {
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
-        model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+        model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
+        model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS, editedAppointment));
     }
 
