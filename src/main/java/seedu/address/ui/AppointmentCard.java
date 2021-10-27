@@ -40,7 +40,11 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
+    private Label prescription;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane prescriptions;
 
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} and index to display.
@@ -56,6 +60,9 @@ public class AppointmentCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDatetimeString());
+        appointment.getPrescriptionList().stream()
+               .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
+               .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));
     }
 
     @Override

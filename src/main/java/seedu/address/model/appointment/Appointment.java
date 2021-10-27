@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.person.Patient;
@@ -51,6 +52,10 @@ public class Appointment {
 
     public String getPrescriptions() {
         return prescriptions.toString();
+    }
+
+    public ObservableList<Prescription> getPrescriptionList() {
+        return prescriptions.getPrescriptions();
     }
 
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {

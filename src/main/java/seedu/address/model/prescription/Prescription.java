@@ -62,6 +62,10 @@ public class Prescription {
         return this.getMedicine().equals(p.getMedicine());
     }
 
+    public String toUiFormat() {
+        return String.format("%s | %s | %s", medicine, volume, duration);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

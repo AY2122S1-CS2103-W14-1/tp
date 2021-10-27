@@ -481,7 +481,21 @@
 
 #tags .label {
     -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
+    -fx-background-color: #48C9B0;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+#prescriptions {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#prescriptions .label {
+    -fx-text-fill: white;
+    -fx-background-color: #48C9B0;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;

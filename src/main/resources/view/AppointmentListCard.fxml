@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="apptCardPane" styleClass="pane-transparent" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="apptCardPane" styleClass="pane-transparent" stylesheets="@LightTheme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane mouseTransparent="true" styleClass="grid-pane" stylesheets="@LightTheme.css" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <SplitPane dividerPositions="0.25, 0.5" stylesheets="@LightTheme.css">
+        <SplitPane dividerPositions="0.25, 0.5, 0.75" stylesheets="@LightTheme.css">
             <items>
                 <Label fx:id="id" styleClass="cell_bigger_label" textAlignment="RIGHT">
                     <minWidth>
@@ -66,13 +66,21 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <FlowPane fx:id="tags1">
-                            <padding>
-                                <Insets bottom="5.0" />
-                            </padding>
-                        </FlowPane>
                     </children>
                 </VBox>
+            <VBox alignment="CENTER_LEFT" minHeight="105">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <Label fx:id="prescription" styleClass="cell_small_label_bold" text="Prescriptions" />
+                  <FlowPane fx:id="prescriptions">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </FlowPane>
+               </children>
+            </VBox>
             </items>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
