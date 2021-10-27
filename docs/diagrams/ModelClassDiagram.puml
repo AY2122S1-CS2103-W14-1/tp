@@ -20,7 +20,7 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 
 
-Class UniquePersonList
+Class UniquePatientList
 Class UniqueAppointmentList
 Class Patient
 Class Address
@@ -53,10 +53,10 @@ ModelManager -right-> "1" AppointmentBook
 ModelManager -right-> "1" ArchivedAppointmentBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
+AddressBook *--> "1" UniquePatientList
 AppointmentBook *--> "1" UniqueAppointmentList
 ArchivedAppointmentBook *--> "1" UniqueAppointmentList
-UniquePersonList --> "~* all" Patient
+UniquePatientList --> "~* all" Patient
 Patient *--> Name
 Patient *--> Phone
 Patient *--> Email
