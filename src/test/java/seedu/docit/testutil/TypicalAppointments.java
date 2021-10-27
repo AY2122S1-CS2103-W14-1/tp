@@ -14,29 +14,29 @@ import seedu.docit.model.util.SampleDataUtil;
  */
 public class TypicalAppointments {
     public static final Appointment APPOINTMENT_1 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 1, 1, 16, 0));
+        LocalDateTime.of(2022, 1, 1, 16, 0));
     public static final Appointment APPOINTMENT_2 = new Appointment(SampleDataUtil.getSamplePatients()[1],
-        LocalDateTime.of(2021, 2, 2, 16, 0));
+        LocalDateTime.of(2022, 2, 2, 16, 0));
     public static final Appointment APPOINTMENT_3 = new Appointment(SampleDataUtil.getSamplePatients()[2],
-        LocalDateTime.of(2021, 3, 3, 16, 0));
+        LocalDateTime.of(2022, 3, 3, 16, 0));
     public static final Appointment APPOINTMENT_4 = new Appointment(SampleDataUtil.getSamplePatients()[3],
-        LocalDateTime.of(2021, 4, 1, 16, 0));
+        LocalDateTime.of(2022, 4, 1, 16, 0));
     public static final Appointment APPOINTMENT_5 = new Appointment(SampleDataUtil.getSamplePatients()[4],
-        LocalDateTime.of(2021, 5, 1, 16, 0));
+        LocalDateTime.of(2022, 5, 1, 16, 0));
     public static final Appointment APPOINTMENT_6 = new Appointment(SampleDataUtil.getSamplePatients()[5],
-        LocalDateTime.of(2021, 6, 1, 16, 0));
+        LocalDateTime.of(2022, 6, 1, 16, 0));
     public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 7, 1, 16, 0));
+        LocalDateTime.of(2022, 7, 1, 16, 0));
     public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 8, 1, 16, 0));
+        LocalDateTime.of(2022, 8, 1, 16, 0));
     public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 9, 1, 16, 0));
+        LocalDateTime.of(2022, 9, 1, 16, 0));
     public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 10, 1, 16, 0));
+        LocalDateTime.of(2022, 10, 1, 16, 0));
     public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 11, 1, 16, 0));
+        LocalDateTime.of(2022, 11, 1, 16, 0));
     public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2021, 12, 1, 16, 0));
+        LocalDateTime.of(2022, 12, 1, 16, 0));
 
 
     private TypicalAppointments() {} // prevents instantiation
