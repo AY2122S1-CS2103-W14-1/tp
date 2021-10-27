@@ -11,8 +11,6 @@ import seedu.docit.model.ReadOnlyAppointmentBook;
 import seedu.docit.model.ReadOnlyUserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
-import seedu.docit.model.prescription.Prescription;
-
 
 /**
  * A default model stub that have all of the methods failing.
@@ -175,11 +173,6 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    @Override
-    public void addPrescription(Appointment appointmentToMakePrescription, Prescription prescriptionToAdd) {
         throw new AssertionError("This method should not be called.");
     }
 }

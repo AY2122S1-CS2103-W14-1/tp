@@ -13,7 +13,6 @@ import seedu.docit.commons.core.GuiSettings;
 import seedu.docit.commons.core.LogsCenter;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
-import seedu.docit.model.prescription.Prescription;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -212,12 +211,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedAppointment);
 
         appointmentBook.setAppointment(target, editedAppointment);
-    }
-
-    @Override
-    public void addPrescription(Appointment appointmentToMakePrescription, Prescription prescriptionToAdd) {
-        appointmentBook.addPrescriptionToApmt(appointmentToMakePrescription, prescriptionToAdd);
-        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
     //=========== ArchivedAppointmentBook =======================================================================

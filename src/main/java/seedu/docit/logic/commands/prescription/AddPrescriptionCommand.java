@@ -74,7 +74,8 @@ public class AddPrescriptionCommand extends AppointmentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
+        appointmentToMakePrescription.addPrescription(prescriptionToAdd);
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
     }
 }

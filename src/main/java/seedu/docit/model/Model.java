@@ -173,9 +173,4 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredAppointmentList(Predicate<Appointment> predicate);
-
-    /**
-     * Adds the given prescription to the specified appointment.
-     */
-    void addPrescription(Appointment appointmentToMakePrescription, Prescription prescriptionToAdd);
 }
