@@ -22,7 +22,7 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         + "Example: " + "pt " + COMMAND_WORD + "1 "
         + PREFIX_INDEX + "1";
 
-    public static final String MESSAGE_SUCCESS = "Updated: ";
+    public static final String MESSAGE_SUCCESS = "Updated: \n";
 
     private final Index patientIndex;
     private final Index medicalIndex;
@@ -57,6 +57,6 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPatient));
+        return new CommandResult(MESSAGE_SUCCESS + editedPatient);
     }
 }
