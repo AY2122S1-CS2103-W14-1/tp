@@ -18,6 +18,7 @@
         </columnConstraints>
       <SplitPane dividerPositions="0.7432432432432432" orientation="VERTICAL" prefHeight="150.0" prefWidth="150.0" stylesheets="@LightTheme.css">
         <items>
+            <VBox>
               <SplitPane dividerPositions="0.25, 0.5" prefHeight="100.0" prefWidth="148.0" stylesheets="@LightTheme.css">
                   <items>
                       <Label fx:id="id" styleClass="cell_bigger_label" textAlignment="RIGHT">
@@ -86,16 +87,17 @@
                       </VBox>
                   </items>
               </SplitPane>
-            <VBox prefWidth="148.0">
+            </VBox>
+            <VBox fx:id="prescriptionContainer" prefWidth="148.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <children>
                   <Label fx:id="prescription" alignment="TOP_LEFT" contentDisplay="CENTER" styleClass="cell_small_label_bold" text="Prescriptions:" textAlignment="CENTER" />
                   <FlowPane fx:id="prescriptions">
-                     <padding>
-                        <Insets bottom="5.0" />
-                     </padding>
+                      <padding>
+                          <Insets bottom="5.0" />
+                      </padding>
                   </FlowPane>
                </children>
             </VBox>
