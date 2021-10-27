@@ -129,17 +129,6 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         appointments.remove(key);
     }
 
-    /**
-     * Adds {@code prescriptionToAdd} to {@code appointmentToMakePrescription}.
-     */
-    public void addPrescriptionToApmt(Appointment target, Prescription prescriptionToAdd) {
-        for (Appointment appointment : appointments) {
-            if (appointment.equals(target)) {
-                target.addPrescription(prescriptionToAdd);
-            }
-        }
-    }
-
     //// util methods
 
     @Override public String toString() {
