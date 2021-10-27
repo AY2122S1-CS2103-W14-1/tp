@@ -9,6 +9,8 @@ import seedu.address.model.Model;
  */
 public abstract class AppointmentCommand extends Command {
 
+    public static final String COMMAND_PREFIX = "apmt";
+
     /**
      * Executes the command and returns the result message.
      *
