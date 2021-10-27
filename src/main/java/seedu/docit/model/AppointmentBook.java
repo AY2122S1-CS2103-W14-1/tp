@@ -10,7 +10,6 @@ import javafx.collections.ObservableList;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.appointment.UniqueAppointmentList;
 import seedu.docit.model.patient.Patient;
-import seedu.docit.model.prescription.Prescription;
 
 /**
  * Wraps all data at the docit-book level Duplicates are not allowed (by .isSameAppointment comparison)
