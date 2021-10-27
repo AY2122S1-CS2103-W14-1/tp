@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.docit.commons.core.index.Index;
 import seedu.docit.model.tag.Tag;
 
 /**
@@ -69,8 +70,41 @@ public class Patient {
     }
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/docit/model/patient/Patient.java
      * Returns true if both patients have the same name.
      * This defines a weaker notion of equality between two patients.
+=======
+     * Returns a {@code Patient} object that has the combined {@code MedicalHistory} object.
+     * @param mH {@code MedicalHistory} object to be combined with existing patient medical history.
+     * @return patient with combined {@code MedicalHistory} object.
+     */
+    public Patient addMedicalHistory(MedicalHistory mH) { // tell-don't-ask
+        return new Patient(name, phone, email, address, tags, this.medicalHistory.append(mH));
+    }
+
+    /**
+     * Returns a {@code Patient} object that has the deleted {@code MedicalHistory} object.
+     * @param index {@code MedicalHistory} object to with a specified deleted medical entry.
+     * @return patient with deleted medical entry from {@code MedicalHistory} object.
+     */
+    public Patient deleteMedicalHistory(Index index) { // tell-don't-ask
+        int i = index.getZeroBased();
+
+        if (i >= this.medicalHistory.size()) {
+            return this;
+        }
+
+        if (this.medicalHistory.size() - 1 == 0) {
+            return new Patient(name, phone, email, address, tags, MedicalHistory.EMPTY_MEDICAL_HISTORY);
+        }
+
+        return new Patient(name, phone, email, address, tags, this.medicalHistory.delete(i));
+    }
+
+    /**
+     * Returns true if both persons have the same name.
+     * This defines a weaker notion of equality between two persons.
+>>>>>>> master:src/main/java/seedu/address/model/person/Patient.java
      */
     public boolean isSamePatient(Patient otherPatient) {
         if (otherPatient == this) {
@@ -133,5 +167,4 @@ public class Patient {
 
         return builder.toString();
     }
-
 }

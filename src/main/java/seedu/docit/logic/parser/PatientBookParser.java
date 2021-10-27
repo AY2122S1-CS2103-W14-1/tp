@@ -2,7 +2,9 @@ package seedu.docit.logic.parser;
 
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.docit.logic.commands.AddMedicalEntryCommand;
 import seedu.docit.logic.commands.AddPatientCommand;
+import seedu.docit.logic.commands.DeleteMedicalEntryCommand;
 import seedu.docit.logic.commands.DeletePatientCommand;
 import seedu.docit.logic.commands.EditPatientCommand;
 import seedu.docit.logic.commands.FindPatientCommand;
@@ -34,6 +36,10 @@ public class PatientBookParser {
             return new FindPatientCommandParser().parsePatientCommand(arguments);
         case ListPatientCommand.COMMAND_WORD:
             return new ListPatientCommand();
+        case AddMedicalEntryCommand.COMMAND_WORD:
+            return new AddMedicalEntryCommandParser().parsePatientCommand(arguments);
+        case DeleteMedicalEntryCommand.COMMAND_WORD:
+            return new DeleteMedicalEntryCommandParser().parsePatientCommand(arguments);
         default:
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }

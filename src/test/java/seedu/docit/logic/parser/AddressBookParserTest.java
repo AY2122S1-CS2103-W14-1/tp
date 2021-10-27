@@ -64,12 +64,30 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_editPatient() throws Exception {
+<<<<<<< HEAD:src/test/java/seedu/docit/logic/parser/AddressBookParserTest.java
         Patient patient = new PatientBuilder().build();
         EditPatientDescriptor descriptor = new EditPatientDescriptorBuilder(patient).build();
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(PT_PREFIX
                 + EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PATIENT.getOneBased()
                 + " " + PatientUtil.getEditPatientDescriptorDetails(descriptor));
         assertEquals(new EditPatientCommand(INDEX_FIRST_PATIENT, descriptor), command);
+=======
+        Patient patient = new PersonBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(patient).build();
+
+        String args = PersonUtil.getEditPersonDescriptorDetails(descriptor);
+
+        // args not supposed to have date after m/ by design
+        if (args.split("\\|").length > 1) {
+            args = args.split("\\|")[0].trim().substring(0, args.split("\\|")[0].trim().length() - 11)
+                + args.split("\\|")[1];
+        }
+        EditPatientCommand command = (EditPatientCommand) parser.parseCommand(PT_PREFIX
+                + EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " " + args);
+
+        assertEquals(new EditPatientCommand(INDEX_FIRST_PERSON, descriptor), command);
+>>>>>>> master:src/test/java/seedu/address/logic/parser/AddressBookParserTest.java
     }
 
     @Test

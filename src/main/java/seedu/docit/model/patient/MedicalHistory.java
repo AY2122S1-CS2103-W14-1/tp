@@ -17,7 +17,7 @@ public class MedicalHistory {
      *
      * @param medicalHistory Medical history of patient.
      */
-    public MedicalHistory(String medicalHistory) throws IllegalArgumentException {
+    public MedicalHistory(String medicalHistory) {
         Entry<MedicalEntry> medicalEntry = Entry.of(null);
         if (medicalHistory != "" && medicalHistory != " " && medicalHistory != null) {
             medicalEntry = Entry.of(new MedicalEntry(medicalHistory));
@@ -54,11 +54,7 @@ public class MedicalHistory {
         public boolean equals(Object o) {
             if (o instanceof MedicalEntry) {
                 MedicalEntry m = (MedicalEntry) o;
-
-                if ((this.description.equals(m.description) || this.description == m.description)
-                        && this.dateOfEntry.equals(m.dateOfEntry)) {
-                    return true;
-                }
+                return this.description.equals(m.description) && this.dateOfEntry.equals(m.dateOfEntry);
             }
             return false;
         }
@@ -68,8 +64,13 @@ public class MedicalHistory {
      * Deletes a medical entry specified from the index from the list of medical entries.
      * @param i index to specify the medical entry to be deleted.
      */
-    public void delete(int i) {
+    public MedicalHistory delete(int i) {
+        if (this.isEmpty()) {
+            return this; // nothing to delete
+        }
+
         this.entryList.delete(i);
+        return this;
     }
 
     /**
@@ -97,10 +98,16 @@ public class MedicalHistory {
      * Appends medical entries of another {@code MedicalHistory} object to this {@code MedicalHistory} object.
      * @param mh {@code MedicalHistory} object that is to be added to
      */
-    public void append(MedicalHistory mh) {
+    public MedicalHistory append(MedicalHistory mh) {
+        if (this.isEmpty()) { // if no record was stored
+            return mh;
+        }
+
         for (int i = 0; i < mh.size(); i++) {
             this.entryList.add(mh.entryList.get(i));
         }
+
+        return this;
     }
 
     /**
@@ -125,9 +132,9 @@ public class MedicalHistory {
 
         for (int i = 0; i < size; i++) {
             if (i == size - 1) {
-                s = s.append(icon).append(entryList.get(i));
+                s = s.append(icon).append(i + 1 + ". " + entryList.get(i));
             } else {
-                s = s.append(icon).append(entryList.get(i)).append("\n");
+                s = s.append(icon).append(i + 1 + ". " + entryList.get(i)).append("\n");
             }
         }
 
@@ -137,6 +144,10 @@ public class MedicalHistory {
 
     @Override
     public String toString() { // to store the list into a CSV format
+        if (this.isEmpty()) {
+            return "";
+        }
+
         int size = this.entryList.size();
         String toReturn = "";
         for (int i = 0; i < size; i++) {
@@ -158,13 +169,17 @@ public class MedicalHistory {
                 return false;
             }
 
-            return checkIsEqual(m.entryList);
+            return isEqual(m.entryList);
 
         }
         return false;
     }
 
-    private boolean checkIsEqual(EntryList<Entry<MedicalEntry>> otherList) {
+    private boolean isEqual(EntryList<Entry<MedicalEntry>> otherList) {
+        if (this.isEmpty()) {
+            return otherList == this.entryList;
+        }
+
         int len = this.entryList.size();
 
         for (int i = 0; i < len; i++) {
@@ -177,7 +192,7 @@ public class MedicalHistory {
     }
 
     public boolean isEmpty() {
-        return this.equals(EMPTY_MEDICAL_HISTORY);
+        return this == EMPTY_MEDICAL_HISTORY;
     }
 
     /**

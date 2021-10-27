@@ -2,6 +2,11 @@ package seedu.docit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import static seedu.docit.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.docit.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
+import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +24,7 @@ import seedu.docit.model.patient.Patient;
 /**
  * Edits the details of an existing appointment in the appointment book.
  */
-public class EditAppointmentCommand extends Command {
+public class EditAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -27,11 +32,11 @@ public class EditAppointmentCommand extends Command {
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + CliSyntax.PREFIX_NAME + "PATIENT INDEX] \n"
-            + "[" + CliSyntax.PREFIX_DATETIME + "DATETIME] \n"
-            + "Example: appt " + COMMAND_WORD + " 1 "
-            + CliSyntax.PREFIX_NAME + "2 "
-            + CliSyntax.PREFIX_DATETIME + "2012-12-31 1600";
+            + "[" + PREFIX_INDEX + "PATIENT INDEX] \n"
+            + "[" + PREFIX_DATETIME + "DATETIME] \n"
+            + "Example: apmt " + COMMAND_WORD + " 1 "
+            + PREFIX_INDEX + "2 "
+            + PREFIX_DATETIME + "2012-12-31 1600";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
