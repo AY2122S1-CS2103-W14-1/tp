@@ -17,8 +17,8 @@ public class ClearCommand extends BasicCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAddressBook(new AddressBook());
         model.setAppointmentBook(new AppointmentBook());
+        model.setAddressBook(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
