@@ -56,6 +56,7 @@
                               <Insets bottom="5" left="15" right="5" top="5" />
                           </padding>
                           <children>
+                        <Label fx:id="isToday" alignment="TOP_RIGHT" contentDisplay="RIGHT" styleClass="label-bright" stylesheets="@LightTheme.css" text="TODAY" textAlignment="RIGHT" />
                               <HBox alignment="CENTER_LEFT" spacing="5">
                                   <opaqueInsets>
                                       <Insets />

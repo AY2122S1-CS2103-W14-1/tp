@@ -97,6 +97,13 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
+     * Sorts the contents of this list.
+     */
+    public void sort() {
+        internalList.sort(Appointment::compareTo);
+    }
+
+    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Appointment> asUnmodifiableObservableList() {

@@ -21,10 +21,10 @@ public class AddAppointmentCommand extends AppointmentCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE =
-        "appt " + COMMAND_WORD + ": Adds an appointment to the appointment book. "
+        "apmt " + COMMAND_WORD + ": Adds an appointment to the appointment book. "
             + "Parameters: " + CliSyntax.PREFIX_INDEX + "INDEX "
             + CliSyntax.PREFIX_DATETIME + "DATETIME \n"
-            + "Example: appt " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 "
+            + "Example: apmt " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_DATETIME + "2021-12-31 1600";
 
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";

@@ -1,5 +1,6 @@
 package seedu.docit.ui;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
@@ -42,11 +43,11 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label time;
     @FXML
-    private Label prescription;
-    @FXML
     private FlowPane tags;
     @FXML
     private FlowPane prescriptions;
+    @FXML
+    private Label isToday;
 
     /**
      * Creates a {@code AppointmentCode} with the given {@code Appointment} and index to display.
@@ -66,6 +67,7 @@ public class AppointmentCard extends UiPart<Region> {
         appointment.getPrescriptionList().stream()
                .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
                .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));
+        isToday.setVisible(appointment.isToday());
     }
 
     @Override

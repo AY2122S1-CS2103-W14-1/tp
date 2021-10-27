@@ -153,6 +153,11 @@ public interface Model {
      */
     void setAppointment(Appointment target, Appointment editedAppointment);
 
+    /**
+     * Sorts appointments in order of whether its today, followed by dateTime, and patient name.
+     */
+    void sortAppointments();
+
     String getAppointments();
 
     String getArchivedAppointments();

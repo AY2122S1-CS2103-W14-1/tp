@@ -14,7 +14,7 @@ import seedu.docit.model.tag.Tag;
  * Represents a Patient in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Patient {
+public class Patient implements Comparable<Patient> {
 
     // Identity fields
     private final Name name;
@@ -169,5 +169,10 @@ public class Patient {
         }
 
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Patient o) {
+        return this.name.fullName.compareTo(o.name.fullName);
     }
 }

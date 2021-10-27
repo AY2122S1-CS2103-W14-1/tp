@@ -2,8 +2,10 @@ package seedu.docit.model.appointment;
 
 import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -19,7 +21,7 @@ import seedu.docit.model.prescription.exceptions.MedicineNotFoundException;
  * Represents an Appointment in the appointment book. Guarantees: details are present and not null, field values are
  * validated, immutable.
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     public static final DateTimeFormatter UI_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
     public static final DateTimeFormatter UI_DATE_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy");
@@ -93,6 +95,14 @@ public class Appointment {
         return getDatetime().format(INPUT_DATE_TIME_FORMATTER);
     }
 
+    public boolean containsPrescription(Prescription p) {
+        return prescriptions.contains(p);
+    }
+
+    public boolean isToday() {
+        return getDatetime().toLocalDate().equals(LocalDate.now());
+    }
+
     /**
      * Returns true if both appointments have the same name and datetime. This defines a weaker notion of equality
      * between two appointments.
@@ -145,7 +155,11 @@ public class Appointment {
                 + getPrescriptions() + "\n";
     }
 
-    public boolean containsPrescription(Prescription p) {
-        return prescriptions.contains(p);
+    @Override
+    public int compareTo(Appointment o) {
+        return Comparator.comparing(Appointment::isToday).reversed()
+                .thenComparing(Appointment::getDatetime)
+                .thenComparing(Appointment::getPatient)
+                .compare(this, o);
     }
 }

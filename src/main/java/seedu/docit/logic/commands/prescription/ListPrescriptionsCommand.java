@@ -22,7 +22,7 @@ public class ListPrescriptionsCommand extends AppointmentCommand {
             + COMMAND_WORD + ": List all prescriptions of an appointment "
             + "Parameters: \n"
             + CliSyntax.PREFIX_INDEX + "ID OF APPOINTMENT \n"
-            + "Example: appt " + COMMAND_WORD + " "
+            + "Example: apmt " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_INDEX + "1 ";
 
     public static final String MESSAGE_SUCCESS = "Listed all prescriptions of appointment";

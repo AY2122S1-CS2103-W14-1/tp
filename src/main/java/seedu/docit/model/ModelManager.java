@@ -213,6 +213,12 @@ public class ModelManager implements Model {
         appointmentBook.setAppointment(target, editedAppointment);
     }
 
+    @Override
+    public void sortAppointments() {
+        appointmentBook.sortAppointments();
+        updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
     //=========== ArchivedAppointmentBook =======================================================================
 
     /**
