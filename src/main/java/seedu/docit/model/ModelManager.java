@@ -4,6 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -19,6 +27,7 @@ import seedu.docit.model.patient.Patient;
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final int UPDATE_HOUR = 5;
 
     private final AddressBook addressBook;
     private final AppointmentBook appointmentBook;
@@ -45,6 +54,25 @@ public class ModelManager implements Model {
 
         filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
         filteredAppointments = new FilteredList<>(this.appointmentBook.getAppointmentList());
+
+
+        // Setup scheduler to auto-archive past appointments
+        archivePastAppointments();
+
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Singapore"));
+        ZonedDateTime nextRun = now.withHour(UPDATE_HOUR).withMinute(0).withSecond(0);
+        if (now.compareTo(nextRun) > 0) {
+            nextRun = nextRun.plusDays(1);
+        }
+
+        Duration duration = Duration.between(now, nextRun);
+        long initalDelay = duration.getSeconds();
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(new AutoArchiveApmts(this),
+                initalDelay,
+                TimeUnit.DAYS.toSeconds(1),
+                TimeUnit.SECONDS);
     }
 
     public ModelManager() {
@@ -207,6 +235,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void archivePastAppointments() {
+        for (Appointment appointment : appointmentBook.getAppointmentList()) {
+            if (isExpired(appointment)) {
+                archiveAppointment(appointment);
+            }
+        }
+    }
+
+    @Override
     public void setAppointment(Appointment target, Appointment editedAppointment) {
         requireAllNonNull(target, editedAppointment);
 
@@ -220,6 +257,21 @@ public class ModelManager implements Model {
     }
 
     //=========== ArchivedAppointmentBook =======================================================================
+
+    /**
+     * Checks if Appointment is 24-hours/1-day past its scheduled time.
+     *
+     * @param appointment
+     * @return true if appointment is past its scheduled time.
+     */
+    public boolean isExpired(Appointment appointment) {
+        Clock cl = Clock.systemUTC();
+        LocalDateTime now = LocalDateTime.now(cl);
+        LocalDateTime apptTime = appointment.getDatetime();
+        Duration duration = Duration.between(apptTime, now);
+
+        return duration.toDays() >= 1;
+    }
 
     /**
      * Temporarily returns appointment list to be printed in CommandResult.

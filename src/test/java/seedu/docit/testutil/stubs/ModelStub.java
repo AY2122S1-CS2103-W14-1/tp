@@ -180,6 +180,11 @@ public class ModelStub implements Model {
     public void updateFilteredAppointmentList(Predicate<Appointment> predicate) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void archivePastAppointments() {
+        throw new AssertionError("This method should not be called.");
+    }
 }
 
 
