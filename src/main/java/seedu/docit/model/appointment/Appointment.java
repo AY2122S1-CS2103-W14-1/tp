@@ -34,10 +34,17 @@ public class Appointment {
      * Every field must be present and not null.
      */
     public Appointment(Patient patient, LocalDateTime datetime) {
+        this(patient, datetime, new UniquePrescriptionList());
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Appointment(Patient patient, LocalDateTime datetime, UniquePrescriptionList prescriptionList) {
         requireAllNonNull(patient, datetime);
         this.patient = patient;
         this.datetime = datetime;
-        this.prescriptions = new UniquePrescriptionList();
+        this.prescriptions = prescriptionList;
         this.filteredPrescriptions = new FilteredList<>(this.prescriptions.getPrescriptions());
     }
 
@@ -49,8 +56,8 @@ public class Appointment {
         return datetime;
     }
 
-    public String getPrescriptions() {
-        return prescriptions.toString();
+    public UniquePrescriptionList getPrescriptions() {
+        return prescriptions;
     }
 
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {

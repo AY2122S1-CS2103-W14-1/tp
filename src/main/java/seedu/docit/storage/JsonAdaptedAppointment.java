@@ -2,6 +2,9 @@ package seedu.docit.storage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,6 +16,8 @@ import seedu.docit.logic.parser.exceptions.ParseException;
 import seedu.docit.model.ReadOnlyAddressBook;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
+import seedu.docit.model.prescription.UniquePrescriptionList;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -24,14 +29,19 @@ public class JsonAdaptedAppointment {
 
     private final String patientIndex;
     private final String datetime;
+    private final List<JsonAdaptedPrescription> prescriptionList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
     @JsonCreator public JsonAdaptedAppointment(@JsonProperty("patientId") String patientIndex,
-        @JsonProperty("datetime") String datetime) {
+        @JsonProperty("datetime") String datetime, @JsonProperty("UniquePrescriptionList")
+                                                       List<JsonAdaptedPrescription> appointmentList) {
         this.patientIndex = patientIndex;
         this.datetime = datetime;
+        if (appointmentList != null) {
+            this.prescriptionList.addAll(appointmentList);
+        }
     }
 
     /**
@@ -40,6 +50,9 @@ public class JsonAdaptedAppointment {
     public JsonAdaptedAppointment(Appointment source, ReadOnlyAddressBook addressBook) {
         patientIndex = Integer.toString(addressBook.getIndexOfPatient(source.getPatient()).getZeroBased());
         datetime = source.getFormattedDatetimeString();
+        prescriptionList.addAll(source.getPrescriptions()
+                        .getPrescriptions().stream().map(JsonAdaptedPrescription::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -77,7 +90,20 @@ public class JsonAdaptedAppointment {
             throw new IllegalValueException(LocalDateTime.class.getSimpleName() + " is of incorrect format.");
         }
 
-        return new Appointment(patientToAppointment, localDateTime);
+        if (prescriptionList == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Appointment List"));
+        }
+
+        UniquePrescriptionList newPrescriptionList = new UniquePrescriptionList();
+        for (JsonAdaptedPrescription prescription : prescriptionList) {
+            Prescription newPrescription = new Prescription(
+                    prescription.getPrescriptionMedicine(),
+                    prescription.getPrescriptionVolume(),
+                    prescription.getPrescriptionDuration());
+            newPrescriptionList.add(newPrescription);
+        }
+
+        return new Appointment(patientToAppointment, localDateTime, newPrescriptionList);
     }
 
 }
