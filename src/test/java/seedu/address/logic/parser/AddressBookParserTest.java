@@ -78,8 +78,6 @@ public class AddressBookParserTest {
                 + EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                 + " " + args);
 
-        System.out.println(command.equals(new EditPatientCommand(INDEX_FIRST_PERSON, descriptor)));
-
         assertEquals(new EditPatientCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

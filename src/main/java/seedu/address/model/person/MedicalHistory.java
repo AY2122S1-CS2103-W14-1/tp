@@ -54,8 +54,6 @@ public class MedicalHistory {
         public boolean equals(Object o) {
             if (o instanceof MedicalEntry) {
                 MedicalEntry m = (MedicalEntry) o;
-                System.out.println(this.description);
-                System.out.println(m.description);
                 return this.description.equals(m.description) && this.dateOfEntry.equals(m.dateOfEntry);
             }
             return false;

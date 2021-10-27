@@ -26,8 +26,6 @@ public class DeleteMedicalEntryCommandParser implements PatientParser<DeleteMedi
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
 
-        System.out.println(args);
-
         try {
             patientIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             medicalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
