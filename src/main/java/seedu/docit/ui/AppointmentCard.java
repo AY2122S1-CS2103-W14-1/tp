@@ -1,6 +1,5 @@
 package seedu.docit.ui;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;

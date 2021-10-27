@@ -152,6 +152,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void sortAppointments() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public String getAppointments() {
         throw new AssertionError("This method should not be called.");
     }

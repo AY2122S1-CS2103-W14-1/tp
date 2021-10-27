@@ -3,8 +3,7 @@ package seedu.docit.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import seedu.docit.commons.core.Messages;
-import seedu.docit.commons.core.index.Index;
+
 import seedu.docit.logic.commands.exceptions.CommandException;
 import seedu.docit.model.Model;
 import seedu.docit.model.appointment.Appointment;
