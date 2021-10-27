@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.appointment.UniqueAppointmentList;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
 
 /**
  * Wraps all data at the docit-book level Duplicates are not allowed (by .isSameAppointment comparison)
@@ -128,6 +129,17 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         appointments.remove(key);
     }
 
+    /**
+     * Adds {@code prescriptionToAdd} to {@code appointmentToMakePrescription}.
+     */
+    public void addPrescriptionToApmt(Appointment target, Prescription prescriptionToAdd) {
+        for (Appointment appointment : appointments) {
+            if (appointment.equals(target)) {
+                target.addPrescription(prescriptionToAdd);
+            }
+        }
+    }
+
     //// util methods
 
     @Override public String toString() {
@@ -153,4 +165,5 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     @Override public int hashCode() {
         return appointments.hashCode();
     }
+
 }

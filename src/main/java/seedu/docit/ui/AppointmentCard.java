@@ -40,6 +40,8 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private Label date;
     @FXML
+    private Label time;
+    @FXML
     private Label prescription;
     @FXML
     private FlowPane tags;
@@ -59,7 +61,8 @@ public class AppointmentCard extends UiPart<Region> {
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDatetimeString());
+        date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDateString());
+        time.setText("\u0000\u23f0\t" + appointment.getFormattedTimeString());
         appointment.getPrescriptionList().stream()
                .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
                .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));

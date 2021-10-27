@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,15 +11,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.SplitPane?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane HBox.hgrow="ALWAYS">
+    <GridPane mouseTransparent="true" HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
-        <SplitPane dividerPositions="0.6" stylesheets="@LightTheme.css">
+        <SplitPane dividerPositions="0.6" mouseTransparent="true" stylesheets="@LightTheme.css">
             <items>
-                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0" prefWidth="250">
+                <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="250" GridPane.columnIndex="0">
                     <padding>
                         <Insets bottom="5" left="15" right="5" top="5" />
                     </padding>
@@ -42,17 +42,17 @@
                             <Insets bottom="5.0" />
                         </padding></FlowPane>
                     <children>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true"/>
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true"/>
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true"/>
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true" />
+                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="1" prefWidth="90">
+                <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="90" GridPane.columnIndex="1">
                     <padding>
                         <Insets bottom="5" left="15" right="5" top="5" />
                     </padding>
                     <HBox alignment="TOP_CENTER" spacing="5">
-                        <Label text="Medical History" styleClass="cell_small_label_bold">
+                        <Label styleClass="cell_small_label_bold" text="Medical History">
                             <minWidth>
                                 <!-- Ensures that the label text is never truncated -->
                                 <Region fx:constant="USE_PREF_SIZE" />
@@ -60,8 +60,7 @@
                         </Label>
                     </HBox>
                     <children>
-                        <Label fx:id="medicalHistory" styleClass="cell_small_label" text="\$medicalHistory"
-                               wrapText="true"/>
+                        <Label fx:id="medicalHistory" styleClass="cell_small_label" text="\$medicalHistory" wrapText="true" />
                     </children>
                 </VBox>
             </items>
