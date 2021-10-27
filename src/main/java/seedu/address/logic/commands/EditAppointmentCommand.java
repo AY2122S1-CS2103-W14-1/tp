@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -22,7 +22,7 @@ import seedu.address.model.person.Patient;
 /**
  * Edits the details of an existing appointment in the appointment book.
  */
-public class EditAppointmentCommand extends Command {
+public class EditAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -30,10 +30,10 @@ public class EditAppointmentCommand extends Command {
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "PATIENT INDEX] \n"
+            + "[" + PREFIX_INDEX + "PATIENT INDEX] \n"
             + "[" + PREFIX_DATETIME + "DATETIME] \n"
-            + "Example: appt " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "2 "
+            + "Example: apmt " + COMMAND_WORD + " 1 "
+            + PREFIX_INDEX + "2 "
             + PREFIX_DATETIME + "2012-12-31 1600";
 
     public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
