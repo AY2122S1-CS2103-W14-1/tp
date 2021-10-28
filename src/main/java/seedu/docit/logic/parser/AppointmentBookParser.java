@@ -46,8 +46,6 @@ public class AppointmentBookParser {
             return new AddPrescriptionCommandParser().parse(arguments);
         case DeletePrescriptionCommand.COMMAND_WORD:
             return new DeletePrescriptionCommandParser().parse(arguments);
-        case ListPrescriptionsCommand.COMMAND_WORD:
-            return new ListPrescriptionsCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
         }
