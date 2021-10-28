@@ -66,6 +66,11 @@ public class Appointment implements Comparable<Appointment> {
      * @throws DuplicatePrescriptionException if prescription already exists.
      */
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
+        for (Prescription p : prescriptions) {
+            if (p.getMedicine().equals(prescription.getMedicine())) {
+                throw new DuplicatePrescriptionException();
+            }
+        }
         this.prescriptions.add(prescription);
         Set<Prescription> p = new HashSet<>();
         p.addAll(prescriptions);
@@ -78,7 +83,10 @@ public class Appointment implements Comparable<Appointment> {
      * @throws MedicineNotFoundException if no such medicine exists.
      */
     public void removePrescription(String medicineName) throws MedicineNotFoundException {
-        this.prescriptions.removeIf(p -> p.hasSameMedicalName(new Prescription(medicineName, "", "")));
+        if (!this.prescriptions.removeIf(p -> p.hasSameMedicalName(
+                new Prescription(medicineName, "", "")))) {
+            throw new MedicineNotFoundException();
+        }
         Set<Prescription> p = new HashSet<>();
         p.addAll(prescriptions);
         this.prescriptions = p;
