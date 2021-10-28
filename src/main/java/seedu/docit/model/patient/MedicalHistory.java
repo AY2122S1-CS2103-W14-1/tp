@@ -47,7 +47,7 @@ public class MedicalHistory {
         public String toString() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
             String dateToString = dateOfEntry.format(formatter);
-            return dateToString + " | " + this.description;
+            return this.description + ", recorded " + dateToString;
         }
 
         @Override

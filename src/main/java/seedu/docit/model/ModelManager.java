@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -22,6 +23,7 @@ import seedu.docit.commons.core.GuiSettings;
 import seedu.docit.commons.core.LogsCenter;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -219,6 +221,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAppointmentInArchives(Appointment appointment) {
+        requireNonNull(appointment);
+        return archivedAppointmentBook.hasAppointment(appointment);
+    }
+
+    @Override
     public void deleteAppointment(Appointment target) {
         appointmentBook.removeAppointment(target);
     }
@@ -231,6 +239,9 @@ public class ModelManager implements Model {
 
     @Override
     public void archiveAppointment(Appointment target) {
+        if (archivedAppointmentBook.hasAppointment(target)) {
+
+        }
         appointmentBook.removeAppointment(target);
         archivedAppointmentBook.addAppointment(target);
     }
@@ -262,6 +273,34 @@ public class ModelManager implements Model {
     public void sortAppointments() {
         appointmentBook.sortAppointments();
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+    /**
+     * Adds a prescription to appointment i in the list.
+     */
+    public void addPrescription(Appointment target, Prescription p) {
+        Set<Prescription> nextPrescription = target.getPrescriptions();
+        nextPrescription.add(p);
+
+        Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
+        appointmentBook.setAppointment(target, editedAppt);
+    }
+
+    /**
+     * Removes a prescription from an appointment i in the list.
+     */
+    public void deletePrescription(Appointment target, String medicine) {
+        target.removePrescription(medicine);
+        Set<Prescription> nextPrescription = target.getPrescriptions();
+        Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
+        appointmentBook.setAppointment(target, editedAppt);
+    }
+
+    /**
+     * Edits a prescription from an appointment i in the list.
+     */
+    public void editPrescription(int i, Prescription p) {
+        appointmentBook.editPrescription(i, p);
     }
 
     //=========== ArchivedAppointmentBook =======================================================================

@@ -132,6 +132,12 @@ public interface Model {
     boolean hasAppointment(Appointment appointment);
 
     /**
+     * Returns true if an appointment with the same identity as {@code appointmentToArchive} exists
+     * in the appointment archive book.
+     */
+    boolean hasAppointmentInArchives(Appointment appointmentToArchive);
+
+    /**
      * Deletes the given appointment. The appointment must exist in the appointment Book.
      */
     void deleteAppointment(Appointment target);
@@ -162,6 +168,12 @@ public interface Model {
 
     String getArchivedAppointments();
 
+    public void addPrescription(Appointment target, Prescription p);
+
+    public void deletePrescription(Appointment target, String medicine);
+
+    public void editPrescription(int i, Prescription p);
+
     /**
      * Returns an unmodifiable view of the filtered appointment list
      */
@@ -183,4 +195,5 @@ public interface Model {
      * Archives all appointments 1-day past their scheduled date.
      */
     void archivePastAppointments();
+
 }

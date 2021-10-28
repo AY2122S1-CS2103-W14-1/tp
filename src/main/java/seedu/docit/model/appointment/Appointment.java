@@ -5,7 +5,6 @@ import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,10 +28,8 @@ public class Appointment implements Comparable<Appointment> {
 
     // Identity fields
     private final Patient patient;
+    private Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
-
-    // Data fields
-    private final Set<Prescription> prescriptions = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -60,16 +57,39 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     public Set<Prescription> getPrescriptions() {
-        return Collections.unmodifiableSet(prescriptions);
+        return prescriptions;
     }
 
-
+    /**
+     * Adds a prescription into the appointment.
+     * @param prescription prescription to be added.
+     * @throws DuplicatePrescriptionException if prescription already exists.
+     */
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
+        for (Prescription p : prescriptions) {
+            if (p.getMedicine().equals(prescription.getMedicine())) {
+                throw new DuplicatePrescriptionException();
+            }
+        }
         this.prescriptions.add(prescription);
+        Set<Prescription> p = new HashSet<>();
+        p.addAll(prescriptions);
+        this.prescriptions = p;
     }
 
+    /**
+     * Removes a prescription from an appointment.
+     * @param medicineName medicine name of prescription to be removed.
+     * @throws MedicineNotFoundException if no such medicine exists.
+     */
     public void removePrescription(String medicineName) throws MedicineNotFoundException {
-        this.prescriptions.remove(medicineName);
+        if (!this.prescriptions.removeIf(p -> p.hasSameMedicalName(
+                new Prescription(medicineName, "", "")))) {
+            throw new MedicineNotFoundException();
+        }
+        Set<Prescription> p = new HashSet<>();
+        p.addAll(prescriptions);
+        this.prescriptions = p;
     }
 
     /**

@@ -49,8 +49,9 @@
                                   <Insets bottom="5.0" />
                               </padding>
                           </FlowPane>
-
-                                <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                          <children>
+                            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                          </children>
                       </VBox>
                       <VBox alignment="CENTER_LEFT" minHeight="105">
                           <padding>
@@ -99,7 +100,7 @@
                   <Insets left="10.0" right="10.0" />
                </VBox.margin>
             </Separator>
-            <VBox prefWidth="148.0">
+            <VBox fx:id="prescriptionContainer" prefWidth="148.0">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
