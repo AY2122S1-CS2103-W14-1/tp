@@ -33,8 +33,8 @@ reduce man-hours in managing paper files, translating this saved time into bette
        - Editing data files
        - Archiving data files
 4. FAQ
-5. Command Summary
-6. Glossary
+5. [Command Summary](#command-summary)
+6. [Glossary](#glossary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -46,16 +46,17 @@ reduce man-hours in managing paper files, translating this saved time into bette
 3. Copy the file to the folder you want to use as the _home folder_ for your Doc’it.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   <br>
    ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-* **`pt list`** : Lists all patients.
+   * **`pt list`** : Lists all patients.
 
-* **`doc exit`** : Exits the app.
+   * **`doc exit`** : Exits the app.
 
-1. Refer to the **Features** section below for details of each command.
+6. Refer to the **Features** section below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -111,6 +112,8 @@ understanding of basic functionalities of Doc’it, before diving into specific 
   e.g. `2021-10-28-1530` indicates 28 Oct 2021 at 3.30pm
 
 </div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## General Commands
 
@@ -269,7 +272,7 @@ Edits the details of an appointment at the specified index in the Appointments p
 - At least one of the optional fields should be present
 
 > :bulb: Use `i/PATIENT_INDEX` to change whose appointment it belongs to. <br>
-> e.g. `apmt edit 1 i/2` modifies the first appointment to belong to patient at index 2'
+> e.g. `apmt edit 1 i/2` modifies the first appointment to belong to the patient at index 2
 
 **Examples:**
 - `apmt edit 1 i/2`
