@@ -359,7 +359,7 @@ Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Add
 ## Glossary
 | Term           | Definition                                                                                |
 |----------------|-------------------------------------------------------------------------------------------|
-| Appointment    | A scheduled consult between a patient and the clinic's doctor.                            |
+| Appointment    | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication                            |
 | Archive        | Storage for data that is non-urgent, e.g. appointment records that are past their date.   |
 | Patient Record | A record of a patient's details, medical history, medication, appointment list, and name. |
 | Prescription   | The issued medication/treatment for a patient along with a duration and volume.           |
