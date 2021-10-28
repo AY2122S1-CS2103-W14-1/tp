@@ -202,6 +202,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### Recording a Patient's Prescription feature
+During appointments, the doctor can provide prescription of drugs for patients.
+Recording this information together with appointment information helps clinic staff to keep track of prescriptions given to a patient.
+Past prescriptions can also be viewed with past appointments.
+
+#### How Prescription is implemented
+The implementation of the Prescription class is done with a ```Prescription``` class. The ```Prescription``` class keep records of the medicine given, volume of medicine, and the duration which the medicine is taken.
+```Prescription``` objects are composed under ```Appointment``` objects, and will be deleted along with the parent ```Appointment``` object.
+Within each ```Appointment``` class, a collection of these ```Prescription``` objects are stored.
+
+The following commands are available from the ```Appointment``` class to interact with ```Prescription``` objects.
+* ```addPrescription(Prescription prescription)```- adds a new prescription for that appointment.
+* ```removePrescription(String medicineName)```- removes an existing prescription based on the name of the medicine.
+* ```listPrescriptions()```- lists all prescriptions for that appointment.
+
+#### Reason for implementation of Prescription
+```Prescription``` and ```Appointment``` forms a whole-part relationship and hence ```Prescription``` is suitable to be stored as a field of ```Appointment```. 
+```Prescription``` will also be deleted when appointment is deleted due to this whole-part relationship.  As an ```Appointment``` can have multiple ```Prescription```, the multiplicity is many to one.
+
+#### Alternatives considered
+1. Storing ```Prescription``` in a ```UniquePrescriptionList``` object.
+
+This method was considered at first to improve separation of concerns. However, the increased complexity of adapting storage to work with nested composite data structures was deemed to be too high and infeasible.
 ### Recording a Patient's Medical History feature
 
 Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient.
