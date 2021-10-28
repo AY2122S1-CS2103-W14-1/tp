@@ -105,24 +105,24 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     }
 
     /**
-     * Adds a prescription to appointment i in the list.
+     * Adds a prescription to the indexed appointment in the list.
      */
-    public void addPrescription(int i, Prescription p) {
-        internalList.get(i).addPrescription(p);
+    public void addPrescription(int index, Prescription p) {
+        internalList.get(index).addPrescription(p);
     }
 
     /**
-     * Removes a prescription from an appointment i in the list.
+     * Removes a prescription from an appointment specified by the index in the list.
      */
-    public void deletePrescription(int i, String medicine) {
-        internalList.get(i).removePrescription(medicine);
+    public void deletePrescription(int index, String medicine) {
+        internalList.get(index).removePrescription(medicine);
     }
 
     /**
-     * Edits a prescription from an appointment i in the list.
+     * Edits a prescription from an appointment specified by the index in the list.
      */
-    public void editPrescription(int i, Prescription p) {
-        internalList.get(i).editPrescription(p);
+    public void editPrescription(int index, Prescription p) {
+        internalList.get(index).editPrescription(p);
     }
 
     /**

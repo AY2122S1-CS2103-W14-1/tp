@@ -92,24 +92,24 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
-     * Adds a prescription to appointment i in the list.
+     * Adds a prescription to the indexed appointment in the list.
      */
-    public void addPrescription(int i, Prescription p) {
-        appointments.addPrescription(i, p);
+    public void addPrescription(int index, Prescription p) {
+        appointments.addPrescription(index, p);
     }
 
     /**
-     * Removes a prescription from an appointment i in the list.
+     * Removes a prescription from an appointment specified by the index in the list.
      */
-    public void deletePrescription(int i, String medicine) {
-        appointments.deletePrescription(i, medicine);
+    public void deletePrescription(int index, String medicine) {
+        appointments.deletePrescription(index, medicine);
     }
 
     /**
-     * Edits a prescription from an appointment i in the list.
+     * Edits a prescription from an appointment specified by the index in the list.
      */
-    public void editPrescription(int i, Prescription p) {
-        appointments.editPrescription(i, p);
+    public void editPrescription(int index, Prescription p) {
+        appointments.editPrescription(index, p);
     }
 
     /**
