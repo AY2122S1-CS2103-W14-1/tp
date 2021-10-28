@@ -230,11 +230,15 @@ Step 2: The user executes `appt add n/1 d/2021-10-19 1800` to add an appointment
 
 ![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
 
-Step 3: The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `AddressBook#deleteAllAppointmentsOfPatient()` to delete all appointments to that patient before deleting the patient.
+Step 3: The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
 
 After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
-![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram.png)
+![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram1.png)
+
+The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is instantiated. 
+
+![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram2.png)
 
 #### Design considerations
 
