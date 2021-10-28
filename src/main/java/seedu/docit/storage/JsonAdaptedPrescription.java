@@ -1,8 +1,8 @@
 package seedu.docit.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
+
 import seedu.docit.commons.exceptions.IllegalValueException;
 import seedu.docit.model.prescription.Prescription;
 import seedu.docit.model.tag.Tag;
