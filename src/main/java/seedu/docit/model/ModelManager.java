@@ -9,6 +9,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -257,19 +258,25 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-
     /**
      * Adds a prescription to appointment i in the list.
      */
-    public void addPrescription(int i, Prescription p) {
-        appointmentBook.addPrescription(i, p);
+    public void addPrescription(Appointment target, Prescription p) {
+        Set<Prescription> nextPrescription = target.getPrescriptions();
+        nextPrescription.add(p);
+
+        Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
+        appointmentBook.setAppointment(target, editedAppt);
     }
 
     /**
      * Removes a prescription from an appointment i in the list.
      */
-    public void deletePrescription(int i, String medicine) {
-        appointmentBook.deletePrescription(i, medicine);
+    public void deletePrescription(Appointment target, String medicine) {
+        Set<Prescription> nextPrescription = target.getPrescriptions();
+        nextPrescription.remove(medicine);
+        Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
+        appointmentBook.setAppointment(target, editedAppt);
     }
 
     /**

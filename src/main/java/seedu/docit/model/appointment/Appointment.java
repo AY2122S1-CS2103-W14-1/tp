@@ -58,7 +58,7 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     public Set<Prescription> getPrescriptions() {
-        return Collections.unmodifiableSet(prescriptions);
+        return prescriptions;
     }
 
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
