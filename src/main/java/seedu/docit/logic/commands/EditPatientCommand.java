@@ -40,7 +40,7 @@ public class EditPatientCommand extends PatientCommand {
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
             + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
-            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICALHISTORY] \n"
+            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL_HISTORY] \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 "
             + CliSyntax.PREFIX_EMAIL + "johndoe@example.com "

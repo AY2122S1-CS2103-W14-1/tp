@@ -21,7 +21,7 @@ public class AddPatientCommand extends PatientCommand {
             + CliSyntax.PREFIX_EMAIL + "EMAIL "
             + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
-            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL HISTORY]\n"
+            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL_HISTORY]\n"
             + "Example: " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_PHONE + "98765432 "
