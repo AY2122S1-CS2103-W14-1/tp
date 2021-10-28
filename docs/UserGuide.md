@@ -14,13 +14,13 @@ reduce man-hours in managing paper files, translating this saved time into bette
     1. [General Commands](#general-commands)
        - [Clear all records](#clear-all-records-doc-clear)
        - [Help](#help-doc-help)
-       - [Exit the program](#exit-the-program-exit)
+       - [Exit the program](#exit-the-program-doc-exit)
     2. [Patient Commands](#patient-commands)
        - [Add a patient](#add-a-patient-pt-add)
        - [List all patients](#list-all-patients-pt-list)
        - [Edit a patient](#edit-a-patient-pt-edit)
        - [Delete a patient](#delete-a-patient-pt-delete)
-    3. [Appointment-related Features](#appointment-commands)
+    3. [Appointment Commands](#appointment-commands)
        - [Add an appointment](#add-an-appointment-apmt-add)
        - [List all appointments](#list-all-appointments-apmt-list)
        - [Edit an appointment](#edit-an-appointment-apmt-edit)
@@ -32,7 +32,7 @@ reduce man-hours in managing paper files, translating this saved time into bette
        - Saving all data
        - Editing data files
        - Archiving data files
-4. FAQ
+4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 6. [Glossary](#glossary)
 
@@ -133,11 +133,11 @@ Format: `doc help`
 
 ---
 
-### Exit the program: `exit`
+### Exit the program: `doc exit`
 
 Exits the program.
 
-Format: `exit`
+Format: `doc exit`
 
 ---
 
