@@ -35,16 +35,16 @@ public class AddressBookParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public Command parseCommand(String userInput) throws ParseException {
-        // Patient Command Matching
         final Matcher patientMatcher = PTNT_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher basicMatcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher apmtMatcher = APPT_COMMAND_FORMAT.matcher(userInput.trim());
 
-        // empty inputs
+        // empty, invalid inputs
         if (userInput.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
+        // non-empty, potentially valid inputs
         if (basicMatcher.matches()) {
             // Basic Command Matching
             final String commandWord = basicMatcher.group("commandWord");

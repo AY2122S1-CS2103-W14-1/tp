@@ -26,8 +26,8 @@ public class EditAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = "apmt " + COMMAND_WORD + ": Edits the details of the appointment "
-        + "identified "
+    public static final String MESSAGE_USAGE = "apmt " + COMMAND_WORD
+            + ": Edits the details of the appointment identified "
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: APMT_INDEX (must be a positive integer) "

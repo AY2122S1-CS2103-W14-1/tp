@@ -18,6 +18,9 @@ Class ArgumentTokenizer
 Class Prefix
 }
 
+note left of Parser: Parser = BasicParser, PatientParser, or \nAppointmentParser
+note bottom of XYZCommand: XYZCommand = AddPatientCommand, \nEditAppointmentCommand, etc.
+note right of Command: Command = BasicCommand, PatientCommand, \nAppointmentCommand
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> AddressBookParser
 

@@ -3,8 +3,8 @@ layout: page
 title: User Guide
 ---
 
-Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
-patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
+`Doc’it` provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
+patient records, solving the inefficient paper records and files used today. With `Doc’it`, small family clinics can
 reduce man-hours in managing paper files, translating this saved time into better front-line care services.
 
 #### Table of Contents
@@ -43,7 +43,7 @@ reduce man-hours in managing paper files, translating this saved time into bette
 
 2. Download the latest `docit.jar` from [here](https://github.com/AY2122S1-CS2103-W14-1/tp/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your Doc’it.
+3. Copy the file to the folder you want to use as the _home folder_ for your `Doc’it`.
 
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    <br>
@@ -64,23 +64,27 @@ reduce man-hours in managing paper files, translating this saved time into bette
 
 <div markdown="block" class="alert alert-info">
 
-This section provides a brief overview of Doc’it. The intention is for users to gain a better
-understanding of basic functionalities of Doc’it, before diving into specific commands.
+This section provides a brief overview of `Doc’it`. The intention is for users to gain a better
+understanding of basic functionalities of `Doc’it`, before diving into specific commands.
+
 </div>
 
 1. **General functionality**
-    1. Clear all records
-    2. Get Help
-    3. Exit app
-2. **Manage Patient Records**
-    1. Create a new patient record
-    2. View details of patient record
-    3. Delete patient record
-    4. Edit patient record
-3. **Manage Patient Appointments**
-    1. Track appointments of your patients by entering their details e.g. date, prescribed medicine
-    2. Modify upcoming appointments and delete if appointments are cancelled
-    5. Archive appointment
+   1. Clear all records
+   2. Get Help
+   3. Exit app
+2. **Managing Patient Records**
+   1. Create a new patient record
+   2. View details of patient record
+   3. Delete patient record
+   4. Edit patient record
+3. **Managing Patient Appointments**
+   1. Create a new appointment
+   2. View appointment
+   3. Delete appointment
+   4. Archive appointment
+   5. List appointments
+   6. Sort appointments (in order of urgency)
 
 ## Features
 
@@ -106,7 +110,7 @@ understanding of basic functionalities of Doc’it, before diving into specific 
 * Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
-* `INDEX` must a positive integer of the given item in the panel. 
+* `INDEX` must a positive integer of the given item in the panel.
 
 * `DATETIME` must be in the format `yyyy-m-d HHmm` for all commands.<br>
   e.g. `2021-10-28-1530` indicates 28 Oct 2021 at 3.30pm
@@ -127,7 +131,7 @@ Format: `doc clear`
 
 ### Help: `doc help`
 
-Shows the user manual for Doc’it explaining how to access the help page.
+Shows the user manual for `Doc’it` explaining how to access the help page.
 
 Format: `doc help`
 
@@ -142,7 +146,7 @@ Format: `doc exit`
 ---
 
 ## Patient Commands
-A patient is the primary entity in Doc’it. This section documents how to perform CRUD operations on patient
+A patient is the primary entity in `Doc’it`. This section documents how to perform CRUD operations on patient
 records. Do not that _all_ patient-related commands have `pt` in front of them.
 
 ### Add a patient: `pt add`
@@ -219,17 +223,16 @@ Patient ID: 1
 ---
 
 ## Appointment Commands
-A patient in Doc’it may have appointments to visit the clinic.
+A patient in `Doc’it` may have appointments to visit the clinic.
 
-In the Appointments panel, upcoming appointments are shown in the Upcoming tab, and past appointments are archived in the Archived tab. 
+In the Appointments panel, upcoming appointments are shown in the Upcoming tab, and past appointments are archived in the Archived tab.
 
 One appointment stores these details:
 * Index of patient: The index of an existing patient in the Patients panel
 * Date and time: The date and time of the appointment
 
 >:information_source: All appointment-related commands have the keyword `apmt` in front of them.
-These commands modify the Appointments panel of Doc’it.
-
+These commands modify the Appointments panel of `Doc’it`.
 
 ## Add an appointment: `apmt add`
 Adds an appointment for the patient at the specified index in the Patients panel.
@@ -243,9 +246,8 @@ Adds an appointment for the patient at the specified index in the Patients panel
 * `apmt add i/1 d/2021-10-05 1500`  Adds appointment on 5 Oct 2021 at 3pm to patient at index 1.
 * `apmt add i/2 d/2022-12-31 0700`  Adds appointment on 31 Dec 2022 at 7am to patient at index 2.
 
-
 ## List all appointments: `apmt list`
-Shows a list of all appointments of all patients in Doc’it.
+Shows a list of all appointments of all patients in `Doc’it`.
 
 **Format:** `apmt list`
 
@@ -258,7 +260,6 @@ apmt list
 ```
 Listed all appointments.
 ```
-
 
 ### Edit an appointment: `apmt edit`
 
@@ -311,6 +312,36 @@ Archives an old appointment that is already past its date.
 Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Address: Blk 436 Serangoon Gardens Street 26, #16-43; Tags: [family]; Medical History: lovesick; Datetime: 2022-05-05 1300
 ```
 
+## List all appointments: `apmt list`
+Shows a list of all appointments.
+
+**Format:** `apmt list`
+
+**Examples:**
+* `apmt list`  Lists all appointments.
+
+**Expected Outcome:**
+```
+1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
+```
+
+## Sort all appointments: `apmt sort`
+Shows a sorted list of all appointments
+
+**Format:** `apmt sort`
+
+**Examples:**
+* `apmt sort`  Lists all appointments.
+
+**Expected Outcome:**
+```
+1. Patient Name: Didymus Ne | Appointment Date: 2021-06-05
+2. Patient Name: Hu Yuxin | Appointment Date: 2021-07-21
+3. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+4. Patient Name: Ian Yong | Appointment Date: 2021-10-06
+```
+
 ---
 
 ## Upcoming commands
@@ -323,7 +354,7 @@ Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Add
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Doc’it home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Doc’it` home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 

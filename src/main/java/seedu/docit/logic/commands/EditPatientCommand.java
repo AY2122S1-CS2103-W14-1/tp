@@ -31,7 +31,8 @@ public class EditPatientCommand extends PatientCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the patient identified "
+    public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD
+            + ": Edits the details of the patient identified "
             + "by the index number used in the displayed patient list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -40,8 +41,8 @@ public class EditPatientCommand extends PatientCommand {
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
             + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
-            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL_HISTORY] \n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICALHISTORY] \n"
+            + "Example: pt " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 "
             + CliSyntax.PREFIX_EMAIL + "johndoe@example.com "
             + CliSyntax.PREFIX_MEDICAL + "lovesick";

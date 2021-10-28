@@ -14,15 +14,15 @@ public class AddPatientCommand extends PatientCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the address book. \n"
+    public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Adds a patient to the address book. \n"
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_PHONE + "PHONE "
             + CliSyntax.PREFIX_EMAIL + "EMAIL "
             + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
-            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL_HISTORY]\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL HISTORY]\n"
+            + "Example: pt " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_PHONE + "98765432 "
             + CliSyntax.PREFIX_EMAIL + "johnd@example.com "

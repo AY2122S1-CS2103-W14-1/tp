@@ -17,7 +17,7 @@ public class DeleteAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = "apmt " + COMMAND_WORD
         + ": Deletes the appointment identified by the index number used in the displayed appointment list.\n"
         + "Parameters: INDEX (must be a positive integer)\n" + "Example: apmt " + COMMAND_WORD + " 1";
 

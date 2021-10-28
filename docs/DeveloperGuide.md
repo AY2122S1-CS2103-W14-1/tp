@@ -94,47 +94,72 @@ Here's a (partial) class diagram of the `Logic` component:
 
 How the `Logic` component works:
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
-1. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
-1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
+   - `AddressBookParser` categorises the command according to its format (using RegEx) and hands it off
+   to either one of `BasicAddressBookParser`, `PatientBookParser`, or `AppointmentBookParser`.
+2. The chosen parser then parses the command and returns a `Command` object (more precisely, an object of one of its subclasses e.g., `AddPatientCommand`) which is executed by the `LogicManager`.
+4. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
+5. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("pt delete 1")` API call.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeleteSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePatientCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
-<img src="images/ParserClasses.png" width="600"/>
+[comment]: <> (<img src="images/ParserClasses.png" width="600"/>)
+
+![Interactions between Command and Parser](diagrams/ParserClasses.png)
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPatientCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPatientCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g., `AddPatientCommandParser`, `DeletePatientCommandParser`, ...) inherit from one of the three parser interfaces: `BasicParser`, `PatientParser`, or `AppointmentParser` so that they
+be treated appropriately based on the type of command issued.
+* The three types of parsers (`BasicParser`, `PatientParser`, `AppointmentParser`) inherit directly from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 **Breakdown of Commands** <br>
-In the original AB3, all commands extend the `Command` abstract class. Doc'it supports three types of commands – general, patient-related, and appointment-related. As such, we introduce three abstract classes `BasicCommand`, `PatientCommand`, and `AppointmentCommand` in place of `Command`. As the names suggest, `BasicCommand` deals with app-related operations, `PatientCommand` deals with patient-related CRUD operations, and `AppointmentCommand` deal with appointment-related CRUD operations.
+In the original AB3, all commands extend the `Command` abstract class.
+`Doc'it` supports three types of commands – general, patient-related, and appointment-related. As such, we introduce three abstract classes `BasicCommand`, `PatientCommand`, and `AppointmentCommand` in place of `Command`.
+
+> As the names suggest, `BasicCommand` deals with whole application-related operations, `PatientCommand` deals with patient-related CRUD operations, and `AppointmentCommand` deal with appointment-related CRUD operations.
 
 The following is a list of commands that extend the three abstract classes:
 
-- BasicCommand
-    - ExitCommand
-    - ClearCommand
-    - HelpCommand
-- PatientCommand
-    - AddPatientCommand
-    - EditPatientCommand
-    - DeletePatientCommand
-    - ListPatientCommand
-    - FindPatientCommand
-- AppointmentCommand
-    - AddAppointmentCommand
-    - EditAppointmentCommand
-    - DeleteAppointmentCommand
-    - ListAppointmentsCommand
+- `BasicCommand`
+    - `ExitCommand`
+    - `ClearCommand`
+    - `HelpCommand`
+- `PatientCommand`
+    - `AddPatientCommand`
+    - `EditPatientCommand`
+    - `DeletePatientCommand`
+    - `ListPatientCommand`
+    - `FindPatientCommand`
+- `AppointmentCommand`
+    - `AddAppointmentCommand`
+    - `EditAppointmentCommand`
+    - `DeleteAppointmentCommand`
+    - `ListAppointmentsCommand`
+    - `SortAppointmentsCommand`
 
-> This taxonomy of commands is reflected on the Parser's side as well.
+> This taxonomy of commands is further reflected on the Parser's side as well.
+
+**Parser** <br>
+The `Parser` interface is broken into three sub-interfaces: `BasicParser`, `PatientParser`, and `AppointmentParser`, for the parsers related to application-related commands, patient-related commands, and
+appointment-related commands respectively. For all commands under `PatientParser` and `AppointmentParser` (ones that require
+any form of extra user input), we have a specific parser that tokenises the command:
+
+- `PatientCommandParser`
+    - `AddPatientCommandParser`
+    - `EditPatientCommandParser`
+    - `DeletePatientCommandParser`
+    - `FindPatientCommandParser`
+- `AppointmentParser`
+    - `AddAppointmentCommandParser`
+    - `EditAppointmentCommandParser`
+    - `DeleteAppointmentCommandParser`
 
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
@@ -471,14 +496,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `Doc'it` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the ``Doc'it`` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: UC01 - List all patients**
 
 **MSS**
 
 1.  User requests to list patients.
-2.  Doc'it displays all patients.
+2.  `Doc'it` displays all patients.
 
     Use case ends.
 
@@ -493,7 +518,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to add a patient.
-2.  Doc'it adds the patient with necessary information.
+2.  `Doc'it` adds the patient with necessary information.
 
     Use case ends.
 
@@ -501,13 +526,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Necessary details of patient are absent (name, NRIC).
 
-    * 1a1. Doc'it shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 
 * 1b. Patient details conflict with existing patient list.
 
-    * 1b1. Doc'it shows an error message.
+    * 1b1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 
@@ -517,9 +542,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list patients.
-2.  Doc'it shows a list of patients.
+2.  `Doc'it` shows a list of patients.
 3.  User requests to delete a specific patient in the list.
-4.  Doc'it deletes the patient.
+4.  `Doc'it` deletes the patient.
 
     Use case ends.
 
@@ -531,7 +556,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Doc'it shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
       Use case resumes at step 2.
 
@@ -540,7 +565,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to view a patient record.
-2.  Doc'it shows the details of the patient.
+2.  `Doc'it` shows the details of the patient.
 
     Use case ends.
 
@@ -548,7 +573,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified patient does not exist.
 
-    * 1a1. Doc'it shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
       Use case resumes at step 1.
 
@@ -557,7 +582,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list appointments.
-2.  Doc'it displays all appointments.
+2.  `Doc'it` displays all appointments.
 
     Use case ends.
 
@@ -572,9 +597,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list patients.
-2.  Doc'it displays all patients.
+2.  `Doc'it` displays all patients.
 3.  User adds an appointment, matching the appointment to the specific patient.
-4.  Doc'it adds the appointment and tags it to the patient.
+4.  `Doc'it` adds the appointment and tags it to the patient.
 
     Use case ends.
 
@@ -582,7 +607,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The date of the appointment AND/OR the specified patient are invalid.
 
-    * 3a1. Doc'it shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
       Use case resumes at step 3.
 
@@ -591,9 +616,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list appointments.
-2.  Doc'it displays all appointments.
+2.  `Doc'it` displays all appointments.
 3.  User requests to delete a specific appointment in the list.
-4.  Doc'it deletes the appointment and removes the appointment tag from the originally tagged patient.
+4.  `Doc'it` deletes the appointment and removes the appointment tag from the originally tagged patient.
 
     Use case ends.
 
@@ -605,7 +630,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. Doc'it shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
       Use case resumes at step 2.
 
@@ -614,9 +639,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list appointments.
-2.  Doc'it displays all appointments.
+2.  `Doc'it` displays all appointments.
 3.  User requests to archive all appointments that are past its date.
-4.  Doc'it archives all appointments that are past its date.
+4.  `Doc'it` archives all appointments that are past its date.
 
     Use case ends.
 
@@ -635,16 +660,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to exit the program.
-2.  Doc'it saves and writes all files.
-3.  Doc'it exits and closes.
+2.  `Doc'it` saves and writes all files.
+3.  `Doc'it` exits and closes.
 
     Use case ends.
 
 **Extensions**
 
-* 2a. Doc'it is unable to save file.
+* 2a. `Doc'it` is unable to save file.
 
-    * 2a1. Doc'it shows an error message.
+    * 2a1. `Doc'it` shows an error message.
 
       Use case resumes at step 1.
 
