@@ -53,7 +53,7 @@ public class SampleDataUtil {
     // TODO: Improve sample appointments
     public static Appointment[] getSampleAppointments() {
         return new Appointment[] {
-            new Appointment(patientAlex, LocalDateTime.of(2020, 10, 17, 12, 0))
+            new Appointment(patientAlex, LocalDateTime.of(2040, 10, 17, 12, 0))
         };
     }
 

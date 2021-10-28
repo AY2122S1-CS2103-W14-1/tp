@@ -1,6 +1,6 @@
 package seedu.docit.logic.parser;
 
-import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.docit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import seedu.docit.logic.commands.AddAppointmentCommand;
 import seedu.docit.logic.commands.AppointmentCommand;
@@ -47,7 +47,7 @@ public class AppointmentBookParser {
         case DeletePrescriptionCommand.COMMAND_WORD:
             return new DeletePrescriptionCommandParser().parse(arguments);
         default:
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

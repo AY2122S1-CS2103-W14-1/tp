@@ -137,6 +137,12 @@
     -fx-background-color: transparent;
 }
 
+.separator *.line {
+    -fx-border-style: solid;
+    -fx-border-color: #e7eeed;
+    -fx-border-width: 0 0 1 0;
+}
+
 .split-pane {
     -fx-border-radius: 15px;
     -fx-border-width: 0;
