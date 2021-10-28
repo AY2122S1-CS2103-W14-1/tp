@@ -3,9 +3,18 @@ layout: page
 title: User Guide
 ---
 
+<div class="toc-no-bullet-points">
+  * Table of Contents
+  {:toc}
+</div>
+
+--------------------------------------------------------------------------------------------------------------------
+
+## 1. Introduction
+
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
-reduce man-hours in managing paper files, translating this ‘saved’ time into better front-line care services.
+reduce man-hours in managing paper files, translating this saved time into better front-line care services.
 
 #### Table of Contents
 
@@ -208,10 +217,10 @@ Patient ID: 1
 ---
 
 ## Appointment Commands
-A patient in our patient record may have appointments to visit the family clinic. In the appointment view, each appointment on the appointment list indicates an upcoming visit to the clinic. To help small family clinics manage their upcoming appointments for its patients, Doc’It records the following attributes for appointment:
+A patient in our patient record may have appointments to visit the family clinic. In the appointment view, each appointment on the appointment list indicates an upcoming visit to the clinic. To help small family clinics manage their upcoming appointments for its patients, Doc’it records the following attributes for appointment:
 
-* Patient’s `INDEX`: The index of the patient in the list, starting from `1`.
-* Appointment Date: The date of the appointment.
+* Patient’s index: The index of the patient in the displayed list, starting from 1.
+* Appointment date and time: The date and time of the appointment.
 * All appointment-related commands have the keyword `apmt` in front of them.
 
 ## List all appointments: `apmt list`
