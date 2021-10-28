@@ -165,4 +165,14 @@ public class UniquePrescriptionList {
         return prescriptions.equals(that.prescriptions);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Prescriptions: ");
+        for (Prescription prescription : prescriptions) {
+            sb.append(prescription);
+            sb.append(" | ");
+        }
+        return sb.toString();
+    }
 }

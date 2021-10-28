@@ -87,6 +87,10 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         appointments.setAppointment(target, editedAppointment);
     }
 
+    public void sortAppointments() {
+        appointments.sort();
+    }
+
     /**
      * Updates appointments in the list with {@code target} when there are changes to the patient's details.
      * The appointment identity of {@code editedAppointment} must not be the same as another

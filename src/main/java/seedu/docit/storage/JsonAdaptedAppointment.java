@@ -3,7 +3,9 @@ package seedu.docit.storage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -17,7 +19,6 @@ import seedu.docit.model.ReadOnlyAddressBook;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.prescription.UniquePrescriptionList;
 
 /**
  * Jackson-friendly version of {@link Appointment}.
@@ -51,7 +52,7 @@ public class JsonAdaptedAppointment {
         patientIndex = Integer.toString(addressBook.getIndexOfPatient(source.getPatient()).getZeroBased());
         datetime = source.getFormattedDatetimeString();
         prescriptionList.addAll(source.getPrescriptions()
-                        .getPrescriptions().stream().map(JsonAdaptedPrescription::new)
+                        .stream().map(JsonAdaptedPrescription::new)
                 .collect(Collectors.toList()));
     }
 
@@ -94,7 +95,7 @@ public class JsonAdaptedAppointment {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Appointment List"));
         }
 
-        UniquePrescriptionList newPrescriptionList = new UniquePrescriptionList();
+        Set<Prescription> newPrescriptionList = new HashSet<>();
         for (JsonAdaptedPrescription prescription : prescriptionList) {
             Prescription newPrescription = new Prescription(
                     prescription.getPrescriptionMedicine(),

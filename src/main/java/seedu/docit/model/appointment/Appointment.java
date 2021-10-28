@@ -2,16 +2,17 @@ package seedu.docit.model.appointment;
 
 import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.Set;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.prescription.UniquePrescriptionList;
 import seedu.docit.model.prescription.exceptions.DuplicatePrescriptionException;
 import seedu.docit.model.prescription.exceptions.MedicineNotFoundException;
 
@@ -19,33 +20,33 @@ import seedu.docit.model.prescription.exceptions.MedicineNotFoundException;
  * Represents an Appointment in the appointment book. Guarantees: details are present and not null, field values are
  * validated, immutable.
  */
-public class Appointment {
+public class Appointment implements Comparable<Appointment> {
 
     public static final DateTimeFormatter UI_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
+    public static final DateTimeFormatter UI_DATE_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy");
+    public static final DateTimeFormatter UI_TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
 
     // Identity fields
     private final Patient patient;
-    private final UniquePrescriptionList prescriptions;
-    private final FilteredList<Prescription> filteredPrescriptions;
+    private final Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
 
     /**
      * Every field must be present and not null.
      */
     public Appointment(Patient patient, LocalDateTime datetime) {
-        this(patient, datetime, new UniquePrescriptionList());
+        this(patient, datetime, new HashSet<>());
     }
 
     /**
      * Every field must be present and not null.
      */
-    public Appointment(Patient patient, LocalDateTime datetime, UniquePrescriptionList prescriptionList) {
+    public Appointment(Patient patient, LocalDateTime datetime, Set<Prescription> prescriptionList) {
         requireAllNonNull(patient, datetime);
         this.patient = patient;
         this.datetime = datetime;
-        this.prescriptions = prescriptionList;
-        this.filteredPrescriptions = new FilteredList<>(this.prescriptions.getPrescriptions());
+        this.prescriptions.addAll(prescriptionList);
     }
 
     public Patient getPatient() {
@@ -56,9 +57,10 @@ public class Appointment {
         return datetime;
     }
 
-    public UniquePrescriptionList getPrescriptions() {
-        return prescriptions;
+    public Set<Prescription> getPrescriptions() {
+        return Collections.unmodifiableSet(prescriptions);
     }
+
 
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
         this.prescriptions.add(prescription);
@@ -82,8 +84,24 @@ public class Appointment {
         return getDatetime().format(UI_DATE_TIME_FORMATTER);
     }
 
+    public String getFormattedDateString() {
+        return getDatetime().format(UI_DATE_FORMATTER);
+    }
+
+    public String getFormattedTimeString() {
+        return getDatetime().format(UI_TIME_FORMATTER);
+    }
+
     public String getInputFormattedDatetimeString() {
         return getDatetime().format(INPUT_DATE_TIME_FORMATTER);
+    }
+
+    public boolean containsPrescription(Prescription p) {
+        return prescriptions.contains(p);
+    }
+
+    public boolean isToday() {
+        return getDatetime().toLocalDate().equals(LocalDate.now());
     }
 
     /**
@@ -118,13 +136,6 @@ public class Appointment {
         return isSameAppointment(otherAppointment);
     }
 
-    public void updateFilteredPrescriptions(Predicate<Prescription> predicate) {
-        filteredPrescriptions.setPredicate(predicate);
-    }
-
-    public ObservableList<Prescription> getFilteredPrescriptions() {
-        return filteredPrescriptions;
-    }
 
     @Override
     public int hashCode() {
@@ -138,7 +149,11 @@ public class Appointment {
                 + getPrescriptions() + "\n";
     }
 
-    public boolean containsPrescription(Prescription p) {
-        return prescriptions.contains(p);
+    @Override
+    public int compareTo(Appointment o) {
+        return Comparator.comparing(Appointment::isToday).reversed()
+                .thenComparing(Appointment::getDatetime)
+                .thenComparing(Appointment::getPatient)
+                .compare(this, o);
     }
 }

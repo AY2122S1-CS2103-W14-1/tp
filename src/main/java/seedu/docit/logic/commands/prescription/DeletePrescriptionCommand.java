@@ -25,7 +25,7 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
             + "Parameters: \n"
             + CliSyntax.PREFIX_INDEX + "ID OF APPOINTMENT \n"
             + CliSyntax.PREFIX_NAME + "MEDICINE \n"
-            + "Example: appt " + COMMAND_WORD + " "
+            + "Example: apmt " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_NAME + "Penicillin ";
 

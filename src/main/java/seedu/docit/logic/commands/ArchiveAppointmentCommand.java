@@ -17,9 +17,9 @@ public class ArchiveAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "archive";
 
-    public static final String MESSAGE_USAGE = "appt " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = "apmt " + COMMAND_WORD
             + ": Archives the appointment identified by the index number used in the displayed appointment list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: appt " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer)\n" + "Example: apmt " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_APPOINTMENT_SUCCESS = "Archived Appointment: %1$s";
 

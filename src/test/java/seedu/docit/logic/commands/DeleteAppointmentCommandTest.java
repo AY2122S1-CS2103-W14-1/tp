@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.model.AddressBook;
+import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.Model;
 import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
@@ -26,7 +27,7 @@ import seedu.docit.model.util.SampleDataUtil;
 
 public class DeleteAppointmentCommandTest {
     private final Model model = new ModelManager(SampleDataUtil.getSampleAddressBook(), getTypicalAppointmentList(),
-            getTypicalAppointmentList(), new UserPrefs());
+            new AppointmentBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

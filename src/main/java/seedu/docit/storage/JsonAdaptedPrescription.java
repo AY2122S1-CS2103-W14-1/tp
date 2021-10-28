@@ -1,8 +1,8 @@
 package seedu.docit.storage;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.docit.commons.exceptions.IllegalValueException;
 import seedu.docit.model.prescription.Prescription;
 import seedu.docit.model.tag.Tag;
@@ -20,7 +20,9 @@ public class JsonAdaptedPrescription {
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedPrescription(String volume, String medicine, String duration) {
+    public JsonAdaptedPrescription(@JsonProperty("volume") String volume,
+                                   @JsonProperty("medicine") String medicine,
+                                   @JsonProperty("duration") String duration) {
         this.volume = volume;
         this.duration = duration;
         this.medicine = medicine;

@@ -56,6 +56,10 @@ public class Prescription {
         return this.getMedicine().equals(p.getMedicine());
     }
 
+    public String toUiFormat() {
+        return String.format("%s | %s | %s", medicine, volume, duration);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -77,8 +81,7 @@ public class Prescription {
 
     @Override
     public String toString() {
-        return "Prescription: "
-                + "Medicine: " + medicine
+        return "Medicine: " + medicine
                 + ", Volume: " + volume
                 + ", Duration: " + duration;
     }

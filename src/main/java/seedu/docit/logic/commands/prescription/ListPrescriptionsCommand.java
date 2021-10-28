@@ -1,7 +1,6 @@
 package seedu.docit.logic.commands.prescription;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_PRESCRIPTIONS;
 
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class ListPrescriptionsCommand extends AppointmentCommand {
             + COMMAND_WORD + ": List all prescriptions of an appointment "
             + "Parameters: \n"
             + CliSyntax.PREFIX_INDEX + "ID OF APPOINTMENT \n"
-            + "Example: appt " + COMMAND_WORD + " "
+            + "Example: apmt " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_INDEX + "1 ";
 
     public static final String MESSAGE_SUCCESS = "Listed all prescriptions of appointment";
@@ -42,8 +41,6 @@ public class ListPrescriptionsCommand extends AppointmentCommand {
 
         Appointment appointmentToTarget = lastShownList.get(targetAppointmentIndex.getZeroBased());
 
-        appointmentToTarget.updateFilteredPrescriptions(PREDICATE_SHOW_ALL_PRESCRIPTIONS);
-
-        return new CommandResult(MESSAGE_SUCCESS + appointmentToTarget.getFilteredPrescriptions());
+        return new CommandResult(MESSAGE_SUCCESS + appointmentToTarget.getPrescriptions());
     }
 }

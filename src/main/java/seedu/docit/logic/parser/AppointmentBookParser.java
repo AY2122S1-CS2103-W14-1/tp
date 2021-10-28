@@ -8,6 +8,7 @@ import seedu.docit.logic.commands.ArchiveAppointmentCommand;
 import seedu.docit.logic.commands.DeleteAppointmentCommand;
 import seedu.docit.logic.commands.EditAppointmentCommand;
 import seedu.docit.logic.commands.ListAppointmentsCommand;
+import seedu.docit.logic.commands.SortAppointmentsCommand;
 import seedu.docit.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.docit.logic.commands.prescription.DeletePrescriptionCommand;
 import seedu.docit.logic.commands.prescription.ListPrescriptionsCommand;
@@ -39,6 +40,8 @@ public class AppointmentBookParser {
             return new ArchiveAppointmentCommandParser().parseAppointmentCommand(arguments);
         case ListAppointmentsCommand.COMMAND_WORD:
             return new ListAppointmentsCommand();
+        case SortAppointmentsCommand.COMMAND_WORD:
+            return new SortAppointmentsCommand();
         case AddPrescriptionCommand.COMMAND_WORD:
             return new AddPrescriptionCommandParser().parse(arguments);
         case DeletePrescriptionCommand.COMMAND_WORD:

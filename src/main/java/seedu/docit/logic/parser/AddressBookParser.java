@@ -24,7 +24,7 @@ public class AddressBookParser {
     private static final Pattern APPT_COMMAND_FORMAT = Pattern.compile("(apmt) (?<commandWord>\\S+)(?<arguments>.*)");
 
     private final PatientBookParser patientParser = new PatientBookParser();
-    private final AppointmentBookParser apptParser = new AppointmentBookParser();
+    private final AppointmentBookParser apmtParser = new AppointmentBookParser();
     private final BasicAddressBookParser basicParser = new BasicAddressBookParser();
 
     /**
@@ -38,7 +38,7 @@ public class AddressBookParser {
         // Patient Command Matching
         final Matcher patientMatcher = PTNT_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher basicMatcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        final Matcher apptMatcher = APPT_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher apmtMatcher = APPT_COMMAND_FORMAT.matcher(userInput.trim());
 
         // empty inputs
         if (userInput.equals("")) {
@@ -50,11 +50,11 @@ public class AddressBookParser {
             final String commandWord = basicMatcher.group("commandWord");
             final String arguments = basicMatcher.group("arguments"); // ignore any arguments
             return basicParser.parseBasicCommand(commandWord);
-        } else if (apptMatcher.matches()) {
+        } else if (apmtMatcher.matches()) {
             // Appointment Command Matching
-            final String commandWord = apptMatcher.group("commandWord");
-            final String arguments = apptMatcher.group("arguments");
-            return apptParser.parseAppointmentCommand(commandWord, arguments);
+            final String commandWord = apmtMatcher.group("commandWord");
+            final String arguments = apmtMatcher.group("arguments");
+            return apmtParser.parseAppointmentCommand(commandWord, arguments);
         } else if (patientMatcher.matches()) {
             // Patient Command Matching
             final String commandWord = patientMatcher.group("commandWord");
