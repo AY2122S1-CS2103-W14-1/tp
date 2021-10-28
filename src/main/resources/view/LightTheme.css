@@ -123,7 +123,7 @@
 }
 
 .split-pane:horizontal > .split-pane-divider {
-    -fx-border-color: transparent #eaeaea;
+    -fx-border-color: transparent #e7eeed;
     -fx-border-width: 1px;
     -fx-border-insets: 15px 5px;
     -fx-background-color: transparent;
@@ -131,7 +131,7 @@
 }
 
 .split-pane:vertical > .split-pane-divider {
-    -fx-border-color: #f3f3f3 transparent;
+    -fx-border-color: #e7eeed transparent;
     -fx-border-width: 1px;
     -fx-border-insets: 5px 0px 5px 0px;
     -fx-background-color: transparent;
@@ -223,18 +223,18 @@
 
 .pane-with-border {
      -fx-background-color: #ffffff;
-     -fx-border-color: #cccccc transparent;
+     -fx-border-color: #e7eeed transparent;
      -fx-border-width: 1px;
      -fx-border-radius: 0;
 }
 
 .pane-with-shadow {
-     -fx-background-color: derive(dddddd, 50%);
+     -fx-background-color: derive(#d0dedb, 50%);
      -fx-background-radius: 10px;
-     -fx-border-color: derive(#cccccc, 50%);
+     -fx-border-color: #d5ece8;
      -fx-border-width: 0px;
      -fx-border-radius: 15px;
-     -fx-effect: innershadow(gaussian, #bbbbbb, 15, 0, 0, 0);
+     -fx-effect: innershadow(gaussian, #b9cec9, 15, 0, 0, 0);
 }
 
 .pane-transparent {
@@ -457,11 +457,11 @@
     -fx-font-family: "Droid Sans Mono";
     -fx-font-size: 13pt;
     -fx-text-fill: #222222;
-    -fx-effect: innershadow(gaussian, #cccccc, 7, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #b9cec9, 7, 0, 0, 0);
 }
 
 #filterField, #patientListPanel, #patientWebpage {
-    -fx-effect: innershadow(gaussian, #cccccc, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #b9cec9, 10, 0, 0, 0);
 }
 
 #resultDisplay {
@@ -472,7 +472,7 @@
     -fx-background-color: #ffffff;
     -fx-background-radius: 15px;
     -fx-border-radius: 15px;
-    -fx-effect: innershadow(gaussian, #cccccc, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, #b9cec9, 10, 0, 0, 0);
 }
 
 .text-area .scroll-pane {
