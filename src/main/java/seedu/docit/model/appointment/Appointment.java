@@ -31,9 +31,6 @@ public class Appointment implements Comparable<Appointment> {
     private Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
 
-    // Data fields
-    private final Set<Prescription> prescriptions = new HashSet<>();
-
     /**
      * Every field must be present and not null.
      */
