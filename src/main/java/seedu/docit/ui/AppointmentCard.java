@@ -58,6 +58,8 @@ public class AppointmentCard extends UiPart<Region> {
      */
     public AppointmentCard(Appointment appointment, int displayedIndex) {
         super(FXML);
+        System.out.println("here");
+
         this.appointment = appointment;
         Patient patient = appointment.getPatient();
         id.setText(displayedIndex + ". ");
@@ -68,17 +70,13 @@ public class AppointmentCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDateString());
         time.setText("\u0000\u23f0\t" + appointment.getFormattedTimeString());
-<<<<<<< HEAD
 
-        if (appointment.getPrescriptionList().size() == 0) {
+        if (appointment.getPrescriptions().size() == 0) {
             prescriptionContainer.setVisible(false);
             prescription.setVisible(false);
         }
 
-        appointment.getPrescriptionList().stream()
-=======
         appointment.getPrescriptions().stream()
->>>>>>> master
                .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
                .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));
 

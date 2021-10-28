@@ -55,7 +55,8 @@ public class Prescription {
     }
 
     public String toUiFormat() {
-        return String.format("%s | %s | %s", medicine, volume, duration);
+        return medicine + " | " + volume + " | " + duration;
+        //return String.format("%s | %s | %s", medicine, volume, duration);
     }
 
     @Override

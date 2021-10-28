@@ -29,7 +29,7 @@ public class Appointment implements Comparable<Appointment> {
 
     // Identity fields
     private final Patient patient;
-    private final Set<Prescription> prescriptions = new HashSet<>();
+    private Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
 
     /**
@@ -61,16 +61,21 @@ public class Appointment implements Comparable<Appointment> {
         return Collections.unmodifiableSet(prescriptions);
     }
 
-
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
         this.prescriptions.add(prescription);
+        Set<Prescription> p = new HashSet<>();
+        p.addAll(prescriptions);
+        this.prescriptions = p;
     }
 
     public void removePrescription(String medicineName) throws MedicineNotFoundException {
         this.prescriptions.remove(medicineName);
+        Set<Prescription> p = new HashSet<>();
+        p.addAll(prescriptions);
+        this.prescriptions = p;
     }
 
-    /**
+    /**i can
      * Edits the prescription associated with this Appointment
      * @param prescription Prescription to be edited
      * @throws MedicineNotFoundException when the prescription cannot be found.

@@ -21,6 +21,7 @@ import seedu.docit.commons.core.GuiSettings;
 import seedu.docit.commons.core.LogsCenter;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -254,6 +255,28 @@ public class ModelManager implements Model {
     public void sortAppointments() {
         appointmentBook.sortAppointments();
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
+    }
+
+
+    /**
+     * Adds a prescription to appointment i in the list.
+     */
+    public void addPrescription(int i, Prescription p) {
+        appointmentBook.addPrescription(i, p);
+    }
+
+    /**
+     * Removes a prescription from an appointment i in the list.
+     */
+    public void deletePrescription(int i, String medicine) {
+        appointmentBook.deletePrescription(i, medicine);
+    }
+
+    /**
+     * Edits a prescription from an appointment i in the list.
+     */
+    public void editPrescription(int i, Prescription p) {
+        appointmentBook.editPrescription(i, p);
     }
 
     //=========== ArchivedAppointmentBook =======================================================================

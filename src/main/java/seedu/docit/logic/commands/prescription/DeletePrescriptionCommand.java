@@ -52,9 +52,8 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
-        Appointment appointmentToTarget = lastShownList.get(targetAppointmentIndex.getZeroBased());
         try {
-            appointmentToTarget.removePrescription(targetMedicineName);
+            model.deletePrescription(targetAppointmentIndex.getZeroBased(), targetMedicineName);
             return new CommandResult(MESSAGE_DELETE_PRESCRIPTION_SUCCESS);
         } catch (MedicineNotFoundException e) {
             throw new CommandException(e.getMessage());

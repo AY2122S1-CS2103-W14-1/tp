@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.appointment.UniqueAppointmentList;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
 
 /**
  * Wraps all data at the docit-book level Duplicates are not allowed (by .isSameAppointment comparison)
@@ -55,7 +56,6 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     public void resetData(ReadOnlyAppointmentBook newData) {
         requireNonNull(newData);
-
         setAppointments(newData.getAppointmentList());
     }
 
@@ -89,6 +89,27 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     public void sortAppointments() {
         appointments.sort();
+    }
+
+    /**
+     * Adds a prescription to appointment i in the list.
+     */
+    public void addPrescription(int i, Prescription p) {
+        appointments.addPrescription(i, p);
+    }
+
+    /**
+     * Removes a prescription from an appointment i in the list.
+     */
+    public void deletePrescription(int i, String medicine) {
+        appointments.deletePrescription(i, medicine);
+    }
+
+    /**
+     * Edits a prescription from an appointment i in the list.
+     */
+    public void editPrescription(int i, Prescription p) {
+        appointments.editPrescription(i, p);
     }
 
     /**
@@ -134,7 +155,8 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
 
     //// util methods
 
-    @Override public String toString() {
+    @Override
+    public String toString() {
         Iterator<Appointment> i = appointments.iterator();
         StringBuilder r = new StringBuilder();
         while (i.hasNext()) {
@@ -144,17 +166,20 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         // TODO: refine later
     }
 
-    @Override public ObservableList<Appointment> getAppointmentList() {
+    @Override
+    public ObservableList<Appointment> getAppointmentList() {
         return appointments.asUnmodifiableObservableList();
     }
 
-    @Override public boolean equals(Object other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AppointmentBook // instanceof handles nulls
             && appointments.equals(((AppointmentBook) other).appointments));
     }
 
-    @Override public int hashCode() {
+    @Override
+    public int hashCode() {
         return appointments.hashCode();
     }
 }
