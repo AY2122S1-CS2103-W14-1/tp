@@ -1,0 +1,12 @@
+@startuml
+!include ../style.puml
+
+Class Appointment LOGIC_COLOR_T3
+
+Class Prescription MODEL_COLOR_T3
+
+
+Appointment "1" *-- "*"Prescription
+
+
+@enduml

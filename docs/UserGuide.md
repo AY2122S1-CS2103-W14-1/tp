@@ -85,6 +85,9 @@ understanding of basic functionalities of `Doc’it`, before diving into specifi
    4. Archive appointment
    5. List appointments
    6. Sort appointments (in order of urgency)
+   7. Managing appointment prescriptions
+      1. Add prescription
+      2. Remove prescription
 
 ## Features
 
@@ -341,7 +344,36 @@ Shows a sorted list of all appointments
 3. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
 4. Patient Name: Ian Yong | Appointment Date: 2021-10-06
 ```
+## Add prescription: `apmt pa`
+Adds a prescription to the designated appointment.
 
+
+**Format:** `apmt pa i/APMT_INDEX n/MEDICINE_NAME v/MEDICINE_VOLUME d/MEDICINE_DURATION`
+* The names of medicine added to the prescription list must be unique.
+
+**Examples:**
+* `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week`
+
+**Expected Outcome:**
+```
+New prescription added
+Medicine: Penicillin
+Volume: 400 ml
+Duration: 2 times a week
+```
+
+## Delete prescription: `apmt pd`
+Adds a prescription to the designated appointment.
+
+**Format:** `apmt pa i/APMT_INDEX n/MEDICINE_NAME`
+
+**Examples:**
+* `apmt pd i/1 n/Penicillin `
+
+**Expected Outcome:**
+```
+Deleted prescription
+```
 ---
 
 ## Upcoming commands
