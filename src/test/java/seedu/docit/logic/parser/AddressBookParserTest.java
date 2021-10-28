@@ -70,9 +70,8 @@ public class AddressBookParserTest {
         String args = PatientUtil.getEditPatientDescriptorDetails(descriptor);
 
         // args not supposed to have date after m/ by design
-        if (args.split("\\|").length > 1) {
-            args = args.split("\\|")[0].trim().substring(0, args.split("\\|")[0].trim().length() - 11)
-                + args.split("\\|")[1];
+        if (args.split(", recorded").length > 1) {
+            args = args.split(", recorded")[0].trim();
         }
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(PT_PREFIX
                 + EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PATIENT.getOneBased()
