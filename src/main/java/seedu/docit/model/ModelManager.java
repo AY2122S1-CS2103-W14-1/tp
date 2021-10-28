@@ -273,8 +273,8 @@ public class ModelManager implements Model {
      * Removes a prescription from an appointment i in the list.
      */
     public void deletePrescription(Appointment target, String medicine) {
+        target.removePrescription(medicine);
         Set<Prescription> nextPrescription = target.getPrescriptions();
-        nextPrescription.remove(medicine);
         Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
         appointmentBook.setAppointment(target, editedAppt);
     }

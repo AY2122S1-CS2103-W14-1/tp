@@ -41,7 +41,7 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
      */
     public DeletePrescriptionCommand(Index targetAppointmentIndex, String targetMedicineName) {
         this.targetAppointmentIndex = targetAppointmentIndex;
-        this.targetMedicineName = targetMedicineName.trim();
+        this.targetMedicineName = targetMedicineName.trim().toLowerCase();
     }
 
     @Override public CommandResult execute(Model model) throws CommandException {
