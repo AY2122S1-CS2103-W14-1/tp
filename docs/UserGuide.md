@@ -68,15 +68,15 @@ understanding of basic functionalities of Doc’It, before diving into specific 
     2. Get Help
     3. Exit app
 2. **Managing Patient Records**
-   1. Create a new patient record
-   2. View details of patient record
-   3. Delete patient record
-   4. Edit patient record 
+    1. Create a new patient record
+    2. View details of patient record
+    3. Delete patient record
+    4. Edit patient record
 3. **Managing Patient Appointments**
-      1. Create a new appointment
-      2. View appointment
-      3. Delete appointment
-      4. Archive appointment
+    1. Create a new appointment
+    2. View appointment
+    3. Delete appointment
+    4. Archive appointment
 
 ## Features
 
