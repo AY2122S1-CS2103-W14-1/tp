@@ -63,7 +63,7 @@ public class AppointmentCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDateString());
         time.setText("\u0000\u23f0\t" + appointment.getFormattedTimeString());
-        appointment.getPrescriptionList().stream()
+        appointment.getPrescriptions().stream()
                .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
                .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));
         isToday.setVisible(appointment.isToday());

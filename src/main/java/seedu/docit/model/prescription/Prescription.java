@@ -2,31 +2,23 @@ package seedu.docit.model.prescription;
 
 import java.util.Objects;
 
-import seedu.docit.model.appointment.Appointment;
-
 public class Prescription {
     private String medicine;
     private String volume;
     private String duration;
-    private Appointment appointment;
 
     /**
      * Creates a new Prescription object with medicine, volume, duration and associated appointment
      * @param medicine Name of medicine
      * @param volume Volume of medicine
      * @param duration Duration of medicine intake
-     * @param appointment Associated appointment
      */
-    public Prescription(String medicine, String volume, String duration, Appointment appointment) {
-        this.appointment = appointment;
+    public Prescription(String medicine, String volume, String duration) {
         this.medicine = medicine;
         this.volume = volume;
         this.duration = duration;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
 
     public String getDuration() {
         return duration;
@@ -75,21 +67,19 @@ public class Prescription {
             return false;
         }
         Prescription that = (Prescription) o;
-        return that.getAppointment().equals(getAppointment())
-                && that.getDuration().equals(getDuration())
+        return that.getDuration().equals(getDuration())
                 && that.getMedicine().equals(getMedicine())
                 && that.getVolume().equals(getVolume());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMedicine(), getVolume(), getDuration(), getAppointment());
+        return Objects.hash(getMedicine(), getVolume(), getDuration());
     }
 
     @Override
     public String toString() {
-        return "Prescription: "
-                + "Medicine: " + medicine
+        return "Medicine: " + medicine
                 + ", Volume: " + volume
                 + ", Duration: " + duration;
     }
