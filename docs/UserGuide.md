@@ -74,10 +74,13 @@ understanding of basic functionalities of `Doc’it`, before diving into specifi
    2. Get Help
    3. Exit app
 2. **Managing Patient Records**
-   1. Create a new patient record
-   2. View details of patient record
-   3. Delete patient record
-   4. Edit patient record
+   1. Create a new Patient Record
+   2. View details of Patient Record
+   3. Delete Patient Record
+   4. Edit Patient Record
+   5. Add Medical History from a Patient Record
+   6. Delete Medical History of a Patient Record
+   7. Find filtered patient records based on keywords
 3. **Managing Patient Appointments**
    1. Create a new appointment
    2. View appointment
@@ -218,6 +221,64 @@ Deletes a patient record, including all information about the patient.
 Deleted the following patient from records:
 Patient Name: Joshen Lim
 Patient ID: 1
+```
+
+---
+
+### Add a Medical History: `pt ma 1 m/diabetes`
+
+Adds a medical history to the Patient Record, saving the medical history and ```today``` as the date of entry.
+
+**Format:** `pt ma INDEX m/[medical history]`
+
+- Adds a medical history to the patient at the specified `INDEX` (one-indexed).
+
+**Examples:**
+- `pt ma INDEX m/diabetes`
+
+**Expected Outcome:**
+```
+Updated: 
+Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Tags: [friends]; Medical History: diabetes, recorded 28 Oct 2021, high blood pressure, recorded 28 Oct 2021, diabetes, recorded 28 Oct 2021
+```
+
+---
+
+### Delete a Medical History: `pt md 1 i/1`
+
+Deletes a medical history to the Patient Record.
+
+**Format:** `pt md INDEX i/MEDICAL_HISTORY_INDEX`
+
+- Deletes a medical history from the patient at the specified `INDEX` (one-indexed). The entry deleted is specified by the `MEDICAL_HISTORY_INDEX`
+
+**Examples:**
+- `pt md 1 i/1`
+
+**Expected Outcome:**
+```
+Updated: 
+Updated: 
+Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Tags: [friends]; Medical History: high blood pressure, recorded 28 Oct 2021, diabetes, recorded 28 Oct 2021
+```
+
+
+---
+
+### Find a Patient from keywords with Name or Medical History: `pt find [keywords...]`
+
+Finds all patients that match any one of the keywords listed
+
+**Format:** `pt find [keywords...]`
+
+- Finds all patients that match any one of the keywords listed.
+
+**Examples:**
+- `pt find Alex David diabetes high blood pressure`
+
+**Expected Outcome:**
+```
+4 patients listed!
 ```
 
 ---
