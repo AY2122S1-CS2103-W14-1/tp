@@ -5,7 +5,6 @@ import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
@@ -61,6 +60,11 @@ public class Appointment implements Comparable<Appointment> {
         return prescriptions;
     }
 
+    /**
+     * Adds a prescription into the appointment.
+     * @param prescription prescription to be added.
+     * @throws DuplicatePrescriptionException if prescription already exists.
+     */
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
         this.prescriptions.add(prescription);
         Set<Prescription> p = new HashSet<>();
@@ -68,6 +72,11 @@ public class Appointment implements Comparable<Appointment> {
         this.prescriptions = p;
     }
 
+    /**
+     * Removes a prescription from an appointment.
+     * @param medicineName medicine name of prescription to be removed.
+     * @throws MedicineNotFoundException if no such medicine exists.
+     */
     public void removePrescription(String medicineName) throws MedicineNotFoundException {
         this.prescriptions.removeIf(p -> p.hasSameMedicalName(new Prescription(medicineName, "", "")));
         Set<Prescription> p = new HashSet<>();
@@ -75,7 +84,7 @@ public class Appointment implements Comparable<Appointment> {
         this.prescriptions = p;
     }
 
-    /**i can
+    /**
      * Edits the prescription associated with this Appointment
      * @param prescription Prescription to be edited
      * @throws MedicineNotFoundException when the prescription cannot be found.

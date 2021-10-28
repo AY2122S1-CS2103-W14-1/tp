@@ -1,6 +1,5 @@
 package seedu.docit.model.prescription;
 
-import java.util.Locale;
 import java.util.Objects;
 
 public class Prescription {

@@ -58,7 +58,6 @@ public class AppointmentCard extends UiPart<Region> {
      */
     public AppointmentCard(Appointment appointment, int displayedIndex) {
         super(FXML);
-        System.out.println("here");
 
         this.appointment = appointment;
         Patient patient = appointment.getPatient();

@@ -11,6 +11,7 @@ import seedu.docit.model.ReadOnlyAppointmentBook;
 import seedu.docit.model.ReadOnlyUserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
+import seedu.docit.model.prescription.Prescription;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -185,6 +186,19 @@ public class ModelStub implements Model {
     public void archivePastAppointments() {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public void addPrescription(Appointment target, Prescription p) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deletePrescription(Appointment target, String medicine) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void editPrescription(int i, Prescription p) {
+        throw new AssertionError("This method should not be called.");
+    }
 }
-
-
