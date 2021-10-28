@@ -41,7 +41,7 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
      */
     public DeletePrescriptionCommand(Index targetAppointmentIndex, String targetMedicineName) {
         this.targetAppointmentIndex = targetAppointmentIndex;
-        this.targetMedicineName = targetMedicineName;
+        this.targetMedicineName = targetMedicineName.trim().toLowerCase();
     }
 
     @Override public CommandResult execute(Model model) throws CommandException {
@@ -54,7 +54,7 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
 
         Appointment appointmentToTarget = lastShownList.get(targetAppointmentIndex.getZeroBased());
         try {
-            appointmentToTarget.removePrescription(targetMedicineName);
+            model.deletePrescription(appointmentToTarget, targetMedicineName);
             return new CommandResult(MESSAGE_DELETE_PRESCRIPTION_SUCCESS);
         } catch (MedicineNotFoundException e) {
             throw new CommandException(e.getMessage());

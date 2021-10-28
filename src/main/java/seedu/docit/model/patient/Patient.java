@@ -70,13 +70,6 @@ public class Patient implements Comparable<Patient> {
     }
 
     /**
-<<<<<<< HEAD:src/main/java/seedu/address/model/person/Patient.java
-=======
-<<<<<<< HEAD:src/main/java/seedu/docit/model/patient/Patient.java
-     * Returns true if both patients have the same name.
-     * This defines a weaker notion of equality between two patients.
-=======
->>>>>>> appearance-update:src/main/java/seedu/docit/model/patient/Patient.java
      * Returns a {@code Patient} object that has the combined {@code MedicalHistory} object.
      * @param mH {@code MedicalHistory} object to be combined with existing patient medical history.
      * @return patient with combined {@code MedicalHistory} object.
@@ -107,7 +100,6 @@ public class Patient implements Comparable<Patient> {
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
->>>>>>> master:src/main/java/seedu/address/model/person/Patient.java
      */
     public boolean isSamePatient(Patient otherPatient) {
         if (otherPatient == this) {

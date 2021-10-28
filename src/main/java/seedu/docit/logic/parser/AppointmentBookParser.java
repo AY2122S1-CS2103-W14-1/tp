@@ -11,11 +11,9 @@ import seedu.docit.logic.commands.ListAppointmentsCommand;
 import seedu.docit.logic.commands.SortAppointmentsCommand;
 import seedu.docit.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.docit.logic.commands.prescription.DeletePrescriptionCommand;
-import seedu.docit.logic.commands.prescription.ListPrescriptionsCommand;
 import seedu.docit.logic.parser.exceptions.ParseException;
 import seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser;
 import seedu.docit.logic.parser.prescription.DeletePrescriptionCommandParser;
-import seedu.docit.logic.parser.prescription.ListPrescriptionsCommandParser;
 
 /**
  * Parses user input.
@@ -46,8 +44,6 @@ public class AppointmentBookParser {
             return new AddPrescriptionCommandParser().parse(arguments);
         case DeletePrescriptionCommand.COMMAND_WORD:
             return new DeletePrescriptionCommandParser().parse(arguments);
-        case ListPrescriptionsCommand.COMMAND_WORD:
-            return new ListPrescriptionsCommandParser().parse(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

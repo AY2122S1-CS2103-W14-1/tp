@@ -32,16 +32,19 @@ public class AppointmentListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Appointment} using a {@code AppointmentCard}.
      */
-    class AppointmentListViewCell extends ListCell<Appointment> {
+    private static class AppointmentListViewCell extends ListCell<Appointment> {
         @Override
         protected void updateItem(Appointment appointment, boolean empty) {
             super.updateItem(appointment, empty);
 
-            if (empty || appointment == null) {
+            if (empty) {
+                setText(null);
+                setGraphic(null);
+            } else if (appointment != null) {
+                setGraphic(new AppointmentCard(appointment, getIndex() + 1).getRoot());
+            } else {
                 setGraphic(null);
                 setText(null);
-            } else {
-                setGraphic(new AppointmentCard(appointment, getIndex() + 1).getRoot());
             }
         }
     }

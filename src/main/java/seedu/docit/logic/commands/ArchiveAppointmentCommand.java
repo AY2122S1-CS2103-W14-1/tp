@@ -22,6 +22,8 @@ public class ArchiveAppointmentCommand extends AppointmentCommand {
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: apmt " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_ARCHIVE_APPOINTMENT_SUCCESS = "Archived Appointment: %1$s";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT =
+            "This appointment already exists in the archives. Removing appointment.";
 
     private final Index targetIndex;
 
@@ -38,6 +40,11 @@ public class ArchiveAppointmentCommand extends AppointmentCommand {
         }
 
         Appointment appointmentToArchive = lastShownList.get(targetIndex.getZeroBased());
+
+        if (model.hasAppointmentInArchives(appointmentToArchive)) {
+            model.deleteAppointment(appointmentToArchive);
+            throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
         model.archiveAppointment(appointmentToArchive);
         return new CommandResult(String.format(MESSAGE_ARCHIVE_APPOINTMENT_SUCCESS, appointmentToArchive));
     }

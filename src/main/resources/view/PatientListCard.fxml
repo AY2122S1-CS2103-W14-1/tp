@@ -40,7 +40,8 @@
                     <FlowPane fx:id="tags">
                         <padding>
                             <Insets bottom="5.0" />
-                        </padding></FlowPane>
+                        </padding>
+                    </FlowPane>
                     <children>
                         <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" wrapText="true" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" wrapText="true" />

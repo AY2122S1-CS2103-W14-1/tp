@@ -14,9 +14,9 @@ public class Prescription {
      * @param duration Duration of medicine intake
      */
     public Prescription(String medicine, String volume, String duration) {
-        this.medicine = medicine;
-        this.volume = volume;
-        this.duration = duration;
+        this.medicine = medicine.toLowerCase();
+        this.volume = volume.toLowerCase();
+        this.duration = duration.toLowerCase();
     }
 
 
@@ -55,7 +55,7 @@ public class Prescription {
     }
 
     public String toUiFormat() {
-        return String.format("%s | %s | %s", medicine, volume, duration);
+        return medicine + " | " + volume + " | " + duration;
     }
 
     @Override
