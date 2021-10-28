@@ -145,8 +145,8 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public String toString() {
-        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: "
-                + getPrescriptions() + "\n";
+        return "Patient: " + getPatient().getName() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER)
+            + "; " + "Prescription: " + getPrescriptions() + "\n";
     }
 
     @Override

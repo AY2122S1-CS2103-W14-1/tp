@@ -31,7 +31,7 @@ public class AddPatientCommand extends PatientCommand {
             + CliSyntax.PREFIX_TAG + "owesMoney "
             + CliSyntax.PREFIX_MEDICAL + "diabetes";
 
-    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New patient added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_PATIENT = "This patient already exists in the address book";
 
     private final Patient toAdd;

@@ -26,7 +26,8 @@ public class EditAppointmentCommand extends AppointmentCommand {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the appointment identified "
+    public static final String MESSAGE_USAGE = "apmt " + COMMAND_WORD + ": Edits the details of the appointment "
+        + "identified "
             + "by the index number used in the displayed appointment list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -36,7 +37,7 @@ public class EditAppointmentCommand extends AppointmentCommand {
             + PREFIX_INDEX + "2 "
             + PREFIX_DATETIME + "2012-12-31 1600";
 
-    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: %1$s";
+    public static final String MESSAGE_EDIT_APPOINTMENT_SUCCESS = "Edited Appointment: \n%1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT =
         "This appointment already exists in the appointment book.";

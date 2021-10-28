@@ -27,7 +27,7 @@ public class AddAppointmentCommand extends AppointmentCommand {
             + "Example: apmt " + COMMAND_WORD + " " + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_DATETIME + "2021-12-31 1600";
 
-    public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New appointment added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT =
         "This appointment already exists in the appointment book";
 
