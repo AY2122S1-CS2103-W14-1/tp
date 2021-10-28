@@ -36,12 +36,12 @@ public class JsonAdaptedAppointment {
      * Constructs a {@code JsonAdaptedAppointment} with the given appointment details.
      */
     @JsonCreator public JsonAdaptedAppointment(@JsonProperty("patientId") String patientIndex,
-        @JsonProperty("datetime") String datetime, @JsonProperty("UniquePrescriptionList")
-                                                       List<JsonAdaptedPrescription> appointmentList) {
+        @JsonProperty("datetime") String datetime, @JsonProperty("prescriptionList")
+                                                       List<JsonAdaptedPrescription> prescriptionList) {
         this.patientIndex = patientIndex;
         this.datetime = datetime;
-        if (appointmentList != null) {
-            this.prescriptionList.addAll(appointmentList);
+        if (prescriptionList != null) {
+            this.prescriptionList.addAll(prescriptionList);
         }
     }
 

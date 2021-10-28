@@ -2,8 +2,6 @@ package seedu.docit.model.prescription;
 
 import java.util.Objects;
 
-import seedu.docit.model.appointment.Appointment;
-
 public class Prescription {
     private String medicine;
     private String volume;
