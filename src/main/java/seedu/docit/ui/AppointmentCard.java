@@ -18,6 +18,9 @@ import seedu.docit.model.patient.Patient;
 public class AppointmentCard extends UiPart<Region> {
 
     private static final String FXML = "AppointmentListCard.fxml";
+    private static final String PHONE_ICON = "\uD83D\uDCDE";
+    private static final String DATE_ICON = "\uD83D\uDCC5";
+    private static final String TIME_ICON = "\u0000\u23f0";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -57,12 +60,12 @@ public class AppointmentCard extends UiPart<Region> {
         Patient patient = appointment.getPatient();
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
-        phone.setText("\uD83D\uDCDE\t" + patient.getPhone().value);
+        phone.setText(PHONE_ICON + patient.getPhone().value);
         patient.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        date.setText("\uD83D\uDCC5\t" + appointment.getFormattedDateString());
-        time.setText("\u0000\u23f0\t" + appointment.getFormattedTimeString());
+        date.setText(DATE_ICON + appointment.getFormattedDateString());
+        time.setText(TIME_ICON + appointment.getFormattedTimeString());
         appointment.getPrescriptions().stream()
                .sorted(Comparator.comparing(presctn -> presctn.getMedicine()))
                .forEach(presctn -> prescriptions.getChildren().add(new Label(presctn.toUiFormat())));

@@ -9,7 +9,7 @@ title: Developer Guide
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 <div markdown="span" class="alert alert-primary">
 
-:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/se-edu/addressbook-level3/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+:bulb: **Tip:** The `.puml` files used to create diagrams in this document can be found in the [diagrams](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/docs/diagrams/) folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
 ### Architecture
@@ -36,7 +36,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** has two classes called [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java). It is responsible for,
+**`Main`** has two classes called [`Main`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/Main.java) and [`MainApp`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup methods where necessary.
 
@@ -69,13 +69,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.png)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -84,9 +84,27 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Patient` object residing in the `Model`.
 
+**Displaying Patient and Appointment Panels**
+
+The main UI parts of the `MainWindow` to display Patient and Appointment information are `PatientListPanel` and
+`AppointmentListPanel`, each holding a number of `PatientCard`'s and `AppointmentCard`'s.
+
+![Example of PatientCard](images/PatientCard.png)
+
+In the `PatientCard` part, we can see all the details that we store of the Patient.
+
+![Example of AppointmentCard](images/AppointmentCard.png)
+
+In the `AppointmentCard` part, appointments occurring today have a highlighted '**TODAY**' indicator to help clinic staff
+easily identify appointments occurring today. Non-essential patient details are also omitted.
+
+We can also toggle between the **Archive** and **Upcoming** tabs to view Appointments that are upcoming or have been
+archived. This is also the reason why `MainWindow` component holds two `AppointmentListPanel`'s - One for
+upcoming appointments, and the other for archived appointments.
+
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -139,6 +157,7 @@ The following is a list of commands that extend the three abstract classes:
     - `FindPatientCommand`
 - `AppointmentCommand`
     - `AddAppointmentCommand`
+    - `ArchiveAppointmentCommand`
     - `EditAppointmentCommand`
     - `DeleteAppointmentCommand`
     - `ListAppointmentsCommand`
@@ -162,7 +181,7 @@ any form of extra user input), we have a specific parser that tokenises the comm
     - `DeleteAppointmentCommandParser`
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="800" />
 
@@ -183,7 +202,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="600" />
 
@@ -306,9 +325,9 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 
 ### Archiving an Appointment
 
-A user is able archives an appointment when the appointment is past its date, i.e. the patient has either missed his/her appointment
+A user is able to archive an appointment when the appointment is _expired_, i.e. the patient has either missed his/her appointment
 or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff
-are able to view what medicine was prescribed to the patient during previous appointments.
+are able to view what medicine was prescribed to the patient during previous appointments. 
 
 #### How Archiving is Implemented
 
@@ -328,13 +347,26 @@ details.
 
 #### Auto-Archiving Implementation
 
-The proposed archiving implementation involves scanning through all appointments in a day and comparing it to
-the current date (not time) of the user system. If the current date is 1 day ahead of the appointment, the appointment is
-automatically archived.
+The archiving implementation involves scanning through all appointments in a day and comparing it to
+the current date and time of the user system. If the current date and time is 24 hours ahead of the scheduled
+appointment time (24-hour buffer), i.e. by our definition, _expired_, the appointment is automatically archived. This auto-archiving implementation is handled
+by the `ModelManager` class in two ways.
+
+1. Upon initialisation of the application, the application automatically archives expired appointments (24-hours past their
+   scheduled time). This is called through `ModelManager#archivePastAppointments()`.
+   
+
+2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface. Every
+    day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
+   method.
+
 
 In the case where there are many scheduled appointments, this saves the user trouble of archiving past appointments when
 they are already over.
 
+#### Specific Auto-Archiving 
+
+Users may still archive specific appointments manually to remove visual clutter. This is done through the `ArchiveAppointmentCommand`.
 
 ### \[Proposed\] Undo/redo feature
 
