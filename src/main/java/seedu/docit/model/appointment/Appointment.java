@@ -5,15 +5,14 @@ import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.function.Predicate;
+import java.util.Set;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.prescription.UniquePrescriptionList;
 import seedu.docit.model.prescription.exceptions.DuplicatePrescriptionException;
 import seedu.docit.model.prescription.exceptions.MedicineNotFoundException;
 
@@ -30,19 +29,24 @@ public class Appointment implements Comparable<Appointment> {
 
     // Identity fields
     private final Patient patient;
-    private final UniquePrescriptionList prescriptions;
-    private final FilteredList<Prescription> filteredPrescriptions;
+    private final Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
 
     /**
      * Every field must be present and not null.
      */
     public Appointment(Patient patient, LocalDateTime datetime) {
+        this(patient, datetime, new HashSet<>());
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Appointment(Patient patient, LocalDateTime datetime, Set<Prescription> prescriptionList) {
         requireAllNonNull(patient, datetime);
         this.patient = patient;
         this.datetime = datetime;
-        this.prescriptions = new UniquePrescriptionList();
-        this.filteredPrescriptions = new FilteredList<>(this.prescriptions.getPrescriptions());
+        this.prescriptions.addAll(prescriptionList);
     }
 
     public Patient getPatient() {
@@ -53,13 +57,10 @@ public class Appointment implements Comparable<Appointment> {
         return datetime;
     }
 
-    public String getPrescriptions() {
-        return prescriptions.toString();
+    public Set<Prescription> getPrescriptions() {
+        return Collections.unmodifiableSet(prescriptions);
     }
 
-    public ObservableList<Prescription> getPrescriptionList() {
-        return prescriptions.getPrescriptions();
-    }
 
     public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
         this.prescriptions.add(prescription);
@@ -135,13 +136,6 @@ public class Appointment implements Comparable<Appointment> {
         return isSameAppointment(otherAppointment);
     }
 
-    public void updateFilteredPrescriptions(Predicate<Prescription> predicate) {
-        filteredPrescriptions.setPredicate(predicate);
-    }
-
-    public ObservableList<Prescription> getFilteredPrescriptions() {
-        return filteredPrescriptions;
-    }
 
     @Override
     public int hashCode() {

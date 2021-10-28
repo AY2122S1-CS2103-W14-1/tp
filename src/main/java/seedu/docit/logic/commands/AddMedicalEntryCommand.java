@@ -20,10 +20,10 @@ public class AddMedicalEntryCommand extends PatientCommand {
     public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Adds a medical entry to the patient. \n"
         + "Parameters: INDEX (must be a positive integer) "
         + PREFIX_MEDICAL + "MEDICAL HISTORY\n"
-        + "Example: " + "pt " + COMMAND_WORD + " "
+        + "Example: " + "pt " + COMMAND_WORD + " 1 "
         + PREFIX_MEDICAL + "diabetes";
 
-    public static final String MESSAGE_SUCCESS = "Updated: ";
+    public static final String MESSAGE_SUCCESS = "Updated: \n";
 
     private final Index index;
     private final MedicalHistory medicalHistory;
@@ -58,6 +58,6 @@ public class AddMedicalEntryCommand extends PatientCommand {
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, editedPatient));
+        return new CommandResult(MESSAGE_SUCCESS + editedPatient);
     }
 }

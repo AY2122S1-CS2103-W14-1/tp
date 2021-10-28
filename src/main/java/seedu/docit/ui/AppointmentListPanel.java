@@ -37,7 +37,7 @@ public class AppointmentListPanel extends UiPart<Region> {
         protected void updateItem(Appointment appointment, boolean empty) {
             super.updateItem(appointment, empty);
 
-            if (empty || appointment == null) {
+            if (appointment == null) {
                 setGraphic(null);
                 setText(null);
             } else {
