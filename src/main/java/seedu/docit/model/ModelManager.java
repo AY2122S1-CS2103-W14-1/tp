@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -238,10 +239,17 @@ public class ModelManager implements Model {
 
     @Override
     public void archivePastAppointments() {
-        for (Appointment appointment : appointmentBook.getAppointmentList()) {
+        ArrayList<Appointment> appointmentsToArchive = new ArrayList<>();
+        ObservableList<Appointment> appointmentList = appointmentBook.getAppointmentList();
+
+        for (Appointment appointment : appointmentList) {
             if (isExpired(appointment)) {
-                archiveAppointment(appointment);
+                appointmentsToArchive.add(appointment);
             }
+        }
+
+        for (Appointment appointmentToArchive : appointmentsToArchive) {
+            archiveAppointment(appointmentToArchive);
         }
     }
 

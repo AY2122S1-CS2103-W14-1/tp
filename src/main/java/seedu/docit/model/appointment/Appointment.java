@@ -31,6 +31,9 @@ public class Appointment implements Comparable<Appointment> {
     private Set<Prescription> prescriptions = new HashSet<>();
     private final LocalDateTime datetime;
 
+    // Data fields
+    private final Set<Prescription> prescriptions = new HashSet<>();
+
     /**
      * Every field must be present and not null.
      */
@@ -119,7 +122,7 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     /**
-     * Returns true if both appointments have the same name and datetime. This defines a weaker notion of equality
+     * Returns true if both appointments have the same identity fields. This defines a weaker notion of equality
      * between two appointments.
      */
     public boolean isSameAppointment(Appointment otherAppointment) {
@@ -128,8 +131,7 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         return otherAppointment != null && otherAppointment.getPatient().equals(getPatient())
-            && otherAppointment.getDatetime().equals(getDatetime())
-                && otherAppointment.getPrescriptions().equals(getPrescriptions());
+            && otherAppointment.getDatetime().equals(getDatetime());
     }
 
     /**
@@ -147,7 +149,8 @@ public class Appointment implements Comparable<Appointment> {
         }
 
         Appointment otherAppointment = (Appointment) other;
-        return isSameAppointment(otherAppointment);
+        return isSameAppointment(otherAppointment)
+            && otherAppointment.getPrescriptions().equals(getPrescriptions());
     }
 
 
@@ -159,8 +162,8 @@ public class Appointment implements Comparable<Appointment> {
 
     @Override
     public String toString() {
-        return "" + getPatient() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER) + "; Prescription: "
-                + getPrescriptions() + "\n";
+        return "Patient: " + getPatient().getName() + "; Datetime: " + getDatetime().format(UI_DATE_TIME_FORMATTER)
+            + "; " + "Prescription: " + getPrescriptions() + "\n";
     }
 
     @Override
