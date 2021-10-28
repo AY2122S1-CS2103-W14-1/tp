@@ -59,7 +59,7 @@ public class AddAppointmentCommand extends AppointmentCommand {
 
         toAdd = new Appointment(patientToMakeAppointment, datetime);
 
-        if (model.hasAppointment(toAdd)) {
+        if (model.hasAppointment(toAdd) || model.hasAppointmentInArchives(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
         }
 

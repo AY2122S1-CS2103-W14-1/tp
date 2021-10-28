@@ -219,6 +219,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAppointmentInArchives(Appointment appointment) {
+        requireNonNull(appointment);
+        return archivedAppointmentBook.hasAppointment(appointment);
+    }
+
+    @Override
     public void deleteAppointment(Appointment target) {
         appointmentBook.removeAppointment(target);
     }
@@ -231,6 +237,9 @@ public class ModelManager implements Model {
 
     @Override
     public void archiveAppointment(Appointment target) {
+        if (archivedAppointmentBook.hasAppointment(target)) {
+
+        }
         appointmentBook.removeAppointment(target);
         archivedAppointmentBook.addAppointment(target);
     }
