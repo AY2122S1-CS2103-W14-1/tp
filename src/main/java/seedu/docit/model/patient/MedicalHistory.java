@@ -10,9 +10,12 @@ import seedu.docit.model.EntryList;
 
 public class MedicalHistory {
     public static final MedicalHistory EMPTY_MEDICAL_HISTORY = new MedicalHistory(null);
-    public static final String MESSAGE_CONSTRAINTS = "Medical History should be alphanumeric, "
+    public static final String MESSAGE_CONSTRAINTS = "Medical History should only contain alphanumeric characters, "
+        + "dash, commas, and spaces, "
         + "should not be numerical only, "
         + "and should not be blank";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} \\-,]*";
+
     private EntryList<Entry<MedicalEntry>> entryList = new EntryList<>();
 
     /**
@@ -143,6 +146,11 @@ public class MedicalHistory {
 
         return s.toString();
 
+    }
+
+    public static boolean isValidMedicalEntry(String test) {
+        return !(test.length() == 0 || test == " " || test == null)
+            && test.matches(VALIDATION_REGEX);
     }
 
     @Override

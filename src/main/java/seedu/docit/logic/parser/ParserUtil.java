@@ -182,7 +182,7 @@ public class ParserUtil {
         if (isNumericalOnly(trimmedMedicalEntry)) {
             throw new ParseException(MedicalHistory.MESSAGE_CONSTRAINTS);
         }
-        if (!isValidMedicalEntry(trimmedMedicalEntry)) {
+        if (!MedicalHistory.isValidMedicalEntry(trimmedMedicalEntry)) {
             return MedicalHistory.EMPTY_MEDICAL_HISTORY;
         }
         return new MedicalHistory(trimmedMedicalEntry);
@@ -210,10 +210,6 @@ public class ParserUtil {
         }
 
         return toParseMh.size() == 0 ? MedicalHistory.EMPTY_MEDICAL_HISTORY : toParseMh;
-    }
-
-    private static boolean isValidMedicalEntry(String entry) {
-        return !(entry.length() == 0 || entry == " " || entry == null);
     }
 
     /**
