@@ -29,6 +29,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "%s is incorrect datetime format.";
+    public static final String MESSAGE_INVALID_NUMERICAL_ONLY = "%s cannot be numerical only.";
     public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
 
@@ -216,5 +217,12 @@ public class ParserUtil {
      */
     public static boolean hasAllPrefixes(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    private static boolean isNumericalOnly(String input) {
+        requireNonNull(input);
+        Pattern p = Pattern.compile("^[0-9]*$");
+        Matcher m = p.matcher(input);
+        return m.matches();
     }
 }
