@@ -34,7 +34,8 @@ public class AddPrescriptionCommand extends AppointmentCommand {
                     + CliSyntax.PREFIX_VOLUME + "400 ml "
                     + CliSyntax.PREFIX_DURATION + "2 times a week ";
 
-    public static final String MESSAGE_SUCCESS = "New prescription added";
+    public static final String MESSAGE_SUCCESS = "New prescription added: \nMedicine: %1$s\n"
+            + "Volume: %2$s\nDuration: %3$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
 
@@ -77,6 +78,6 @@ public class AddPrescriptionCommand extends AppointmentCommand {
 
         model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
     }
 }

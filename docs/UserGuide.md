@@ -306,7 +306,7 @@ Adds an appointment for the patient at the specified index in the Patients panel
 * `apmt add i/2 d/2022-12-31 0700` adds appointment on 31 Dec 2022 at 7am to patient at index 2.
 
 ### List all appointments: `apmt list`
-Shows a list of all appointments.
+Shows the list of all appointments.
 
 **Format:** `apmt list`
 
@@ -315,6 +315,23 @@ Shows a list of all appointments.
 
 **Expected Outcome:**
 ```
+[UI CARDS]
+1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
+2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
+3. Patient Name: Didy Ne | Appointment Date: 2021-11-23
+```
+
+### List all archived appointments: `apmt alist`
+Shows the list of all archived appointments.
+
+**Format:** `apmt alist`
+
+**Examples:**
+* `apmt alist`  Lists all archived appointments.
+
+**Expected Outcome:**
+```
+[UI CARDS]
 1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
 2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
 3. Patient Name: Didy Ne | Appointment Date: 2021-11-23
@@ -398,7 +415,7 @@ Adds a prescription to the designated appointment.
 
 **Expected Outcome:**
 ```
-New prescription added
+New prescription added:
 Medicine: Penicillin
 Volume: 400 ml
 Duration: 2 times a week
@@ -407,14 +424,17 @@ Duration: 2 times a week
 ## Delete prescription: `apmt pd`
 Deletes a prescription from the designated appointment.
 
-**Format:** `apmt pa i/APMT_INDEX n/MEDICINE_NAME`
+**Format:** `apmt pd i/APMT_INDEX n/MEDICINE_NAME`
 
 **Examples:**
-* `apmt pd i/1 n/Penicillin `
+* `apmt pd i/1 n/panadol`
 
 **Expected Outcome:**
 ```
-Deleted prescription
+Deleted prescription: 
+Medicine: panadol
+
+from John Doe's appointment.
 ```
 ---
 
@@ -446,14 +466,15 @@ Deleted prescription
 | List    | `pt list`                                                                                   | -                                                                                                  |
 
 ### Appointment-related Commands
-| Command | Format                                                | Example                         |
-|---------|-------------------------------------------------------|---------------------------------|
-| Add     | `apmt add INDEX d/DATETIME`                           | `apmt add 1 d/2021-10-05 1600`  |
-| Edit    | `apmt edit APMT_INDEX [i/PATIENT_INDEX] [d/DATETIME]` | `apmt edit 1 d/2021-10-05 1600` |
-| Delete  | `apmt delete INDEX`                                   | `apmt delete 1`                 |
-| Archive | `apmt archive INDEX`                                  | `apmt archive 1`                |
-| List    | `apmt list`                                           | -                               |
-| Sort    | `apmt sort`                                           | -                               |
+| Command       | Format                                                | Example                         |
+|---------------|-------------------------------------------------------|---------------------------------|
+| Add           | `apmt add INDEX d/DATETIME`                           | `apmt add 1 d/2021-10-05 1600`  |
+| Edit          | `apmt edit APMT_INDEX [i/PATIENT_INDEX] [d/DATETIME]` | `apmt edit 1 d/2021-10-05 1600` |
+| Delete        | `apmt delete INDEX`                                   | `apmt delete 1`                 |
+| Archive       | `apmt archive INDEX`                                  | `apmt archive 1`                |
+| List          | `apmt list`                                           | -                               |
+| List Archived | `apmt alist`                                          | -                               |
+| Sort          | `apmt sort`                                           | -                               |
 
 --------------------------------------------------------------------------------------------------------------------
 

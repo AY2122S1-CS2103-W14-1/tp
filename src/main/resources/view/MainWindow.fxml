@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="700" minWidth="1200" onCloseRequest="#handleExit" title="Doc'it" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="700" minWidth="1200" onCloseRequest="#handleExit" title="Doc'it" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/DocitIcon.png" />
     </icons>
@@ -75,7 +75,7 @@
                                         <Font name="Segoe UI" size="24.0" />
                                     </font>
                                 </Label>
-                        <TabPane prefHeight="200.0" prefWidth="427.0" stylesheets="@LightTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                        <TabPane fx:id="tabsPlaceholder" prefHeight="200.0" prefWidth="427.0" stylesheets="@LightTheme.css" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                           <tabs>
                             <Tab text="Upcoming">
                                  <content>

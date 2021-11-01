@@ -29,7 +29,8 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
             + CliSyntax.PREFIX_INDEX + "1 "
             + CliSyntax.PREFIX_NAME + "Penicillin ";
 
-    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted prescription";
+    public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted prescription: \nMedicine: %1$s\n\n"
+            + "from %2$s's appointment.";
 
     private final Index targetAppointmentIndex;
     private final String targetMedicineName;
@@ -55,7 +56,8 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
         Appointment appointmentToTarget = lastShownList.get(targetAppointmentIndex.getZeroBased());
         try {
             model.deletePrescription(appointmentToTarget, targetMedicineName);
-            return new CommandResult(MESSAGE_DELETE_PRESCRIPTION_SUCCESS);
+            return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
+                    targetMedicineName, appointmentToTarget.getPatient().getName()));
         } catch (MedicineNotFoundException e) {
             throw new CommandException(e.getMessage());
         }

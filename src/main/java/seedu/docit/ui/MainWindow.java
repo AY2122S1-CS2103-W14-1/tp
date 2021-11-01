@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,6 +64,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private TabPane tabsPlaceholder;
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -171,6 +175,20 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Selects the Upcoming tab.
+     */
+    private void handleShowUpcomingTab() {
+        tabsPlaceholder.getSelectionModel().select(0);
+    }
+
+    /**
+     * Selects the Archived tab.
+     */
+    private void handleShowArchivedTab() {
+        tabsPlaceholder.getSelectionModel().select(1);
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -215,6 +233,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isShowArchived()) {
+                handleShowArchivedTab();
+            } else {
+                handleShowUpcomingTab();
             }
 
             if (commandResult.isExit()) {
