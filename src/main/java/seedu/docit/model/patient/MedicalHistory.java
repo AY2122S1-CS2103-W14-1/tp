@@ -12,6 +12,10 @@ public class MedicalHistory {
     public static final MedicalHistory EMPTY_MEDICAL_HISTORY = new MedicalHistory(null);
     private EntryList<Entry<MedicalEntry>> entryList = new EntryList<>();
 
+    public static final String MESSAGE_CONSTRAINTS = "Medical History should be alphanumeric, "
+        + "should not be numerical only, "
+        + "and should not be blank";
+
     /**
      * Constructs an {@code DateOfBirth}.
      *

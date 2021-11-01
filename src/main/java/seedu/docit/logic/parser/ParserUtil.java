@@ -85,6 +85,9 @@ public class ParserUtil {
     public static Address parseAddress(String address) throws ParseException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
+        if (isNumericalOnly(trimmedAddress)) {
+            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
+        }
         if (!Address.isValidAddress(trimmedAddress)) {
             throw new ParseException(Address.MESSAGE_CONSTRAINTS);
         }
@@ -172,14 +175,16 @@ public class ParserUtil {
     /**
      * Parses {@code String medicalEntry} into a {@code MedicalHistory}.
      */
-    public static MedicalHistory parseMedicalEntry(String medicalEntry) {
+    public static MedicalHistory parseMedicalEntry(String medicalEntry) throws ParseException {
         requireNonNull(medicalEntry);
         String trimmedMedicalEntry = medicalEntry.trim();
 
+        if (isNumericalOnly(trimmedMedicalEntry)) {
+            throw new ParseException(MedicalHistory.MESSAGE_CONSTRAINTS);
+        }
         if (!isValidMedicalEntry(trimmedMedicalEntry)) {
             return MedicalHistory.EMPTY_MEDICAL_HISTORY;
         }
-
         return new MedicalHistory(trimmedMedicalEntry);
     }
 
@@ -188,7 +193,7 @@ public class ParserUtil {
      * @param medicalEntries an empty Arraylist.
      * @return an empty medical history.
      */
-    public static MedicalHistory parseMedicalHistory(Collection<String> medicalEntries) {
+    public static MedicalHistory parseMedicalHistory(Collection<String> medicalEntries) throws ParseException {
         requireNonNull(medicalEntries);
 
         MedicalHistory toParseMh = new MedicalHistory("");
