@@ -6,7 +6,6 @@ import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.model.AddressBook;
