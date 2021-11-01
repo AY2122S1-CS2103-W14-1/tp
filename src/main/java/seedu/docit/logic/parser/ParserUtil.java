@@ -8,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import seedu.docit.commons.core.index.Index;
@@ -138,6 +140,26 @@ public class ParserUtil {
         if (formatter == null) {
             formatter = DEFAULT_DATE_TIME_FORMATTER;
         }
+
+        Pattern p = Pattern.compile("(?<year>[0-9]{4})-[0-9]{1,2}-[0-9]{1,2} (?<hour>[0-9]{4})");
+        Matcher m = p.matcher(datetime);
+        if (!m.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
+        }
+
+        int year, hour;
+        try {
+            year = Integer.parseInt(m.group("year"));
+            hour = Integer.parseInt(m.group("hour"));
+        } catch (NumberFormatException e) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
+        }
+
+        // to limit inputs further
+        if (year < 2000 || year >= 3000 || hour == 2400) {
+            throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
+        }
+
         try {
             return LocalDateTime.parse(datetime, formatter);
         } catch (DateTimeParseException e) {
@@ -146,7 +168,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String medicalEntry} into a {@Code MedicalHistory}.
+     * Parses {@code String medicalEntry} into a {@code MedicalHistory}.
      */
     public static MedicalHistory parseMedicalEntry(String medicalEntry) {
         requireNonNull(medicalEntry);
