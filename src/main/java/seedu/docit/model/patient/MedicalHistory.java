@@ -148,6 +148,9 @@ public class MedicalHistory {
 
     }
 
+    /**
+     * Returns true if a given string is a valid Medical Entry.
+     */
     public static boolean isValidMedicalEntry(String test) {
         return !(test.length() == 0 || test == " " || test == null)
             && test.matches(VALIDATION_REGEX);
