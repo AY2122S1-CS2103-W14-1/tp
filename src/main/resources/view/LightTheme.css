@@ -297,6 +297,14 @@
 }
 
 .context-menu .label {
+    -fx-text-fill: #333333;
+}
+
+.menu-item {
+}
+
+.menu-item:focused {
+    -fx-background-color: #48C9B0;
     -fx-text-fill: white;
 }
 
