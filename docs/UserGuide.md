@@ -46,7 +46,7 @@ reduce man-hours in managing paper files, translating this saved time into bette
    <br>
    ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`doc help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * **`pt list`** : Lists all patients.
@@ -150,8 +150,8 @@ Format: `doc exit`
 ---
 
 ## Patient Commands
-A patient is the primary entity in `Doc'it`. This section documents how to perform CRUD operations on patient
-records. Do not that _all_ patient-related commands have `pt` in front of them.
+A patient is the primary entity in `Doc'it`. This section documents how to perform create, read, update and delete operations on patient
+records. Do note that _all_ patient-related commands have `pt` in front of them.
 
 ### Add a patient: `pt add`
 
@@ -407,7 +407,7 @@ Duration: 2 times a week
 ## Delete prescription: `apmt pd`
 Deletes a prescription from the designated appointment.
 
-**Format:** `apmt pa i/APMT_INDEX n/MEDICINE_NAME`
+**Format:** `apmt pd i/APMT_INDEX n/MEDICINE_NAME`
 
 **Examples:**
 * `apmt pd i/1 n/Penicillin `
@@ -430,6 +430,7 @@ Deleted prescription
 ## Command summary
 
 ### Basic Commands
+
 | Command     | Format        |
 |-------------|---------------|
 | User Manual | `doc help`    |
@@ -437,6 +438,7 @@ Deleted prescription
 | Exit        | `doc exit`    |
 
 ### Patient-related Commands
+
 | Command | Format                                                                                      | Example                                                                                            |
 |---------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | Add     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [m/MEDICAL_HISTORY]`                | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer t/friend` |
@@ -446,6 +448,7 @@ Deleted prescription
 | List    | `pt list`                                                                                   | -                                                                                                  |
 
 ### Appointment-related Commands
+
 | Command | Format                                                | Example                         |
 |---------|-------------------------------------------------------|---------------------------------|
 | Add     | `apmt add INDEX d/DATETIME`                           | `apmt add 1 d/2021-10-05 1600`  |
@@ -458,6 +461,7 @@ Deleted prescription
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
+
 | Term                | Definition                                                                                                                                |
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | Appointment         | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication.  |

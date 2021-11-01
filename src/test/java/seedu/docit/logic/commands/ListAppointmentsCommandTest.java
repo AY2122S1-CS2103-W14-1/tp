@@ -32,16 +32,16 @@ public class ListAppointmentsCommandTest {
     }
 
     @Test
-    @Disabled("Not implemented yet, currently list is shown in user feedback")
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListAppointmentsCommand(), model, ListAppointmentsCommand.MESSAGE_SUCCESS,
                 expectedModel);
     }
 
     @Test
-    @Disabled("Not implemented yet, currently list is shown in user feedback")
     public void execute_listIsFiltered_showsEverything() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+                model.getArchivedAppointmentBook(), new UserPrefs());
         assertCommandSuccess(new ListPatientCommand(), model, ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

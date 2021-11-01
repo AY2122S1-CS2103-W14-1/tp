@@ -71,7 +71,7 @@ public class AddPrescriptionCommand extends AppointmentCommand {
 
         Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
-        if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
+        if (appointmentToMakePrescription.containsPrescriptionWithSameMedicine(prescriptionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 

@@ -118,8 +118,18 @@ public class Appointment implements Comparable<Appointment> {
         return getDatetime().format(INPUT_DATE_TIME_FORMATTER);
     }
 
-    public boolean containsPrescription(Prescription p) {
-        return prescriptions.contains(p);
+    /**
+     * Returns whether this appointment contains an appointment with the exact same name.
+     * @param prescription Prescription to be checked
+     * @return True or false
+     */
+    public boolean containsPrescriptionWithSameMedicine(Prescription prescription) {
+        for (Prescription p: prescriptions) {
+            if (prescription.getMedicine().equals(p.getMedicine())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isToday() {
