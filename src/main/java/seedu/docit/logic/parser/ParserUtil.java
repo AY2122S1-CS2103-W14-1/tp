@@ -147,7 +147,8 @@ public class ParserUtil {
             throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
         }
 
-        int year, hour;
+        int year;
+        int hour;
         try {
             year = Integer.parseInt(m.group("year"));
             hour = Integer.parseInt(m.group("hour"));
