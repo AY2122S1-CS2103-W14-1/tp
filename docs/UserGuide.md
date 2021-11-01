@@ -26,9 +26,13 @@ reduce man-hours in managing paper files, translating this saved time into bette
     3. [Appointment-related Commands](#appointment-commands)
        - [Add an appointment](#add-an-appointment-apmt-add)
        - [List all appointments](#list-all-appointments-apmt-list)
+       - [List all archived appointments](#list-all-archived-appointments-apmt-alist)
        - [Edit an appointment](#edit-an-appointment-apmt-edit)
        - [Delete an appointment](#delete-an-appointment-apmt-delete)
        - [Archive an appointment](#archive-an-appointment-apmt-archive)
+       - [Sort all appointments](#sort-all-appointments-apmt-sort)
+       - [Add prescription](#add-prescription-apmt-pa)
+       - [Delete prescription](#delete-prescription-apmt-pd)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 6. [Glossary](#glossary)
@@ -305,6 +309,15 @@ Adds an appointment for the patient at the specified index in the Patients panel
 * `apmt add i/1 d/2021-10-05 1500` adds appointment on 5 Oct 2021 at 3pm to patient at index 1.
 * `apmt add i/2 d/2022-12-31 0700` adds appointment on 31 Dec 2022 at 7am to patient at index 2.
 
+**Example Usage:**
+- `apmt add i/1 d/2021-12-28 1500` 
+
+**Expected Outcome:**
+```
+New appointment added: 
+Patient: Alex Yeoh; Datetime: 28 Dec 2021 1500; Prescription: []
+```
+
 ### List all appointments: `apmt list`
 Shows the list of all appointments.
 
@@ -316,9 +329,11 @@ Shows the list of all appointments.
 **Expected Outcome:**
 ```
 [UI CARDS]
-1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
-2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
-3. Patient Name: Didy Ne | Appointment Date: 2021-11-23
+1. Patient Name: Bernice Yu | Appointment Date: 2021-10-05
+2. Patient Name: Alex Yeoh | Appointment Date: 2021-10-06
+3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-11-23
+
+Listed all appointments
 ```
 
 ### List all archived appointments: `apmt alist`
@@ -332,9 +347,11 @@ Shows the list of all archived appointments.
 **Expected Outcome:**
 ```
 [UI CARDS]
-1. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
-2. Patient Name: Ian Yong | Appointment Date: 2021-10-06
-3. Patient Name: Didy Ne | Appointment Date: 2021-11-23
+1. Patient Name: Bernice Yu | Appointment Date: 2021-1-05
+2. Patient Name: Alex Yeoh | Appointment Date: 2021-1-06
+3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-1-23
+
+Listed all archived appointments
 ```
 
 ### Edit an appointment: `apmt edit`
@@ -356,7 +373,14 @@ Edits the details of an appointment at the specified index in the Appointments p
 - `apmt edit 1 d/2021-10-28 1500`
 - `apmt edit 1 i/1 d/2021-10-28 1500`
 
----
+**Example Usage:**
+- `apmt edit 1 i/1 d/2021-12-25 1500`
+
+**Expected Outcome:**
+```
+Edited Appointment: 
+Patient: Alex Yeoh; Datetime: 25 Dec 2021 1500; Prescription: []
+```
 
 
 ### Delete an appointment: `apmt delete`
@@ -368,8 +392,18 @@ Deletes the appointment at the specified index in the Appointments panel.
 * The index must be a positive integer 1, 2, 3, ...
 
 **Examples:**
-* `apmt list`  Lists all appointments.
+* `apmt list`  Display Upcoming appointments tab.
 * `apmt delete 1`  Deletes appointment at index 1.
+
+**Example Usage:**
+- `apmt delete 1`
+
+**Expected Outcome:**
+```
+Deleted Appointment: 
+Patient: Alex Yeoh; Datetime: 28 Oct 2021 1500; Prescription: []
+
+```
 
 
 ### Archive an appointment: `apmt archive`
@@ -385,7 +419,8 @@ Archives an old appointment that is already past its date.
 
 **Expected Outcome:**
 ```
-Archived Appointment: David Li; Phone: 91031282; Email: lidavid@example.com; Address: Blk 436 Serangoon Gardens Street 26, #16-43; Tags: [family]; Medical History: lovesick; Datetime: 2022-05-05 1300
+Archived Appointment: 
+Patient: Alex Yeoh; Datetime: 31 Dec 2012 1200; Prescription: []
 ```
 
 ### Sort all appointments: `apmt sort`
@@ -398,10 +433,13 @@ Shows a sorted list of all appointments
 
 **Expected Outcome:**
 ```
-1. Patient Name: Didymus Ne | Appointment Date: 2021-06-05
-2. Patient Name: Hu Yuxin | Appointment Date: 2021-07-21
-3. Patient Name: Joshen Lim | Appointment Date: 2021-10-05
-4. Patient Name: Ian Yong | Appointment Date: 2021-10-06
+[UI CARDS]
+1. Patient Name: Bernice Yu | Appointment Date: 2021-06-05
+2. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-07-21
+3. Patient Name: Alex Yeoh | Appointment Date: 2021-10-05
+4. Patient Name: David Li | Appointment Date: 2021-10-06
+
+Sorted Appointments based on default settings.
 ```
 ## Add prescription: `apmt pa`
 Adds a prescription to the designated appointment.
