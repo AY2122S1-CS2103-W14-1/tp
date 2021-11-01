@@ -21,7 +21,7 @@ public class ArchiveAppointmentCommand extends AppointmentCommand {
             + ": Archives the appointment identified by the index number used in the displayed appointment list.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: apmt " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_ARCHIVE_APPOINTMENT_SUCCESS = "Archived Appointment: %1$s";
+    public static final String MESSAGE_ARCHIVE_APPOINTMENT_SUCCESS = "Archived Appointment: \n%1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT =
             "This appointment already exists in the archives. Removing appointment.";
 
