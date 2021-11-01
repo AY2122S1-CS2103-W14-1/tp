@@ -5,6 +5,8 @@ import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_INDEX;
 
+import java.time.LocalDateTime;
+
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.logic.commands.EditAppointmentCommand;
 import seedu.docit.logic.commands.EditAppointmentCommand.EditAppointmentDescriptor;
@@ -47,9 +49,15 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
             editAppointmentDescriptor.setPatientIndex(patientIndex);
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DATETIME).isPresent()) {
-            editAppointmentDescriptor.setDatetime(
-                ParserUtil.parseDateTime(argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get(),
-                    ParserUtil.INPUT_DATE_TIME_FORMATTER));
+            LocalDateTime localDateTime;
+            try {
+                localDateTime = ParserUtil.parseDateTime(argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get(),
+                    ParserUtil.INPUT_DATE_TIME_FORMATTER);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditAppointmentCommand.MESSAGE_USAGE), pe);
+            }
+            editAppointmentDescriptor.setDatetime(localDateTime);
         }
 
         if (!editAppointmentDescriptor.isAnyFieldEdited()) {
