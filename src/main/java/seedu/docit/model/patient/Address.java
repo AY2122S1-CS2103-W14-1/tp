@@ -9,7 +9,8 @@ import static seedu.docit.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Address should only contain alphanumeric characters and spaces, "
+    public static final String MESSAGE_CONSTRAINTS = "Address should only contain alphanumeric characters, hash, "
+        + "dash, commas, and spaces, "
         + "should not be numerical only, "
         + "and should not be blank";
 
@@ -17,7 +18,7 @@ public class Address {
      * The first character of the docit must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} #\\-,]*";
 
     public final String value;
 
