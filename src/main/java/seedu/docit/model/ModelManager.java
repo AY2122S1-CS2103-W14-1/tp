@@ -275,9 +275,7 @@ public class ModelManager implements Model {
         updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
     }
 
-    /**
-     * Adds a prescription to appointment i in the list.
-     */
+    @Override
     public void addPrescription(Appointment target, Prescription p) {
         Set<Prescription> nextPrescription = target.getPrescriptions();
         nextPrescription.add(p);
@@ -286,9 +284,7 @@ public class ModelManager implements Model {
         appointmentBook.setAppointment(target, editedAppt);
     }
 
-    /**
-     * Removes a prescription from an appointment i in the list.
-     */
+    @Override
     public void deletePrescription(Appointment target, String medicine) {
         target.removePrescription(medicine);
         Set<Prescription> nextPrescription = target.getPrescriptions();
@@ -296,14 +292,17 @@ public class ModelManager implements Model {
         appointmentBook.setAppointment(target, editedAppt);
     }
 
-    /**
-     * Edits a prescription from an appointment i in the list.
-     */
-    public void editPrescription(int i, Prescription p) {
-        appointmentBook.editPrescription(i, p);
+    @Override
+    public void editPrescription(int index, Prescription p) {
+        appointmentBook.editPrescription(index, p);
     }
 
     //=========== ArchivedAppointmentBook =======================================================================
+
+    @Override
+    public void setArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook) {
+        this.archivedAppointmentBook.resetData(appointmentBook);
+    }
 
     /**
      * Checks if Appointment is 24-hours/1-day past its scheduled time.
@@ -320,18 +319,21 @@ public class ModelManager implements Model {
         return duration.toDays() >= 1;
     }
 
-    /**
-     * Temporarily returns appointment list to be printed in CommandResult.
-     */
+    @Override
     public String getAppointments() {
         return appointmentBook.toString();
     }
 
-    /**
-     * Temporarily returns archived appointment list to be printed in CommandResult.
-     */
+    @Override
     public String getArchivedAppointments() {
         return archivedAppointmentBook.toString();
+    }
+
+    @Override
+    public void clearAllRecords() {
+        this.setAppointmentBook(new AppointmentBook());
+        this.setArchivedAppointmentBook(new AppointmentBook());
+        this.setAddressBook(new AddressBook());
     }
 
     /**

@@ -127,7 +127,7 @@ This section covers basic application-related commands. All of these commands ha
 
 ### Clear all records: `doc clear`
 
-Clears all patient records and information. This is an irreversible operation.
+Clears all patient records and appointment records (upcoming and archived). This is an irreversible operation.
 
 Format: `doc clear`
 

@@ -2,8 +2,6 @@ package seedu.docit.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.docit.model.AddressBook;
-import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.Model;
 
 /**
@@ -17,8 +15,7 @@ public class ClearCommand extends BasicCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setAppointmentBook(new AppointmentBook());
-        model.setAddressBook(new AddressBook());
+        model.clearAllRecords();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

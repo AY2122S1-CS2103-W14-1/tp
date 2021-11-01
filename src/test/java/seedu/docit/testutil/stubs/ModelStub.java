@@ -118,6 +118,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void setArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void updateAppointmentBook(Patient target, Patient editedPatient) {
         throw new AssertionError("This method should not be called.");
     }
@@ -189,6 +194,11 @@ public class ModelStub implements Model {
 
     @Override
     public void archivePastAppointments() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void clearAllRecords() {
         throw new AssertionError("This method should not be called.");
     }
 

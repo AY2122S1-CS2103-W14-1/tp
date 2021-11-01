@@ -106,6 +106,11 @@ public interface Model {
     void setAppointmentBook(ReadOnlyAppointmentBook appointmentBook);
 
     /**
+     * Replaces archived appointment Book data with the data in {@code appointmentBook}.
+     */
+    void setArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook);
+
+    /**
      * Updates appointments' details in appointment Book data with {@code editedPatient}'s details.
      */
     void updateAppointmentBook(Patient target, Patient editedPatient);
@@ -164,15 +169,30 @@ public interface Model {
      */
     void sortAppointments();
 
+    /**
+     * Temporarily returns appointment list to be printed in CommandResult.
+     */
     String getAppointments();
 
+    /**
+     * Temporarily returns archived appointment list to be printed in CommandResult.
+     */
     String getArchivedAppointments();
 
+    /**
+     * Adds a prescription to appointment i in the list.
+     */
     public void addPrescription(Appointment target, Prescription p);
 
+    /**
+     * Removes a prescription from an appointment i in the list.
+     */
     public void deletePrescription(Appointment target, String medicine);
 
-    public void editPrescription(int i, Prescription p);
+    /**
+     * Edits a prescription from an appointment i in the list.
+     */
+    public void editPrescription(int index, Prescription p);
 
     /**
      * Returns an unmodifiable view of the filtered appointment list
@@ -196,4 +216,8 @@ public interface Model {
      */
     void archivePastAppointments();
 
+    /**
+     * Deletes all records of patients, appointments, and archived appointments.
+     */
+    void clearAllRecords();
 }
