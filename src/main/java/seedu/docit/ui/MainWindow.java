@@ -3,6 +3,7 @@ package seedu.docit.ui;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -214,6 +215,8 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
+        Platform.exit();
+        System.exit(0);
     }
 
     public PatientListPanel getPatientListPanel() {
