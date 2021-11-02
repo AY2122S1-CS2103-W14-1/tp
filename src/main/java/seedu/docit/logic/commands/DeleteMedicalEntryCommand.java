@@ -50,6 +50,11 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         }
 
         Patient patientToEdit = lastShownList.get(patientIndex.getZeroBased());
+
+        if (patientToEdit.hasEmptyMedicalHistory()) {
+            throw new CommandException("No medical history record to delete from " + patientToEdit.getName() + ".");
+        }
+
         Patient editedPatient = patientToEdit.deleteMedicalHistory(medicalIndex);
 
         model.setPatient(patientToEdit, editedPatient);

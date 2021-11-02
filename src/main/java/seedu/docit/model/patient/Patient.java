@@ -98,6 +98,14 @@ public class Patient implements Comparable<Patient> {
     }
 
     /**
+     * Checks if patient has an empty medical history record.
+     * @return true if patient has empty, false otherwise.
+     */
+    public boolean hasEmptyMedicalHistory() {
+        return this.medicalHistory.isEmpty();
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */

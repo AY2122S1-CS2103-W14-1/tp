@@ -87,7 +87,7 @@ public class MedicalHistory {
      */
     public MedicalHistory delete(int i) {
         if (this.isEmpty()) {
-            return this; // nothing to delete
+            return this;
         }
 
         this.entryList.delete(i);

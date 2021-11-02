@@ -121,6 +121,10 @@ public class JsonAdaptedPatient {
             modelMedicalHistory.add(medicalEntry.getDescription(), medicalEntry.getDateString());
         }
 
+        if (medicalHistory.size() == 0) {
+            modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
+        }
+
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalHistory);
     }
 
