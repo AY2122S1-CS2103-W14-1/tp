@@ -50,6 +50,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_addPatient() throws Exception {
         Patient patient = new PatientBuilder().build();
+        String testString = PT_PREFIX + PatientUtil.getAddCommand(patient);
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(
                 PT_PREFIX + PatientUtil.getAddCommand(patient));
         assertEquals(new AddPatientCommand(patient), command);

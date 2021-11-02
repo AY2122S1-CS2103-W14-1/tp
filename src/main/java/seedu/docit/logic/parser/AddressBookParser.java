@@ -1,14 +1,13 @@
 package seedu.docit.logic.parser;
 
-import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.docit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.docit.logic.commands.Command;
 import seedu.docit.logic.commands.HelpCommand;
 import seedu.docit.logic.parser.exceptions.ParseException;
+
+import static seedu.docit.commons.core.Messages.*;
 
 
 /**
@@ -22,6 +21,7 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(doc) (?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern PTNT_COMMAND_FORMAT = Pattern.compile("(pt) (?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern APPT_COMMAND_FORMAT = Pattern.compile("(apmt) (?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern VALID_INPUT_FORMAT = Pattern.compile("^[a-z-A-Z0-9/,.#@\\s]*$");
 
     private final PatientBookParser patientParser = new PatientBookParser();
     private final AppointmentBookParser apmtParser = new AppointmentBookParser();
@@ -38,10 +38,15 @@ public class AddressBookParser {
         final Matcher patientMatcher = PTNT_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher basicMatcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         final Matcher apmtMatcher = APPT_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher inputMatcher = VALID_INPUT_FORMAT.matcher(userInput.trim());
 
         // empty, invalid inputs
         if (userInput.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        if (!inputMatcher.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_REGREX_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         // non-empty, potentially valid inputs
