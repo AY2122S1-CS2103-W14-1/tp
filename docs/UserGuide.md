@@ -154,8 +154,10 @@ Format: `doc exit`
 ---
 
 ## Patient Commands
-A patient is the primary entity in `Doc'it`. This section documents how to perform create, update, read and delete operations on patient
-records. Do note that _all_ patient-related commands have `pt` in front of them.
+Patient is the primary entity in `Doc'it`. This section documents how to perform create, update, read and delete operations on patient
+records. 
+
+>:information_source: All patient-related commands have the keyword `pt` in front of them.
 
 ### Add a patient: `pt add`
 
