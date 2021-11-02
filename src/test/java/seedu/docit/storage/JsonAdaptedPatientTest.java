@@ -35,6 +35,7 @@ public class JsonAdaptedPatientTest {
         BENSON.getMedicalHistory()
               .toList()
               .stream()
+              .filter(x -> x != null)
               .map(x -> new JsonAdaptedMedicalEntry(x.getDescription(), x.getDateString()))
               .collect(Collectors.toList());
 
