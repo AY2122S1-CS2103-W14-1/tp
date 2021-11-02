@@ -26,27 +26,42 @@ public class SampleDataUtil {
 
     private static Patient patientAlex = new Patient(new Name("Alex Yeoh"), new Phone("87438807"),
         new Email("alexyeoh" + "@example" + ".com"), new Address("Blk 30 Geylang Street 29, #06-40"),
-        getTagSet("friends"), new MedicalHistory("lovesick"));
+        getTagSet("friends"), MedicalHistory.EMPTY_MEDICAL_HISTORY);
 
 
     public static Patient[] getSamplePatients() {
+        MedicalHistory berniceMh = MedicalHistory.generate();
+        berniceMh.add("diabetes", "1 Oct 1999");
+
+        MedicalHistory charlotteMh = MedicalHistory.generate();
+        charlotteMh.add("scoliosis", "2 May 2000");
+
+        MedicalHistory davidMh = MedicalHistory.generate();
+        davidMh.add("stage 1a cancer", "5 Sep 2005");
+
+        MedicalHistory irfanMh = MedicalHistory.generate();
+        irfanMh.add("high blood pressure", "8 Aug 2010");
+
+        MedicalHistory royMh = MedicalHistory.generate();
+        royMh.add("anxiety", "8 Aug 2017");
+
         return new Patient[] {
             patientAlex,
             new Patient(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends"), new MedicalHistory("lovesick")),
+                getTagSet("colleagues", "friends"), berniceMh),
             new Patient(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours"), new MedicalHistory("lovesick")),
+                getTagSet("neighbours"), charlotteMh),
             new Patient(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family"), new MedicalHistory("lovesick")),
+                getTagSet("family"), davidMh),
             new Patient(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates"), new MedicalHistory("lovesick")),
+                getTagSet("classmates"), irfanMh),
             new Patient(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"), new MedicalHistory("lovesick"))
+                getTagSet("colleagues"), royMh)
         };
     }
 
