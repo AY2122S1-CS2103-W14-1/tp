@@ -1,7 +1,6 @@
 package seedu.docit.storage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,9 +64,10 @@ public class JsonAdaptedPatient {
                 .collect(Collectors.toList()));
         medicalHistory = source.getMedicalHistory()
                             .toList()
-                            .stream().map(x -> new JsonAdaptedMedicalEntry(x.getDescription(), x.getDateString()))
+                            .stream()
+                            .filter(x -> x != null)
+                            .map(x -> new JsonAdaptedMedicalEntry(x.getDescription(), x.getDateString()))
                             .collect(Collectors.toList());
-
     }
 
     /**
@@ -121,55 +121,7 @@ public class JsonAdaptedPatient {
             modelMedicalHistory.add(medicalEntry.getDescription(), medicalEntry.getDateString());
         }
 
-//        Object[] detailedEntries = readMedicalHistory(medicalHistory);
-//
-//        MedicalHistory modelMedicalHistory = new MedicalHistory("");
-//
-//        if (detailedEntries.length > 0) { // has at least one medical entry
-//            modelMedicalHistory.delete(0);
-//
-//            for (int i = 0; i < detailedEntries.length; i++) {
-//                @SuppressWarnings("unchecked")
-//                String[] entry = (String[]) detailedEntries[i];
-//
-//                if (entry.length == 1) { // no date
-//                    if (!isValidMh(entry[0])) {
-//                        modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
-//                    } else {
-//                        if (modelMedicalHistory.isEmpty()) {
-//                            modelMedicalHistory = new MedicalHistory(entry[0].trim());
-//                        } else {
-//                            modelMedicalHistory.add(entry[0].trim());
-//                        }
-//
-//                    }
-//                } else {
-//                    if (!isValidMh(entry[1])) {
-//                        modelMedicalHistory = MedicalHistory.EMPTY_MEDICAL_HISTORY;
-//                    } else {
-//                        if (modelMedicalHistory.isEmpty()) {
-//                            modelMedicalHistory = new MedicalHistory("");
-//                            modelMedicalHistory.delete(0);
-//                            modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
-//                        } else {
-//                            modelMedicalHistory.add(entry[1].trim(), entry[0].trim());
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelMedicalHistory);
-    }
-
-    private static Object[] readMedicalHistory(String medicalHistory) {
-        String[] entries = medicalHistory.split(", ");
-        Object[] entriesDateDesc = Arrays.stream(entries).map(x -> x.split("\\| ")).toArray();
-        return entriesDateDesc;
-    }
-
-    private static boolean isValidMh(String entry) {
-        return !(entry.length() == 0 || entry == " " || entry == null);
     }
 
 }

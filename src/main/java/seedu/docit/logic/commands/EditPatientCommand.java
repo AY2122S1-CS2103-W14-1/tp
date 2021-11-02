@@ -150,7 +150,6 @@ public class EditPatientCommand extends PatientCommand {
             setAddress(toCopy.address);
             setTags(toCopy.tags);
             setMedicalHistory(toCopy.medicalHistory);
-
         }
 
         /**

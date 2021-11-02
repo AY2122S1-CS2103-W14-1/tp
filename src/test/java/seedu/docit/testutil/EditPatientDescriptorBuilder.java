@@ -87,8 +87,9 @@ public class EditPatientDescriptorBuilder {
      * Sets the {@code MedicalHistory} of the {@code EditPatientDescriptor} that we are building.
      */
     public EditPatientDescriptorBuilder withMedicalHistory(String medicalHistory) {
-        MedicalHistory medical = new MedicalHistory(medicalHistory);
-        descriptor.setMedicalHistory(medical);
+        MedicalHistory mh = MedicalHistory.generate();
+        mh.add(medicalHistory);
+        descriptor.setMedicalHistory(mh);
         return this;
     }
 

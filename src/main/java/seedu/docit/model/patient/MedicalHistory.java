@@ -35,7 +35,6 @@ public class MedicalHistory {
 
     /**
      * A medical entry only exists when a patient has a Medical History.
-     * The class is made private to ensure that other classes do not break the abstraction barrier.
      */
     public static class MedicalEntry {
         private final String description;
@@ -48,6 +47,11 @@ public class MedicalHistory {
             this.dateOfEntry = LocalDate.now(ZoneId.of("Singapore"));
         }
 
+        /**
+         * Constructor for the inner class Medical Entry.
+         * @param description description of a Medical Entry.
+         * @param date date of record of the medcial entry.
+         */
         public MedicalEntry(String description, LocalDate date) {
             this.description = description;
             this.dateOfEntry = date;
@@ -244,6 +248,10 @@ public class MedicalHistory {
                 .map(entry -> entry.description);
     }
 
+    /**
+     * Converts the Medical History object into a List representation.
+     * @return list representation of MedicalHistory object.
+     */
     public List<MedicalEntry> toList() {
         if (this.isEmpty()) {
             return new ArrayList<>();

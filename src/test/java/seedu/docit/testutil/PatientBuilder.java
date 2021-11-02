@@ -21,7 +21,7 @@ public class PatientBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_MEDICAL = "lovesick";
+    public static final String DEFAULT_MEDICAL = "diabetes";
 
     private Name name;
     private Phone phone;
@@ -39,7 +39,8 @@ public class PatientBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-        medicalHistory = new MedicalHistory(DEFAULT_MEDICAL);
+        medicalHistory = MedicalHistory.generate();
+        medicalHistory.add(DEFAULT_MEDICAL);
     }
 
     /**
@@ -51,7 +52,7 @@ public class PatientBuilder {
         email = patientToCopy.getEmail();
         address = patientToCopy.getAddress();
         tags = new HashSet<>(patientToCopy.getTags());
-        medicalHistory = new MedicalHistory(DEFAULT_MEDICAL);
+        medicalHistory = patientToCopy.getMedicalHistory();
     }
 
     /**
@@ -99,6 +100,15 @@ public class PatientBuilder {
      */
     public PatientBuilder withMedicalHistory(String medicalHistory) {
         this.medicalHistory = new MedicalHistory(medicalHistory);
+        return this;
+    }
+
+    /**
+     * Sets the {@code MedicalHistory} of the {@code Patient} that we are building.
+     */
+    public PatientBuilder withMedicalHistory(String medicalHistory, String date) {
+        this.medicalHistory = MedicalHistory.generate();
+        this.medicalHistory.add(medicalHistory, date);
         return this;
     }
 

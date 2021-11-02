@@ -4,12 +4,18 @@
     "phone": "9482424",
     "email": "hans@example.com",
     "address": "4th street",
-    "medicalHistory" : "lovesick"
+    "medicalHistory" : [ {
+      "description" : "diabetes",
+      "date" : "1 Oct 2021"
+    } ]
   }, {
     "name": "Patient With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
     "address": "4th street",
-    "medicalHistory" : "lovesick"
+    "medicalHistory" : [ {
+      "description" : "diabetes",
+      "date" : "1 Oct 2021"
+    } ]
   } ]
 }
