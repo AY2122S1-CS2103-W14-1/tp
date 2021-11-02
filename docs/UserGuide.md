@@ -106,7 +106,7 @@ understanding of basic functionalities of `Doc'it`, before diving into specific 
   e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
 * Items with `…`  after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]… ` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+  e.g. `[m/MEDICAL_HISTORY]… ` can be used as ` ` (i.e. 0 times), `m/Diabetes`, `m/Scoliosis m/High Blood Pressure` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
@@ -161,9 +161,10 @@ records. Do note that _all_ patient-related commands have `pt` in front of them.
 
 Creates a new patient record.
 
-**Format:** `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_HISTORY] [t/TAG]`
+**Format:** `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_HISTORY]... [t/TAG]`
 
 - `MEDICAL_HISTORY` is optional; if `MEDICAL_HISTORY` is not given, an empty string of text will be used.
+- `MEDICAL_HISTORY` can be added multiple times within a single `pt add` command, as indicated by the ```...``` used.
 
 **Examples:**
 - `pt add n/Joshen Lim p/99998888 e/joshen@gmail.com a/123 Clementi Road SG293821`
@@ -228,9 +229,11 @@ Joshen Tan; Phone: 12345678; Email: google@gmail.com; Address: 311 clementi SG54
 
 Adds a medical history to the Patient Record, saving the medical history and ```today``` as the date of entry.
 
-**Format:** `pt ma INDEX [m/MEDICAL_HISTORY]`
+**Format:** `pt ma INDEX m/MEDICAL_HISTORY...`
 
 - Adds a medical history to the patient at the specified `INDEX` (one-indexed).
+- Multiple entries of medical history can be added in one command: e.g. `m/Diabetes`, `m/Scoliosis m/High Blood Pressure` etc.
+- `m/MEDICAL_HISTORY` is a required field in this command
 
 **Examples:**
 ```
@@ -499,11 +502,13 @@ from John Doe's appointment.
 
 | Command | Format| Example                                                                                            |
 |---------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| Add     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [m/MEDICAL_HISTORY]`                | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer t/friend` |
+| Add     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [m/MEDICAL_HISTORY]...`                | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer t/friend` |
 | Delete  | `pt delete INDEX`                                                                           | `pt delete 3`                                                                                      |
 | Edit    | `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG] [m/MEDICAL_HISTORY]` | `pt edit 2 n/James Lee e/jameslee@example.com`                                                     |
 | Find    | `pt find n/NAME`                                                                            | `pt find n/James Jake`                                                                             |
-| List    | `pt list`                                                                                   | -                                                                                                  |
+| List    | `pt list`                                                                                   | -                                                    
+| Add Medical History | `pt ma INDEX m/MEDICAL_HISTORY` | `pt ma 1 m/diabetes` 
+| Delete Medical History | `pt md INDEX i/MEDICAL_HISTORY_INDEX` | `pt md 1 i/1`
 
 ### Appointment-related Commands
 
@@ -525,6 +530,6 @@ from John Doe's appointment.
 |---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | Appointment         | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication.  |
 | Archive             | Storage for data that is non-urgent, e.g. appointment records that are past their date.                                                   |
-| Patient Record      | A record of a patient's details, medical history, medication, appointment list, and name.                                                 |
+| Patient Record      | A record of a patient's name, phone number, address, email and medical history.                                                 |
 | Prescription        | The issued medication/treatment for a patient along with a duration and volume.                                                           |
 | Expired Appointment | An appointment that is 24-hours past its scheduled time.                                                                                  |
