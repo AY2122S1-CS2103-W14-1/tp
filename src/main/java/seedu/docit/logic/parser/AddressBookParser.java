@@ -1,13 +1,15 @@
 package seedu.docit.logic.parser;
 
+import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_REGREX_FORMAT;
+import static seedu.docit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.docit.logic.commands.Command;
 import seedu.docit.logic.commands.HelpCommand;
 import seedu.docit.logic.parser.exceptions.ParseException;
-
-import static seedu.docit.commons.core.Messages.*;
 
 
 /**
