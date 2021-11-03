@@ -7,18 +7,11 @@ import static seedu.docit.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_MEDICAL;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.docit.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.logic.commands.EditPatientCommand;
 import seedu.docit.logic.commands.EditPatientCommand.EditPatientDescriptor;
 import seedu.docit.logic.parser.exceptions.ParseException;
-import seedu.docit.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditPatientCommand object
@@ -32,9 +25,10 @@ public class EditPatientCommandParser implements PatientParser<EditPatientComman
      */
     public EditPatientCommand parsePatientCommand(String args) throws ParseException {
         requireNonNull(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME,
-                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_MEDICAL);
+                        PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEDICAL);
 
         Index index;
 
@@ -62,27 +56,11 @@ public class EditPatientCommandParser implements PatientParser<EditPatientComman
             editPatientDescriptor
                     .setMedicalHistory(ParserUtil.parseMedicalHistory(argMultimap.getAllValues(PREFIX_MEDICAL)));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPatientDescriptor::setTags);
 
         if (!editPatientDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditPatientCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditPatientCommand(index, editPatientDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 }

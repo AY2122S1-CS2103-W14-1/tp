@@ -6,8 +6,6 @@ import static seedu.docit.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.docit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.docit.testutil.Assert.assertThrows;
 import static seedu.docit.testutil.TypicalPatients.ALICE;
 import static seedu.docit.testutil.TypicalPatients.BOB;
 
@@ -16,13 +14,6 @@ import org.junit.jupiter.api.Test;
 import seedu.docit.testutil.PatientBuilder;
 
 public class PatientTest {
-
-    @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Patient patient = new PatientBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> patient.getTags().remove(0));
-    }
-
     @Test
     public void isSamePatient() {
         // same object -> returns true
@@ -33,7 +24,7 @@ public class PatientTest {
 
         // same name, all other attributes different -> returns true
         Patient editedAlice = new PatientBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+                .withAddress(VALID_ADDRESS_BOB).build();
         assertTrue(ALICE.isSamePatient(editedAlice));
 
         // different name, all other attributes same -> returns false
@@ -82,10 +73,6 @@ public class PatientTest {
 
         // different docit -> returns false
         editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
-
-        // different tags -> returns false
-        editedAlice = new PatientBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 }

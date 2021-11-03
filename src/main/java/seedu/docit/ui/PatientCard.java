@@ -1,10 +1,7 @@
 package seedu.docit.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.docit.model.patient.Patient;
@@ -30,7 +27,6 @@ public class PatientCard extends UiPart<Region> {
 
     public final Patient patient;
 
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -45,8 +41,6 @@ public class PatientCard extends UiPart<Region> {
     private Label email;
     @FXML
     private Label medicalHistory;
-    @FXML
-    private FlowPane tags;
 
     /**
      * Creates a {@code PatientCode} with the given {@code Patient} and index to display.
@@ -59,9 +53,6 @@ public class PatientCard extends UiPart<Region> {
         phone.setText(PHONE_ICON + "\t" + patient.getPhone().value);
         address.setText(ADDRESS_ICON + "\t" + patient.getAddress().value);
         email.setText(EMAIL_ICON + "\t" + patient.getEmail().value);
-        patient.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         medicalHistory.setText(patient.getMedicalHistory().display(MEDICAL_HISTORY_ICON));
 
     }

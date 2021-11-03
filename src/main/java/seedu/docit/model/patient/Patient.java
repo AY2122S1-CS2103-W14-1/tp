@@ -2,13 +2,9 @@ package seedu.docit.model.patient;
 
 import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.docit.commons.core.index.Index;
-import seedu.docit.model.tag.Tag;
 
 /**
  * Represents a Patient in the address book.
@@ -23,7 +19,6 @@ public class Patient implements Comparable<Patient> {
 
     // Data fields
     private final Address address;
-    private final Set<Tag> tags = new HashSet<>();
 
     // Patient specific fields
     private final MedicalHistory medicalHistory;
@@ -31,13 +26,12 @@ public class Patient implements Comparable<Patient> {
     /**
      * Every field must be present and not null.
      */
-    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, MedicalHistory medicalHistory) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Patient(Name name, Phone phone, Email email, Address address, MedicalHistory medicalHistory) {
+        requireAllNonNull(name, phone, email, address);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags.addAll(tags);
         this.medicalHistory = medicalHistory;
     }
 
@@ -57,14 +51,6 @@ public class Patient implements Comparable<Patient> {
         return address;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags);
-    }
-
     public MedicalHistory getMedicalHistory() {
         return this.medicalHistory;
     }
@@ -75,7 +61,7 @@ public class Patient implements Comparable<Patient> {
      * @return patient with combined {@code MedicalHistory} object.
      */
     public Patient addMedicalHistory(MedicalHistory mH) { // tell-don't-ask
-        return new Patient(name, phone, email, address, tags, this.medicalHistory.append(mH));
+        return new Patient(name, phone, email, address, this.medicalHistory.append(mH));
     }
 
     /**
@@ -91,10 +77,10 @@ public class Patient implements Comparable<Patient> {
         }
 
         if (this.medicalHistory.size() - 1 == 0) {
-            return new Patient(name, phone, email, address, tags, MedicalHistory.EMPTY_MEDICAL_HISTORY);
+            return new Patient(name, phone, email, address, MedicalHistory.EMPTY_MEDICAL_HISTORY);
         }
 
-        return new Patient(name, phone, email, address, tags, this.medicalHistory.delete(i));
+        return new Patient(name, phone, email, address, this.medicalHistory.delete(i));
     }
 
     /**
@@ -136,14 +122,13 @@ public class Patient implements Comparable<Patient> {
         return otherPatient.getName().equals(getName())
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getEmail().equals(getEmail())
-                && otherPatient.getAddress().equals(getAddress())
-                && otherPatient.getTags().equals(getTags());
+                && otherPatient.getAddress().equals(getAddress());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address);
     }
 
     @Override
@@ -156,12 +141,6 @@ public class Patient implements Comparable<Patient> {
                 .append(getEmail())
                 .append("; Address: ")
                 .append(getAddress());
-
-        Set<Tag> tags = getTags();
-        if (!tags.isEmpty()) {
-            builder.append("; Tags: ");
-            tags.forEach(builder::append);
-        }
 
         if (!getMedicalHistory().isEmpty()) {
             builder.append("; Medical History: ")

@@ -1,9 +1,5 @@
 package seedu.docit.testutil;
 
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import seedu.docit.logic.commands.EditPatientCommand.EditPatientDescriptor;
 import seedu.docit.model.patient.Address;
 import seedu.docit.model.patient.Email;
@@ -11,7 +7,6 @@ import seedu.docit.model.patient.MedicalHistory;
 import seedu.docit.model.patient.Name;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.patient.Phone;
-import seedu.docit.model.tag.Tag;
 
 /**
  * A utility class to help with building EditPatientDescriptor objects.
@@ -37,7 +32,6 @@ public class EditPatientDescriptorBuilder {
         descriptor.setPhone(patient.getPhone());
         descriptor.setEmail(patient.getEmail());
         descriptor.setAddress(patient.getAddress());
-        descriptor.setTags(patient.getTags());
         descriptor.setMedicalHistory(patient.getMedicalHistory());
     }
 
@@ -70,16 +64,6 @@ public class EditPatientDescriptorBuilder {
      */
     public EditPatientDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPatientDescriptor}
-     * that we are building.
-     */
-    public EditPatientDescriptorBuilder withTags(String... tags) {
-        Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
-        descriptor.setTags(tagSet);
         return this;
     }
 

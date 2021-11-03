@@ -1,16 +1,11 @@
 package seedu.docit.testutil;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.docit.model.patient.Address;
 import seedu.docit.model.patient.Email;
 import seedu.docit.model.patient.MedicalHistory;
 import seedu.docit.model.patient.Name;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.patient.Phone;
-import seedu.docit.model.tag.Tag;
-import seedu.docit.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Patient objects.
@@ -27,7 +22,6 @@ public class PatientBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Tag> tags;
     private MedicalHistory medicalHistory;
 
     /**
@@ -38,7 +32,6 @@ public class PatientBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        tags = new HashSet<>();
         medicalHistory = MedicalHistory.generate();
         medicalHistory.add(DEFAULT_MEDICAL);
     }
@@ -51,7 +44,6 @@ public class PatientBuilder {
         phone = patientToCopy.getPhone();
         email = patientToCopy.getEmail();
         address = patientToCopy.getAddress();
-        tags = new HashSet<>(patientToCopy.getTags());
         medicalHistory = patientToCopy.getMedicalHistory();
     }
 
@@ -60,14 +52,6 @@ public class PatientBuilder {
      */
     public PatientBuilder withName(String name) {
         this.name = new Name(name);
-        return this;
-    }
-
-    /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Patient} that we are building.
-     */
-    public PatientBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -113,7 +97,7 @@ public class PatientBuilder {
     }
 
     public Patient build() {
-        return new Patient(name, phone, email, address, tags, medicalHistory);
+        return new Patient(name, phone, email, address, medicalHistory);
     }
 
 }

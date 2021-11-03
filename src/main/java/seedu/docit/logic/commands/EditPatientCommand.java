@@ -4,11 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_APPOINTMENTS;
 import static seedu.docit.model.Model.PREDICATE_SHOW_ALL_PATIENTS;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
@@ -22,8 +19,6 @@ import seedu.docit.model.patient.MedicalHistory;
 import seedu.docit.model.patient.Name;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.model.patient.Phone;
-import seedu.docit.model.tag.Tag;
-
 /**
  * Edits the details of an existing patient in the address book.
  */
@@ -40,7 +35,6 @@ public class EditPatientCommand extends PatientCommand {
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
             + "[" + CliSyntax.PREFIX_EMAIL + "EMAIL] "
             + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
             + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICALHISTORY] \n"
             + "Example: pt " + COMMAND_WORD + " 1 "
             + CliSyntax.PREFIX_PHONE + "91234567 "
@@ -100,11 +94,10 @@ public class EditPatientCommand extends PatientCommand {
         Phone updatedPhone = editPatientDescriptor.getPhone().orElse(patientToEdit.getPhone());
         Email updatedEmail = editPatientDescriptor.getEmail().orElse(patientToEdit.getEmail());
         Address updatedAddress = editPatientDescriptor.getAddress().orElse(patientToEdit.getAddress());
-        Set<Tag> updatedTags = editPatientDescriptor.getTags().orElse(patientToEdit.getTags());
         MedicalHistory medicalHistory = editPatientDescriptor.getMedicalHistory()
                                             .orElse(patientToEdit.getMedicalHistory());
 
-        return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags, medicalHistory);
+        return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, medicalHistory);
     }
 
     @Override
@@ -134,7 +127,6 @@ public class EditPatientCommand extends PatientCommand {
         private Phone phone;
         private Email email;
         private Address address;
-        private Set<Tag> tags;
         private MedicalHistory medicalHistory;
 
         public EditPatientDescriptor() {}
@@ -148,7 +140,6 @@ public class EditPatientCommand extends PatientCommand {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
-            setTags(toCopy.tags);
             setMedicalHistory(toCopy.medicalHistory);
         }
 
@@ -156,7 +147,7 @@ public class EditPatientCommand extends PatientCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, medicalHistory);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, medicalHistory);
         }
 
         public void setName(Name name) {
@@ -199,23 +190,6 @@ public class EditPatientCommand extends PatientCommand {
             return Optional.ofNullable(medicalHistory);
         }
 
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
         @Override
         public boolean equals(Object other) {
             // short circuit if same object
@@ -235,8 +209,7 @@ public class EditPatientCommand extends PatientCommand {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getAddress().equals(e.getAddress())
-                    && getMedicalHistory().equals(e.getMedicalHistory())
-                    && getTags().equals(e.getTags());
+                    && getMedicalHistory().equals(e.getMedicalHistory());
         }
     }
 }

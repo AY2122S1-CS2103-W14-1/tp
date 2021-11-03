@@ -169,9 +169,6 @@ The following is a list of commands that extend the three abstract classes:
       - `DeletePrescriptionCommand`
 
 > This taxonomy of commands is further reflected on the Parser's side as well.
- 
-=======
-
 
 **Parser** <br>
 The `Parser` interface is broken into three sub-interfaces: `BasicParser`, `PatientParser`, and `AppointmentParser`, for the parsers related to application-related commands, patient-related commands, and
@@ -200,9 +197,9 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Patient` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Patient` needing their own `Tag` objects.<br>
+<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below.
 
-<img src="images/BetterModelClassDiagram.png" width="450" />
+<img src="diagrams/BetterModelClassDiagram.png" width="450" />
 
 </div>
 
@@ -392,11 +389,11 @@ appointment time (24-hour buffer), i.e. by our definition, _expired_, the appoin
 by the `ModelManager` class in two ways.
 
 1. Upon initialisation of the application, the application automatically archives expired appointments (24-hours past their
-   scheduled time). This is called through `ModelManager#archivePastAppointments()`.
-   
+   scheduled time). This is called through `ModelManager#archivePastAppointments()`. 
 
-2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface. Every
-    day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
+
+2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface. 
+Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
    method.
 
 
@@ -665,7 +662,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list patients.
 2. `Doc'it` displays all patients.
 3. User adds an appointment, matching the appointment to the specific patient.
-4. `Doc'it` adds the appointment and tags it to the patient.
+4. `Doc'it` adds the appointment and associates it to the patient.
 
    Use case ends.
 
@@ -684,7 +681,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list appointments.
 2. `Doc'it` displays all appointments.
 3. User requests to delete a specific appointment in the list.
-4. `Doc'it` deletes the appointment and removes the appointment tag from the originally tagged patient.
+4. `Doc'it` deletes the appointment and removes the appointment association from the originally associated patient.
 
    Use case ends.
 

@@ -99,7 +99,7 @@ public class LogicManagerTest {
         // Execute add command
         String addCommand = PT_PREFIX + AddPatientCommand.COMMAND_WORD + NAME_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + MEDICAL_DESC_PATIENT;
-        Patient expectedPatient = new PatientBuilder(AMY).withTags().build();
+        Patient expectedPatient = new PatientBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPatient(expectedPatient);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;

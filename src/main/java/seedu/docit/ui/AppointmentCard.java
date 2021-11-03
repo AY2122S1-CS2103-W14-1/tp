@@ -11,8 +11,6 @@ import javafx.scene.layout.VBox;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
 
-
-
 /**
  * An UI component that displays information of an {@code Appointment}.
  */
@@ -50,8 +48,6 @@ public class AppointmentCard extends UiPart<Region> {
     @FXML
     private VBox prescriptionContainer;
     @FXML
-    private FlowPane tags;
-    @FXML
     private FlowPane prescriptions;
     @FXML
     private Label isToday;
@@ -67,9 +63,6 @@ public class AppointmentCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(patient.getName().fullName);
         phone.setText(PHONE_ICON + patient.getPhone().value);
-        patient.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         date.setText(DATE_ICON + appointment.getFormattedDateString());
         time.setText(TIME_ICON + appointment.getFormattedTimeString());
 

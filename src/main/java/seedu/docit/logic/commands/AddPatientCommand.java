@@ -20,15 +20,12 @@ public class AddPatientCommand extends PatientCommand {
             + CliSyntax.PREFIX_PHONE + "PHONE "
             + CliSyntax.PREFIX_EMAIL + "EMAIL "
             + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
-            + "[" + CliSyntax.PREFIX_TAG + "TAG]... "
             + "[" + CliSyntax.PREFIX_MEDICAL + "MEDICAL HISTORY]...\n"
             + "Example: pt " + COMMAND_WORD + " "
             + CliSyntax.PREFIX_NAME + "John Doe "
             + CliSyntax.PREFIX_PHONE + "98765432 "
             + CliSyntax.PREFIX_EMAIL + "johnd@example.com "
             + CliSyntax.PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + CliSyntax.PREFIX_TAG + "friends "
-            + CliSyntax.PREFIX_TAG + "owesMoney "
             + CliSyntax.PREFIX_MEDICAL + "diabetes";
 
     public static final String MESSAGE_SUCCESS = "New patient added: \n%1$s";

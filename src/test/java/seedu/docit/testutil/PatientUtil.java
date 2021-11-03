@@ -5,14 +5,10 @@ import static seedu.docit.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_MEDICAL;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.docit.logic.parser.CliSyntax.PREFIX_TAG;
-
-import java.util.Set;
 
 import seedu.docit.logic.commands.AddPatientCommand;
 import seedu.docit.logic.commands.EditPatientCommand.EditPatientDescriptor;
 import seedu.docit.model.patient.Patient;
-import seedu.docit.model.tag.Tag;
 
 /**
  * A utility class for Patient.
@@ -35,9 +31,6 @@ public class PatientUtil {
         sb.append(PREFIX_EMAIL + patient.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + patient.getAddress().value + " ");
 
-        patient.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
         sb.append(PREFIX_MEDICAL + patient.getMedicalHistory().toString() + " ");
         return sb.toString();
     }
@@ -51,14 +44,6 @@ public class PatientUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
-        if (descriptor.getTags().isPresent()) {
-            Set<Tag> tags = descriptor.getTags().get();
-            if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG + " ");
-            } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
-            }
-        }
         descriptor.getMedicalHistory().ifPresent(medicalHistory ->
                 sb.append(PREFIX_MEDICAL).append(medicalHistory.toString()).append(" "));
         return sb.toString();

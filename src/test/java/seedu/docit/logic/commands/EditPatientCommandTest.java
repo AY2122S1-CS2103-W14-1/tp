@@ -6,8 +6,6 @@ import static seedu.docit.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.docit.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.docit.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.docit.logic.commands.CommandTestUtil.VALID_TAG_MEDICAL_BOB;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.docit.logic.commands.CommandTestUtil.showPatientAtIndex;
@@ -60,12 +58,10 @@ public class EditPatientCommandTest {
         Patient lastPatient = model.getFilteredPatientList().get(indexLastPatient.getZeroBased());
 
         PatientBuilder patientInList = new PatientBuilder(lastPatient);
-        Patient editedPatient = patientInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_HUSBAND).withMedicalHistory(VALID_TAG_MEDICAL_BOB).build();
+        Patient editedPatient = patientInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB).build();
 
         EditPatientDescriptor descriptor = new EditPatientDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND)
-                .withMedicalHistory(VALID_TAG_MEDICAL_BOB).build();
+                .withPhone(VALID_PHONE_BOB).build();
 
         EditPatientCommand editCommand = new EditPatientCommand(indexLastPatient, descriptor);
 
