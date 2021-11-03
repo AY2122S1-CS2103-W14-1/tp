@@ -510,24 +510,19 @@ from John Doe's appointment.
 | Add Medical History     | `pt ma INDEX m/MEDICAL_HISTORY`                                                             | `pt ma 1 m/diabetes`                                                                      |
 | Delete Medical History  | `pt md INDEX i/MEDICAL_HISTORY_INDEX`                                                       | `pt md 1 i/1`                                                                             |
 
-### Appointment-related Commands
+### Appointment and Prescription-related Commands
 
-| Command       | Format                                                | Example                         |
-|---------------|-------------------------------------------------------|---------------------------------|
-| Add           | `apmt add INDEX d/DATETIME`                           | `apmt add 1 d/2021-10-05 1600`  |
-| Edit          | `apmt edit APMT_INDEX [i/PATIENT_INDEX] [d/DATETIME]` | `apmt edit 1 d/2021-10-05 1600` |
-| Delete        | `apmt delete INDEX`                                   | `apmt delete 1`                 |
-| Archive       | `apmt archive INDEX`                                  | `apmt archive 1`                |
-| List          | `apmt list`                                           | -                               |
-| List Archived | `apmt alist`                                          | -                               |
-| Sort          | `apmt sort`                                           | -                               |
-
-#### Prescription-related Commands
-
-| Command       | Format                                                            | Example                                                |
-|---------------|-------------------------------------------------------------------|--------------------------------------------------------|
-| Add           | `apmt pa i/APPOINTMENT_INDEX n/MEDICINE v/VOLUME d/DURATION `     | `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week `  |
-| Delete        | `apmt pd i/APPOINTMENT_INDEX n/MEDICINE`                          | `apmt pd i/1 n/Penicillin `                            |
+| Command              | Format                                                            | Example                                                |
+|----------------------|-------------------------------------------------------------------|--------------------------------------------------------|
+| Add                  | `apmt add INDEX d/DATETIME`                                       | `apmt add 1 d/2021-10-05 1600`                         |
+| Edit                 | `apmt edit APMT_INDEX [i/PATIENT_INDEX] [d/DATETIME]`             | `apmt edit 1 d/2021-10-05 1600`                        |
+| Delete               | `apmt delete INDEX`                                               | `apmt delete 1`                                        |
+| Archive              | `apmt archive INDEX`                                              | `apmt archive 1`                                       |
+| List                 | `apmt list`                                                       | -                                                      |
+| List Archived        | `apmt alist`                                                      | -                                                      |
+| Sort                 | `apmt sort`                                                       | -                                                      |
+| Add Prescription     | `apmt pa i/APPOINTMENT_INDEX n/MEDICINE v/VOLUME d/DURATION `     | `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week `  |
+| Delete Prescription  | `apmt pd i/APPOINTMENT_INDEX n/MEDICINE`                          | `apmt pd i/1 n/Penicillin `                            |
 
 --------------------------------------------------------------------------------------------------------------------
 
