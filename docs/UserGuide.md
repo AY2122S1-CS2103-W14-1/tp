@@ -500,15 +500,16 @@ from John Doe's appointment.
 | Exit        | `doc exit`    |
 
 ### Patient-related Commands
-| Command | Format                                                                                                      | Example                                                                                   |
-|---------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| Add                     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_HISTORY]...`                     | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer` |
-| Delete                  | `pt delete INDEX`                                                                           | `pt delete 3`                                                                             |
-| Edit                    | `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEDICAL_HISTORY]`         | `pt edit 2 n/James Lee e/jameslee@example.com`                                            |
-| Find                    | `pt find n/NAME`                                                                            | `pt find n/James Jake`                                                                    |
-| List                    | `pt list`                                                                                   | -                                                                                         |
-| Add Medical History     | `pt ma INDEX m/MEDICAL_HISTORY`                                                             | `pt ma 1 m/diabetes`                                                                      |
-| Delete Medical History  | `pt md INDEX i/MEDICAL_HISTORY_INDEX`                                                       | `pt md 1 i/1`                                                                             |
+| Command       | Format                                                | Example                         |
+|---------------|-------------------------------------------------------|---------------------------------|
+| Add           | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_HISTORY]...`                           | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer`  |
+| Delete          | `pt delete INDEX` | `pt delete 3` |
+| Edit        | `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEDICAL_HISTORY]`                                   | `pt edit 2 n/James Lee e/jameslee@example.com`                 |
+| Find       | `pt find [keywords...]`                                  | `pt find James diabetes`                |
+| List          | `pt list`                                           | -                               |
+| Add Medical History | `pt ma INDEX m/MEDICAL_HISTORY`                                          | `pt ma 1 m/diabetes`                               |
+| Delete Medical History          | `pt md INDEX i/MEDICAL_HISTORY_INDEX`                                           | `pt md 1 i/1`                               |
+
 
 ### Appointment-related Commands
 
