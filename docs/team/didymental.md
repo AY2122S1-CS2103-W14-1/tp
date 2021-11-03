@@ -64,11 +64,6 @@ Given below are my contributions to the project:
 
 
 - **Community**:
-  * PRs reviewed (with non-trivial review comments): [\#12](), [\#32](), [\#19](), [\#42]()
-  * Contributed to forum discussions (examples: [1](), [2](), [3](), [4]())
-  * Reported bugs and suggestions for other teams in the class (examples: [1](), [2](), [3]())
-  * Some parts of the history feature I added was adopted by several other class mates ([1](), [2]())
-
-- **Tools**:
-  * Integrated a third party library (Natty) to the project ([\#42]())
-  * Integrated a new Github plugin (CircleCI) to the team repo
+  * PRs reviewed (with non-trivial review comments): [\#71](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/71), [\#29](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/29), [\#18](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/18), [\#61](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/61)
+  * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/237), [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/306))
+  * Reported bugs and suggestions for other teams in the class (example: [1](https://github.com/didymental/ped))
