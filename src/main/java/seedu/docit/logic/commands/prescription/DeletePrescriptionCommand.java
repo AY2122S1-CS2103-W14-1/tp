@@ -23,10 +23,10 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
             + COMMAND_WORD + ": Deletes a prescription from an appointment based "
             + "on appointment index and medicine name. \n"
             + "Parameters: "
-            + CliSyntax.PREFIX_INDEX + "APPOINTMENT_INDEX "
+            + "APPOINTMENT_INDEX "
             + CliSyntax.PREFIX_NAME + "MEDICINE \n"
             + "Example: apmt " + COMMAND_WORD + " "
-            + CliSyntax.PREFIX_INDEX + "1 "
+            + "1 "
             + CliSyntax.PREFIX_NAME + "Penicillin ";
 
     public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted prescription: \nMedicine: %1$s\n\n"

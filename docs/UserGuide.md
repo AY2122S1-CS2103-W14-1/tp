@@ -450,11 +450,11 @@ Sorted Appointments based on default settings.
 Adds a prescription to the designated appointment.
 
 
-**Format:** `apmt pa i/APMT_INDEX n/MEDICINE_NAME v/MEDICINE_VOLUME d/MEDICINE_DURATION`
+**Format:** `apmt pa APMT_INDEX n/MEDICINE_NAME v/MEDICINE_VOLUME d/MEDICINE_DURATION`
 * The names of medicine added to the prescription list must be unique.
 
 **Examples:**
-* `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week`
+* `apmt pa 1 n/Penicillin v/400 ml d/2 times a week`
 
 **Expected Outcome:**
 ```
@@ -467,10 +467,10 @@ Duration: 2 times a week
 ## Delete prescription: `apmt pd`
 Deletes a prescription from the designated appointment.
 
-**Format:** `apmt pd i/APMT_INDEX n/MEDICINE_NAME`
+**Format:** `apmt pd APMT_INDEX n/MEDICINE_NAME`
 
 **Examples:**
-* `apmt pd i/1 n/panadol`
+* `apmt pd 1 n/panadol`
 
 **Expected Outcome:**
 ```
@@ -522,8 +522,8 @@ from John Doe's appointment.
 | List                 | `apmt list`                                                       | -                                                      |
 | List Archived        | `apmt alist`                                                      | -                                                      |
 | Sort                 | `apmt sort`                                                       | -                                                      |
-| Add Prescription     | `apmt pa i/APPOINTMENT_INDEX n/MEDICINE v/VOLUME d/DURATION `     | `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week `  |
-| Delete Prescription  | `apmt pd i/APPOINTMENT_INDEX n/MEDICINE`                          | `apmt pd i/1 n/Penicillin `                            |
+| Add Prescription     | `apmt pa APPOINTMENT_INDEX n/MEDICINE v/VOLUME d/DURATION `     | `apmt pa 1 n/Penicillin v/400 ml d/2 times a week `  |
+| Delete Prescription  | `apmt pd APPOINTMENT_INDEX n/MEDICINE`                          | `apmt pd 1 n/Penicillin `                            |
 
 --------------------------------------------------------------------------------------------------------------------
 

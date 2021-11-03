@@ -3,7 +3,6 @@ package seedu.docit.logic.parser.prescription;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.docit.commons.core.index.Index;
-import seedu.docit.logic.commands.AddMedicalEntryCommand;
 import seedu.docit.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.docit.logic.parser.ArgumentMultimap;
 import seedu.docit.logic.parser.ArgumentTokenizer;
