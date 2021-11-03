@@ -22,11 +22,11 @@ public class AddPrescriptionCommand extends AppointmentCommand {
 
     public static final String MESSAGE_USAGE =
             "apmt "
-                    + COMMAND_WORD + ": Adds a prescription to an appointment. "
-                    + "Parameters: \n"
-                    + CliSyntax.PREFIX_INDEX + "ID OF APPOINTMENT \n"
-                    + CliSyntax.PREFIX_NAME + "MEDICINE \n"
-                    + CliSyntax.PREFIX_VOLUME + "VOLUME \n"
+                    + COMMAND_WORD + ": Adds a prescription to an appointment. \n"
+                    + "Parameters: "
+                    + CliSyntax.PREFIX_INDEX + "APPOINTMENT_INDEX "
+                    + CliSyntax.PREFIX_NAME + "MEDICINE "
+                    + CliSyntax.PREFIX_VOLUME + "VOLUME "
                     + CliSyntax.PREFIX_DURATION + "DURATION \n"
                     + "Example: apmt " + COMMAND_WORD + " "
                     + CliSyntax.PREFIX_INDEX + "1 "
