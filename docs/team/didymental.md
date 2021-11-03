@@ -42,15 +42,19 @@ Given below are my contributions to the project:
 - **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&since=2021-09-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=didymental&tabRepo=AY2122S1-CS2103-W14-1%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 
+- **Enhancements to existing features**:
+  * **`FIND PATIENT` feature:**
+    * Enhanced `pt find` to be able to find a list of patients based on their medical history description. This enhancement allows clinic staff to find patients by their `name` and any `description` of their medical history.
+  * Justification: clinic staff can find a list of patients not only by their name but by their medical history, so it is easier to track patients with similar past conditions.
+  * Wrote additional tests for existing features
+
+
 - **Project management**:
   * Managed releases `v1.1` - `v1.4` (4 releases) on Github
 
 
-- **Enhancements to existing features**:
-  * **`FIND PATIENT` feature:**
-    * Enhanced `pt find` to be able to find a list of patients based on their medical history description. This enhancement allows clinic staff to find patients by their `name` and any `description` of their medical history.
-  * Justification: clinic staff can find a list of patients not only by their name but by their medical history, so it is easier to track patients with similar past conditions.   
-  * Wrote additional tests for existing features
+- **Coordinating and Maintaining Issue Tracker**:
+  * Coordinated sprint issues by dividing tasks and assigning tasks to group members (examples: [\#54](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/54), [\#55](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/55), [\#56](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/56), [\#57](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/57), [\#67](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/67), [\#75](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/75), [\#76](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/76), [\#77](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/77), [\#78](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/78), [\#79](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/79), [\#80](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/80), [\#81](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/81), [\#102](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/102), [\#108](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/108), and [more](https://github.com/AY2122S1-CS2103-W14-1/tp/issues?q=is%3Aissue+author%3Adidymental+is%3Aclosed))
 
 
 - **Documentation**:
