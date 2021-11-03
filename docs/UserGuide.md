@@ -500,8 +500,8 @@ from John Doe's appointment.
 | Exit        | `doc exit`    |
 
 ### Patient-related Commands
-| Command | Format                                                                                      | Example                                                                                                   |
-|---------|---------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Command | Format                                                                                                      | Example                                                                                   |
+|---------|-------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
 | Add                     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [m/MEDICAL_HISTORY]...`                     | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer` |
 | Delete                  | `pt delete INDEX`                                                                           | `pt delete 3`                                                                             |
 | Edit                    | `pt edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [m/MEDICAL_HISTORY]`         | `pt edit 2 n/James Lee e/jameslee@example.com`                                            |
