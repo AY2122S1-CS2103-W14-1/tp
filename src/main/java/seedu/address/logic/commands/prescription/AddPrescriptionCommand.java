@@ -1,18 +1,22 @@
-package seedu.docit.logic.commands.prescription;
+package seedu.address.logic.commands.prescription;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VOLUME;
 
 import java.util.List;
 
-import seedu.docit.commons.core.Messages;
-import seedu.docit.commons.core.index.Index;
-import seedu.docit.logic.commands.AppointmentCommand;
-import seedu.docit.logic.commands.CommandResult;
-import seedu.docit.logic.commands.exceptions.CommandException;
-import seedu.docit.logic.parser.CliSyntax;
-import seedu.docit.model.Model;
-import seedu.docit.model.appointment.Appointment;
-import seedu.docit.model.prescription.Prescription;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AppointmentCommand;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.appointment.Appointment;
+import seedu.address.model.prescription.Prescription;
+
 
 /**
  * Adds a prescription to an appointment.
@@ -23,19 +27,18 @@ public class AddPrescriptionCommand extends AppointmentCommand {
     public static final String MESSAGE_USAGE =
             "apmt "
                     + COMMAND_WORD + ": Adds a prescription to an appointment. "
-                    + "Parameters: "
-                    + CliSyntax.PREFIX_INDEX + "ID OF APPOINTMENT "
-                    + CliSyntax.PREFIX_NAME + "MEDICINE "
-                    + CliSyntax.PREFIX_VOLUME + "VOLUME "
-                    + CliSyntax.PREFIX_DURATION + "DURATION \n"
+                    + "Parameters: \n"
+                    + PREFIX_INDEX + "ID OF APPOINTMENT \n"
+                    + PREFIX_NAME + "MEDICINE \n"
+                    + PREFIX_VOLUME + "VOLUME \n"
+                    + PREFIX_DURATION + "DURATION \n"
                     + "Example: apmt " + COMMAND_WORD + " "
-                    + CliSyntax.PREFIX_INDEX + "1 "
-                    + CliSyntax.PREFIX_NAME + "Penicillin "
-                    + CliSyntax.PREFIX_VOLUME + "400 ml "
-                    + CliSyntax.PREFIX_DURATION + "2 times a week ";
+                    + PREFIX_INDEX + "1 "
+                    + PREFIX_NAME + "Penicillin "
+                    + PREFIX_VOLUME + "400 ml "
+                    + PREFIX_DURATION + "2 times a week ";
 
-    public static final String MESSAGE_SUCCESS = "New prescription added: \nMedicine: %1$s\n"
-            + "Volume: %2$s\nDuration: %3$s";
+    public static final String MESSAGE_SUCCESS = "New prescription added";
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
 
@@ -69,15 +72,12 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         }
 
         Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
+        Prescription toAdd = new Prescription(medicine, volume, duration, appointmentToMakePrescription);
 
-        Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
-
-        if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
+        if (appointmentToMakePrescription.containsPrescription(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
-
-        model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
+        appointmentToMakePrescription.addPrescription(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

@@ -497,7 +497,7 @@ from John Doe's appointment.
 
 ### Patient-related Commands
 
-| Command | Format| Example                                                                                            |
+| Command | Format                                                                                      | Example                                                                                            |
 |---------|---------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | Add     | `pt add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG] [m/MEDICAL_HISTORY]`                | `pt add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 m/cancer t/friend` |
 | Delete  | `pt delete INDEX`                                                                           | `pt delete 3`                                                                                      |
@@ -516,6 +516,15 @@ from John Doe's appointment.
 | List          | `apmt list`                                           | -                               |
 | List Archived | `apmt alist`                                          | -                               |
 | Sort          | `apmt sort`                                           | -                               |
+
+#### Prescription-related Commands
+
+| Command       | Format                                                | Example                         |
+|---------------|-------------------------------------------------------------------------------|---------------------------------|
+| Add           | `apmt pa i/APMT_INDEX n/MEDICINE_NAME v/MEDICINE_VOLUME d/MEDICINE_DURATION`  | `apmt pa 1 d/2021-10-05 1600`   |
+| Delete        | `apmt pd i/APMT_INDEX n/MEDICINE_NAME`                                        | `apmt pd 1`                 |
+
+
 
 --------------------------------------------------------------------------------------------------------------------
 
