@@ -511,6 +511,7 @@ from John Doe's appointment.
 | Add Medical History     | `pt ma INDEX m/MEDICAL_HISTORY`                                                             | `pt ma 1 m/diabetes`                                                                      |
 | Delete Medical History  | `pt md INDEX i/MEDICAL_HISTORY_INDEX`                                                       | `pt md 1 i/1`                                                                             |
 
+
 ### Appointment-related Commands
 
 | Command       | Format                                                | Example                         |
