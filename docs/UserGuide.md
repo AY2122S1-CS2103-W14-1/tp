@@ -522,6 +522,13 @@ from John Doe's appointment.
 | List Archived | `apmt alist`                                          | -                               |
 | Sort          | `apmt sort`                                           | -                               |
 
+#### Prescription-related Commands
+
+| Command       | Format                                                            | Example                                                |
+|---------------|-------------------------------------------------------------------|--------------------------------------------------------|
+| Add           | `apmt pa i/APPOINTMENT_INDEX n/MEDICINE v/VOLUME d/DURATION `     | `apmt pa i/1 n/Penicillin v/400 ml d/2 times a week `  |
+| Delete        | `apmt pd i/APPOINTMENT_INDEX n/MEDICINE`                          | `apmt pd i/1 n/Penicillin `                            |
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
