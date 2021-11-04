@@ -10,7 +10,7 @@ import seedu.docit.model.appointment.Appointment;
  * A Model stub that contains a single patient.
  */
 public class ModelStubWithAppointment extends ModelStub {
-    private final Appointment appointment;
+    protected final Appointment appointment;
 
     /**
      * Returns a model stub that contains 1 appointment
