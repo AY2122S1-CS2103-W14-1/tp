@@ -54,8 +54,6 @@ public class DeleteAppointmentCommandTest {
 
 
     @Test
-    @Disabled
-    // TODO: Failing at :57, see related TODO at AppointmentCommandTestUtil.java:26
     public void execute_validIndexFilteredList_success() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
@@ -66,7 +64,7 @@ public class DeleteAppointmentCommandTest {
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 appointmentToDelete);
 
-        Model expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getAppointmentBook(),
                 model.getArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);
         showNoAppointment(expectedModel);
@@ -75,8 +73,6 @@ public class DeleteAppointmentCommandTest {
     }
 
     @Test
-    @Disabled
-    // TODO: Failing at :73, see related TODO at AppointmentCommandTestUtil.java:26
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
 

@@ -25,17 +25,17 @@ public class TypicalAppointments {
         LocalDateTime.of(2022, 5, 1, 16, 0));
     public static final Appointment APPOINTMENT_6 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 6, 1, 16, 0));
-    public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 7, 1, 16, 0));
-    public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 8, 1, 16, 0));
-    public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 9, 1, 16, 0));
-    public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 10, 1, 16, 0));
-    public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 11, 1, 16, 0));
-    public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePatients()[5],
         LocalDateTime.of(2022, 12, 1, 16, 0));
 
 

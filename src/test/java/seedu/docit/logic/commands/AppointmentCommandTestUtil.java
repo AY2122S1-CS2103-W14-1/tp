@@ -8,7 +8,8 @@ import java.util.Arrays;
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.model.Model;
 import seedu.docit.model.appointment.Appointment;
-import seedu.docit.model.appointment.AppointmentContainsKeywordsPredicate;
+import seedu.docit.model.appointment.AppointmentContainsPatientPredicate;
+import seedu.docit.model.patient.Patient;
 
 public class AppointmentCommandTestUtil {
 
@@ -20,8 +21,9 @@ public class AppointmentCommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
 
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
-        final int id = 0;
-        model.updateFilteredAppointmentList(new AppointmentContainsKeywordsPredicate(Arrays.asList(id)));
+        Patient patient = model.getFilteredPatientList().get(targetIndex.getZeroBased());
+        model.updateFilteredAppointmentList(new AppointmentContainsPatientPredicate(
+                Arrays.asList(patient.getEmail())));
         // TODO: AppointmentContainsKeywordsPredicate needs to be modified as Appointmnet no longer uses id
 
         assertEquals(1, model.getFilteredAppointmentList().size());
