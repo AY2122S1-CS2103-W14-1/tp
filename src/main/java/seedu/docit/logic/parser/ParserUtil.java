@@ -5,13 +5,16 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.docit.commons.core.LogsCenter;
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.commons.util.StringUtil;
 import seedu.docit.logic.parser.exceptions.ParseException;
@@ -30,8 +33,9 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "%s is incorrect datetime format.";
     public static final String MESSAGE_INVALID_NUMERICAL_ONLY = "%s cannot be numerical only.";
-    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
-    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+    private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
+    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
+    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-M-d HHmm");
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -166,8 +170,9 @@ public class ParserUtil {
         }
 
         try {
-            return LocalDateTime.parse(datetime, formatter);
+            return LocalDateTime.parse(datetime, formatter.withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
+            logger.warning(e.getMessage());
             throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
         }
     }
