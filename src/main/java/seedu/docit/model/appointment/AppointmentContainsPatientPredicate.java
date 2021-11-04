@@ -1,9 +1,10 @@
 package seedu.docit.model.appointment;
 
-import seedu.docit.model.patient.Email;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.docit.model.patient.Email;
+
 
 /**
  * Tests that an {@code Appointment}'s {@code Id} matches any of the patient email given.

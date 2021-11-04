@@ -8,7 +8,6 @@ import static seedu.docit.testutil.Assert.assertThrows;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.index.Index;

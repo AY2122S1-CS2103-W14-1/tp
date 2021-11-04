@@ -2,9 +2,6 @@ package seedu.docit.testutil.stubs;
 
 import static java.util.Objects.requireNonNull;
 
-import javafx.beans.InvalidationListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.docit.model.AddressBook;
@@ -12,12 +9,6 @@ import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.testutil.AddressBookBuilder;
 import seedu.docit.testutil.PatientBuilder;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
 
 /**
  * A Model stub that contains a single patient.

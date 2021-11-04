@@ -11,12 +11,10 @@ import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
-import seedu.docit.model.AddressBook;
 import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.Model;
 import seedu.docit.model.ModelManager;
