@@ -14,17 +14,16 @@ import seedu.docit.model.patient.Patient;
 public class AppointmentCommandTestUtil {
 
     /**
-     * Updates {@code model}'s filtered list to show only the appointment at the given {@code targetIndex} in the
-     * {@code model}'s appointment list.
+     * Updates {@code model}'s filtered list to show appointments with patient at the given {@code targetIndex} in the
+     * {@code model}'s patient list.
      */
-    public static void showAppointmentAtIndex(Model model, Index targetIndex) {
+    public static void showAppointmentWithPatientAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
 
         Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
         Patient patient = model.getFilteredPatientList().get(targetIndex.getZeroBased());
         model.updateFilteredAppointmentList(new AppointmentContainsPatientPredicate(
                 Arrays.asList(patient.getEmail())));
-        // TODO: AppointmentContainsKeywordsPredicate needs to be modified as Appointmnet no longer uses id
 
         assertEquals(1, model.getFilteredAppointmentList().size());
     }

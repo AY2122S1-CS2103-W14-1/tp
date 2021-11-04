@@ -2,7 +2,7 @@ package seedu.docit.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
+import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentWithPatientAtIndex;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
@@ -50,10 +50,9 @@ public class DeleteAppointmentCommandTest {
         assertCommandFailure(deleteAppointmentCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
     }
 
-
     @Test
     public void execute_validIndexFilteredList_success() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Appointment appointmentToDelete = model.getFilteredAppointmentList().get(
                 INDEX_FIRST_APPOINTMENT.getZeroBased());
@@ -72,7 +71,7 @@ public class DeleteAppointmentCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Index outOfBoundIndex = INDEX_SECOND_APPOINTMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list

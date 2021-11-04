@@ -7,7 +7,7 @@ import seedu.docit.model.patient.Email;
 
 
 /**
- * Tests that an {@code Appointment}'s {@code Id} matches any of the patient email given.
+ * Tests that an {@code Appointment}'s {@code Patient} email matches any of the patient emails given.
  */
 public class AppointmentContainsPatientPredicate implements Predicate<Appointment> {
     private final List<Email> emails;
