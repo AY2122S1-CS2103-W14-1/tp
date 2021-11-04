@@ -36,6 +36,10 @@ public class ParserUtil {
     public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-M-d HHmm");
 
+    private static final int min_year = 2000;
+    private static final int max_year = 2999;
+    private static final int max_hour = 2359;
+
     private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
 
     /**
@@ -166,7 +170,7 @@ public class ParserUtil {
         }
 
         // to limit inputs further
-        if (year < 2000 || year >= 3000 || hour == 2400) {
+        if (year < min_year || year > max_year || hour > max_hour) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
         }
 
