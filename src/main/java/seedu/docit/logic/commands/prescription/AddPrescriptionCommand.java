@@ -38,6 +38,9 @@ public class AddPrescriptionCommand extends AppointmentCommand {
             + "Volume: %2$s\nDuration: %3$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
+    public static final String MESSAGE_FIELD_TOO_LONG =
+            "Medicine name can only be 20 characters long. Volume field can only be 20 characters long. "
+                    + "Duration field can only be 40 characters long.";
 
     private final Index targetAppointmentIndex;
     private String medicine;
@@ -74,6 +77,10 @@ public class AddPrescriptionCommand extends AppointmentCommand {
 
         if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
+        }
+
+        if (volume.length() > 20 || medicine.length() > 20 || duration.length() > 40) {
+            throw new CommandException(MESSAGE_FIELD_TOO_LONG);
         }
 
         model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
