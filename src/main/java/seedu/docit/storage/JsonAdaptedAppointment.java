@@ -48,7 +48,7 @@ public class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source, ReadOnlyAddressBook addressBook) {
         patientIndex = Integer.toString(addressBook.getIndexOfPatient(source.getPatient()).getZeroBased());
-        datetime = source.getFormattedDatetimeString();
+        datetime = source.getInputFormattedDatetimeString();
         prescriptionList.addAll(source.getPrescriptions()
                         .stream().map(JsonAdaptedPrescription::new)
                 .collect(Collectors.toList()));
