@@ -19,7 +19,7 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
     public static final String MESSAGE_USAGE = "pt " + COMMAND_WORD + ": Deletes a medical entry to the patient. \n"
         + "Parameters: INDEX (must be a positive integer) "
         + PREFIX_INDEX + "INDEX OF MEDICAL ENTRY\n"
-        + "Example: pt " + COMMAND_WORD + "1 "
+        + "Example: pt " + COMMAND_WORD + " 1 "
         + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "Updated: \n";

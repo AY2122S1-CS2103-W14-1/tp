@@ -183,7 +183,7 @@ public class ParserUtil {
             throw new ParseException(MedicalHistory.MESSAGE_CONSTRAINTS);
         }
         if (!MedicalHistory.isValidMedicalEntry(trimmedMedicalEntry)) {
-            return MedicalHistory.EMPTY_MEDICAL_HISTORY;
+            throw new ParseException(MedicalHistory.MESSAGE_CONSTRAINTS);
         }
         return new MedicalHistory(trimmedMedicalEntry);
     }
