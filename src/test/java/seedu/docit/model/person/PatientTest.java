@@ -1,5 +1,6 @@
 package seedu.docit.model.patient;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -11,6 +12,7 @@ import static seedu.docit.testutil.TypicalPatients.BOB;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.docit.commons.core.index.Index;
 import seedu.docit.testutil.PatientBuilder;
 
 public class PatientTest {
@@ -75,4 +77,18 @@ public class PatientTest {
         editedAlice = new PatientBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
     }
+
+    @Test
+    public void addMedicalHistory_emptyMedicalHistory_returnsNonEmptyMedicalHistory() {
+        int len = ALICE.getMedicalHistory().size();
+
+        Patient editedPatient = new PatientBuilder(ALICE).build();
+
+        for (int i = 0; i < len; i++) {
+            editedPatient = ALICE.deleteMedicalHistory(Index.fromZeroBased(i));
+        }
+
+        assertEquals(MedicalHistory.EMPTY_MEDICAL_HISTORY, editedPatient.getMedicalHistory());
+    }
+
 }
