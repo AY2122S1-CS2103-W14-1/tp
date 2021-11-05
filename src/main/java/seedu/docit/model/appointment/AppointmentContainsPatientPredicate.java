@@ -4,27 +4,28 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.docit.model.patient.Email;
+import seedu.docit.model.patient.Patient;
 
 
 /**
  * Tests that an {@code Appointment}'s {@code Patient} email matches any of the patient emails given.
  */
 public class AppointmentContainsPatientPredicate implements Predicate<Appointment> {
-    private final List<Email> emails;
+    private final Patient patient;
 
-    public AppointmentContainsPatientPredicate(List<Email> emails) {
-        this.emails = emails;
+    public AppointmentContainsPatientPredicate(Patient patient) {
+        this.patient = patient;
     }
 
     @Override
     public boolean test(Appointment appointment) {
-        return emails.stream().anyMatch(email -> email.equals(appointment.getPatient().getEmail()));
+        return patient.isSamePatient(appointment.getPatient());
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof AppointmentContainsPatientPredicate // instanceof handles nulls
-            && emails.equals(((AppointmentContainsPatientPredicate) other).emails)); // state check
+            && patient.equals(((AppointmentContainsPatientPredicate) other).patient)); // state check
     }
 }

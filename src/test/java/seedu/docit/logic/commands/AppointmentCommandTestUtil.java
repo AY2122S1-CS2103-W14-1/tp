@@ -20,10 +20,8 @@ public class AppointmentCommandTestUtil {
     public static void showAppointmentWithPatientAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredAppointmentList().size());
 
-        Appointment appointment = model.getFilteredAppointmentList().get(targetIndex.getZeroBased());
         Patient patient = model.getFilteredPatientList().get(targetIndex.getZeroBased());
-        model.updateFilteredAppointmentList(new AppointmentContainsPatientPredicate(
-                Arrays.asList(patient.getEmail())));
+        model.updateFilteredAppointmentList(new AppointmentContainsPatientPredicate(patient));
 
         assertEquals(1, model.getFilteredAppointmentList().size());
     }
