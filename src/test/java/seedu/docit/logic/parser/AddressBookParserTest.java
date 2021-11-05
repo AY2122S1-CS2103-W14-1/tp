@@ -37,6 +37,7 @@ import seedu.docit.testutil.AppointmentUtil;
 import seedu.docit.testutil.EditPatientDescriptorBuilder;
 import seedu.docit.testutil.PatientBuilder;
 import seedu.docit.testutil.PatientUtil;
+import seedu.docit.testutil.TypicalPatients;
 
 public class AddressBookParserTest {
 
@@ -102,7 +103,7 @@ public class AddressBookParserTest {
     public void parseCommand_addAppointment() throws Exception {
         Appointment appointment = A1;
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(APPT_PREFIX
-                + AppointmentUtil.getAddCommand(appointment));
+                + AppointmentUtil.getAddCommand(appointment, TypicalPatients.getTypicalAddressBook()));
         assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), appointment.getDatetime()), command);
     }
 

@@ -37,11 +37,14 @@ public class AppointmentUtil {
     /**
      * Returns the part of command string for the given {@code EditAppointmentDescriptor}'s details.
      */
-    public static String getEditAppointmentDescriptorDetails(EditAppointmentCommand.EditAppointmentDescriptor descriptor) {
+    public static String getEditAppointmentDescriptorDetails(
+        EditAppointmentCommand.EditAppointmentDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getPatientIndex().ifPresent(
             patientIndex -> sb.append(PREFIX_INDEX).append(patientIndex.getOneBased()).append(" "));
-        descriptor.getDatetime().ifPresent(datetime -> sb.append(PREFIX_DATETIME).append(datetime.format(ParserUtil.INPUT_DATE_TIME_FORMATTER)).append(" "));
+        descriptor.getDatetime().ifPresent(
+            datetime -> sb.append(PREFIX_DATETIME)
+                .append(datetime.format(ParserUtil.INPUT_DATE_TIME_FORMATTER)).append(" "));
         return sb.toString();
     }
 

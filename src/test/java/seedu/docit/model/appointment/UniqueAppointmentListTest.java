@@ -126,7 +126,8 @@ public class UniqueAppointmentListTest {
 
     @Test
     public void setAppointments_nullUniqueAppointmentList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueAppointmentList.setAppointments((UniqueAppointmentList) null));
+        assertThrows(NullPointerException.class, ()
+            -> uniqueAppointmentList.setAppointments((UniqueAppointmentList) null));
     }
 
     @Test
@@ -156,7 +157,8 @@ public class UniqueAppointmentListTest {
     @Test
     public void setAppointments_listWithDuplicateAppointments_throwsDuplicateAppointmentException() {
         List<Appointment> listWithDuplicateAppointments = Arrays.asList(A1, A1);
-        assertThrows(DuplicateAppointmentException.class, () -> uniqueAppointmentList.setAppointments(listWithDuplicateAppointments));
+        assertThrows(DuplicateAppointmentException.class, ()
+            -> uniqueAppointmentList.setAppointments(listWithDuplicateAppointments));
     }
 
     @Test
