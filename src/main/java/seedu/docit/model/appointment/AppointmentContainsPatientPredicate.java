@@ -1,9 +1,7 @@
 package seedu.docit.model.appointment;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.docit.model.patient.Email;
 import seedu.docit.model.patient.Patient;
 
 

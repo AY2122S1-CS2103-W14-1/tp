@@ -3,11 +3,8 @@ package seedu.docit.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
-
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.model.Model;
-import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.appointment.AppointmentContainsPatientPredicate;
 import seedu.docit.model.patient.Patient;
 
