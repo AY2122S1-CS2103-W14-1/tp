@@ -1,6 +1,6 @@
 package seedu.docit.logic.commands;
 
-import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
+import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentWithPatientAtIndex;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
@@ -41,7 +41,7 @@ public class ListAppointmentsCommandTest {
     @Test
     @Disabled("Not implemented yet, currently list is shown in user feedback")
     public void execute_listIsFiltered_showsEverything() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
         assertCommandSuccess(new ListPatientCommand(), model, ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
