@@ -78,17 +78,50 @@ public class PatientTest {
         assertFalse(ALICE.equals(editedAlice));
     }
 
+    // Testing if deleting from an EMPTY_MEDICAL_HISTORY returns an EMPTY_MEDICAL_HISTORY
     @Test
-    public void addMedicalHistory_emptyMedicalHistory_returnsNonEmptyMedicalHistory() {
+    public void deleteMedicalHistory_emptyMedicalHistory_returnsEmptyMedicalHistory() {
         int len = ALICE.getMedicalHistory().size();
 
-        Patient editedPatient = new PatientBuilder(ALICE).build();
+        Patient editedPatient = new PatientBuilder(ALICE)
+                                    .withMedicalHistory("diabetes", "21 Oct 2021").build();
 
-        for (int i = 0; i < len; i++) {
-            editedPatient = ALICE.deleteMedicalHistory(Index.fromZeroBased(i));
-        }
+        editedPatient = editedPatient.deleteMedicalHistory(Index.fromZeroBased(0));
+        MedicalHistory editedMedicalHistory = editedPatient.getMedicalHistory();
 
-        assertEquals(MedicalHistory.EMPTY_MEDICAL_HISTORY, editedPatient.getMedicalHistory());
+        assertEquals(MedicalHistory.EMPTY_MEDICAL_HISTORY, editedMedicalHistory);
     }
+
+    @Test
+    public void addMedicalHistory() {
+        Patient editedPatient = new PatientBuilder(ALICE).build();
+        MedicalHistory toAdd = new MedicalHistory("diabetes");
+        editedPatient = ALICE.addMedicalHistory(toAdd);
+        MedicalHistory controlTest = ALICE.getMedicalHistory();
+        controlTest = controlTest.append(toAdd);
+
+        assertEquals(controlTest, editedPatient.getMedicalHistory());
+    }
+
+    @Test
+    public void addMedicalHistory_emptyMedicalHistory_returnSameMedicalHistoryAdded() {
+        Patient editedPatient = new PatientBuilder(ALICE).build();
+        MedicalHistory toAdd = new MedicalHistory("diabetes");
+        editedPatient = ALICE.addMedicalHistory(MedicalHistory.EMPTY_MEDICAL_HISTORY);
+
+        assertEquals(ALICE.getMedicalHistory(), editedPatient.getMedicalHistory());
+    }
+
+    @Test
+    public void hasEmptyMedicalHistory() {
+        int len = ALICE.getMedicalHistory().size();
+        Patient editedPatient = new PatientBuilder(ALICE)
+                                    .withMedicalHistory("diabetes", "21 Oct 2021").build();
+
+        editedPatient = editedPatient.deleteMedicalHistory(Index.fromZeroBased(0));
+
+        assertTrue(editedPatient.hasEmptyMedicalHistory());
+    }
+
 
 }

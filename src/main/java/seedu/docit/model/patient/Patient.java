@@ -76,7 +76,7 @@ public class Patient implements Comparable<Patient> {
             return this;
         }
 
-        if (this.medicalHistory.size() - 1 == 0) {
+        if (this.medicalHistory.size() - 1 == 0) { // deleting last time
             return new Patient(name, phone, email, address, MedicalHistory.EMPTY_MEDICAL_HISTORY);
         }
 
