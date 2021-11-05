@@ -27,7 +27,7 @@ public class AddMedicalEntryCommandTest {
 
 
     @Test
-    public void constructor_nullMedicalEntry_throwsNullPointerException() {
+    public void constructor_nullArguments_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddMedicalEntryCommand(null, null));
     }
 
