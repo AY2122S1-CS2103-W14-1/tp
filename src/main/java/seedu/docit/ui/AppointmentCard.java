@@ -17,9 +17,9 @@ import seedu.docit.model.patient.Patient;
 public class AppointmentCard extends UiPart<Region> {
 
     private static final String FXML = "AppointmentListCard.fxml";
-    private static final String PHONE_ICON = "\uD83D\uDCDE";
-    private static final String DATE_ICON = "\uD83D\uDCC5";
-    private static final String TIME_ICON = "\u0000\u23f0";
+    private static final String PHONE_ICON = "\uD83D\uDCDE\t";
+    private static final String DATE_ICON = "\uD83D\uDCC5\t";
+    private static final String TIME_ICON = "\u0000\u23f0\t";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

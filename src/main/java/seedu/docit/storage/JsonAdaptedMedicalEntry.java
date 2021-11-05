@@ -8,10 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.docit.commons.exceptions.IllegalValueException;
 import seedu.docit.model.patient.MedicalHistory;
-import seedu.docit.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link MedicalHistory}.
  */
 public class JsonAdaptedMedicalEntry {
 
@@ -19,7 +18,7 @@ public class JsonAdaptedMedicalEntry {
     private final String date;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedMedicalEntry} with the given {@code desc, dateOfRecord}.
      */
     @JsonCreator
     public JsonAdaptedMedicalEntry(@JsonProperty("description") String desc,
@@ -29,7 +28,7 @@ public class JsonAdaptedMedicalEntry {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code MedicalEntry} into this class for Jackson use.
      */
     public JsonAdaptedMedicalEntry(MedicalHistory.MedicalEntry source) {
         this.description = source.getDescription();
@@ -45,7 +44,7 @@ public class JsonAdaptedMedicalEntry {
     }
 
     /**
-     * Converts this Jackson-friendly adapted prescription object into the model's {@code Prescription} object.
+     * Converts this Jackson-friendly adapted MedicalEntry object into the model's {@code MedicalHistory} object.
      **/
     public MedicalHistory.MedicalEntry toModelType() throws IllegalValueException {
         LocalDate dateOfRecord = LocalDate.parse(date, DateTimeFormatter.ofPattern("d MMM uuuu"));
