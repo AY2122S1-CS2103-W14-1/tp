@@ -27,18 +27,28 @@ public class AddMedicalEntryCommandParserTest {
     }
 
     @Test
-    public void parsePatientCommand_invalidMedicalEntry_successFul() {
+    public void parsePatientCommand_blankMedicalEntry_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicalEntryCommand.MESSAGE_USAGE);
 
-        String invalidMedicalEntry = "@@@@@@@@";
-        String otherInvalidMedicalEntry = "{";
         String noEntry = "";
         String singleSpace = " ";
+        String noMedicalEntry = "1 ";
 
-        assertParseFailure(parser, invalidMedicalEntry, expectedMessage);
-        assertParseFailure(parser, otherInvalidMedicalEntry, expectedMessage);
         assertParseFailure(parser, noEntry, expectedMessage);
         assertParseFailure(parser, singleSpace, expectedMessage);
+        assertParseFailure(parser, noMedicalEntry, expectedMessage);
+    }
+
+    @Test
+    public void parsePatientCommand_invalidMedicalEntry_failure() {
+        String wrongPrefixMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicalEntryCommand.MESSAGE_USAGE);
+        String invalidMessage = MedicalHistory.MESSAGE_CONSTRAINTS;
+
+        String incorrectPrefix = "1 i/diabetes";
+        String invalidDescription = "1 m/@@@@";
+
+        assertParseFailure(parser, incorrectPrefix, wrongPrefixMessage);
+        assertParseFailure(parser, invalidDescription, invalidMessage);
     }
 
 }
