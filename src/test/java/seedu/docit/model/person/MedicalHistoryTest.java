@@ -45,7 +45,7 @@ public class MedicalHistoryTest {
         assertFalse(MedicalHistory.isValidMedicalEntry(";"));
         assertFalse(MedicalHistory.isValidMedicalEntry(";/"));
 
-        // valid medical entry - any alphanumeric characters
+        // valid medical entry - alphanumeric characters
         assertTrue(MedicalHistory.isValidMedicalEntry("diabetes"));
         assertTrue(MedicalHistory.isValidMedicalEntry("high blood pressure"));
         assertTrue(MedicalHistory.isValidMedicalEntry("123456"));
