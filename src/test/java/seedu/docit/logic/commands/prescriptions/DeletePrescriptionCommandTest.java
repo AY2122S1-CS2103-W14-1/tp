@@ -1,4 +1,4 @@
-package seedu.docit.logic.commands.PrescriptionCommandTests;
+package seedu.docit.logic.commands.prescriptions;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

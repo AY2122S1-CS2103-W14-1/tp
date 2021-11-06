@@ -1,4 +1,4 @@
-package seedu.docit.testutil.stubs.Appointment;
+package seedu.docit.testutil.stubs.appointment;
 
 
 import seedu.docit.model.patient.Patient;
