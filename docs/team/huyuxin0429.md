@@ -5,10 +5,10 @@ title: Yu Xin's Project Portfolio Page
 
 ### Project: Doc'IT
 
-Doc’it provides a centralised platform for authorised staff from small family clinics 
-to view, update, and onboard patient records and schedule appointments, solving the 
-inefficient paper records and files used today. With Doc’it, small family clinics can 
-reduce man-hours in managing paper files, translating this ‘saved’ time into better 
+Doc’it provides a centralised platform for authorised staff from small family clinics
+to view, update, and onboard patient records and schedule appointments, solving the
+inefficient paper records and files used today. With Doc’it, small family clinics can
+reduce man-hours in managing paper files, translating this ‘saved’ time into better
 frontline care services.
 
 Given below are my contributions to the project.
@@ -30,7 +30,7 @@ Given below are my contributions to the project.
     * User Guide:
         * Added documentation for the features `add prescription` and `delete prescription` [\#72](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181)
     * Developer Guide:
-        * Written target user profile, value proposition and user stories. [\#37](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/37) 
+        * Written target user profile, value proposition and user stories. [\#37](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/37)
         * Created Plant-UML diagrams for `prescription` class.'[\#72](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181)
         * Added implementation details of the `prescription` feature. [\#72](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181)
 
@@ -46,4 +46,3 @@ Given below are my contributions to the project.
   * Input validation: Implemented more restrictive general parsing to reduce likelihood of unintended inputs. [\#232](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/232/files)
   * Introduced more restrictive parsing guidelines for prescriptions. [\#256](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/274)
   * Initiated discussion on forum regarding sustainable testing rigor across development life cycle. ([Link here](https://github.com/nus-cs2103-AY2122S1/forum/issues/325))
-  
