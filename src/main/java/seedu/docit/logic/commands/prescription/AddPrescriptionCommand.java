@@ -3,6 +3,7 @@ package seedu.docit.logic.commands.prescription;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -104,5 +105,19 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         logger.log(Level.INFO, "prescription adding success");
         return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AddPrescriptionCommand that = (AddPrescriptionCommand) o;
+        return Objects.equals(targetAppointmentIndex, that.targetAppointmentIndex)
+                && Objects.equals(medicine, that.medicine) && Objects.equals(volume, that.volume)
+                && Objects.equals(duration, that.duration);
     }
 }

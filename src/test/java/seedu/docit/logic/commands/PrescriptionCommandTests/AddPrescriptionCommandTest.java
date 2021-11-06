@@ -1,6 +1,7 @@
 package seedu.docit.logic.commands.PrescriptionCommandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
 import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_FIELD_TOO_LONG;
 import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_SUCCESS;
@@ -143,5 +144,32 @@ public class AddPrescriptionCommandTest {
 
         assertEquals(actualCommandResult, expectedCommandResult);
 
+    }
+
+    @Test
+    public void equals_sameContent_success() {
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine, defaultVolume, defaultDuration);
+        AddPrescriptionCommand addPrescriptionCommandCopy = new AddPrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine, defaultVolume, defaultDuration);
+        assert(addPrescriptionCommand.equals(addPrescriptionCommand));
+        assert(addPrescriptionCommand.equals(addPrescriptionCommandCopy));
+    }
+
+    @Test
+    public void equals_differentContent_failure() {
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine, defaultVolume, defaultDuration);
+        AddPrescriptionCommand addPrescriptionCommandNotSame = new AddPrescriptionCommand(
+                Index.fromOneBased(1),
+                "medicine", "20 ml", "twice a day");
+        assertFalse(addPrescriptionCommand.equals(addPrescriptionCommandNotSame));
+    }
+
+    @Test
+    public void equals_null_failure() {
+        AddPrescriptionCommand addPrescriptionCommand = new AddPrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine, defaultVolume, defaultDuration);
+        assertFalse(addPrescriptionCommand.equals(null));
     }
 }

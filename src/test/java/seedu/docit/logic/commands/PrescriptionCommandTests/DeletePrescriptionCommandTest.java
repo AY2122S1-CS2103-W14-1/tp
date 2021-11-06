@@ -1,6 +1,7 @@
 package seedu.docit.logic.commands.PrescriptionCommandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
 import static seedu.docit.logic.commands.prescription.DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
 import static seedu.docit.testutil.Assert.assertThrows;
@@ -74,5 +75,31 @@ public class DeletePrescriptionCommandTest {
 
     }
 
+    @Test
+    public void equals_sameContent_success() {
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine);
+        DeletePrescriptionCommand deletePrescriptionCommandCopy = new DeletePrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine);
+        assert(deletePrescriptionCommand.equals(deletePrescriptionCommand));
+        assert(deletePrescriptionCommand.equals(deletePrescriptionCommandCopy));
+    }
+
+    @Test
+    public void equals_differentContent_failure() {
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine);
+        DeletePrescriptionCommand deletePrescriptionCommandNotSame = new DeletePrescriptionCommand(
+                Index.fromOneBased(1),
+                "notMedicine");
+        assertFalse(deletePrescriptionCommand.equals(deletePrescriptionCommandNotSame));
+    }
+
+    @Test
+    public void equals_null_failure() {
+        DeletePrescriptionCommand deletePrescriptionCommand = new DeletePrescriptionCommand(Index.fromOneBased(1),
+                defaultMedicine);
+        assertFalse(deletePrescriptionCommand.equals(null));
+    }
 
 }
