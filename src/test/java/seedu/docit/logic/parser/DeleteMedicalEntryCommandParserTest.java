@@ -21,10 +21,23 @@ public class DeleteMedicalEntryCommandParserTest {
     }
 
     @Test
-    public void parsePatientCommand_invalidPatientIndex_successFul() {
+    public void parsePatientCommand_invalidPatientIndex_failure() {
         Index invalidPatientIndex = Index.fromOneBased(Integer.MAX_VALUE);
+        Index negativePatientIndex = Index.fromOneBased(Integer.MIN_VALUE);
+
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
             DeleteMedicalEntryCommand.MESSAGE_USAGE);
+
         assertParseFailure(parser, invalidPatientIndex.getOneBased() + "i/1", expectedMessage);
+        assertParseFailure(parser, negativePatientIndex.getOneBased() + "i/1", expectedMessage);
+    }
+
+    @Test
+    public void parsePatientCommand_invalidMedicalIndex_failure() {
+        Index invalidMedicalIndex = Index.fromOneBased(Integer.MIN_VALUE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            DeleteMedicalEntryCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, "1 i/" + invalidMedicalIndex.getOneBased(), expectedMessage);
     }
 }
