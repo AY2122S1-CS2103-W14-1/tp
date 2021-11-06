@@ -5,7 +5,6 @@ import static seedu.docit.testutil.Assert.assertThrows;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
-import javax.swing.text.DefaultTextUI;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.index.Index;

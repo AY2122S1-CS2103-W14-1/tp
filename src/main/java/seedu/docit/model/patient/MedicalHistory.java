@@ -181,6 +181,10 @@ public class MedicalHistory {
         return mh;
     }
 
+    /**
+     * Generates a Medical History that contains the given description and the date of record.
+     * @return a medical history object that contains nothing.
+     */
     public static MedicalHistory generate(String desc, String date) {
         MedicalHistory mh = new MedicalHistory("");
         mh.delete(0);
@@ -188,6 +192,10 @@ public class MedicalHistory {
         return mh;
     }
 
+    /**
+     * Generates a Medical History that contains the given description, with date of record being today.
+     * @return a medical history object that contains nothing.
+     */
     public static MedicalHistory generate(String desc) {
         MedicalHistory mh = new MedicalHistory("");
         mh.delete(0);

@@ -77,6 +77,11 @@ public class TypicalPatients {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 
+    /**
+     * Makes the given {@code Patient} contain an {@code EMPTY_MEDICAL_HISTORY}.
+     * @param p patient to be edited.
+     * @return edited patient.
+     */
     public static Patient makeEmptyMedicalHistory(Patient p) {
         Patient edited = p;
         int countOfMedicalEntries = p.getMedicalHistory().size();

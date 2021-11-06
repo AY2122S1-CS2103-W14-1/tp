@@ -14,7 +14,6 @@ import seedu.docit.model.ArchivedAppointmentBook;
 import seedu.docit.model.Model;
 import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
-import seedu.docit.model.patient.MedicalHistory;
 import seedu.docit.model.patient.Patient;
 import seedu.docit.testutil.PatientBuilder;
 import seedu.docit.testutil.TypicalPatients;
