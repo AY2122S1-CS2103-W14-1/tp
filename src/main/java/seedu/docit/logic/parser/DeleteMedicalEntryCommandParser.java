@@ -26,18 +26,18 @@ public class DeleteMedicalEntryCommandParser implements PatientParser<DeleteMedi
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_INDEX);
 
+        if (!argMultimap.getValue(PREFIX_INDEX).isPresent()
+            || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteMedicalEntryCommand.MESSAGE_USAGE));
+        }
+
         try {
             patientIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             medicalIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
         } catch (ParseException pe) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMedicalEntryCommand.MESSAGE_USAGE), pe);
-        }
-
-        if (!argMultimap.getValue(PREFIX_INDEX).isPresent()
-            || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteMedicalEntryCommand.MESSAGE_USAGE));
         }
 
         return new DeleteMedicalEntryCommand(patientIndex, medicalIndex);
