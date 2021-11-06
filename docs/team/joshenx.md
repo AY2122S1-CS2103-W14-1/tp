@@ -96,4 +96,3 @@ Given below are my contributions to the project:
 
 - **Debugging**:
     * Bugs fixed: [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97), [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#130](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/130), [\#167](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/167), [\#173](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/173), [\#229](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/229), [\#230](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/230), [\#238](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/238), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262)
-    
