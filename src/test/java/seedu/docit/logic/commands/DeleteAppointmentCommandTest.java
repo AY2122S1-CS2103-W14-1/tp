@@ -10,6 +10,7 @@ import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
+import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,11 +21,10 @@ import seedu.docit.model.Model;
 import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
 import seedu.docit.model.appointment.Appointment;
-import seedu.docit.model.util.SampleDataUtil;
 
 
 public class DeleteAppointmentCommandTest {
-    private final Model model = new ModelManager(SampleDataUtil.getSampleAddressBook(), getTypicalAppointmentList(),
+    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
             new AppointmentBook(), new UserPrefs());
 
     @Test
