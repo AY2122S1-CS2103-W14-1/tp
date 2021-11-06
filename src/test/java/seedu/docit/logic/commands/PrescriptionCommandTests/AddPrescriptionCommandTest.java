@@ -1,11 +1,11 @@
 package seedu.docit.logic.commands.PrescriptionCommandTests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
 import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_SUCCESS;
 import static seedu.docit.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
-
 
 import org.junit.jupiter.api.Test;
 
@@ -19,11 +19,7 @@ import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.util.SampleDataUtil;
-import seedu.docit.testutil.stubs.ModelStub;
-import seedu.docit.testutil.stubs.ModelStubWithAppointment;
 
-import java.time.LocalDateTime;
 
 
 public class AddPrescriptionCommandTest {
@@ -33,7 +29,7 @@ public class AddPrescriptionCommandTest {
     private static final Prescription validPrescription =
             new Prescription(defaultMedicine, defaultVolume, defaultDuration);
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
             new ArchivedAppointmentBook(), new UserPrefs());
     private final Appointment defaultAppointment = model.getAppointmentBook().getAppointmentList().get(0);
 
@@ -46,7 +42,7 @@ public class AddPrescriptionCommandTest {
     @Test
     public void execute_validPrescription_addSuccessfully() throws CommandException {
         AddPrescriptionCommand addPrescriptionCommand =
-                new AddPrescriptionCommand(Index.fromOneBased(1), defaultMedicine, defaultVolume, defaultDuration);
+                new AddPrescriptionCommand(Index.fromOneBased(2), defaultMedicine, defaultVolume, defaultDuration);
 
         CommandResult actualCommandResult = addPrescriptionCommand.execute(model);
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
@@ -69,12 +65,13 @@ public class AddPrescriptionCommandTest {
     }
 
     @Test
-    public void execute_emptyMedicineName_throwsCommandException() {
-        AddPrescriptionCommand nullMedicinePrescription =
-                new AddPrescriptionCommand(Index.fromOneBased(1), "", defaultVolume, defaultDuration);
+    public void execute_appointmentToAddDoesNotExist_throwsCommandException() {
+        int maxSize = model.getAppointmentBook().getAppointmentList().size();
+        AddPrescriptionCommand invalidAddPrescriptionCommand =
+                new AddPrescriptionCommand(Index.fromOneBased(maxSize + 1), defaultMedicine, defaultVolume, defaultDuration);
 
-        assertThrows(CommandException.class, AddPrescriptionCommand.MESSAGE_DUPLICATE_MEDICINE, () ->
-                nullMedicinePrescription.execute(model));
+        assertThrows(CommandException.class, MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX, () ->
+                invalidAddPrescriptionCommand.execute(model));
 
     }
 }

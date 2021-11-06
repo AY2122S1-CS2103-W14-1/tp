@@ -1,8 +1,14 @@
 package seedu.docit.model.prescription;
 
+import seedu.docit.logic.commands.exceptions.CommandException;
+
 import java.util.Objects;
 
 public class Prescription {
+    public static final int MEDICINE_CHAR_LENGTH_LIMIT = 20;
+    public static final int VOLUME_CHAR_LENGTH_LIMIT = 20;
+    public static final int DURATION_CHAR_LENGTH_LIMIT = 40;
+
     private String medicine;
     private String volume;
     private String duration;
@@ -14,6 +20,9 @@ public class Prescription {
      * @param duration Duration of medicine intake
      */
     public Prescription(String medicine, String volume, String duration) {
+        if (medicine.isBlank() || volume.isBlank() || duration.isBlank()) {
+            throw new RuntimeException("Medicine cannot be blank. Volume cannot be blank. Duration cannot be blank.");
+        }
         this.medicine = medicine.toLowerCase();
         this.volume = volume.toLowerCase();
         this.duration = duration.toLowerCase();

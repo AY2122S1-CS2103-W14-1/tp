@@ -35,8 +35,9 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPrescriptionCommand.MESSAGE_USAGE));
         }
+
         try {
-            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(CliSyntax.PREFIX_INDEX).get());
+            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
             String medicineName = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
             String duration = argMultimap.getValue(CliSyntax.PREFIX_DURATION).get();
             String volume = argMultimap.getValue(CliSyntax.PREFIX_VOLUME).get();
@@ -50,6 +51,9 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPrescriptionCommand.MESSAGE_USAGE), pe);
         }
+
+
+
     }
 
 }
