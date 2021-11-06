@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.docit.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.docit.testutil.Assert.assertThrows;
-import static seedu.docit.testutil.TypicalAppointments.APPOINTMENT_1;
+import static seedu.docit.testutil.TypicalAppointments.A1;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 
@@ -37,6 +37,7 @@ import seedu.docit.testutil.AppointmentUtil;
 import seedu.docit.testutil.EditPatientDescriptorBuilder;
 import seedu.docit.testutil.PatientBuilder;
 import seedu.docit.testutil.PatientUtil;
+import seedu.docit.testutil.TypicalPatients;
 
 public class AddressBookParserTest {
 
@@ -100,9 +101,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_addAppointment() throws Exception {
-        Appointment appointment = APPOINTMENT_1;
+        Appointment appointment = A1;
         AddAppointmentCommand command = (AddAppointmentCommand) parser.parseCommand(APPT_PREFIX
-                + AppointmentUtil.getAddCommand(appointment));
+                + AppointmentUtil.getAddCommand(appointment, TypicalPatients.getTypicalAddressBook()));
         assertEquals(new AddAppointmentCommand(Index.fromOneBased(1), appointment.getDatetime()), command);
     }
 

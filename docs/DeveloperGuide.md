@@ -113,8 +113,8 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-   - `AddressBookParser` categorises the command according to its format (using RegEx) and hands it off
-     to either one of `BasicAddressBookParser`, `PatientBookParser`, or `AppointmentBookParser`.
+    - `AddressBookParser` categorises the command according to its format (using RegEx) and hands it off
+      to either one of `BasicAddressBookParser`, `PatientBookParser`, or `AppointmentBookParser`.
 2. The chosen parser then parses the command and returns a `Command` object (more precisely, an object of one of its subclasses e.g., `AddPatientCommand`) which is executed by the `LogicManager`.
 3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -135,7 +135,7 @@ How the parsing works:
 
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPatientCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPatientCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddPatientCommandParser`, `DeletePatientCommandParser`, ...) inherit from one of the three parser interfaces: `BasicParser`, `PatientParser`, or `AppointmentParser` so that they
-be treated appropriately based on the type of command issued.
+  be treated appropriately based on the type of command issued.
 
 * The three types of parsers (`BasicParser`, `PatientParser`, `AppointmentParser`) inherit directly from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
@@ -148,15 +148,15 @@ In the original AB3, all commands extend the `Command` abstract class.
 The following is a list of commands that extend the three abstract classes:
 
 - `BasicCommand`
-  - `ExitCommand`
-  - `ClearCommand`
-  - `HelpCommand`
+    - `ExitCommand`
+    - `ClearCommand`
+    - `HelpCommand`
 - `PatientCommand`
-  - `AddPatientCommand`
-  - `EditPatientCommand`
-  - `DeletePatientCommand`
-  - `ListPatientCommand`
-  - `FindPatientCommand`
+    - `AddPatientCommand`
+    - `EditPatientCommand`
+    - `DeletePatientCommand`
+    - `ListPatientCommand`
+    - `FindPatientCommand`
 - `AppointmentCommand`
     - `AddAppointmentCommand`
     - `ArchiveAppointmentCommand`
@@ -165,8 +165,8 @@ The following is a list of commands that extend the three abstract classes:
     - `ListAppointmentsCommand`
     - `SortAppointmentsCommand`
     - `PrescriptionCommand`
-      - `AddPrescriptionCommand`
-      - `DeletePrescriptionCommand`
+        - `AddPrescriptionCommand`
+        - `DeletePrescriptionCommand`
 
 > This taxonomy of commands is further reflected on the Parser's side as well.
 
@@ -176,14 +176,14 @@ appointment-related commands respectively. For all commands under `PatientParser
 any form of extra user input), we have a specific parser that tokenises the command:
 
 - `PatientCommandParser`
-  - `AddPatientCommandParser`
-  - `EditPatientCommandParser`
-  - `DeletePatientCommandParser`
-  - `FindPatientCommandParser`
+    - `AddPatientCommandParser`
+    - `EditPatientCommandParser`
+    - `DeletePatientCommandParser`
+    - `FindPatientCommandParser`
 - `AppointmentParser`
-  - `AddAppointmentCommandParser`
-  - `EditAppointmentCommandParser`
-  - `DeleteAppointmentCommandParser`
+    - `AddAppointmentCommandParser`
+    - `EditAppointmentCommandParser`
+    - `DeleteAppointmentCommandParser`
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/model/Model.java)
@@ -296,11 +296,11 @@ Major changes involved to implement this feature:
 
 * Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 * Loading an appointment on app launch  —
-  * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
-  * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+    * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+    * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
 * Storing an appointment after every command  —
-  * The app runs `LogicManager#saveAppointmentBook()`.
-  * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+    * The app runs `LogicManager#saveAppointmentBook()`.
+    * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
 
 Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
 
@@ -327,45 +327,45 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 **Aspect: How Appointments are instantiated**
 
 * **Alternative 1 (current choice):** Appointment is composed of a Patient.
-  * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
-    Appointments cannot exist.
-    Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
-  * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
-  * **Pros:** Easy to find the patient of the appointment.
-  * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
-    must be loaded to memory before `AppointmentBook`.
+    * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
+      Appointments cannot exist.
+      Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
+    * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
+    * **Pros:** Easy to find the patient of the appointment.
+    * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
+      must be loaded to memory before `AppointmentBook`.
 * **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and
   Appointment only requires date and time to instantiate.
-  * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
-  * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
-    date and time at the same clinic that can be served by different doctors.
-  * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
-    because Appointment has no Patient field.
+    * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
+    * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
+      date and time at the same clinic that can be served by different doctors.
+    * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
+      because Appointment has no Patient field.
 
 **Aspect: How Appointments are stored and loaded**
 
 * **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and
   datetime.
-  * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
-    of `AddressBook` is saved each time `AppointmentBook` is saved.
-  * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
-    indices in commands.
-  * **Pros:** Index of patient is guaranteed to be a unique identifier.
-  * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
-    appointments will become incorrect.
+    * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
+      of `AddressBook` is saved each time `AppointmentBook` is saved.
+    * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
+      indices in commands.
+    * **Pros:** Index of patient is guaranteed to be a unique identifier.
+    * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
+      appointments will become incorrect.
 * **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment
   object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID.
-  * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
-    data.
-  * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
-    Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
-  * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
+    * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
+      data.
+    * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
+      Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
+    * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
 
 ### Archiving an Appointment
 
 A user is able to archive an appointment when the appointment is _expired_, i.e. the patient has either missed his/her appointment
 or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff
-are able to view what medicine was prescribed to the patient during previous appointments. 
+are able to view what medicine was prescribed to the patient during previous appointments.
 
 #### How Archiving is Implemented
 
@@ -389,11 +389,11 @@ appointment time (24-hour buffer), i.e. by our definition, _expired_, the appoin
 by the `ModelManager` class in two ways.
 
 1. Upon initialisation of the application, the application automatically archives expired appointments (24-hours past their
-   scheduled time). This is called through `ModelManager#archivePastAppointments()`. 
+   scheduled time). This is called through `ModelManager#archivePastAppointments()`.
 
 
-2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface. 
-Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
+2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface.
+   Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
    method.
 
 
@@ -401,7 +401,7 @@ In the case where there are many scheduled appointments, this saves the user tro
 they are already over.
 
 
-#### Specific Auto-Archiving 
+#### Specific Auto-Archiving
 
 Users may still archive specific appointments manually to remove visual clutter. This is done through the `ArchiveAppointmentCommand`.
 
@@ -476,13 +476,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 1 (current choice):** Saves the entire address book.
 
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
 
-  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -592,12 +592,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Necessary details of patient are absent (name, NRIC).
 
-  * 1a1. `Doc'it` shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 * 1b. Patient details conflict with existing patient list.
 
-  * 1b1. `Doc'it` shows an error message.
+    * 1b1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 
@@ -619,9 +619,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 * 3a. The given index is invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes at step 2.
 
 **Use case: UC04 - View the records of a patient**
 
@@ -636,9 +636,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified patient does not exist.
 
-  * 1a1. `Doc'it` shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 1.
+      Use case resumes at step 1.
 
 **Use case: UC05 - List all appointments**
 
@@ -670,9 +670,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The date of the appointment AND/OR the specified patient are invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 **Use case: UC07 - Delete an appointment**
 
@@ -692,9 +692,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 * 3a. The given index is invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes at step 2.
 
 **Use case: UC08 - Archive an appointment**
 
@@ -730,9 +730,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. `Doc'it` is unable to save file.
 
-  * 2a1. `Doc'it` shows an error message.
+    * 2a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 1.
+      Use case resumes at step 1.
 
 ### Non-Functional Requirements
 
@@ -764,31 +764,31 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Download the jar file and copy into an empty folder
+    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.<br>
-      Expected: The most recent window size and location is retained.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    2. Re-launch the app by double-clicking the jar file.<br>
+       Expected: The most recent window size and location is retained.
 3. _{ more test cases … }_
 
 ### Deleting a patient
 
 1. Deleting a patient while all patients are being shown
 
-   1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-   2. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-   3. Test case: `delete 0`<br>
-      Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
+    2. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    3. Test case: `delete 0`<br>
+       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 2. _{ more test cases … }_
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 2. _{ more test cases … }_

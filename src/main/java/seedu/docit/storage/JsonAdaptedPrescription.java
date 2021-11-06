@@ -5,10 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.docit.commons.exceptions.IllegalValueException;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link Prescription}.
  */
 public class JsonAdaptedPrescription {
 
@@ -17,7 +16,7 @@ public class JsonAdaptedPrescription {
     private final String duration;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedPrescription} with the given {@code volume, medicine, duration}.
      */
     @JsonCreator
     public JsonAdaptedPrescription(@JsonProperty("volume") String volume,
@@ -29,7 +28,7 @@ public class JsonAdaptedPrescription {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Prescription} into this class for Jackson use.
      */
     public JsonAdaptedPrescription(Prescription source) {
         this.volume = source.getVolume();

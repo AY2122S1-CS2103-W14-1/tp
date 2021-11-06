@@ -1,5 +1,8 @@
 package seedu.docit.testutil;
 
+import static seedu.docit.testutil.TypicalPrescriptions.PRESCRIPTION_COLD;
+import static seedu.docit.testutil.TypicalPrescriptions.PRESCRIPTION_DIABETES;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,37 +10,26 @@ import java.util.List;
 
 import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.appointment.Appointment;
-import seedu.docit.model.util.SampleDataUtil;
 
 /**
  * A utility class containing a list of {@code Appointment} objects to be used in tests.
  */
 public class TypicalAppointments {
-    public static final Appointment APPOINTMENT_1 = new Appointment(SampleDataUtil.getSamplePatients()[0],
+    // Upcoming appointments
+    public static final Appointment A1 = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2022, 1, 1, 16, 0));
-    public static final Appointment APPOINTMENT_2 = new Appointment(SampleDataUtil.getSamplePatients()[1],
+    public static final Appointment A2 = new Appointment(TypicalPatients.BENSON,
         LocalDateTime.of(2022, 2, 2, 16, 0));
-    public static final Appointment APPOINTMENT_3 = new Appointment(SampleDataUtil.getSamplePatients()[2],
-        LocalDateTime.of(2022, 3, 3, 16, 0));
-    public static final Appointment APPOINTMENT_4 = new Appointment(SampleDataUtil.getSamplePatients()[3],
-        LocalDateTime.of(2022, 4, 1, 16, 0));
-    public static final Appointment APPOINTMENT_5 = new Appointment(SampleDataUtil.getSamplePatients()[4],
-        LocalDateTime.of(2022, 5, 1, 16, 0));
-    public static final Appointment APPOINTMENT_6 = new Appointment(SampleDataUtil.getSamplePatients()[5],
-        LocalDateTime.of(2022, 6, 1, 16, 0));
-    public static final Appointment APPOINTMENT_7 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 7, 1, 16, 0));
-    public static final Appointment APPOINTMENT_8 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 8, 1, 16, 0));
-    public static final Appointment APPOINTMENT_9 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 9, 1, 16, 0));
-    public static final Appointment APPOINTMENT_10 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 10, 1, 16, 0));
-    public static final Appointment APPOINTMENT_11 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 11, 1, 16, 0));
-    public static final Appointment APPOINTMENT_12 = new Appointment(SampleDataUtil.getSamplePatients()[0],
-        LocalDateTime.of(2022, 12, 1, 16, 0));
+    public static final Appointment B1 = new Appointment(TypicalPatients.BENSON,
+        LocalDateTime.of(2022, 1, 1, 16, 0));
+    public static final Appointment B2 = new Appointment(TypicalPatients.BENSON,
+        LocalDateTime.of(2022, 2, 1, 16, 0));
 
+    // Past appointments
+    public static final Appointment A_PAST = new Appointment(TypicalPatients.ALICE,
+        LocalDateTime.of(2012, 5, 1, 16, 0), PRESCRIPTION_DIABETES);
+    public static final Appointment B_PAST = new Appointment(TypicalPatients.BENSON,
+        LocalDateTime.of(1999, 10, 1, 16, 0), PRESCRIPTION_COLD);
 
     private TypicalAppointments() {} // prevents instantiation
 
@@ -53,7 +45,7 @@ public class TypicalAppointments {
     }
 
     public static List<Appointment> getTypicalAppointments() {
-        return new ArrayList<>(Arrays.asList(APPOINTMENT_1, APPOINTMENT_2, APPOINTMENT_3,
-                APPOINTMENT_4, APPOINTMENT_5, APPOINTMENT_6, APPOINTMENT_7));
+        return new ArrayList<>(Arrays.asList(A1, A2, B1,
+            B2, A_PAST, B_PAST));
     }
 }

@@ -8,13 +8,13 @@ import static seedu.docit.testutil.Assert.assertThrows;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.logic.commands.exceptions.CommandException;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.util.SampleDataUtil;
+import seedu.docit.testutil.PatientBuilder;
 import seedu.docit.testutil.stubs.ModelStub;
 import seedu.docit.testutil.stubs.ModelStubAcceptingAppointmentAdded;
 import seedu.docit.testutil.stubs.ModelStubWithAppointment;
@@ -23,7 +23,7 @@ import seedu.docit.testutil.stubs.ModelStubWithAppointment;
 public class AddAppointmentCommandTest {
     private final Index defaultPatientIndex = Index.fromOneBased(1);
     private final LocalDateTime defaultDateTime = LocalDateTime.of(2020, 12, 31, 12, 0);
-    private Appointment defaultAppointment = new Appointment(SampleDataUtil.getSamplePatients()[0], defaultDateTime);
+    private Appointment defaultAppointment = new Appointment(new PatientBuilder().build(), defaultDateTime);
 
     @Test
     public void constructor_nullAppointment_throwsNullPointerException() {
@@ -31,9 +31,6 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
-    @Disabled
-    // Add appointment command now requires to get Patient with Index
-    // TODO: Need to write new test cases for using Index similar to Edit Command Tests
     public void execute_appointmentAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingAppointmentAdded modelStub = new ModelStubAcceptingAppointmentAdded();
         Appointment validAppointment = defaultAppointment;
@@ -47,8 +44,6 @@ public class AddAppointmentCommandTest {
     }
 
     @Test
-    @Disabled
-    // TODO
     public void execute_duplicateAppointment_throwsCommandException() {
         Appointment validAppointment = defaultAppointment;
         AddAppointmentCommand addAppointmentCommand = new AddAppointmentCommand(defaultPatientIndex, defaultDateTime);
