@@ -3,6 +3,8 @@ package seedu.docit.logic.commands.prescription;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
@@ -41,6 +43,7 @@ public class AddPrescriptionCommand extends AppointmentCommand {
     public static final String MESSAGE_FIELD_TOO_LONG =
             "Medicine name can only be 20 characters long. Volume field can only be 20 characters long. "
                     + "Duration field can only be 40 characters long.";
+    private static Logger logger = Logger.getLogger("AddPrescriptionCommand");
 
     private final Index targetAppointmentIndex;
     private String medicine;
@@ -64,10 +67,13 @@ public class AddPrescriptionCommand extends AppointmentCommand {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        logger.log(Level.INFO, "going to start adding prescription");
         requireNonNull(model);
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (targetAppointmentIndex.getZeroBased() >= lastShownList.size()) {
+            logger.log(Level.WARNING, "prescription adding error, "
+                    + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
 
@@ -76,15 +82,20 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
         if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
+            logger.log(Level.WARNING, "prescription adding error, "
+                + MESSAGE_DUPLICATE_MEDICINE);
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
         if (volume.length() > 20 || medicine.length() > 20 || duration.length() > 40) {
+            logger.log(Level.WARNING, "prescription adding error, "
+                + MESSAGE_FIELD_TOO_LONG);
             throw new CommandException(MESSAGE_FIELD_TOO_LONG);
         }
 
         model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+        logger.log(Level.INFO, "prescription adding success");
         return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
     }
 }
