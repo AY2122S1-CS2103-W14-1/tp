@@ -39,6 +39,10 @@ public class AddPrescriptionCommandParser implements Parser<AddPrescriptionComma
             String medicineName = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
             String duration = argMultimap.getValue(CliSyntax.PREFIX_DURATION).get();
             String volume = argMultimap.getValue(CliSyntax.PREFIX_VOLUME).get();
+
+            if (medicineName.isBlank() || duration.isBlank() || volume.isBlank()) {
+                throw new ParseException("Medicine/Duration/Volume fields cannot be blank.");
+            }
             return new AddPrescriptionCommand(appointmentIndex, medicineName, volume, duration);
 
         } catch (ParseException pe) {
