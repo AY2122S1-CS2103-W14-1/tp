@@ -69,4 +69,12 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
 
         return new CommandResult(MESSAGE_SUCCESS + editedPatient);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DeleteMedicalEntryCommand // instanceof handles nulls
+            && this.patientIndex.equals(((DeleteMedicalEntryCommand) other).patientIndex)
+            && this.medicalIndex.equals(((DeleteMedicalEntryCommand) other).medicalIndex));
+    }
 }
