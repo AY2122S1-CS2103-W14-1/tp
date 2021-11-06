@@ -1,7 +1,5 @@
 package seedu.docit.model.prescription;
 
-import seedu.docit.logic.commands.exceptions.CommandException;
-
 import java.util.Objects;
 
 public class Prescription {

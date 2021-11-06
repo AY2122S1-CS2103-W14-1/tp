@@ -2,10 +2,13 @@ package seedu.docit.logic.commands.PrescriptionCommandTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
+import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_FIELD_TOO_LONG;
 import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_SUCCESS;
 import static seedu.docit.testutil.Assert.assertThrows;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +23,6 @@ import seedu.docit.model.UserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.prescription.Prescription;
 
-
-
 public class AddPrescriptionCommandTest {
     private static final String defaultMedicine = "Penicillin";
     private static final String defaultVolume = "400 ml";
@@ -32,6 +33,13 @@ public class AddPrescriptionCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
             new ArchivedAppointmentBook(), new UserPrefs());
     private final Appointment defaultAppointment = model.getAppointmentBook().getAppointmentList().get(0);
+
+    private String generateString(char character, int length) {
+        char[] chars = new char[length];
+        Arrays.fill(chars, character);
+        String result = new String(chars);
+        return result;
+    }
 
     @Test
     public void constructor_nullPrescription_throwsNullPointerException() {
@@ -68,10 +76,74 @@ public class AddPrescriptionCommandTest {
     public void execute_appointmentToAddDoesNotExist_throwsCommandException() {
         int maxSize = model.getAppointmentBook().getAppointmentList().size();
         AddPrescriptionCommand invalidAddPrescriptionCommand =
-                new AddPrescriptionCommand(Index.fromOneBased(maxSize + 1), defaultMedicine, defaultVolume, defaultDuration);
+                new AddPrescriptionCommand(Index.fromOneBased(maxSize + 1),
+                        defaultMedicine, defaultVolume, defaultDuration);
 
         assertThrows(CommandException.class, MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX, () ->
                 invalidAddPrescriptionCommand.execute(model));
+
+    }
+
+    @Test
+    public void execute_appointmentToAddMedicineTooLong_throwsCommandException() {
+        String longMedicineName = generateString('A', Prescription.MEDICINE_CHAR_LENGTH_LIMIT + 1);
+        AddPrescriptionCommand invalidAddPrescriptionCommand =
+                new AddPrescriptionCommand(Index.fromOneBased(1), longMedicineName, defaultVolume, defaultDuration);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_FIELD_TOO_LONG,
+                Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
+                Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+                Prescription.DURATION_CHAR_LENGTH_LIMIT
+        ), () ->
+                invalidAddPrescriptionCommand.execute(model));
+
+    }
+
+    @Test
+    public void execute_appointmentToAddVolumeTooLong_throwsCommandException() {
+        String longVolumeInput = generateString('A', Prescription.VOLUME_CHAR_LENGTH_LIMIT + 1);
+        AddPrescriptionCommand invalidAddPrescriptionCommand =
+                new AddPrescriptionCommand(Index.fromOneBased(1), defaultMedicine, longVolumeInput, defaultDuration);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_FIELD_TOO_LONG,
+                Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
+                Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+                Prescription.DURATION_CHAR_LENGTH_LIMIT
+        ), () ->
+                invalidAddPrescriptionCommand.execute(model));
+
+    }
+
+    @Test
+    public void execute_appointmentToAddDurationTooLong_throwsCommandException() {
+        String longDurationInput = generateString('A', Prescription.DURATION_CHAR_LENGTH_LIMIT + 1);
+        AddPrescriptionCommand invalidAddPrescriptionCommand =
+                new AddPrescriptionCommand(Index.fromOneBased(1), defaultMedicine, defaultVolume, longDurationInput);
+
+        assertThrows(CommandException.class, String.format(MESSAGE_FIELD_TOO_LONG,
+                Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
+                Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+                Prescription.DURATION_CHAR_LENGTH_LIMIT
+        ), () ->
+                invalidAddPrescriptionCommand.execute(model));
+
+    }
+
+    @Test
+    public void execute_appointmentToAllFieldsMaxLength_addSuccessfully() throws CommandException {
+        String longMedicineName = generateString('A', Prescription.MEDICINE_CHAR_LENGTH_LIMIT);
+        String longVolumeInput = generateString('A', Prescription.VOLUME_CHAR_LENGTH_LIMIT);
+        String longDurationInput = generateString('A', Prescription.DURATION_CHAR_LENGTH_LIMIT);
+        AddPrescriptionCommand addPrescriptionCommand =
+                new AddPrescriptionCommand(Index.fromOneBased(1), longMedicineName, longVolumeInput, longDurationInput);
+
+        CommandResult actualCommandResult = addPrescriptionCommand.execute(model);
+        CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
+                longMedicineName.toLowerCase(), longVolumeInput.toLowerCase(), longDurationInput.toLowerCase()));
+
+        System.out.println(actualCommandResult.getFeedbackToUser());
+        System.out.println(expectedCommandResult.getFeedbackToUser());
+        assertEquals(actualCommandResult, expectedCommandResult);
 
     }
 }

@@ -3,7 +3,6 @@ package seedu.docit.logic.commands.prescription;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.Objects;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
@@ -64,21 +63,4 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
 
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        DeletePrescriptionCommand that = (DeletePrescriptionCommand) o;
-        return Objects.equals(targetAppointmentIndex, that.targetAppointmentIndex)
-                && Objects.equals(targetMedicineName, that.targetMedicineName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(targetAppointmentIndex, targetMedicineName);
-    }
 }

@@ -1,7 +1,9 @@
 package seedu.docit.model;
 
-import org.junit.jupiter.api.Test;
 import static seedu.docit.testutil.Assert.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import seedu.docit.model.prescription.Prescription;
 
 public class PrescriptionTest {
@@ -13,7 +15,7 @@ public class PrescriptionTest {
     @Test
     public void constructor_blankInputs_throwEmptyInputException() {
         assertThrows(RuntimeException.class,
-                "Medicine cannot be blank. Volume cannot be blank. Duration cannot be blank.",
-                () -> new Prescription("", "", ""));
+                "Medicine cannot be blank. Volume cannot be blank. Duration cannot be blank.", () ->
+                        new Prescription("", "", ""));
     }
 }

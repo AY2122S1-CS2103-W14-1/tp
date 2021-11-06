@@ -86,7 +86,7 @@ public class Appointment implements Comparable<Appointment> {
      */
     public void removePrescription(String medicineName) throws MedicineNotFoundException {
         if (!this.prescriptions.removeIf(p -> p.hasSameMedicalName(
-                new Prescription(medicineName, "", "")))) {
+                new Prescription(medicineName, "default", "default")))) {
             throw new MedicineNotFoundException();
         }
         Set<Prescription> p = new HashSet<>();

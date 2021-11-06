@@ -1,10 +1,17 @@
 package seedu.docit.logic.commands.PrescriptionCommandTests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
+import static seedu.docit.logic.commands.prescription.DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
+import static seedu.docit.testutil.Assert.assertThrows;
+import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
+import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.logic.commands.CommandResult;
 import seedu.docit.logic.commands.exceptions.CommandException;
-import seedu.docit.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.docit.logic.commands.prescription.DeletePrescriptionCommand;
 import seedu.docit.model.ArchivedAppointmentBook;
 import seedu.docit.model.Model;
@@ -12,14 +19,8 @@ import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.prescription.Prescription;
-import seedu.docit.model.prescription.exceptions.MedicineNotFoundException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
-import static seedu.docit.logic.commands.prescription.DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
-import static seedu.docit.testutil.Assert.assertThrows;
-import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
-import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
+
 
 public class DeletePrescriptionCommandTest {
     private static final String defaultMedicine = "Penicillin";
@@ -47,8 +48,6 @@ public class DeletePrescriptionCommandTest {
         CommandResult actualCommandResult = deletePrescriptionCommand.execute(model);
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
                 defaultMedicine.toLowerCase(), defaultAppointment.getPatient().getName()));
-        System.out.println(actualCommandResult.getFeedbackToUser());
-        System.out.println(expectedCommandResult.getFeedbackToUser());
 
         assertEquals(actualCommandResult, expectedCommandResult);
 
@@ -74,4 +73,6 @@ public class DeletePrescriptionCommandTest {
                 deletePrescriptionCommand.execute(model));
 
     }
+
+
 }
