@@ -28,28 +28,12 @@ public class JsonAdaptedMedicalEntry {
         this.date = dateOfRecord;
     }
 
-    /**
-     * Converts a given {@code Tag} into this class for Jackson use.
-     */
-    public JsonAdaptedMedicalEntry(MedicalHistory.MedicalEntry source) {
-        this.description = source.getDescription();
-        this.date = source.getDateString();
-    }
-
     public String getDescription() {
         return description;
     }
 
     public String getDateString() {
         return date;
-    }
-
-    /**
-     * Converts this Jackson-friendly adapted prescription object into the model's {@code Prescription} object.
-     **/
-    public MedicalHistory.MedicalEntry toModelType() throws IllegalValueException {
-        LocalDate dateOfRecord = LocalDate.parse(date, DateTimeFormatter.ofPattern("d MMM uuuu"));
-        return new MedicalHistory.MedicalEntry(description, dateOfRecord);
     }
 
 }

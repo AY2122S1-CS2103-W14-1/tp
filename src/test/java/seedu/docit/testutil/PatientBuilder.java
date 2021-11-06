@@ -32,8 +32,8 @@ public class PatientBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        medicalHistory = MedicalHistory.generate();
-        medicalHistory.add(DEFAULT_MEDICAL);
+        medicalHistory = MedicalHistory.generate(DEFAULT_MEDICAL);
+        // medicalHistory.add(DEFAULT_MEDICAL);
     }
 
     /**
@@ -91,8 +91,7 @@ public class PatientBuilder {
      * Sets the {@code MedicalHistory} of the {@code Patient} that we are building.
      */
     public PatientBuilder withMedicalHistory(String medicalHistory, String date) {
-        this.medicalHistory = MedicalHistory.generate();
-        this.medicalHistory.add(medicalHistory, date);
+        this.medicalHistory = MedicalHistory.generate(medicalHistory, date);
         return this;
     }
 

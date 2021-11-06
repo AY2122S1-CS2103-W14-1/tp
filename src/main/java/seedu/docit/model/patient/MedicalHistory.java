@@ -181,6 +181,20 @@ public class MedicalHistory {
         return mh;
     }
 
+    public static MedicalHistory generate(String desc, String date) {
+        MedicalHistory mh = new MedicalHistory("");
+        mh.delete(0);
+        mh.add(desc, date);
+        return mh;
+    }
+
+    public static MedicalHistory generate(String desc) {
+        MedicalHistory mh = new MedicalHistory("");
+        mh.delete(0);
+        mh.add(desc);
+        return mh;
+    }
+
     @Override
     public String toString() { // to store the list into a CSV format
         if (this.isEmpty()) {
