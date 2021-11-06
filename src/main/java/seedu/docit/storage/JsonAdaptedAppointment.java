@@ -1,7 +1,6 @@
 package seedu.docit.storage;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,7 +25,6 @@ import seedu.docit.model.prescription.Prescription;
 public class JsonAdaptedAppointment {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Appointment's %s field is missing!";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
 
     private final String patientIndex;
     private final String datetime;
@@ -50,7 +48,7 @@ public class JsonAdaptedAppointment {
      */
     public JsonAdaptedAppointment(Appointment source, ReadOnlyAddressBook addressBook) {
         patientIndex = Integer.toString(addressBook.getIndexOfPatient(source.getPatient()).getZeroBased());
-        datetime = source.getFormattedDatetimeString();
+        datetime = source.getInputFormattedDatetimeString();
         prescriptionList.addAll(source.getPrescriptions()
                         .stream().map(JsonAdaptedPrescription::new)
                 .collect(Collectors.toList()));
@@ -86,7 +84,7 @@ public class JsonAdaptedAppointment {
 
         LocalDateTime localDateTime;
         try {
-            localDateTime = ParserUtil.parseDateTime(datetime, DATE_TIME_FORMATTER);
+            localDateTime = ParserUtil.parseDateTime(datetime, ParserUtil.INPUT_DATE_TIME_FORMATTER);
         } catch (ParseException e) {
             throw new IllegalValueException(LocalDateTime.class.getSimpleName() + " is of incorrect format.");
         }

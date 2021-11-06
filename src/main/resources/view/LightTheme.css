@@ -163,14 +163,20 @@
     -fx-background-insets: 3px;
     -fx-border-radius: 15px;
     -fx-background-color: transparent;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 15, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 1, 1);
 }
 
 .list-cell:filled:even {
+    -fx-border-width: 1px;
+    -fx-border-color: #d7dedd;
+    -fx-border-insets: 3px;
     -fx-background-color: #ffffff;
 }
 
 .list-cell:filled:odd {
+    -fx-border-width: 1px;
+    -fx-border-color: #d7dedd;
+    -fx-border-insets: 3px;
     -fx-background-color: #ffffff;
 }
 
@@ -178,6 +184,7 @@
     -fx-background-color: #fcfcff;
     -fx-border-radius: 17px;
     -fx-border-width: 3px;
+    -fx-border-insets: 3px;
     -fx-border-color: transparent transparent transparent #48c9b0;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 2, 2);
 }

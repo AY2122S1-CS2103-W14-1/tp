@@ -13,13 +13,29 @@ with JavaFX. It is written in Java, and has about 10 kLoC.
 
 Given below are my contributions to the project.
 
-* **New Feature**: Added the ability to undo/redo previous commands.
-  * What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-  * Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-  * Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-  * Credits: *{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}*
+* **New Feature**: Create `Appointment` class to represent a patient's appointment with the clinic.
+  * What it does: Allows clinic staff to record a patient's appointment after a patient is created.
+  * Justification: This feature improves the product significantly because clinic staff can represent multiple appointments of patient with individual date and times.
+  * Highlights: The implementation of `Appointment` class required changes in both commands, parsers and storage, to be listed in a separate panel from `Patient` class, yet can be linked to the patient that has the appointment. It required an in-depth analysis of design alternatives. The final design chosen was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments yet referencing a patient object. To achieve this result, the design choice was to use `Index` of a `Patient` at the point of save to store the appointment instead of a `Patient` object for easier loading from and storing to JSON by reference of the `Patient`'s position in the `AddressBook`.  Command types and `AppointmentBook` similar to AB3's `Person` class structure also needed to be created. New test cases also have to be created for coverage of appointment related classes.
 
-* **New Feature**: Added a history command that allows the user to navigate to previous commands using up/down keys.
+* **New Feature**: Implement Add, Edit, Delete operations for `Appointment` class. 
+* What it does: Allows clinic staff to modify a patient's appointment after a patient is created.
+* Justification: This feature improves the product significantly because clinic staff can modify appointments that they have created if they have entered in the wrong patient or date, or if the appointment timing was changed.
+* Highlights: The implementation of `apmt add`, `apmt edit`, `apmt delete` required changes in `AddressBookParser` class and creation of respective `XYZCommandParser` classes, `XYZCommand` classes to conduct operations on `Appointment` objects. The `AppointmentBook` had to be created as well and have methods to conduct CRUD operations.
+
+* **New Feature**: Implement LocalDateTime and date-time parsing for `Appointment` class. 
+* What it does: Allows clinic staff to enter a computer-comprehensible date and time, so that further functionality can be added that use computer-comprehensible date and time.
+* Justification: This feature improves the product significantly because clinic staff can enter a computer-comprehensible date and time that can be formatted in the UI, and can be used to create sort appointment by date, and archive functionality.
+* Highlights: The implementation of `LocalDateTime` required parsing to be implemented when receiving input, documentation changes and incorrect format handling.
+
+* **New Feature**: Implement more restrictive parsers under `ParserUtil`.
+* What it does: Change validation regexes to be more strict in Datetime, Name, Address, MedicalHistory 
+* Justification: This feature improves the product significantly because clinic staff cannot succeed in entering incorrectly formatted dates, name, address and medical history. Prevents fully numerical inputs for Name, Address and Medical History where it does not make sense.
+* Highlights: The implementation of stricter validation regexes required an understanding of regex.
+
+* **New Feature**: Change command result box to wrap text
+* What it does: Wraps text overflow within the box so user does not have to scroll
+* Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places.
 
 * **Code contributed**: [RepoSense link]()
 

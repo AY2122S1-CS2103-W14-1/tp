@@ -19,23 +19,24 @@ public class DeletePrescriptionCommandParser implements Parser<DeletePrescriptio
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeletePrescriptionCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_INDEX);
-
-        if (!ParserUtil.hasAllPrefixes(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_INDEX)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));
-        }
-
-
+        Index index;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME);
 
         try {
-            Index appointmentIndex = ParserUtil.parseIndex(argMultimap.getValue(CliSyntax.PREFIX_INDEX).get());
-            String medicineName = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
-            return new DeletePrescriptionCommand(appointmentIndex, medicineName);
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE), pe);
         }
+
+        if (!ParserUtil.hasAllPrefixes(argMultimap, CliSyntax.PREFIX_NAME)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));
+        }
+
+        String medicineName = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
+        return new DeletePrescriptionCommand(index, medicineName);
+
     }
 }

@@ -5,13 +5,14 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+import seedu.docit.commons.core.LogsCenter;
 import seedu.docit.commons.core.index.Index;
 import seedu.docit.commons.util.StringUtil;
 import seedu.docit.logic.parser.exceptions.ParseException;
@@ -20,7 +21,6 @@ import seedu.docit.model.patient.Email;
 import seedu.docit.model.patient.MedicalHistory;
 import seedu.docit.model.patient.Name;
 import seedu.docit.model.patient.Phone;
-import seedu.docit.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -30,8 +30,14 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "%s is incorrect datetime format.";
     public static final String MESSAGE_INVALID_NUMERICAL_ONLY = "%s cannot be numerical only.";
-    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM yyyy HHmm");
-    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-M-d HHmm");
+    public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
+    public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-M-d HHmm");
+
+    private static final int min_year = 2000;
+    private static final int max_year = 2999;
+    private static final int max_hour = 2359;
+
+    private static final Logger logger = LogsCenter.getLogger(ParserUtil.class);
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -110,33 +116,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
-    }
-
-    /**
      * Parses {@code String datetime} of given format into a {@code LocalDateTime}.
      */
     public static LocalDateTime parseDateTime(String datetime, DateTimeFormatter formatter) throws ParseException {
@@ -161,13 +140,14 @@ public class ParserUtil {
         }
 
         // to limit inputs further
-        if (year < 2000 || year >= 3000 || hour == 2400) {
+        if (year < min_year || year > max_year || hour > max_hour) {
             throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
         }
 
         try {
-            return LocalDateTime.parse(datetime, formatter);
+            return LocalDateTime.parse(datetime, formatter.withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
+            logger.warning(e.getMessage());
             throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
         }
     }

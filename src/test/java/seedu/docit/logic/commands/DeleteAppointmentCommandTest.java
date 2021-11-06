@@ -2,7 +2,7 @@ package seedu.docit.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
+import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentWithPatientAtIndex;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
@@ -11,12 +11,10 @@ import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
-import seedu.docit.model.AddressBook;
 import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.Model;
 import seedu.docit.model.ModelManager;
@@ -52,12 +50,9 @@ public class DeleteAppointmentCommandTest {
         assertCommandFailure(deleteAppointmentCommand, model, Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
     }
 
-
     @Test
-    @Disabled
-    // TODO: Failing at :57, see related TODO at AppointmentCommandTestUtil.java:26
     public void execute_validIndexFilteredList_success() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Appointment appointmentToDelete = model.getFilteredAppointmentList().get(
                 INDEX_FIRST_APPOINTMENT.getZeroBased());
@@ -66,7 +61,7 @@ public class DeleteAppointmentCommandTest {
         String expectedMessage = String.format(DeleteAppointmentCommand.MESSAGE_DELETE_APPOINTMENT_SUCCESS,
                 appointmentToDelete);
 
-        Model expectedModel = new ModelManager(new AddressBook(), model.getAppointmentBook(),
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getAppointmentBook(),
                 model.getArchivedAppointmentBook(), new UserPrefs());
         expectedModel.deleteAppointment(appointmentToDelete);
         showNoAppointment(expectedModel);
@@ -75,10 +70,8 @@ public class DeleteAppointmentCommandTest {
     }
 
     @Test
-    @Disabled
-    // TODO: Failing at :73, see related TODO at AppointmentCommandTestUtil.java:26
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Index outOfBoundIndex = INDEX_SECOND_APPOINTMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list
