@@ -5,7 +5,7 @@ import static seedu.docit.logic.commands.CommandTestUtil.VALID_APPOINTMENT_INDEX
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_PRESCRIPTION_MEDICINE;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseFailure;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
-import static seedu.docit.logic.parser.CliSyntax.*;
+import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
