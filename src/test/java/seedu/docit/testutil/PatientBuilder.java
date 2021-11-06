@@ -33,7 +33,6 @@ public class PatientBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         medicalHistory = MedicalHistory.generate(DEFAULT_MEDICAL);
-        // medicalHistory.add(DEFAULT_MEDICAL);
     }
 
     /**
