@@ -16,16 +16,16 @@ Given below are my contributions to the project:
 - **New Feature**: Added `ArchivedAppointmentBook` class to store details of archived appointments
     * What it does: stores details of archived appointments, but prevents internal modification of data.
     * Justification: This feature allows the user to archive and view archived appointments, to look at previous patient
-    prescriptions and past appointments.
+      prescriptions and past appointments.
     * Highlights: The implementation requires careful consideration of what data should or should not be accessible. For
-    some situations, when a patient is removed or details changed, the `ArchivedAppointmentBook` should support methods
-    to remove/edit past appointment records accordingly. Careful restriction of access must thus be implemented to prevent misuse and inappropriate 
-    modification of archived data.
+      some situations, when a patient is removed or details changed, the `ArchivedAppointmentBook` should support methods
+      to remove/edit past appointment records accordingly. Careful restriction of access must thus be implemented to prevent misuse and inappropriate
+      modification of archived data.
     * Credits: Implementation details of `AppointmentBook` by teammate Gabriel Goh
     * Relevant PR: [\#69](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/69)
 
 - **New Feature**: Integrate `Appointment` and `Prescriptions` into the GUI
-    ![AppointmentCard](../images/AppointmentCard.png)
+  ![AppointmentCard](../images/AppointmentCard.png)
     * What it does: display appointment information on the GUI.
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
     * Highlights:  A "TODAY" tag is also displayed on appointment cards with appointments scheduled today.
@@ -33,7 +33,7 @@ Given below are my contributions to the project:
 
 
 - **New Feature**: Revamped the GUI's appearance and layout
-    ![Ui](../images/Ui.png)
+  ![Ui](../images/Ui.png)
     * What it does: allows the user to view the list of Patients and swap between Upcoming and Archived appointment tabs.
     * Justification: This significantly reduces visual clutter, since users should ideally view a list of Patients and Appointments at any one time.
       This is because the user should be able to look for an Appointment's patient details without
@@ -62,7 +62,7 @@ Given below are my contributions to the project:
     * Justification: This feature significantly improves the visual display of the appointment list by displaying the most urgent appointments
       first. The user can hence view the most urgent appointments first, and assign prescriptions to the most important
       appointments (those happening today).
-    * Highlights: This feature required use of the Comparable interface for the `Patient` and `Appointment` classes, and 
+    * Highlights: This feature required use of the Comparable interface for the `Patient` and `Appointment` classes, and
       checks with the current system time to verify if an appointment is deemed 'expired'.
     * Relevant PR: [\#155](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/155)
 
@@ -96,3 +96,4 @@ Given below are my contributions to the project:
 
 - **Debugging**:
     * Bugs fixed: [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97), [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#130](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/130), [\#167](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/167), [\#173](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/173), [\#229](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/229), [\#230](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/230), [\#238](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/238), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262)
+    

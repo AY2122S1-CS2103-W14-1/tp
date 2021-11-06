@@ -12,27 +12,27 @@ reduce man-hours in managing paper files, translating this saved time into bette
 1. [Quick Start](#quick-start)
 2. [Overview of Features](#overview-of-features)
     1. [Basic Commands](#general-commands)
-       - [Clear all records](#clear-all-records-doc-clear)
-       - [Help](#help-doc-help)
-       - [Exit the program](#exit-the-program-doc-exit)
+        - [Clear all records](#clear-all-records-doc-clear)
+        - [Help](#help-doc-help)
+        - [Exit the program](#exit-the-program-doc-exit)
     2. [Patient-related Commands](#patient-commands)
-       - [Add a patient](#add-a-patient-pt-add)
-       - [List all patients](#list-all-patients-pt-list)
-       - [Edit a patient](#edit-a-patient-pt-edit)
-       - [Delete a patient](#delete-a-patient-pt-delete)
-       - [Add to medical history](#add-a-medical-history-pt-ma)
-       - [Delete to medical history](#delete-a-medical-history-pt-md)
-       - [Find patient\(s\)](#find-a-patient-with-keywords-pt-find-keywords)
+        - [Add a patient](#add-a-patient-pt-add)
+        - [List all patients](#list-all-patients-pt-list)
+        - [Edit a patient](#edit-a-patient-pt-edit)
+        - [Delete a patient](#delete-a-patient-pt-delete)
+        - [Add to medical history](#add-a-medical-history-pt-ma)
+        - [Delete to medical history](#delete-a-medical-history-pt-md)
+        - [Find patient\(s\)](#find-a-patient-with-keywords-pt-find-keywords)
     3. [Appointment-related Commands](#appointment-commands)
-       - [Add an appointment](#add-an-appointment-apmt-add)
-       - [List all appointments](#list-all-appointments-apmt-list)
-       - [List all archived appointments](#list-all-archived-appointments-apmt-alist)
-       - [Edit an appointment](#edit-an-appointment-apmt-edit)
-       - [Delete an appointment](#delete-an-appointment-apmt-delete)
-       - [Archive an appointment](#archive-an-appointment-apmt-archive)
-       - [Sort all appointments](#sort-all-appointments-apmt-sort)
-       - [Add prescription](#add-prescription-apmt-pa)
-       - [Delete prescription](#delete-prescription-apmt-pd)
+        - [Add an appointment](#add-an-appointment-apmt-add)
+        - [List all appointments](#list-all-appointments-apmt-list)
+        - [List all archived appointments](#list-all-archived-appointments-apmt-alist)
+        - [Edit an appointment](#edit-an-appointment-apmt-edit)
+        - [Delete an appointment](#delete-an-appointment-apmt-delete)
+        - [Archive an appointment](#archive-an-appointment-apmt-archive)
+        - [Sort all appointments](#sort-all-appointments-apmt-sort)
+        - [Add prescription](#add-prescription-apmt-pa)
+        - [Delete prescription](#delete-prescription-apmt-pd)
 4. [FAQ](#faq)
 5. [Command Summary](#command-summary)
 6. [Glossary](#glossary)
@@ -53,9 +53,9 @@ reduce man-hours in managing paper files, translating this saved time into bette
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`doc help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * **`pt list`** : Lists all patients.
+    * **`pt list`** : Lists all patients.
 
-   * **`doc exit`** : Exits the app.
+    * **`doc exit`** : Exits the app.
 
 6. Refer to the **Features** section below for details of each command.
 
@@ -71,27 +71,27 @@ understanding of basic functionalities of `Doc'it`, before diving into specific 
 </div>
 
 1. **Basic functionality**
-   1. Clear all records
-   2. Get Help
-   3. Exit app
+    1. Clear all records
+    2. Get Help
+    3. Exit app
 2. **Managing Patient Records**
-   1. Create a new Patient Record
-   2. View details of Patient Record
-   3. Delete Patient Record
-   4. Edit Patient Record
-   5. Add Medical History from a Patient Record
-   6. Delete Medical History of a Patient Record
-   7. Find filtered patient records based on keywords
+    1. Create a new Patient Record
+    2. View details of Patient Record
+    3. Delete Patient Record
+    4. Edit Patient Record
+    5. Add Medical History from a Patient Record
+    6. Delete Medical History of a Patient Record
+    7. Find filtered patient records based on keywords
 3. **Managing Patient Appointments**
-   1. Create a new appointment
-   2. View appointment
-   3. Delete appointment
-   4. Archive appointment
-   5. List appointments
-   6. Sort appointments (in order of urgency)
-   7. Managing appointment prescriptions
-      1. Add prescription
-      2. Remove prescription
+    1. Create a new appointment
+    2. View appointment
+    3. Delete appointment
+    4. Archive appointment
+    5. List appointments
+    6. Sort appointments (in order of urgency)
+    7. Managing appointment prescriptions
+        1. Add prescription
+        2. Remove prescription
 
 ## Features
 
@@ -155,7 +155,7 @@ Format: `doc exit`
 
 ## Patient Commands
 Patient is the primary entity in `Doc'it`. This section documents how to perform create, update, read and delete operations on patient
-records. 
+records.
 
 >:information_source: All patient-related commands have the keyword `pt` in front of them.
 
@@ -274,7 +274,7 @@ Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang
 ### Find a Patient with keywords: `pt find [keywords...]`
 
 Finds all patients that match any one of the keywords listed. These keywords can come from
-either the Patient's Name or Medical History. 
+either the Patient's Name or Medical History.
 
 **Format:** `pt find [keywords...]`
 
@@ -315,7 +315,7 @@ Adds an appointment for the patient at the specified index in the Patients panel
 * `apmt add i/2 d/2022-12-31 0700` adds appointment on 31 Dec 2022 at 7am to patient at index 2.
 
 **Example Usage:**
-- `apmt add i/1 d/2021-12-28 1500` 
+- `apmt add i/1 d/2021-12-28 1500`
 
 **Expected Outcome:**
 ```
