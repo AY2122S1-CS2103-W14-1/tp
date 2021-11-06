@@ -1,7 +1,5 @@
 package seedu.docit.model.prescription;
 
-import java.util.Objects;
-
 public class Prescription {
     public static final int MEDICINE_CHAR_LENGTH_LIMIT = 20;
     public static final int VOLUME_CHAR_LENGTH_LIMIT = 20;
@@ -65,11 +63,6 @@ public class Prescription {
         return that.getDuration().equals(getDuration())
                 && that.getMedicine().equals(getMedicine())
                 && that.getVolume().equals(getVolume());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getMedicine(), getVolume(), getDuration());
     }
 
     @Override
