@@ -6,6 +6,7 @@ import static seedu.docit.logic.commands.CommandTestUtil.VALID_PRESCRIPTION_MEDI
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseFailure;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.docit.logic.parser.prescription.DeletePrescriptionCommandParser.EMPTY_MEDICINE_FIELD_ERROR_MESSAGE;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
@@ -37,7 +38,7 @@ public class DeletePrescriptionCommandParserTest {
     private final DeletePrescriptionCommandParser parser = new DeletePrescriptionCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() throws ParseException {
+    public void parseAppointmentCommand_allFieldsPresent_success() throws ParseException {
         assertParseSuccess(parser, VALID_APPOINTMENT_INDEX + " "
                 + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE,
                 new DeletePrescriptionCommand(Index.fromOneBased(Integer.parseInt(VALID_APPOINTMENT_INDEX)),
@@ -45,30 +46,30 @@ public class DeletePrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsBlank_failure() throws ParseException {
+    public void parseAppointmentCommand_allFieldsBlank_failure() throws ParseException {
         assertParseFailure(parser, " "
                         + PREFIX_NAME,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_noIndex_failure() throws ParseException {
+    public void parseAppointmentCommand_noIndex_failure() throws ParseException {
         assertParseFailure(parser, " "
                         + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePrescriptionCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_badIndex_failure() throws ParseException {
+    public void parseAppointmentCommand_badIndex_failure() throws ParseException {
         assertParseFailure(parser, "notIndex "
                         + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE,
                 "Index is not a non-zero unsigned integer.");
     }
 
     @Test
-    public void parse_blankEntry_failure() throws ParseException {
+    public void parseAppointmentCommand_blankEntry_failure() throws ParseException {
         assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
                         + PREFIX_NAME,
-                "Medicine fields cannot be blank.");
+                EMPTY_MEDICINE_FIELD_ERROR_MESSAGE);
     }
 }

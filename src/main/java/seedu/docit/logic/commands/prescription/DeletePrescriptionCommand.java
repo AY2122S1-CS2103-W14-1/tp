@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import seedu.docit.commons.core.Messages;
 import seedu.docit.commons.core.index.Index;
@@ -32,6 +34,9 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
     public static final String MESSAGE_DELETE_PRESCRIPTION_SUCCESS = "Deleted prescription: \nMedicine: %1$s\n\n"
             + "from %2$s's appointment.";
 
+    private static Logger logger = Logger.getLogger("DeletePrescriptionCommand");
+
+
     private final Index targetAppointmentIndex;
     private final String targetMedicineName;
 
@@ -46,19 +51,27 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
     }
 
     @Override public CommandResult execute(Model model) throws CommandException {
+        logger.log(Level.INFO, "going to start deleting prescription");
         requireNonNull(model);
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
 
         if (targetAppointmentIndex.getZeroBased() >= lastShownList.size()) {
+            logger.log(Level.WARNING, "deleting prescription failed, "
+                    + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
+        assert (targetAppointmentIndex.getZeroBased() >= 0
+                && targetAppointmentIndex.getZeroBased() < lastShownList.size());
 
         Appointment appointmentToTarget = lastShownList.get(targetAppointmentIndex.getZeroBased());
         try {
             model.deletePrescription(appointmentToTarget, targetMedicineName);
+            logger.log(Level.INFO, "deleting prescription success");
             return new CommandResult(String.format(MESSAGE_DELETE_PRESCRIPTION_SUCCESS,
                     targetMedicineName, appointmentToTarget.getPatient().getName()));
         } catch (MedicineNotFoundException e) {
+            logger.log(Level.WARNING, "deleting prescription failed, "
+                    + e.getMessage());
             throw new CommandException(e.getMessage());
         }
     }

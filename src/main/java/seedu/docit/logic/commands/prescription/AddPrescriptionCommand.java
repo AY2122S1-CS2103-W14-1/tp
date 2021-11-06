@@ -41,9 +41,15 @@ public class AddPrescriptionCommand extends AppointmentCommand {
             + "Volume: %2$s\nDuration: %3$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
-    public static final String MESSAGE_FIELD_TOO_LONG =
+    private static final String MESSAGE_FIELD_TOO_LONG =
             "Medicine name can only be %1$s characters long. \nVolume field can only be %2$s characters long. "
                     + "\nDuration field can only be %3$s characters long.";
+
+    public static final String INPUT_TOO_LONG_ERROR_MESSAGE = String.format(MESSAGE_FIELD_TOO_LONG,
+            Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
+            Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+            Prescription.DURATION_CHAR_LENGTH_LIMIT);
+
     private static Logger logger = Logger.getLogger("AddPrescriptionCommand");
 
     private final Index targetAppointmentIndex;
@@ -77,6 +83,8 @@ public class AddPrescriptionCommand extends AppointmentCommand {
                     + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
+        assert (targetAppointmentIndex.getZeroBased() >= 0
+                && targetAppointmentIndex.getZeroBased() < lastShownList.size());
         Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
         Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
@@ -89,16 +97,8 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         if (volume.length() > Prescription.VOLUME_CHAR_LENGTH_LIMIT
                 || medicine.length() > Prescription.MEDICINE_CHAR_LENGTH_LIMIT
                 || duration.length() > Prescription.DURATION_CHAR_LENGTH_LIMIT) {
-            logger.log(Level.WARNING, String.format(MESSAGE_FIELD_TOO_LONG,
-                    Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
-                    Prescription.VOLUME_CHAR_LENGTH_LIMIT,
-                    Prescription.DURATION_CHAR_LENGTH_LIMIT
-            ));
-            throw new CommandException(String.format(MESSAGE_FIELD_TOO_LONG,
-                    Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
-                    Prescription.VOLUME_CHAR_LENGTH_LIMIT,
-                    Prescription.DURATION_CHAR_LENGTH_LIMIT
-            ));
+            logger.log(Level.WARNING, INPUT_TOO_LONG_ERROR_MESSAGE);
+            throw new CommandException(INPUT_TOO_LONG_ERROR_MESSAGE);
         }
 
         model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);

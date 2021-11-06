@@ -10,6 +10,7 @@ import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertPa
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_VOLUME;
+import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.EMPTY_FIELD_ERROR_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,7 @@ public class AddPrescriptionCommandParserTest {
     private final AddPrescriptionCommandParser parser = new AddPrescriptionCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() throws ParseException {
+    public void parseAppointmentCommand_allFieldsPresent_success() throws ParseException {
         assertParseSuccess(parser, VALID_APPOINTMENT_INDEX + " "
                         + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE + " "
                         + PREFIX_VOLUME + VALID_PRESCRIPTION_VOLUME + " "
@@ -34,7 +35,7 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsBlank_failure() throws ParseException {
+    public void parseAppointmentCommand_allFieldsBlank_failure() throws ParseException {
         assertParseFailure(parser, " "
                         + PREFIX_NAME + " "
                         + PREFIX_VOLUME + " "
@@ -43,7 +44,7 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_noIndex_failure() throws ParseException {
+    public void parseAppointmentCommand_noIndex_failure() throws ParseException {
         assertParseFailure(parser, PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE + " "
                         + PREFIX_VOLUME + VALID_PRESCRIPTION_VOLUME + " "
                         + PREFIX_DURATION + VALID_PRESCRIPTION_DURATION,
@@ -51,7 +52,7 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_noPrefix_failure() throws ParseException {
+    public void parseAppointmentCommand_noPrefix_failure() throws ParseException {
         assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
                         + VALID_PRESCRIPTION_MEDICINE + " "
                         + VALID_PRESCRIPTION_VOLUME + " "
@@ -60,12 +61,12 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parse_blankEntry_failure() throws ParseException {
+    public void parseAppointmentCommand_blankEntry_failure() throws ParseException {
         assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
                         + PREFIX_NAME + " "
                         + PREFIX_VOLUME + " "
                         + PREFIX_DURATION,
-                "Medicine/Duration/Volume fields cannot be blank.");
+                EMPTY_FIELD_ERROR_MESSAGE);
     }
 
 }
