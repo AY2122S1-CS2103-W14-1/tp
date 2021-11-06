@@ -23,7 +23,7 @@ import seedu.docit.model.prescription.Prescription;
 
 
 
-public class DeletePrescriptionParserTest {
+public class DeletePrescriptionCommandParserTest {
     private static final String defaultMedicine = "Panadol";
     private static final String defaultVolume = "400 ml";
     private static final String defaultDuration = "3 times a day";

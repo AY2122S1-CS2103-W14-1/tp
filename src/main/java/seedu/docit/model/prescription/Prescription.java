@@ -39,18 +39,6 @@ public class Prescription {
         return volume;
     }
 
-    public boolean medicineContain(String term) {
-        return medicine.contains(term);
-    }
-
-    public boolean volumeContain(String term) {
-        return volume.contains(term);
-    }
-
-    public boolean durationContain(String term) {
-        return duration.contains(term);
-    }
-
     /**
      * A looser definition of equality where two prescriptions are considered the same if they have the same medicine
      * name.

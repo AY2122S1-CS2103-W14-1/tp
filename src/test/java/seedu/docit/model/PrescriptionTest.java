@@ -18,4 +18,9 @@ public class PrescriptionTest {
                 "Medicine cannot be blank. Volume cannot be blank. Duration cannot be blank.", () ->
                         new Prescription("", "", ""));
     }
+
+    @Test
+    public void equals_sameObject_success() {
+        assertEquals();
+    }
 }

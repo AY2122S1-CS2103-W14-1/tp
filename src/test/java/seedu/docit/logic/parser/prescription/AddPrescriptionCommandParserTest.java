@@ -18,7 +18,7 @@ import seedu.docit.logic.commands.prescription.AddPrescriptionCommand;
 import seedu.docit.logic.parser.exceptions.ParseException;
 
 
-public class AddPrescriptionParserTest {
+public class AddPrescriptionCommandParserTest {
     private final AddPrescriptionCommandParser parser = new AddPrescriptionCommandParser();
 
     @Test
@@ -67,4 +67,5 @@ public class AddPrescriptionParserTest {
                         + PREFIX_DURATION,
                 "Medicine/Duration/Volume fields cannot be blank.");
     }
+
 }
