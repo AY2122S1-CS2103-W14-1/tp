@@ -54,7 +54,7 @@ public class AddPrescriptionCommandTest {
 
         CommandResult actualCommandResult = addPrescriptionCommand.execute(model);
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
-                defaultMedicine, defaultVolume, defaultDuration));
+                defaultMedicine.toLowerCase(), defaultVolume.toLowerCase(), defaultDuration.toLowerCase()));
 
         assertEquals(actualCommandResult, expectedCommandResult);
 
@@ -103,7 +103,7 @@ public class AddPrescriptionCommandTest {
     public void execute_appointmentToAddVolumeTooLong_throwsCommandException() {
         String longVolumeInput = generateString('A', Prescription.VOLUME_CHAR_LENGTH_LIMIT + 1);
         AddPrescriptionCommand invalidAddPrescriptionCommand =
-                new AddPrescriptionCommand(Index.fromOneBased(1), defaultMedicine, longVolumeInput, defaultDuration);
+                new AddPrescriptionCommand(Index.fromOneBased(3), defaultMedicine, longVolumeInput, defaultDuration);
 
         assertThrows(CommandException.class, String.format(MESSAGE_FIELD_TOO_LONG,
                 Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
@@ -141,8 +141,6 @@ public class AddPrescriptionCommandTest {
         CommandResult expectedCommandResult = new CommandResult(String.format(MESSAGE_SUCCESS,
                 longMedicineName.toLowerCase(), longVolumeInput.toLowerCase(), longDurationInput.toLowerCase()));
 
-        System.out.println(actualCommandResult.getFeedbackToUser());
-        System.out.println(expectedCommandResult.getFeedbackToUser());
         assertEquals(actualCommandResult, expectedCommandResult);
 
     }

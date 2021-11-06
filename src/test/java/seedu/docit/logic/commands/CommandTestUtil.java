@@ -95,6 +95,10 @@ public class CommandTestUtil {
     public static final EditPatientCommand.EditPatientDescriptor DESC_AMY;
     public static final EditPatientCommand.EditPatientDescriptor DESC_BOB;
 
+    public static final String VALID_PRESCRIPTION_MEDICINE = "Penicillin";
+    public static final String VALID_PRESCRIPTION_VOLUME = "400 ml";
+    public static final String VALID_PRESCRIPTION_DURATION = "2 times a week";
+
     static {
         DESC_AMY = new EditPatientDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)

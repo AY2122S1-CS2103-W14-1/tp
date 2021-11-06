@@ -76,9 +76,7 @@ public class AddPrescriptionCommand extends AppointmentCommand {
                     + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
-
         Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
-
         Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
         if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {

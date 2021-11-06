@@ -60,7 +60,5 @@ public class DeletePrescriptionCommand extends AppointmentCommand {
         } catch (MedicineNotFoundException e) {
             throw new CommandException(e.getMessage());
         }
-
     }
-
 }
