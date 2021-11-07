@@ -365,6 +365,8 @@ The following activity diagram summarises what happens within `DeleteMedicalEntr
 
 #### How Appointment is implemented
 
+![AppointmentClassDiagram](images/AppointmentClassDiagram.png)
+
 Each `Appointment` in memory contain
 s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
 
@@ -388,7 +390,7 @@ Step 1: The user launches the application. `MainApp` runs `MainApp#initModelMana
 ![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
 
 
-#### Adding appointments
+#### Adding Appointments
 
 Step 2: The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
 
@@ -397,7 +399,7 @@ Step 2: The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment
 
 #### Deleting Patient that has made an Appointment
 
-Step 3: The user executes `delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
+Step 3: The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
 
 ![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
 
