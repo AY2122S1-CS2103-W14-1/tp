@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+
+Participant ":ModelManager" as modelmanager MODEL_COLOR
+Participant "scheduler:ScheduledExecutorService" as scheduler USER_COLOR
+Participant ":AutoArchiveApmts" as task #green
+
+[-[#grey]> modelmanager: Model initiated
+activate modelmanager MODEL_COLOR
+
+modelmanager -> modelmanager : initAutoArchive()
+activate modelmanager MODEL_COLOR
+
+modelmanager -> modelmanager : archivePastAppointments()
+activate modelmanager MODEL_COLOR
+
+modelmanager --> modelmanager
+deactivate modelmanager
+
+create scheduler
+
+modelmanager -> scheduler : Create thread pool with 1 thread
+activate scheduler USER_COLOR
+
+scheduler --> modelmanager
+note right: Control is returned to ModelManager, \nwhile this lifeline continues on a separate thread
+
+loop daily
+create task
+scheduler -> task
+activate task #green
+
+task -> modelmanager : archivePastAppointments()
+activate modelmanager MODEL_COLOR
+
+modelmanager --> task
+deactivate modelmanager
+deactivate task
+destroy task
+
+end
+
+
+
+modelmanager --> modelmanager
+deactivate modelmanager
+@enduml

@@ -1,0 +1,68 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+package Storage{
+
+package "UserPrefs Storage" #F4F6F6{
+Interface UserPrefsStorage <<Interface>>
+Class JsonUserPrefsStorage
+}
+
+Interface Storage <<Interface>>
+Class StorageManager
+
+package "AddressBook Storage" #F4F6F6{
+Interface AddressBookStorage <<Interface>>
+Class JsonAddressBookStorage
+Class JsonSerializableAddressBook
+Class JsonAdaptedPatient
+Class JsonAdaptedTag
+}
+
+package "AppointmentBook Storage" #F4F6F6{
+Interface AppointmentBookStorage <<Interface>>
+Class JsonAppointmentBookStorage
+Class JsonSerializableAppointmentBook
+}
+
+package "ArchivedAppointmentBook Storage" #F4F6F6{
+Interface ArchivedAppointmentBookStorage <<Interface>>
+Class JsonArchivedAppointmentBookStorage
+Class JsonSerializableArchivedAppointmentBook
+}
+
+Class JsonAdaptedAppointment
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Storage
+
+StorageManager .up.|> Storage
+StorageManager -up-> "1" UserPrefsStorage
+StorageManager -up-> "1" AddressBookStorage
+StorageManager --> "1" AppointmentBookStorage
+StorageManager --> "1" ArchivedAppointmentBookStorage
+
+Storage --|> UserPrefsStorage
+Storage --|> AddressBookStorage
+Storage --|> AppointmentBookStorage
+Storage --|> ArchivedAppointmentBookStorage
+
+JsonUserPrefsStorage .up.|> UserPrefsStorage
+JsonAddressBookStorage .up.|> AddressBookStorage
+JsonAddressBookStorage ..> JsonSerializableAddressBook
+JsonSerializableAddressBook --> "*" JsonAdaptedPatient
+JsonAdaptedPatient --> "*" JsonAdaptedTag
+
+JsonAppointmentBookStorage .up.|> AppointmentBookStorage
+JsonAppointmentBookStorage ..> JsonSerializableAppointmentBook
+JsonSerializableAppointmentBook --> "*" JsonAdaptedAppointment
+
+JsonArchivedAppointmentBookStorage .up.|> ArchivedAppointmentBookStorage
+JsonArchivedAppointmentBookStorage ..> JsonSerializableArchivedAppointmentBook
+JsonSerializableArchivedAppointmentBook --> "*" JsonAdaptedAppointment
+
+@enduml

@@ -248,9 +248,6 @@ public class ModelManager implements Model {
 
     @Override
     public void archiveAppointment(Appointment target) {
-        if (archivedAppointmentBook.hasAppointment(target)) {
-
-        }
         appointmentBook.removeAppointment(target);
         archivedAppointmentBook.addAppointment(target);
     }
