@@ -38,7 +38,7 @@ public class MedicalHistory {
      */
     public static class MedicalEntry {
         private final String description;
-        private LocalDate dateOfEntry;
+        private final LocalDate dateOfEntry;
 
         private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
 

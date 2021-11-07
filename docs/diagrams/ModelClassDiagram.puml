@@ -27,9 +27,15 @@ Class Address
 Class Email
 Class Name
 Class Phone
-Class Tag
 Class MedicalHistory
-Class MedicalHistoryEntry
+Class MedicalEntry
+Class EntryList
+class "{abstract}\nEntry" as Entry
+class Entry.Some<MedicalEntry> MODEL_COLOR {
+}
+
+class Entry.Empty<Object> MODEL_COLOR {
+}
 
 Class Appointment
 Class Date
@@ -62,8 +68,11 @@ Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
 Patient *--> MedicalHistory
-Patient *--> "*" Tag
-MedicalHistory *--> "*" MedicalHistoryEntry
+MedicalHistory *--> "1" EntryList : contains >
+EntryList --> "1..*"Entry : contains >
+Entry.Some -up-|> Entry : extends >
+Entry.Empty -up-|> Entry : extends >
+Entry.Some --> "1"MedicalEntry
 
 UniqueAppointmentList --> "~* all" Appointment
 Appointment *--> Date
