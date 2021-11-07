@@ -25,13 +25,13 @@ import seedu.docit.testutil.TypicalAppointments;
 public class JsonAppointmentBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAppointmentBookStorageTest");
 
+    @TempDir
+    public Path testFolder;
+
     @BeforeAll
     public static void resetTypicalAppointments() {
         TypicalAppointments.resetPrescriptions();
     }
-
-    @TempDir
-    public Path testFolder;
 
     @Test
     public void readAppointmentBook_nullFilePath_throwsNullPointerException() {
@@ -61,12 +61,14 @@ public class JsonAppointmentBookStorageTest {
 
     @Test
     public void readAppointmentBook_invalidAppointmentAppointmentBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAppointmentBook("invalidAppointmentAppointmentBook.json"));
+        assertThrows(
+            DataConversionException.class, () -> readAppointmentBook("invalidAppointmentAppointmentBook.json"));
     }
 
     @Test
     public void readAppointmentBook_invalidAndValidAppointmentAppointmentBook_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readAppointmentBook("invalidAndValidAppointmentAppointmentBook.json"));
+        assertThrows(
+            DataConversionException.class, () -> readAppointmentBook("invalidAndValidAppointmentAppointmentBook.json"));
     }
 
     @Test
@@ -91,14 +93,16 @@ public class JsonAppointmentBookStorageTest {
         // Save and read without specifying file path
         original.addAppointment(C2);
         jsonAppointmentBookStorage.saveAppointmentBook(original, getTypicalAddressBook()); // file path not specified
-        readBack = jsonAppointmentBookStorage.readAppointmentBook(getTypicalAddressBook()).get(); // file path not specified
+        readBack = jsonAppointmentBookStorage
+            .readAppointmentBook(getTypicalAddressBook()).get(); // file path not specified
         assertEquals(original, new AppointmentBook(readBack));
 
     }
 
     @Test
     public void saveAppointmentBook_nullAppointmentBook_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> saveAppointmentBook(null, "SomeFile.json"));
+        assertThrows(
+            NullPointerException.class, () -> saveAppointmentBook(null, "SomeFile.json"));
     }
 
     /**

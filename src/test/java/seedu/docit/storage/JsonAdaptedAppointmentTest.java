@@ -36,18 +36,21 @@ public class JsonAdaptedAppointmentTest {
     }
 
     @Test
-    public void toModelType_invalidPatient_Index_throwsIllegalValueException() {
+    public void toModelType_invalidPatientIndex_throwsIllegalValueException() {
         JsonAdaptedAppointment appointment =
                 new JsonAdaptedAppointment(INVALID_PATIENT_INDEX, VALID_DATETIME, VALID_PRESCRIPTIONS);
         String expectedMessage = "Patient index must be an integer.";
-        assertThrows(IllegalValueException.class, expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
+        assertThrows(IllegalValueException.class,
+            expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
     }
 
     @Test
-    public void toModelType_nullPatient_Index_throwsIllegalValueException() {
-        JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(null, VALID_DATETIME, VALID_PRESCRIPTIONS);
+    public void toModelType_nullPatientIndex_throwsIllegalValueException() {
+        JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(null,
+            VALID_DATETIME, VALID_PRESCRIPTIONS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Index.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
+        assertThrows(IllegalValueException.class,
+            expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
     }
 
     @Test
@@ -55,14 +58,17 @@ public class JsonAdaptedAppointmentTest {
         JsonAdaptedAppointment appointment =
                 new JsonAdaptedAppointment(VALID_PATIENT_INDEX, INVALID_DATETIME, VALID_PRESCRIPTIONS);
         String expectedMessage = LocalDateTime.class.getSimpleName() + " is of incorrect format.";
-        assertThrows(IllegalValueException.class, expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
+        assertThrows(IllegalValueException.class,
+            expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
     }
 
     @Test
     public void toModelType_nullDatetime_throwsIllegalValueException() {
-        JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(VALID_PATIENT_INDEX, null, VALID_PRESCRIPTIONS);
+        JsonAdaptedAppointment appointment = new JsonAdaptedAppointment(VALID_PATIENT_INDEX,
+            null, VALID_PRESCRIPTIONS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, LocalDateTime.class.getSimpleName());
-        assertThrows(IllegalValueException.class, expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
+        assertThrows(IllegalValueException.class,
+            expectedMessage, () -> appointment.toModelType(getTypicalAddressBook()));
     }
 
 }

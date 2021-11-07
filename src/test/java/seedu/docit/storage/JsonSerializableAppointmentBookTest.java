@@ -17,10 +17,14 @@ import seedu.docit.testutil.TypicalAppointments;
 
 public class JsonSerializableAppointmentBookTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAppointmentBookTest");
-    private static final Path TYPICAL_APPOINTMENTS_FILE = TEST_DATA_FOLDER.resolve("typicalAppointmentsAppointmentBook.json");
-    private static final Path INVALID_APPOINTMENT_FILE = TEST_DATA_FOLDER.resolve("invalidAppointmentAppointmentBook.json");
-    private static final Path DUPLICATE_APPOINTMENT_FILE = TEST_DATA_FOLDER.resolve("duplicateAppointmentAppointmentBook.json");
+    private static final Path TEST_DATA_FOLDER =
+        Paths.get("src", "test", "data", "JsonSerializableAppointmentBookTest");
+    private static final Path TYPICAL_APPOINTMENTS_FILE =
+        TEST_DATA_FOLDER.resolve("typicalAppointmentsAppointmentBook.json");
+    private static final Path INVALID_APPOINTMENT_FILE =
+        TEST_DATA_FOLDER.resolve("invalidAppointmentAppointmentBook.json");
+    private static final Path DUPLICATE_APPOINTMENT_FILE =
+        TEST_DATA_FOLDER.resolve("duplicateAppointmentAppointmentBook.json");
 
     @BeforeAll
     public static void resetTypicalAppointments() {
@@ -40,15 +44,16 @@ public class JsonSerializableAppointmentBookTest {
     public void toModelType_invalidAppointmentFile_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointmentBook dataFromFile = JsonUtil.readJsonFile(INVALID_APPOINTMENT_FILE,
                 JsonSerializableAppointmentBook.class).get();
-        assertThrows(IllegalValueException.class, () -> dataFromFile.toModelType(getTypicalAddressBook()));
+        assertThrows(
+            IllegalValueException.class, () -> dataFromFile.toModelType(getTypicalAddressBook()));
     }
 
     @Test
     public void toModelType_duplicateAppointments_throwsIllegalValueException() throws Exception {
         JsonSerializableAppointmentBook dataFromFile = JsonUtil.readJsonFile(DUPLICATE_APPOINTMENT_FILE,
                 JsonSerializableAppointmentBook.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableAppointmentBook.MESSAGE_DUPLICATE_APPOINTMENT,
-                () -> dataFromFile.toModelType(getTypicalAddressBook()));
+        assertThrows(IllegalValueException.class, JsonSerializableAppointmentBook.MESSAGE_DUPLICATE_APPOINTMENT, ()
+            -> dataFromFile.toModelType(getTypicalAddressBook()));
     }
 
 }

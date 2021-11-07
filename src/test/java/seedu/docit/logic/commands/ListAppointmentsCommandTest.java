@@ -40,6 +40,7 @@ public class ListAppointmentsCommandTest {
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
-        assertCommandSuccess(new ListAppointmentsCommand(), model, ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListAppointmentsCommand(), model,
+            ListAppointmentsCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }
