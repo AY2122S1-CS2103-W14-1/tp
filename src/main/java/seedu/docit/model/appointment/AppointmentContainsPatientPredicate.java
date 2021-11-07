@@ -13,6 +13,10 @@ import seedu.docit.model.patient.Patient;
 public class AppointmentContainsPatientPredicate implements Predicate<Appointment> {
     private final Patient patient;
 
+    /**
+     * Constructor for predicate that requires a non-null patient.
+     * @param patient patient object to test with
+     */
     public AppointmentContainsPatientPredicate(Patient patient) {
         requireNonNull(patient);
         this.patient = patient;
