@@ -1,5 +1,7 @@
 package seedu.docit.model.appointment;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.function.Predicate;
 
 import seedu.docit.model.patient.Patient;
@@ -12,12 +14,17 @@ public class AppointmentContainsPatientPredicate implements Predicate<Appointmen
     private final Patient patient;
 
     public AppointmentContainsPatientPredicate(Patient patient) {
+        requireNonNull(patient);
         this.patient = patient;
     }
 
     @Override
     public boolean test(Appointment appointment) {
-        return patient.isSamePatient(appointment.getPatient());
+        if (appointment == null) {
+            return false;
+        } else {
+            return patient.isSamePatient(appointment.getPatient());
+        }
     }
 
     @Override
