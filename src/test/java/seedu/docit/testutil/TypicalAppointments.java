@@ -18,7 +18,7 @@ public class TypicalAppointments {
     // Upcoming appointments
     public static final Appointment A1 = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2022, 1, 1, 16, 0));
-    public static final Appointment A2 = new Appointment(TypicalPatients.BENSON,
+    public static final Appointment A2 = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2022, 2, 2, 16, 0));
     public static final Appointment B1 = new Appointment(TypicalPatients.BENSON,
         LocalDateTime.of(2022, 1, 1, 16, 0));
