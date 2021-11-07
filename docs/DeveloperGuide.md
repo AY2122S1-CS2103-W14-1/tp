@@ -323,7 +323,10 @@ The Delete Medical Entry feature allows users to delete medical entries from the
 
 Below is a class diagram of the components involved in the Delete Medical Entry feature.
 
+![Class diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureClassDiagram.png)
+
 **Implementation details of feature**
+
 The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryCommand`, which is supported by the `DeleteMedicalEntryCommandParser`. The `DeleteMedicalEntryCommandParser` implements the `PatientParser` interface.
 1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
 2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.

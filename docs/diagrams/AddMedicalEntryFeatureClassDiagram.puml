@@ -44,7 +44,7 @@ AddMedicalEntryCommandParser -down-> AddMedicalEntryCommand : creates >
 
 
 AddMedicalEntryCommand *--> "1"MedicalHistory : creates >
-AddMedicalEntryCommand *--> Patient : modifies >
+AddMedicalEntryCommand *--> "1"Patient : modifies >
 
 note bottom on link: Reference is stored in\n the form of an Index
 
