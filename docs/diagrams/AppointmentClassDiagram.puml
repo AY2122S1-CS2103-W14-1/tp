@@ -1,0 +1,11 @@
+@startuml
+!include style.puml
+
+Package Model <<Rectangle>>{
+Class Appointment MODEL_COLOR_T3
+Class Patient MODEL_COLOR_T3
+
+Appointment "*" *-- "1"Patient
+}
+
+@enduml

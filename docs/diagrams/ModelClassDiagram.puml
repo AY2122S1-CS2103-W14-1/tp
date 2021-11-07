@@ -32,7 +32,7 @@ Class MedicalHistory
 Class MedicalHistory.MedicalEntry
 
 Class Appointment
-Class Date
+Class Datetime
 }
 
 Class HiddenOutside #FFFFFF
@@ -67,10 +67,9 @@ Patient *--> Address
 
 UniqueAppointmentList --> "~* all" Appointment
 
-Appointment *--> Date
-
-Appointment *--> "*" Prescription
 Appointment *--> "1" Patient
+Appointment *--> "1" Datetime
+Appointment *--> "*" Prescription
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address

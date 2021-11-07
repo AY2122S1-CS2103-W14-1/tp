@@ -1,0 +1,19 @@
+@startuml
+
+start
+:User inputs Delete Patient command;
+if () then ([user input is valid])
+: Find specified target Patient from Patient Book;
+: Delete the Patient;
+if () then ([Patient has made appointments])
+: Find all appointments with that Patient;
+: Delete all appointments with that Patient;
+else ([else])
+endif
+: Display updated UI;
+else ([else])
+: Display Error Message;
+endif
+stop
+
+@enduml
