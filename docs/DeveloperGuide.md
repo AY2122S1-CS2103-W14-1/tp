@@ -308,6 +308,8 @@ Below is a sequence diagram illustrating the interactions between the `Logic` an
 
 The following activity diagram summarises what happens within `AddMedicalEntryCommandParser` when the user executes an Add Medical Entry command.
 
+![Activity diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureActivityDiagram.png)
+
 **Design considerations**
 
 | Alternative Considered | Current implementation | Rationale for current implementation |
@@ -339,15 +341,15 @@ The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryComma
 
 Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`.
 
-The following activity diagram summarises what happens within `AddMedicalEntryCommandParser` when the user executes an Add Medical Entry command.
+The following activity diagram summarises what happens within `DeleteMedicalEntryCommandParser` when the user executes a DeleteMedicalEntry command.
+
+![Activity diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureActivityDiagram.png)
 
 **Design Considerations**
 
 | Alternative Considered | Current implementation | Rationale for current implementation |
 | ---------- | ------------------------ | ------------------------ |
 | Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry` |
-
-#### Reading Medical History from Data File feature
 
 
 ### Appointment composed of a Valid Patient when added, loaded and stored

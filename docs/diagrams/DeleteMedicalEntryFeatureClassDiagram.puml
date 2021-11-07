@@ -44,7 +44,7 @@ class DeleteMedicalEntryCommand LOGIC_COLOR {
 DeleteMedicalEntryCommand -up-|> PatientCommand
 
 DeleteMedicalEntryCommandParser -down-> DeleteMedicalEntryCommand : creates >
-DeleteMedicalEntryCommand -[dashed]-> "1"MedicalHistory.MedicalEntry : deletes the specified >
+DeleteMedicalEntryCommand -[dashed]-> "1"MedicalHistory.MedicalEntry : deletes >
 note bottom on link: Reference is stored in\n the form of an Index
 DeleteMedicalEntryCommand -[dashed]-> "1"Patient : modifies >
 note bottom on link: Reference is stored in\n the form of an Index

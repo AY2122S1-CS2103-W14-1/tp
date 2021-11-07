@@ -1,0 +1,20 @@
+@startuml
+
+start
+:User inputs Add Medical Feature command;
+if (patientIndex && medicalPrefix is present?) then (no)
+: throw ParseException;
+else (yes)
+
+if (patientIndex is within Patient Book) then (yes)
+: Add medical entry into specified patient's medical history;
+: Produce patient copy with modified medical history;
+: Replace target patient in Patient Book with the patient copy;
+: Display updated Patient Book;
+else (no)
+: throw CommandException;
+endif
+endif
+stop
+
+@enduml

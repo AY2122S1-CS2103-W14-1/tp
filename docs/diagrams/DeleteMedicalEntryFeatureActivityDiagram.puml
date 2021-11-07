@@ -1,0 +1,24 @@
+@startuml
+
+start
+:User inputs Delete Medical Feature command;
+if (patientIndex && medicalIndex is present?) then (no)
+: throw ParseException;
+else (yes)
+if (patientIndex is within Patient Book) then (no)
+: throw CommandException;
+else (yes)
+: Find patient from Patient Book via the patientIndex;
+: Produce patient copy;
+if (medicalIndex is within the length of patient's medical history?) then (yes)
+: Modify patient copy medical history to delete the medicalIndex;
+: Replace target patient in Patient Book with the patient copy;
+: Display updated Patient Book;
+else (no)
+: throw CommandException;
+endif
+endif
+endif
+stop
+
+@enduml
