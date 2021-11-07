@@ -290,6 +290,7 @@ The Add Medical Entry feature allows users to add medical entries into the `Medi
 
 Below is a class diagram of the components involved in the Add Medical Entry feature.
 
+![Class diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureClassDiagram.png)
 
 **Implementation details of feature**
 
