@@ -35,6 +35,7 @@ DeleteMedicalEntryCommandParser -> DeleteMedicalEntryCommand
 activate DeleteMedicalEntryCommand
 
 DeleteMedicalEntryCommand --> DeleteMedicalEntryCommandParser : cmd
+deactivate DeleteMedicalEntryCommand
 DeleteMedicalEntryCommandParser --> PatientBookParser : cmd
 deactivate DeleteMedicalEntryCommandParser
 PatientBookParser --> AddressBookParser : cmd
@@ -42,7 +43,7 @@ deactivate PatientBookParser
 AddressBookParser --> LogicManager : cmd
 deactivate AddressBookParser
 LogicManager --> DeleteMedicalEntryCommand : execute(model)
-
+activate DeleteMedicalEntryCommand
 
 DeleteMedicalEntryCommand --> ModelManager : setPatient(patientToEdit, editedPatient)
 DeleteMedicalEntryCommand --> ModelManager : updateAppointmentBook(patientToEdit, editedPatient)
