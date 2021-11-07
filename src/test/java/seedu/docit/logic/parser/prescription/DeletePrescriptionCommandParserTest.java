@@ -7,7 +7,7 @@ import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertPa
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.prescription.DeletePrescriptionCommandParser.EMPTY_MEDICINE_FIELD_ERROR_MESSAGE;
-import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
+import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ public class DeletePrescriptionCommandParserTest {
     private static final Prescription validPrescription =
             new Prescription(defaultMedicine, defaultVolume, defaultDuration);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentBook(),
             new ArchivedAppointmentBook(), new UserPrefs());
     private final Appointment defaultAppointment = model.getAppointmentBook().getAppointmentList().get(0);
 

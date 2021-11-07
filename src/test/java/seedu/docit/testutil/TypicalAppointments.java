@@ -34,9 +34,9 @@ public class TypicalAppointments {
     private TypicalAppointments() {} // prevents instantiation
 
     /**
-     * Returns an {@code AppointmentList} with all the typical appointments.
+     * Returns an {@code AppointmentBook} with all the typical upcoming appointments.
      */
-    public static AppointmentBook getTypicalAppointmentList() {
+    public static AppointmentBook getTypicalAppointmentBook() {
         AppointmentBook ab = new AppointmentBook();
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
@@ -46,6 +46,6 @@ public class TypicalAppointments {
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(A1, A2, B1,
-            B2, A_PAST, B_PAST));
+            B2));
     }
 }

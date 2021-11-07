@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
 import static seedu.docit.logic.commands.prescription.DeletePrescriptionCommand.MESSAGE_DELETE_PRESCRIPTION_SUCCESS;
 import static seedu.docit.testutil.Assert.assertThrows;
-import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
+import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ public class DeletePrescriptionCommandTest {
     private static final Prescription validPrescription =
             new Prescription(defaultMedicine, defaultVolume, defaultDuration);
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentBook(),
             new ArchivedAppointmentBook(), new UserPrefs());
     private final Appointment defaultAppointment = model.getAppointmentBook().getAppointmentList().get(0);
 
