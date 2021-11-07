@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+Participant ":JsonUtil" as jsonutil USER_COLOR
+
+
+[-> logic: execute()
+
+logic -> model : getAppointmentBook()
+model -> model : addPrescription()
+
+logic -> storage : saveAppointmentBook(appointmentBook, addressBook)
+
+
+
+storage -> jsonutil : Save JSON File
+@enduml
