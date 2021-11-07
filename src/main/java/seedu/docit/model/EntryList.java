@@ -1,11 +1,10 @@
 package seedu.docit.model;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.stream.Stream;
 
 /**
- * EntryList is a class that uses only four main functions of a list - add, delete, sort, size
+ * EntryList is a class that uses only four main functions of a list - add, delete, size, get, toStream
  */
 public class EntryList<Entry> {
     private ArrayList<Entry> list = new ArrayList<>();
@@ -16,10 +15,6 @@ public class EntryList<Entry> {
 
     public Entry delete(int i) {
         return list.remove(i);
-    }
-
-    public void sort(Comparator<? super Entry> c) {
-        list.sort(c);
     }
 
     public int size() {

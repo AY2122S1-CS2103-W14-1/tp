@@ -256,41 +256,112 @@ The following commands are available from the ```Appointment``` class to interac
 
 This method was considered at first to improve separation of concerns. However, the increased complexity of adapting storage to work with nested composite data structures was deemed to be too high and infeasible.
 
-### Recording a Patient's Medical History feature
+### Medical History
 
-Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient.
+**Class Implementation details**
 
-#### How Medical History is implemented
+- The `MedicalHistory` class composes an `EntryList<Entry<MedicalEntry>>` class.
+- The `EntryList` class references the `Entry<MedicalEntry>` through an `ArrayList`.
+- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class. 
+- Each `Patient` class composes exactly one `MedicalHistory` class.
+- `MedicalEntry` is an inner static class of `MedicalHistory`
+- Each `MedicalEntry` has a `description` data attribute and a `dateOfRecord` data attribute. The `description` data is supplied by the user. The `dateOfRecord` is automatically generated based on the date the medical entry was recorded.
 
-The proposed medical history mechanism was built with a class, ```MedicalHistory```. Within the ```MedicalHistory``` class, each entry of a pateint's medical history is stored under a private variable ```listOfEntries```. An entry of ```MedicalHistory``` is a private inner (nested) class within the ```MedicalHistory``` class, ```MedicalHistoryEntry```.
+Below is a class diagram illustrating the relationship between `Patient` and `MedicalHistory`. Note: other details within the `Model` component are omitted.
 
-These are the following methods created for the MedicalHistory feature:
+![Class diagram of MedicalHistory](diagrams/MedicalHistoryClassDiagram.png)
 
-* ```MedicalHistory#addEntry(String s)```- adds a new entry of medical history into the patient.
-* ```MedicalHistory#editEntry(int index, String s)```- edits an entry of medical history that has been recorded and saved.
-* ```MedicalHistory#removeEntry(int index, String s)```- removes an entry of medical history, so the entry is no longer recorded.
 
-These operations are exposed via the ```Patient``` class as `Patient#addMedicalHistory(String s)`, `Patient#editMedicalHistory(int i, String s)` and `Patient#removeMedicalHistory(int i)` respectively.
+**Design Considerations**
 
-#### Reason for implementation of MedicalHistory
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Using a list of medical entries as an attribute of a `Patient` class | Multiple or zero `MedicalEntry` objects can be stored by a single `MedicalHistory`. Each `Patient` class has exactly one `MedicalHistory` reference.         | ```Patient``` and ```MedicalHistory``` share a whole-part relationship: when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. If the `Patient` does not have any medical records, this means that the `MedicalHistory` is empty, which is reflected by a single `EMPTY_MEDICAL_HISTORY` (instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`). Hence, there is a 1...1 multiplicity relationship between ```Patient``` and ```MedicalHistory```, as one patient can have exactly one medical history. Following OOP Principles, it is more apt to encapsulate medical history records (or medical entries) as a `MedicalHistory` class than using a collection of medical entries, e.g. `List<MedicalEntry>`. |
+| Using `null` to reflect an empty `MedicalHistory` for patients that do not have any recorded medical history | An empty `MedicalHistory` object is instantiated (`EMPTY_MEDICAL_HISTORY`), and this object is referenced in every `Patient` object that does not have any medical history records.       | It is not a mistake for a patient to have zero medical history records. If we were to use `null` to reflect an empty medical history, there would be many scenarios where by running a blanket command on a patient, `NullPointerException` would be thrown at runtime if we do not check for `null`. Hence, as part of our defensive programming efforts, we created a single `EMPTY_MEDICAL_HISTORY` object that is an instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`. This allows us to bypass `NullPointerException` due to the additional null safety built in and exploit polymorphism.|
+| Using the `Optional` interface to reflect an `Entry` | `Entry` class is implemented to reflect an `Entry` that is either `Some` or `Empty`, such that all `null` or `empty` inputs into the factory `of` method generate an `Entry.Empty`, and every other input generates an `Entry.Some`     | When the `Optional::of` takes in `null`, a runtime exception is thrown. But `null` is a valid input. While `Optional` provides an `ofNullable` method, For defensive programming, we thus constructed the `Entry` class. |
+| Using the `List` interface to reflect a list of entries | `EntryList` class is implemented to reflect an `EntryList` that contains the `Entry` | We want to limit the methods available for an `EntryList` to only `add`, `delete`, `size`, `get`, `toStream`. Each `Entry` should not be modifiable. Iterator functions of the `List` interface allow for modification of contents of an `Entry`, which violates this invariant. As part of defensive programming, we thus chose to create an `EntryList` class that exposes only the immutable functions of a `List`.|
+| Having `MedicalEntry` as a separate class from `MedicalHistory` | `MedicalEntry` is an inner static class of `MedicalHistory`     | A `MedicalEntry` can only exist if there is a `MedicalHistory`. There should be no instantiation of a `MedicalEntry` without a `MedicalHistory` instantiated. We also do not want `MedicalEntry` to implement any interface that `MedicalHistory` does not. Thus, we opted to have `MedicalEntry` as an inner class of `MedicalHistory`. |
 
-```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```.
+#### Add Medical Entry feature
 
-Since the whole-part relationship also exists between ```MedicalHistory``` and ```MedicalHistoryEntry```, ```MedicalHistoryEntry``` is composed within ```MedicalHistory``` as well. However, since the multiplicity of the relationship between ```MedicalHistory``` and ```MedicalHistoryEntry``` is 1 to any number, that is, a medical history can have any number of medical history entries, the composition is wrapped by an ArrayList<MedicalHistoryEntry>, which stores an expandable list of medical history entries.
+**Overview**
 
-<img src="images/MedicalHistoryClassDiagram.png" width="150" />
+The Add Medical Entry feature allows users to add medical entries into the `MedicalHistory` of a `Patient`. Each new `MedicalEntry` must have the data field `description`, which is the description of the medical record (e.g. `diabetes`).
 
-### Alternatives considered
+Below is a class diagram of the components involved in the Add Medical Entry feature.
 
-1. Storing an entry of MedicalHistory as a String
+![Class diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureClassDiagram.png)
 
-An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff.
+**Implementation details of feature**
+
+The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.  
+1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
+2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
+3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument. 
+4. `AddMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
+5. If the required `preamble` and `PREFIX_MEDICAL` is present, the `AddMedicalEntryCommandParser` will invoke the `AddMedicalEntryCommand` after calling the `parseMedicalHistory` method provided by `ParserUtil`, which returns a `MedicalHistory` based on the `description` data field. The `preamble` identifies the `Index` of the `Patient` to add the medical entry to, while the string after `PREFIX_MEDICAL` specifies the `description` data field required for adding a new `MedicalEntry`.
+6. `LogicManager` calls the `execute` method of the `AddMedicalEntryCommand`, which calls the `addMedicalHistory` of the `Patient` specified by the `Index`.
+7. The `AddMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
+8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`. 
+
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`.
+
+![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureSequenceDiagram.png)
+
+The following activity diagram summarises what happens within `AddMedicalEntryCommandParser` when the user executes an Add Medical Entry command.
+
+![Activity diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureActivityDiagram.png)
+
+**Design considerations**
+
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Implementing a `MedicalHistoryBookParser` to invoke the `AddMedicalEntryCommandParser` | Having `PatientBookParser` invoke `AddMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to add a `MedicalEntry` |
+
+
+#### Delete Medical Entry feature
+
+**Overview**
+
+The Delete Medical Entry feature allows users to delete medical entries from the `MedicalHistory` of a `Patient`.
+
+Below is a class diagram of the components involved in the Delete Medical Entry feature.
+
+![Class diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureClassDiagram.png)
+
+**Implementation details of feature**
+
+The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryCommand`, which is supported by the `DeleteMedicalEntryCommandParser`. The `DeleteMedicalEntryCommandParser` implements the `PatientParser` interface.
+1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
+2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
+3. The `PatientBookParser` invokes the `DeleteMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
+4. `DeleteMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
+5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted. 
+6. `LogicManager` calls the `execute` method of the `DeleteMedicalEntryCommand`, which calls the `deleteMedicalHistory` of the `Patient` specified by the `Index`.
+7. The `DeleteMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
+8. The `DeleteMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
+
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`.
+
+![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram.png)
+
+The following activity diagram summarises what happens within `DeleteMedicalEntryCommandParser` when the user executes a DeleteMedicalEntry command.
+
+![Activity diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureActivityDiagram.png)
+
+**Design Considerations**
+
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry` |
+
 
 ### Appointment composed of a Valid Patient when added, loaded and stored
 
 #### How Appointment is implemented
 
-Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
+Each `Appointment` in memory contain
+s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
 
 Major changes involved to implement this feature:
 

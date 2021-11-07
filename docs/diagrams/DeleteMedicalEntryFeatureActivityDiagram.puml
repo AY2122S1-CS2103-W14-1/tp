@@ -1,0 +1,16 @@
+@startuml
+
+start
+:User inputs Delete Medical Feature command;
+if () then ([user input is valid])
+: Find specified target patient from Patient Book;
+: Produce patient copy of target patient;
+: Delete the specified medical entry from the patient copy's medical history;
+: Replace target patient in Patient Book with the patient copy;
+: Display updated Patient Book;
+else ([else])
+: Display Error Message;
+endif
+stop
+
+@enduml

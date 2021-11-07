@@ -2,10 +2,10 @@ package seedu.docit.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentWithPatientAtIndex;
+import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentList;
+import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_APPOINTMENT;
@@ -24,7 +24,7 @@ import seedu.docit.model.appointment.Appointment;
 
 
 public class DeleteAppointmentCommandTest {
-    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentList(),
+    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentBook(),
             new AppointmentBook(), new UserPrefs());
 
     @Test
@@ -52,7 +52,7 @@ public class DeleteAppointmentCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Appointment appointmentToDelete = model.getFilteredAppointmentList().get(
                 INDEX_FIRST_APPOINTMENT.getZeroBased());
@@ -71,7 +71,7 @@ public class DeleteAppointmentCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showAppointmentWithPatientAtIndex(model, INDEX_FIRST_APPOINTMENT);
+        showAppointmentAtIndex(model, INDEX_FIRST_APPOINTMENT);
 
         Index outOfBoundIndex = INDEX_SECOND_APPOINTMENT;
         // ensures that outOfBoundIndex is still in bounds of address book list

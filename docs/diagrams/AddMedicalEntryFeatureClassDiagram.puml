@@ -1,0 +1,52 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+
+Package Model {
+Package Patient {
+class Patient MODEL_COLOR {
+}
+class MedicalHistory MODEL_COLOR {
+}
+}
+}
+Patient *-down-> "1"MedicalHistory MODEL_COLOR : contains >
+
+Package Logic <<Rectangle>> {
+
+Package Parser {
+class AddMedicalEntryCommandParser LOGIC_COLOR {
+}
+class "<<interface>>\nPatientParser" as PatientParser<AddMedicalEntryCommand> LOGIC_COLOR {
+}
+class PatientBookParser LOGIC_COLOR {
+}
+class AddressBookParser LOGIC_COLOR {
+}
+}
+
+AddMedicalEntryCommandParser -up[dashed]-|> PatientParser
+AddressBookParser *--> PatientBookParser
+PatientBookParser -[dashed]-> AddMedicalEntryCommandParser : creates >
+
+Package Command {
+class PatientCommand LOGIC_COLOR {
+}
+class AddMedicalEntryCommand LOGIC_COLOR {
+}
+}
+}
+
+AddMedicalEntryCommand -up-|> PatientCommand
+
+AddMedicalEntryCommandParser -down-> AddMedicalEntryCommand : creates >
+
+
+AddMedicalEntryCommand *--> "1"MedicalHistory : creates >
+AddMedicalEntryCommand *--> "1"Patient : modifies >
+
+note bottom on link: Reference is stored in\n the form of an Index
+
+
+@enduml
