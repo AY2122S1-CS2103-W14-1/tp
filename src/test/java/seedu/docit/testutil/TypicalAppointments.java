@@ -18,12 +18,18 @@ public class TypicalAppointments {
     // Upcoming appointments
     public static final Appointment A1 = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2022, 1, 1, 16, 0));
-    public static final Appointment A2 = new Appointment(TypicalPatients.BENSON,
+    public static final Appointment A2 = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2022, 2, 2, 16, 0));
     public static final Appointment B1 = new Appointment(TypicalPatients.BENSON,
         LocalDateTime.of(2022, 1, 1, 16, 0));
     public static final Appointment B2 = new Appointment(TypicalPatients.BENSON,
         LocalDateTime.of(2022, 2, 1, 16, 0));
+
+    // Upcoming not present in typical appointment book
+    public static final Appointment C1 = new Appointment(TypicalPatients.CARL,
+        LocalDateTime.of(2022, 5, 21, 16, 0));
+    public static final Appointment C2 = new Appointment(TypicalPatients.CARL,
+        LocalDateTime.of(2022, 7, 6, 16, 0));
 
     // Past appointments
     public static final Appointment A_PAST = new Appointment(TypicalPatients.ALICE,
@@ -34,9 +40,9 @@ public class TypicalAppointments {
     private TypicalAppointments() {} // prevents instantiation
 
     /**
-     * Returns an {@code AppointmentList} with all the typical appointments.
+     * Returns an {@code AppointmentBook} with all the typical upcoming appointments.
      */
-    public static AppointmentBook getTypicalAppointmentList() {
+    public static AppointmentBook getTypicalAppointmentBook() {
         AppointmentBook ab = new AppointmentBook();
         for (Appointment appointment : getTypicalAppointments()) {
             ab.addAppointment(appointment);
@@ -46,6 +52,18 @@ public class TypicalAppointments {
 
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(A1, A2, B1,
-            B2, A_PAST, B_PAST));
+            B2));
+    }
+
+    /**
+     * Resets prescriptions on all typical upcoming appointments
+     */
+    public static void resetPrescriptions() {
+        A1.resetPrescriptions();
+        A2.resetPrescriptions();
+        B1.resetPrescriptions();
+        B2.resetPrescriptions();
+        C1.resetPrescriptions();
+        C2.resetPrescriptions();
     }
 }
