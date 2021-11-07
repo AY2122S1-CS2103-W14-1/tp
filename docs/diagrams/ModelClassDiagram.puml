@@ -29,13 +29,6 @@ Class Name
 Class Phone
 Class MedicalHistory
 Class MedicalEntry
-Class EntryList
-class "{abstract}\nEntry" as Entry
-class Entry.Some<MedicalEntry> MODEL_COLOR {
-}
-
-class Entry.Empty<Object> MODEL_COLOR {
-}
 
 Class Appointment
 Class Date
@@ -67,12 +60,7 @@ Patient *--> Name
 Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
-Patient *--> MedicalHistory
-MedicalHistory *--> "1" EntryList : contains >
-EntryList --> "1..*"Entry : contains >
-Entry.Some -up-|> Entry : extends >
-Entry.Empty -up-|> Entry : extends >
-Entry.Some --> "1"MedicalEntry
+
 
 UniqueAppointmentList --> "~* all" Appointment
 Appointment *--> Date
@@ -83,4 +71,7 @@ Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
 ModelManager -->"~* filtered" Patient
+Patient *--> MedicalHistory
+MedicalHistory -[dashed]-> "0..*"MedicalEntry
+note bottom on link: More detailed implementation\n of MedicalHistory can be found\n under the MedicalHistoryClassDiagram
 @enduml
