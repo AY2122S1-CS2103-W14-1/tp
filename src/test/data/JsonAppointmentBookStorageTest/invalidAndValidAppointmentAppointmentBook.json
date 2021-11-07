@@ -1,0 +1,11 @@
+{
+  "appointments" : [ {
+    "datetime" : "2040-10-17 1200",
+    "prescriptionList" : [ ],
+    "patientIndex" : "0"
+  }, {
+    "datetime" : "20222-12 2000",
+    "prescriptionList" : [ ],
+    "patientIndex" : "a"
+  } ]
+}

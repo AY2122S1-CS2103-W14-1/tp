@@ -25,6 +25,12 @@ public class TypicalAppointments {
     public static final Appointment B2 = new Appointment(TypicalPatients.BENSON,
         LocalDateTime.of(2022, 2, 1, 16, 0));
 
+    // Upcoming not present in typical appointment book
+    public static final Appointment C1 = new Appointment(TypicalPatients.CARL,
+        LocalDateTime.of(2022, 5, 21, 16, 0));
+    public static final Appointment C2 = new Appointment(TypicalPatients.CARL,
+        LocalDateTime.of(2022, 7, 6, 16, 0));
+
     // Past appointments
     public static final Appointment A_PAST = new Appointment(TypicalPatients.ALICE,
         LocalDateTime.of(2012, 5, 1, 16, 0), PRESCRIPTION_DIABETES);
