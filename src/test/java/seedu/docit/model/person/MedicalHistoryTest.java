@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.docit.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class MedicalHistoryTest {
         MedicalHistory validMedicalHistory = new MedicalHistory("diabetes");
         MedicalHistory.MedicalEntry validMedicalEntry = validMedicalHistory.toList().get(0);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
-        assertEquals(LocalDate.now().format(formatter), validMedicalEntry.getDateString());
+        assertEquals(LocalDate.now(ZoneId.of("Singapore")).format(formatter), validMedicalEntry.getDateString());
     }
 
     @Test
