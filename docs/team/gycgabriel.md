@@ -22,30 +22,30 @@ Given below are my contributions to the project.
     * To achieve this result, the design choice was to use `Index` of a `Patient` at the point of save to store the appointment instead of a `Patient` object for easier loading from and storing to JSON by reference of the `Patient`'s position in the `AddressBook`. `AppointmentBook` similar to AB3's `Person` class structure also needed to be created. New test cases also had to be created for coverage of appointment-related classes. (Pull request [\#87](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/87))
 
 * **New Feature**: Implement Add, Edit, Delete operations for `Appointment` class.
-* What it does: Allows clinic staff to modify a patient's appointment after a patient is created.
-* Justification: This feature improves the product significantly because clinic staff can enter commands to add, edit and delete appointments. They can also modify appointments that they have created if they have entered in the wrong patient or date, or if the appointment timing was changed.
-* Highlights: The implementation of `apmt add`, `apmt edit`, `apmt delete` required changes in `AddressBookParser` class and creation of respective `XYZCommandParser` classes, `XYZCommand` classes to conduct operations on `Appointment` objects. The `AppointmentBook` had to be created as well and have methods to conduct CRUD operations. (Pull requests [\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
+  * What it does: Allows clinic staff to modify a patient's appointment after a patient is created.
+  * Justification: This feature improves the product significantly because clinic staff can enter commands to add, edit and delete appointments. They can also modify appointments that they have created if they have entered in the wrong patient or date, or if the appointment timing was changed.
+  * Highlights: The implementation of `apmt add`, `apmt edit`, `apmt delete` required changes in `AddressBookParser` class and creation of respective `XYZCommandParser` classes, `XYZCommand` classes to conduct operations on `Appointment` objects. The `AppointmentBook` had to be created as well and have methods to conduct CRUD operations. (Pull requests [\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
 
 * **New Feature**: Implement LocalDateTime and date-time parsing for `Appointment` class.
-* What it does: Allows clinic staff to enter a computer-comprehensible date and time, so that further functionality can be added that use computer-comprehensible date and time.
-* Justification: This feature improves the product significantly because clinic staff can enter a computer-comprehensible date and time that can be formatted in the UI, and can be used to create sort appointment by date, and archive functionality.
-* Highlights: The implementation of `LocalDateTime` required parsing to be implemented when receiving input, documentation changes and incorrect format handling. (Pull request [\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
+  * What it does: Allows clinic staff to enter a computer-comprehensible date and time, so that further functionality can be added that use computer-comprehensible date and time.
+  * Justification: This feature improves the product significantly because clinic staff can enter a computer-comprehensible date and time that can be formatted in the UI, and can be used to create sort appointment by date, and archive functionality.
+  * Highlights: The implementation of `LocalDateTime` required parsing to be implemented when receiving input, documentation changes and incorrect format handling. (Pull request [\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
 
 * **New Feature**: Implement more restrictive parsers under `ParserUtil`.
-* What it does: Change validation regexes to be more strict in Datetime, Name, Address, MedicalHistory
-* Justification: This feature improves the product significantly because clinic staff cannot succeed in entering incorrectly formatted dates, name, address and medical history. Prevents fully numerical inputs for Name, Address and Medical History where it does not make sense.
-* Highlights: The implementation of stricter validation regexes required an understanding of regex. (Pull requests [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
+  * What it does: Change validation regexes to be more strict in Datetime, Name, Address, MedicalHistory
+  * Justification: This feature improves the product significantly because clinic staff cannot succeed in entering incorrectly formatted dates, name, address and medical history. Prevents fully numerical inputs for Name, Address and Medical History where it does not make sense.
+  * Highlights: The implementation of stricter validation regexes required an understanding of regex. (Pull requests [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
 
 * **New Feature**: Change command result box to wrap text 
-* What it does: Wraps text overflow within the box so user does not have to scroll
-* Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places.
+  * What it does: Wraps text overflow within the box so user does not have to scroll
+  * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places.
 
 * **New Feature**: Wrote tests for Appointment-related classes to increase coverage by 4% in total (Pull requests [\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286))
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=gycgabriel)
 
 * **Project management**:
-  * Ensured scheduling and tracking, including setting up labels for issues for the team's use, and milestones 1.1 and 1.2
+  * Ensured scheduling and tracking, including setting up labels for issues for the team's use, and beginning milestones 1.1 and 1.2
   * Managed `Appointment` component and gave technical advice regarding `Appointment`-related classes and tests
   * Kept track of deadlines, updating team member's of current progress and reminding the team of upcoming deadlines
 
