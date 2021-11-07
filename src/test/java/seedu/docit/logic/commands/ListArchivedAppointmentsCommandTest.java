@@ -1,18 +1,18 @@
 package seedu.docit.logic.commands;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import seedu.docit.model.ArchivedAppointmentBook;
-import seedu.docit.model.Model;
-import seedu.docit.model.ModelManager;
-import seedu.docit.model.UserPrefs;
-
 import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
 import static seedu.docit.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_APPOINTMENT;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import seedu.docit.model.ArchivedAppointmentBook;
+import seedu.docit.model.Model;
+import seedu.docit.model.ModelManager;
+import seedu.docit.model.UserPrefs;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListArchivedAppointmentCommand.

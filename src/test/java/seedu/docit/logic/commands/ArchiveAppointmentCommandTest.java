@@ -1,14 +1,5 @@
 package seedu.docit.logic.commands;
 
-import org.junit.jupiter.api.Test;
-import seedu.docit.commons.core.Messages;
-import seedu.docit.commons.core.index.Index;
-import seedu.docit.model.AppointmentBook;
-import seedu.docit.model.Model;
-import seedu.docit.model.ModelManager;
-import seedu.docit.model.UserPrefs;
-import seedu.docit.model.appointment.Appointment;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.docit.logic.commands.AppointmentCommandTestUtil.showAppointmentAtIndex;
@@ -21,6 +12,15 @@ import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_APPOINTMENT;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 
+import org.junit.jupiter.api.Test;
+
+import seedu.docit.commons.core.Messages;
+import seedu.docit.commons.core.index.Index;
+import seedu.docit.model.AppointmentBook;
+import seedu.docit.model.Model;
+import seedu.docit.model.ModelManager;
+import seedu.docit.model.UserPrefs;
+import seedu.docit.model.appointment.Appointment;
 
 public class ArchiveAppointmentCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalAppointmentBook(),
@@ -89,7 +89,8 @@ public class ArchiveAppointmentCommandTest {
         assertTrue(archiveFirstAppointmentCommand.equals(archiveFirstAppointmentCommand));
 
         // same values -> returns true
-        ArchiveAppointmentCommand archiveFirstAppointmentCommandCopy = new ArchiveAppointmentCommand(INDEX_FIRST_PATIENT);
+        ArchiveAppointmentCommand archiveFirstAppointmentCommandCopy = new ArchiveAppointmentCommand(
+                INDEX_FIRST_PATIENT);
         assertTrue(archiveFirstAppointmentCommand.equals(archiveFirstAppointmentCommandCopy));
 
         // different types -> returns false

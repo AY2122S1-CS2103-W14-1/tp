@@ -1,12 +1,14 @@
 package seedu.docit.logic.parser;
 
-import org.junit.jupiter.api.Test;
-import seedu.docit.logic.commands.ArchiveAppointmentCommand;
-
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseFailure;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
 import static seedu.docit.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.docit.logic.commands.ArchiveAppointmentCommand;
+
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
