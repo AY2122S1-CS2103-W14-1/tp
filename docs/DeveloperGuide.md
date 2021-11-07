@@ -483,7 +483,7 @@ The reason these methods exist in the class is so to support the methods `Archiv
 and `ArchivedAppointmentBook#removePatient(Patient target)`, which are called to accurately reflect any updates/removals of patient
 details.
 
-![Class diagram of Archive Storage](diagrams/StorageClassDiagram.png)
+![Class diagram of Archive Storage](diagrams/ArchivedStorageClassDiagram.png)
 
 In the `Storage` component, the addition of `ArchivedAppointmentBook` also necessitates the implementation of a separate storage system
 for archived appointments. This forms under `ArchivedAppointmentBookStorage`, alongside `AddressBookStorage` and `AppointmentBookStorage`.

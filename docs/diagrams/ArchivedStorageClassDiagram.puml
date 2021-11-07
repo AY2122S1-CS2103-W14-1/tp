@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+package Storage{
+
+Interface UserPrefsStorage <<Interface>>
+
+Class StorageManager
+
+Interface AddressBookStorage <<Interface>>
+
+Interface AppointmentBookStorage <<Interface>>
+
+Interface ArchivedAppointmentBookStorage <<Interface>>
+
+Class Storage #FFFFFF
+
+
+StorageManager -.left.- Storage
+StorageManager -up-> "1" UserPrefsStorage
+StorageManager --> "1" AddressBookStorage
+StorageManager -up-> "1" AppointmentBookStorage
+StorageManager --> "1" ArchivedAppointmentBookStorage
+
+
+@enduml
