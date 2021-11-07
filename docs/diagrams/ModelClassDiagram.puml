@@ -27,6 +27,7 @@ Class Address
 Class Email
 Class Name
 Class Phone
+Class Prescription
 Class MedicalHistory
 Class MedicalEntry
 
@@ -42,14 +43,16 @@ AddressBook .up.|> ReadOnlyAddressBook
 AppointmentBook .up.|> ReadOnlyAppointmentBook
 ArchivedAppointmentBook .up.|> ReadOnlyAppointmentBook
 
+
+Model .down.> ReadOnlyUserPrefs
+Model .down.> ReadOnlyAddressBook
+Model .down.> ReadOnlyAppointmentBook
 ModelManager .up.|> Model
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-Model .right.> ReadOnlyAppointmentBook
 ModelManager -left-> "1" AddressBook
-ModelManager -right-> "1" UserPrefs
-ModelManager -right-> "1" AppointmentBook
+ModelManager -left-> "1" UserPrefs
 ModelManager -right-> "1" ArchivedAppointmentBook
+ModelManager -right-> "1" AppointmentBook
+
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePatientList
@@ -64,6 +67,7 @@ Patient *--> Address
 
 UniqueAppointmentList --> "~* all" Appointment
 Appointment *--> Date
+Appointment *--> "*" Prescription
 Appointment *--> "1" Patient
 
 Name -[hidden]right-> Phone
