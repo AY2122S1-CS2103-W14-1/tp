@@ -7,6 +7,7 @@ import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.exceptions.IllegalValueException;
@@ -20,6 +21,11 @@ public class JsonSerializableAppointmentBookTest {
     private static final Path TYPICAL_APPOINTMENTS_FILE = TEST_DATA_FOLDER.resolve("typicalAppointmentsAppointmentBook.json");
     private static final Path INVALID_APPOINTMENT_FILE = TEST_DATA_FOLDER.resolve("invalidAppointmentAppointmentBook.json");
     private static final Path DUPLICATE_APPOINTMENT_FILE = TEST_DATA_FOLDER.resolve("duplicateAppointmentAppointmentBook.json");
+
+    @BeforeAll
+    public static void resetTypicalAppointments() {
+        TypicalAppointments.resetPrescriptions();
+    }
 
     @Test
     public void toModelType_typicalAppointmentsFile_success() throws Exception {

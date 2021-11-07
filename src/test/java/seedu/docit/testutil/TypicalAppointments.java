@@ -54,4 +54,16 @@ public class TypicalAppointments {
         return new ArrayList<>(Arrays.asList(A1, A2, B1,
             B2));
     }
+
+    /**
+     * Resets prescriptions on all typical upcoming appointments
+     */
+    public static void resetPrescriptions() {
+        A1.resetPrescriptions();
+        A2.resetPrescriptions();
+        B1.resetPrescriptions();
+        B2.resetPrescriptions();
+        C1.resetPrescriptions();
+        C2.resetPrescriptions();
+    }
 }

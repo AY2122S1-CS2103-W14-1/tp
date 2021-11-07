@@ -62,6 +62,10 @@ public class Appointment implements Comparable<Appointment> {
         return prescriptions;
     }
 
+    public void resetPrescriptions() {
+        prescriptions = new HashSet<>();
+    }
+
     /**
      * Adds a prescription into the appointment.
      * @param prescription prescription to be added.

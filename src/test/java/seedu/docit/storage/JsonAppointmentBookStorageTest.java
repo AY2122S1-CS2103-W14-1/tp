@@ -13,15 +13,22 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.docit.commons.exceptions.DataConversionException;
 import seedu.docit.model.AppointmentBook;
 import seedu.docit.model.ReadOnlyAppointmentBook;
+import seedu.docit.testutil.TypicalAppointments;
 
 public class JsonAppointmentBookStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAppointmentBookStorageTest");
+
+    @BeforeAll
+    public static void resetTypicalAppointments() {
+        TypicalAppointments.resetPrescriptions();
+    }
 
     @TempDir
     public Path testFolder;
