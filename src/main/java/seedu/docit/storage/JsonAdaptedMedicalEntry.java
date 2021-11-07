@@ -27,14 +27,6 @@ public class JsonAdaptedMedicalEntry {
         this.date = dateOfRecord;
     }
 
-    /**
-     * Converts a given {@code MedicalEntry} into this class for Jackson use.
-     */
-    public JsonAdaptedMedicalEntry(MedicalHistory.MedicalEntry source) {
-        this.description = source.getDescription();
-        this.date = source.getDateString();
-    }
-
     public String getDescription() {
         return description;
     }
@@ -50,5 +42,4 @@ public class JsonAdaptedMedicalEntry {
         LocalDate dateOfRecord = LocalDate.parse(date, DateTimeFormatter.ofPattern("d MMM uuuu"));
         return new MedicalHistory.MedicalEntry(description, dateOfRecord);
     }
-
 }

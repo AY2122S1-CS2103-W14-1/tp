@@ -60,4 +60,12 @@ public class AddMedicalEntryCommand extends PatientCommand {
 
         return new CommandResult(MESSAGE_SUCCESS + editedPatient);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof AddMedicalEntryCommand // instanceof handles nulls
+            && this.medicalHistory.equals(((AddMedicalEntryCommand) other).medicalHistory)
+            && this.index.equals(((AddMedicalEntryCommand) other).index));
+    }
 }

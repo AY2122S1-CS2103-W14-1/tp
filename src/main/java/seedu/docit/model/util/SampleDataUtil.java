@@ -24,20 +24,15 @@ public class SampleDataUtil {
             MedicalHistory.EMPTY_MEDICAL_HISTORY);
 
     public static Patient[] getSamplePatients() {
-        MedicalHistory berniceMh = MedicalHistory.generate();
-        berniceMh.add("diabetes", "1 Oct 1999");
+        MedicalHistory berniceMh = MedicalHistory.generate("diabetes", "1 Oct 1999");
 
-        MedicalHistory charlotteMh = MedicalHistory.generate();
-        charlotteMh.add("scoliosis", "2 May 2000");
+        MedicalHistory charlotteMh = MedicalHistory.generate("scoliosis", "2 May 2000");
 
-        MedicalHistory davidMh = MedicalHistory.generate();
-        davidMh.add("stage 1a cancer", "5 Sep 2005");
+        MedicalHistory davidMh = MedicalHistory.generate("stage 1a cancer", "5 Sep 2005");
 
-        MedicalHistory irfanMh = MedicalHistory.generate();
-        irfanMh.add("high blood pressure", "8 Aug 2010");
+        MedicalHistory irfanMh = MedicalHistory.generate("high blood pressure", "8 Aug 2010");
 
-        MedicalHistory royMh = MedicalHistory.generate();
-        royMh.add("anxiety", "8 Aug 2017");
+        MedicalHistory royMh = MedicalHistory.generate("anxiety", "8 Aug 2017");
 
         return new Patient[] {
             patientAlex,

@@ -10,7 +10,7 @@ import seedu.docit.model.ReadOnlyAddressBook;
 import seedu.docit.model.ReadOnlyAppointmentBook;
 
 /**
- * Represents a storage for {@link AppointmentBook}.
+ * Represents a storage for archived-version of {@link AppointmentBook}.
  */
 public interface ArchivedAppointmentBookStorage {
 
@@ -43,7 +43,7 @@ public interface ArchivedAppointmentBookStorage {
                                      ReadOnlyAddressBook addressBook) throws IOException;
 
     /**
-     * @see #saveArchivedAppointmentBook(ReadOnlyAppointmentBook)
+     * @see #saveArchivedAppointmentBook(ReadOnlyAppointmentBook, ReadOnlyAddressBook)
      */
     void saveArchivedAppointmentBook(ReadOnlyAppointmentBook appointmentBook, ReadOnlyAddressBook addressBook,
                                      Path filePath) throws IOException;

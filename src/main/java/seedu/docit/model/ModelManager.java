@@ -58,8 +58,20 @@ public class ModelManager implements Model {
         filteredPatients = new FilteredList<>(this.addressBook.getPatientList());
         filteredAppointments = new FilteredList<>(this.appointmentBook.getAppointmentList());
 
+        initAutoArchive();
+    }
 
-        // Setup scheduler to auto-archive past appointments
+    public ModelManager() {
+        this(new AddressBook(), new AppointmentBook(), new AppointmentBook(), new UserPrefs());
+    }
+
+    /**
+     * Sets up scheduler to auto-archive past appointments
+     */
+    private void initAutoArchive() {
+        // @@author joshenx-reused
+        // Reused from https://stackoverflow.com/a/20388073
+        // with minor modifications. Runnable class AutoArchiveAmpts is newly implemented.
         archivePastAppointments();
 
         ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Singapore"));
@@ -76,10 +88,7 @@ public class ModelManager implements Model {
                 initalDelay,
                 TimeUnit.DAYS.toSeconds(1),
                 TimeUnit.SECONDS);
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new AppointmentBook(), new AppointmentBook(), new UserPrefs());
+        // @@author
     }
 
     //=========== UserPrefs ==================================================================================

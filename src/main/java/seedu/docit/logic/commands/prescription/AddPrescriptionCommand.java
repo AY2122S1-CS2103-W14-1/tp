@@ -3,6 +3,7 @@ package seedu.docit.logic.commands.prescription;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,9 +41,15 @@ public class AddPrescriptionCommand extends AppointmentCommand {
             + "Volume: %2$s\nDuration: %3$s";
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
-    public static final String MESSAGE_FIELD_TOO_LONG =
-            "Medicine name can only be 20 characters long. Volume field can only be 20 characters long. "
-                    + "Duration field can only be 40 characters long.";
+    private static final String MESSAGE_FIELD_TOO_LONG =
+            "Medicine name can only be %1$s characters long. \nVolume field can only be %2$s characters long. "
+                    + "\nDuration field can only be %3$s characters long.";
+
+    public static final String INPUT_TOO_LONG_ERROR_MESSAGE = String.format(MESSAGE_FIELD_TOO_LONG,
+            Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
+            Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+            Prescription.DURATION_CHAR_LENGTH_LIMIT);
+
     private static Logger logger = Logger.getLogger("AddPrescriptionCommand");
 
     private final Index targetAppointmentIndex;
@@ -60,9 +67,9 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         requireNonNull(volume);
         requireNonNull(duration);
         this.targetAppointmentIndex = targetAppointmentIndex;
-        this.volume = volume;
-        this.medicine = medicine;
-        this.duration = duration;
+        this.volume = volume.toLowerCase();
+        this.medicine = medicine.toLowerCase();
+        this.duration = duration.toLowerCase();
     }
 
     @Override
@@ -76,9 +83,9 @@ public class AddPrescriptionCommand extends AppointmentCommand {
                     + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
             throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
         }
-
+        assert (targetAppointmentIndex.getZeroBased() >= 0
+                && targetAppointmentIndex.getZeroBased() < lastShownList.size());
         Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
-
         Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
         if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
@@ -87,15 +94,30 @@ public class AddPrescriptionCommand extends AppointmentCommand {
             throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
         }
 
-        if (volume.length() > 20 || medicine.length() > 20 || duration.length() > 40) {
-            logger.log(Level.WARNING, "prescription adding error, "
-                + MESSAGE_FIELD_TOO_LONG);
-            throw new CommandException(MESSAGE_FIELD_TOO_LONG);
+        if (volume.length() > Prescription.VOLUME_CHAR_LENGTH_LIMIT
+                || medicine.length() > Prescription.MEDICINE_CHAR_LENGTH_LIMIT
+                || duration.length() > Prescription.DURATION_CHAR_LENGTH_LIMIT) {
+            logger.log(Level.WARNING, INPUT_TOO_LONG_ERROR_MESSAGE);
+            throw new CommandException(INPUT_TOO_LONG_ERROR_MESSAGE);
         }
 
         model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
         model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
         logger.log(Level.INFO, "prescription adding success");
         return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AddPrescriptionCommand that = (AddPrescriptionCommand) o;
+        return Objects.equals(targetAppointmentIndex, that.targetAppointmentIndex)
+                && Objects.equals(medicine, that.medicine) && Objects.equals(volume, that.volume)
+                && Objects.equals(duration, that.duration);
     }
 }

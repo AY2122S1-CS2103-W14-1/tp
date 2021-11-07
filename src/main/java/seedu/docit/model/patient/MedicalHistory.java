@@ -38,7 +38,7 @@ public class MedicalHistory {
      */
     public static class MedicalEntry {
         private final String description;
-        private LocalDate dateOfEntry;
+        private final LocalDate dateOfEntry;
 
         private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
 
@@ -178,6 +178,28 @@ public class MedicalHistory {
     public static MedicalHistory generate() {
         MedicalHistory mh = new MedicalHistory("");
         mh.delete(0);
+        return mh;
+    }
+
+    /**
+     * Generates a Medical History that contains the given description and the date of record.
+     * @return a medical history object that contains nothing.
+     */
+    public static MedicalHistory generate(String desc, String date) {
+        MedicalHistory mh = new MedicalHistory("");
+        mh.delete(0);
+        mh.add(desc, date);
+        return mh;
+    }
+
+    /**
+     * Generates a Medical History that contains the given description, with date of record being today.
+     * @return a medical history object that contains nothing.
+     */
+    public static MedicalHistory generate(String desc) {
+        MedicalHistory mh = new MedicalHistory("");
+        mh.delete(0);
+        mh.add(desc);
         return mh;
     }
 

@@ -1,0 +1,19 @@
+{
+  "appointments" : [ {
+    "datetime" : "2022-1-1 1600",
+    "prescriptionList" : [ ],
+    "patientIndex" : "0"
+  }, {
+    "datetime" : "2022-2-2 1600",
+    "prescriptionList" : [ ],
+    "patientIndex" : "0"
+  }, {
+    "datetime" : "2022-1-1 1600",
+    "prescriptionList" : [ ],
+    "patientIndex" : "1"
+  }, {
+    "datetime" : "2022-2-1 1600",
+    "prescriptionList" : [ ],
+    "patientIndex" : "1"
+  } ]
+}

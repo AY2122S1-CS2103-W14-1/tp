@@ -44,9 +44,9 @@ public class AppointmentBookParser {
         case SortAppointmentsCommand.COMMAND_WORD:
             return new SortAppointmentsCommand();
         case AddPrescriptionCommand.COMMAND_WORD:
-            return new AddPrescriptionCommandParser().parse(arguments);
+            return new AddPrescriptionCommandParser().parseAppointmentCommand(arguments);
         case DeletePrescriptionCommand.COMMAND_WORD:
-            return new DeletePrescriptionCommandParser().parse(arguments);
+            return new DeletePrescriptionCommandParser().parseAppointmentCommand(arguments);
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

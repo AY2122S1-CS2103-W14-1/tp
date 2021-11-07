@@ -27,9 +27,9 @@ Class Address
 Class Email
 Class Name
 Class Phone
-Class Tag
+Class Prescription
 Class MedicalHistory
-Class MedicalHistoryEntry
+Class MedicalHistory.MedicalEntry
 
 Class Appointment
 Class Date
@@ -43,35 +43,42 @@ AddressBook .up.|> ReadOnlyAddressBook
 AppointmentBook .up.|> ReadOnlyAppointmentBook
 ArchivedAppointmentBook .up.|> ReadOnlyAppointmentBook
 
+
+Model .down.> ReadOnlyUserPrefs
+Model .down.> ReadOnlyAddressBook
+Model .down.> ReadOnlyAppointmentBook
 ModelManager .up.|> Model
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-Model .right.> ReadOnlyAppointmentBook
 ModelManager -left-> "1" AddressBook
-ModelManager -right-> "1" UserPrefs
-ModelManager -right-> "1" AppointmentBook
+ModelManager -left-> "1" UserPrefs
 ModelManager -right-> "1" ArchivedAppointmentBook
+ModelManager -right-> "1" AppointmentBook
+
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePatientList
 AppointmentBook *--> "1" UniqueAppointmentList
 ArchivedAppointmentBook *--> "1" UniqueAppointmentList
-UniquePatientList --> "~* all" Patient
+
 Patient *--> Name
 Patient *--> Phone
 Patient *--> Email
 Patient *--> Address
-Patient *--> MedicalHistory
-Patient *--> "*" Tag
-MedicalHistory *--> "*" MedicalHistoryEntry
+
 
 UniqueAppointmentList --> "~* all" Appointment
+
 Appointment *--> Date
+
+Appointment *--> "*" Prescription
 Appointment *--> "1" Patient
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
+UniquePatientList --> "~* all" Patient
 
 ModelManager -->"~* filtered" Patient
+Patient *--> MedicalHistory
+MedicalHistory -[dashed]-> "0..*"MedicalHistory.MedicalEntry
+note bottom on link: More detailed implementation\n of MedicalHistory can \nbe found under the\n MedicalHistoryClassDiagram
 @enduml

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.docit.commons.core.index.Index;
 import seedu.docit.model.AddressBook;
 import seedu.docit.model.patient.Patient;
 
@@ -74,5 +75,19 @@ public class TypicalPatients {
 
     public static List<Patient> getTypicalPatients() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    /**
+     * Makes the given {@code Patient} contain an {@code EMPTY_MEDICAL_HISTORY}.
+     * @param p patient to be edited.
+     * @return edited patient.
+     */
+    public static Patient makeEmptyMedicalHistory(Patient p) {
+        Patient edited = p;
+        int countOfMedicalEntries = p.getMedicalHistory().size();
+        for (int i = countOfMedicalEntries; i > 0; i--) {
+            edited = p.deleteMedicalHistory(Index.fromOneBased(i));
+        }
+        return edited;
     }
 }

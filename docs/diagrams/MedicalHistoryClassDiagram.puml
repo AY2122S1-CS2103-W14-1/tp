@@ -4,8 +4,39 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Patient *--> MedicalHistory
-MedicalHistory *--> "*" MedicalHistoryEntry
+Package Model <<Rectangle>> {
+class Patient {
+}
 
-ModelManager -->"~* filtered" Patient
+class MedicalHistory {
+}
+
+class MedicalHistory.MedicalEntry {
+}
+
+class EntryList {
+}
+
+class "{abstract}\nEntry" as Entry
+
+class Entry<MedicalHistory.MedicalEntry> MODEL_COLOR {
+}
+
+class Entry.Some<MedicalHistory.MedicalEntry> MODEL_COLOR {
+}
+
+class Entry.Empty<Object> MODEL_COLOR {
+}
+
+Class HiddenOutside #FFFFFF
+}
+
+HiddenOutside -[dashed]-> Patient
+
+Patient *--> "1"MedicalHistory : contains >
+MedicalHistory *--> "1" EntryList : contains >
+EntryList --> "1..*"Entry : contains >
+Entry.Some -up-|> Entry : extends >
+Entry.Empty -up-|> Entry : extends >
+Entry.Some --> "1"MedicalHistory.MedicalEntry
 @enduml

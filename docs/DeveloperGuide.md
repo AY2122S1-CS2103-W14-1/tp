@@ -113,8 +113,8 @@ Here's a (partial) class diagram of the `Logic` component:
 How the `Logic` component works:
 
 1. When `Logic` is called upon to execute a command, it uses the `AddressBookParser` class to parse the user command.
-   - `AddressBookParser` categorises the command according to its format (using RegEx) and hands it off
-     to either one of `BasicAddressBookParser`, `PatientBookParser`, or `AppointmentBookParser`.
+    - `AddressBookParser` categorises the command according to its format (using RegEx) and hands it off
+      to either one of `BasicAddressBookParser`, `PatientBookParser`, or `AppointmentBookParser`.
 2. The chosen parser then parses the command and returns a `Command` object (more precisely, an object of one of its subclasses e.g., `AddPatientCommand`) which is executed by the `LogicManager`.
 3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -135,7 +135,7 @@ How the parsing works:
 
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddPatientCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddPatientCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddPatientCommandParser`, `DeletePatientCommandParser`, ...) inherit from one of the three parser interfaces: `BasicParser`, `PatientParser`, or `AppointmentParser` so that they
-be treated appropriately based on the type of command issued.
+  be treated appropriately based on the type of command issued.
 
 * The three types of parsers (`BasicParser`, `PatientParser`, `AppointmentParser`) inherit directly from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
@@ -148,15 +148,15 @@ In the original AB3, all commands extend the `Command` abstract class.
 The following is a list of commands that extend the three abstract classes:
 
 - `BasicCommand`
-  - `ExitCommand`
-  - `ClearCommand`
-  - `HelpCommand`
+    - `ExitCommand`
+    - `ClearCommand`
+    - `HelpCommand`
 - `PatientCommand`
-  - `AddPatientCommand`
-  - `EditPatientCommand`
-  - `DeletePatientCommand`
-  - `ListPatientCommand`
-  - `FindPatientCommand`
+    - `AddPatientCommand`
+    - `EditPatientCommand`
+    - `DeletePatientCommand`
+    - `ListPatientCommand`
+    - `FindPatientCommand`
 - `AppointmentCommand`
     - `AddAppointmentCommand`
     - `ArchiveAppointmentCommand`
@@ -165,8 +165,8 @@ The following is a list of commands that extend the three abstract classes:
     - `ListAppointmentsCommand`
     - `SortAppointmentsCommand`
     - `PrescriptionCommand`
-      - `AddPrescriptionCommand`
-      - `DeletePrescriptionCommand`
+        - `AddPrescriptionCommand`
+        - `DeletePrescriptionCommand`
 
 > This taxonomy of commands is further reflected on the Parser's side as well.
 
@@ -176,14 +176,14 @@ appointment-related commands respectively. For all commands under `PatientParser
 any form of extra user input), we have a specific parser that tokenises the command:
 
 - `PatientCommandParser`
-  - `AddPatientCommandParser`
-  - `EditPatientCommandParser`
-  - `DeletePatientCommandParser`
-  - `FindPatientCommandParser`
+    - `AddPatientCommandParser`
+    - `EditPatientCommandParser`
+    - `DeletePatientCommandParser`
+    - `FindPatientCommandParser`
 - `AppointmentParser`
-  - `AddAppointmentCommandParser`
-  - `EditAppointmentCommandParser`
-  - `DeleteAppointmentCommandParser`
+    - `AddAppointmentCommandParser`
+    - `EditAppointmentCommandParser`
+    - `DeleteAppointmentCommandParser`
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/model/Model.java)
@@ -256,51 +256,122 @@ The following commands are available from the ```Appointment``` class to interac
 
 This method was considered at first to improve separation of concerns. However, the increased complexity of adapting storage to work with nested composite data structures was deemed to be too high and infeasible.
 
-### Recording a Patient's Medical History feature
+### Medical History
 
-Having relatable medical history entries of a patient can help clinic staff provide more contextual service to patients. Therefore, a patient management record system should have a feature for clinic staff to add, edit, and delete medical history options of the patient.
+**Class Implementation details**
 
-#### How Medical History is implemented
+- The `MedicalHistory` class composes an `EntryList<Entry<MedicalEntry>>` class.
+- The `EntryList` class references the `Entry<MedicalEntry>` through an `ArrayList`.
+- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class. 
+- Each `Patient` class composes exactly one `MedicalHistory` class.
+- `MedicalEntry` is an inner static class of `MedicalHistory`
+- Each `MedicalEntry` has a `description` data attribute and a `dateOfRecord` data attribute. The `description` data is supplied by the user. The `dateOfRecord` is automatically generated based on the date the medical entry was recorded.
 
-The proposed medical history mechanism was built with a class, ```MedicalHistory```. Within the ```MedicalHistory``` class, each entry of a pateint's medical history is stored under a private variable ```listOfEntries```. An entry of ```MedicalHistory``` is a private inner (nested) class within the ```MedicalHistory``` class, ```MedicalHistoryEntry```.
+Below is a class diagram illustrating the relationship between `Patient` and `MedicalHistory`. Note: other details within the `Model` component are omitted.
 
-These are the following methods created for the MedicalHistory feature:
+![Class diagram of MedicalHistory](diagrams/MedicalHistoryClassDiagram.png)
 
-* ```MedicalHistory#addEntry(String s)```- adds a new entry of medical history into the patient.
-* ```MedicalHistory#editEntry(int index, String s)```- edits an entry of medical history that has been recorded and saved.
-* ```MedicalHistory#removeEntry(int index, String s)```- removes an entry of medical history, so the entry is no longer recorded.
 
-These operations are exposed via the ```Patient``` class as `Patient#addMedicalHistory(String s)`, `Patient#editMedicalHistory(int i, String s)` and `Patient#removeMedicalHistory(int i)` respectively.
+**Design Considerations**
 
-#### Reason for implementation of MedicalHistory
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Using a list of medical entries as an attribute of a `Patient` class | Multiple or zero `MedicalEntry` objects can be stored by a single `MedicalHistory`. Each `Patient` class has exactly one `MedicalHistory` reference.         | ```Patient``` and ```MedicalHistory``` share a whole-part relationship: when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. If the `Patient` does not have any medical records, this means that the `MedicalHistory` is empty, which is reflected by a single `EMPTY_MEDICAL_HISTORY` (instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`). Hence, there is a 1...1 multiplicity relationship between ```Patient``` and ```MedicalHistory```, as one patient can have exactly one medical history. Following OOP Principles, it is more apt to encapsulate medical history records (or medical entries) as a `MedicalHistory` class than using a collection of medical entries, e.g. `List<MedicalEntry>`. |
+| Using `null` to reflect an empty `MedicalHistory` for patients that do not have any recorded medical history | An empty `MedicalHistory` object is instantiated (`EMPTY_MEDICAL_HISTORY`), and this object is referenced in every `Patient` object that does not have any medical history records.       | It is not a mistake for a patient to have zero medical history records. If we were to use `null` to reflect an empty medical history, there would be many scenarios where by running a blanket command on a patient, `NullPointerException` would be thrown at runtime if we do not check for `null`. Hence, as part of our defensive programming efforts, we created a single `EMPTY_MEDICAL_HISTORY` object that is an instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`. This allows us to bypass `NullPointerException` due to the additional null safety built in and exploit polymorphism.|
+| Using the `Optional` interface to reflect an `Entry` | `Entry` class is implemented to reflect an `Entry` that is either `Some` or `Empty`, such that all `null` or `empty` inputs into the factory `of` method generate an `Entry.Empty`, and every other input generates an `Entry.Some`     | When the `Optional::of` takes in `null`, a runtime exception is thrown. But `null` is a valid input. While `Optional` provides an `ofNullable` method, For defensive programming, we thus constructed the `Entry` class. |
+| Using the `List` interface to reflect a list of entries | `EntryList` class is implemented to reflect an `EntryList` that contains the `Entry` | We want to limit the methods available for an `EntryList` to only `add`, `delete`, `size`, `get`, `toStream`. Each `Entry` should not be modifiable. Iterator functions of the `List` interface allow for modification of contents of an `Entry`, which violates this invariant. As part of defensive programming, we thus chose to create an `EntryList` class that exposes only the immutable functions of a `List`.|
+| Having `MedicalEntry` as a separate class from `MedicalHistory` | `MedicalEntry` is an inner static class of `MedicalHistory`     | A `MedicalEntry` can only exist if there is a `MedicalHistory`. There should be no instantiation of a `MedicalEntry` without a `MedicalHistory` instantiated. We also do not want `MedicalEntry` to implement any interface that `MedicalHistory` does not. Thus, we opted to have `MedicalEntry` as an inner class of `MedicalHistory`. |
 
-```Patient``` and ```MedicalHistory``` share a whole-part relationship, that is, when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. There is a 1...1 multiplicity relationship between a ```Patient``` and a ```MedicalHistory```, as one patient can only have one medical history. Hence, applying the Composition principle, a single ```MedicalHistory``` is composed within ```Patient```.
+#### Add Medical Entry feature
 
-Since the whole-part relationship also exists between ```MedicalHistory``` and ```MedicalHistoryEntry```, ```MedicalHistoryEntry``` is composed within ```MedicalHistory``` as well. However, since the multiplicity of the relationship between ```MedicalHistory``` and ```MedicalHistoryEntry``` is 1 to any number, that is, a medical history can have any number of medical history entries, the composition is wrapped by an ArrayList<MedicalHistoryEntry>, which stores an expandable list of medical history entries.
+**Overview**
 
-<img src="images/MedicalHistoryClassDiagram.png" width="150" />
+The Add Medical Entry feature allows users to add medical entries into the `MedicalHistory` of a `Patient`. Each new `MedicalEntry` must have the data field `description`, which is the description of the medical record (e.g. `diabetes`).
 
-### Alternatives considered
+Below is a class diagram of the components involved in the Add Medical Entry feature.
 
-1. Storing an entry of MedicalHistory as a String
+![Class diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureClassDiagram.png)
 
-An alternative implementation to record MedicalHistory would be to not break down ```MedicalHistory``` into a list of ```MedicalHistoryEntries```, and instead store each entry as a String. This alternative results in a simpler build. However, this limits the information that an entry of medical history can store. For example, a clinic staff will not be able to tell from a String that this medical history is from 10 years ago, unless explicitly indicated by the staff. On the other hand, we can better handle more information of each entry and build more features for each entry accordingly, depending on the complexity requirement of a medical history entry from the cliic staff.
+**Implementation details of feature**
+
+The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.  
+1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
+2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
+3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument. 
+4. `AddMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
+5. If the required `preamble` and `PREFIX_MEDICAL` is present, the `AddMedicalEntryCommandParser` will invoke the `AddMedicalEntryCommand` after calling the `parseMedicalHistory` method provided by `ParserUtil`, which returns a `MedicalHistory` based on the `description` data field. The `preamble` identifies the `Index` of the `Patient` to add the medical entry to, while the string after `PREFIX_MEDICAL` specifies the `description` data field required for adding a new `MedicalEntry`.
+6. `LogicManager` calls the `execute` method of the `AddMedicalEntryCommand`, which calls the `addMedicalHistory` of the `Patient` specified by the `Index`.
+7. The `AddMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
+8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`. 
+
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`.
+
+![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureSequenceDiagram.png)
+
+The following activity diagram summarises what happens within `AddMedicalEntryCommandParser` when the user executes an Add Medical Entry command.
+
+![Activity diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureActivityDiagram.png)
+
+**Design considerations**
+
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Implementing a `MedicalHistoryBookParser` to invoke the `AddMedicalEntryCommandParser` | Having `PatientBookParser` invoke `AddMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to add a `MedicalEntry` |
+
+
+#### Delete Medical Entry feature
+
+**Overview**
+
+The Delete Medical Entry feature allows users to delete medical entries from the `MedicalHistory` of a `Patient`.
+
+Below is a class diagram of the components involved in the Delete Medical Entry feature.
+
+![Class diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureClassDiagram.png)
+
+**Implementation details of feature**
+
+The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryCommand`, which is supported by the `DeleteMedicalEntryCommandParser`. The `DeleteMedicalEntryCommandParser` implements the `PatientParser` interface.
+1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
+2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
+3. The `PatientBookParser` invokes the `DeleteMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
+4. `DeleteMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
+5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted. 
+6. `LogicManager` calls the `execute` method of the `DeleteMedicalEntryCommand`, which calls the `deleteMedicalHistory` of the `Patient` specified by the `Index`.
+7. The `DeleteMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
+8. The `DeleteMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
+
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`.
+
+![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram.png)
+
+The following activity diagram summarises what happens within `DeleteMedicalEntryCommandParser` when the user executes a DeleteMedicalEntry command.
+
+![Activity diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureActivityDiagram.png)
+
+**Design Considerations**
+
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry` |
+
 
 ### Appointment composed of a Valid Patient when added, loaded and stored
 
 #### How Appointment is implemented
 
-Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
+Each `Appointment` in memory contain
+s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
 
 Major changes involved to implement this feature:
 
 * Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 * Loading an appointment on app launch  —
-  * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
-  * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+    * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+    * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
 * Storing an appointment after every command  —
-  * The app runs `LogicManager#saveAppointmentBook()`.
-  * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+    * The app runs `LogicManager#saveAppointmentBook()`.
+    * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
 
 Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
 
@@ -327,45 +398,45 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 **Aspect: How Appointments are instantiated**
 
 * **Alternative 1 (current choice):** Appointment is composed of a Patient.
-  * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
-    Appointments cannot exist.
-    Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
-  * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
-  * **Pros:** Easy to find the patient of the appointment.
-  * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
-    must be loaded to memory before `AppointmentBook`.
+    * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
+      Appointments cannot exist.
+      Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
+    * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
+    * **Pros:** Easy to find the patient of the appointment.
+    * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
+      must be loaded to memory before `AppointmentBook`.
 * **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and
   Appointment only requires date and time to instantiate.
-  * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
-  * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
-    date and time at the same clinic that can be served by different doctors.
-  * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
-    because Appointment has no Patient field.
+    * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
+    * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
+      date and time at the same clinic that can be served by different doctors.
+    * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
+      because Appointment has no Patient field.
 
 **Aspect: How Appointments are stored and loaded**
 
 * **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and
   datetime.
-  * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
-    of `AddressBook` is saved each time `AppointmentBook` is saved.
-  * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
-    indices in commands.
-  * **Pros:** Index of patient is guaranteed to be a unique identifier.
-  * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
-    appointments will become incorrect.
+    * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
+      of `AddressBook` is saved each time `AppointmentBook` is saved.
+    * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
+      indices in commands.
+    * **Pros:** Index of patient is guaranteed to be a unique identifier.
+    * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
+      appointments will become incorrect.
 * **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment
   object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID.
-  * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
-    data.
-  * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
-    Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
-  * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
+    * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
+      data.
+    * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
+      Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
+    * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
 
 ### Archiving an Appointment
 
 A user is able to archive an appointment when the appointment is _expired_, i.e. the patient has either missed his/her appointment
 or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff
-are able to view what medicine was prescribed to the patient during previous appointments. 
+are able to view what medicine was prescribed to the patient during previous appointments.
 
 #### How Archiving is Implemented
 
@@ -389,11 +460,11 @@ appointment time (24-hour buffer), i.e. by our definition, _expired_, the appoin
 by the `ModelManager` class in two ways.
 
 1. Upon initialisation of the application, the application automatically archives expired appointments (24-hours past their
-   scheduled time). This is called through `ModelManager#archivePastAppointments()`. 
+   scheduled time). This is called through `ModelManager#archivePastAppointments()`.
 
 
-2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface. 
-Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
+2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface.
+   Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
    method.
 
 
@@ -401,7 +472,7 @@ In the case where there are many scheduled appointments, this saves the user tro
 they are already over.
 
 
-#### Specific Auto-Archiving 
+#### Specific Auto-Archiving
 
 Users may still archive specific appointments manually to remove visual clutter. This is done through the `ArchiveAppointmentCommand`.
 
@@ -476,13 +547,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 * **Alternative 1 (current choice):** Saves the entire address book.
 
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
 
-  * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
+    * Pros: Will use less memory (e.g. for `delete`, just save the patient being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
 
@@ -592,12 +663,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Necessary details of patient are absent (name, NRIC).
 
-  * 1a1. `Doc'it` shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 * 1b. Patient details conflict with existing patient list.
 
-  * 1b1. `Doc'it` shows an error message.
+    * 1b1. `Doc'it` shows an error message.
 
   Use case resumes at step 1.
 
@@ -619,9 +690,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 * 3a. The given index is invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes at step 2.
 
 **Use case: UC04 - View the records of a patient**
 
@@ -636,9 +707,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified patient does not exist.
 
-  * 1a1. `Doc'it` shows an error message.
+    * 1a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 1.
+      Use case resumes at step 1.
 
 **Use case: UC05 - List all appointments**
 
@@ -670,9 +741,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The date of the appointment AND/OR the specified patient are invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 3.
+      Use case resumes at step 3.
 
 **Use case: UC07 - Delete an appointment**
 
@@ -692,9 +763,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 * 3a. The given index is invalid.
 
-  * 3a1. `Doc'it` shows an error message.
+    * 3a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes at step 2.
 
 **Use case: UC08 - Archive an appointment**
 
@@ -730,9 +801,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. `Doc'it` is unable to save file.
 
-  * 2a1. `Doc'it` shows an error message.
+    * 2a1. `Doc'it` shows an error message.
 
-    Use case resumes at step 1.
+      Use case resumes at step 1.
 
 ### Non-Functional Requirements
 
@@ -764,31 +835,31 @@ testers are expected to do more *exploratory* testing.
 
 1. Initial launch
 
-   1. Download the jar file and copy into an empty folder
-   2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+    1. Download the jar file and copy into an empty folder
+    2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 2. Saving window preferences
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-   2. Re-launch the app by double-clicking the jar file.<br>
-      Expected: The most recent window size and location is retained.
+    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+    2. Re-launch the app by double-clicking the jar file.<br>
+       Expected: The most recent window size and location is retained.
 3. _{ more test cases … }_
 
 ### Deleting a patient
 
 1. Deleting a patient while all patients are being shown
 
-   1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-   2. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-   3. Test case: `delete 0`<br>
-      Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-   4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
+    2. Test case: `delete 1`<br>
+       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+    3. Test case: `delete 0`<br>
+       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
 2. _{ more test cases … }_
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 2. _{ more test cases … }_

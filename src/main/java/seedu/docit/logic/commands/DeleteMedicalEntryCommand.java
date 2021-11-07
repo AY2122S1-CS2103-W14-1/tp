@@ -23,6 +23,9 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         + PREFIX_INDEX + "1";
 
     public static final String MESSAGE_SUCCESS = "Updated: \n";
+    public static final String MESSAGE_FAILURE_CANNOT_FIND =
+        "Doc'it cannot find the specified index of the medical history record from ";
+    public static final String MESSAGE_FAILURE_EMPTY = "No medical history record to delete from ";
 
     private final Index patientIndex;
     private final Index medicalIndex;
@@ -52,7 +55,11 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         Patient patientToEdit = lastShownList.get(patientIndex.getZeroBased());
 
         if (patientToEdit.hasEmptyMedicalHistory()) {
-            throw new CommandException("No medical history record to delete from " + patientToEdit.getName() + ".");
+            throw new CommandException(MESSAGE_FAILURE_EMPTY + patientToEdit.getName() + ".");
+        }
+
+        if (patientToEdit.getMedicalHistory().size() < medicalIndex.getOneBased()) {
+            throw new CommandException(MESSAGE_FAILURE_CANNOT_FIND + patientToEdit.getName() + ".");
         }
 
         Patient editedPatient = patientToEdit.deleteMedicalHistory(medicalIndex);
@@ -63,5 +70,13 @@ public class DeleteMedicalEntryCommand extends PatientCommand {
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
 
         return new CommandResult(MESSAGE_SUCCESS + editedPatient);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof DeleteMedicalEntryCommand // instanceof handles nulls
+            && this.patientIndex.equals(((DeleteMedicalEntryCommand) other).patientIndex)
+            && this.medicalIndex.equals(((DeleteMedicalEntryCommand) other).medicalIndex));
     }
 }

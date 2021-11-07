@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
+participant ":DeleteMedicalEntryCommandParser" as DeleteMedicalEntryCommandParser LOGIC_COLOR
+participant "cmd:DeleteMedicalEntryCommand" as DeleteMedicalEntryCommand LOGIC_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> LogicManager : execute("pt ma ...")
+activate LogicManager
+activate ModelManager
+
+LogicManager -> AddressBookParser : parseCommand("pt md ...")
+activate AddressBookParser
+
+
+AddressBookParser -> PatientBookParser : parsePatientCommand("pt md ...")
+activate PatientBookParser
+
+PatientBookParser -> DeleteMedicalEntryCommandParser : parsePatientCommand(commandWord, arguments)
+activate DeleteMedicalEntryCommandParser
+ref over DeleteMedicalEntryCommandParser: Parse user input
+
+create DeleteMedicalEntryCommand
+DeleteMedicalEntryCommandParser -> DeleteMedicalEntryCommand
+activate DeleteMedicalEntryCommand
+
+DeleteMedicalEntryCommand --> DeleteMedicalEntryCommandParser : cmd
+deactivate DeleteMedicalEntryCommand
+DeleteMedicalEntryCommandParser --> PatientBookParser : cmd
+deactivate DeleteMedicalEntryCommandParser
+PatientBookParser --> AddressBookParser : cmd
+deactivate PatientBookParser
+AddressBookParser --> LogicManager : cmd
+deactivate AddressBookParser
+LogicManager --> DeleteMedicalEntryCommand : execute(model)
+activate DeleteMedicalEntryCommand
+
+DeleteMedicalEntryCommand --> ModelManager : setPatient(patientToEdit, editedPatient)
+DeleteMedicalEntryCommand --> ModelManager : updateAppointmentBook(patientToEdit, editedPatient)
+DeleteMedicalEntryCommand --> ModelManager : updateFilteredPatientList()
+DeleteMedicalEntryCommand --> ModelManager : updateFilteredAppointmentList()
+ref over ModelManager: Update storage
+ModelManager --> DeleteMedicalEntryCommand
+deactivate ModelManager
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+
+create CommandResult
+DeleteMedicalEntryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteMedicalEntryCommand : result
+deactivate CommandResult
+
+DeleteMedicalEntryCommand --> LogicManager : result
+deactivate DeleteMedicalEntryCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

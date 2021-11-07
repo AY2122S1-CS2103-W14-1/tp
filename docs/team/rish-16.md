@@ -7,7 +7,7 @@ title: Rishabh's Project Portfolio Page
 
 #### Overview
 `Doc’it` provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
-patient records and schedule appointments, solving the inefficient paper records and files used today. With `Doc’it`, 
+patient records and schedule appointments, solving the inefficient paper records and files used today. With `Doc’it`,
 small family clinics can reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline
 care services.
 
@@ -20,24 +20,24 @@ care services.
 ---
 
 ### Enhancements
-    
+
 * Broke `Command` into `BasicCommand`, `PatientCommand`, and `AppointmentCommand` to promote better OOP.
   * Allocated each existing and new command into these 3 categories based on purpose and function.
 * Broke `Parser` into `BasicParser`, `PatientParser`, and `AppointmentParser` to promote better OOP.
-  * Allocated each existing and new command parser into these 3 categories based on purpose and function. 
+  * Allocated each existing and new command parser into these 3 categories based on purpose and function.
 * Removed all mentions of `Tag` from the app and revamped Patient-related tests ([#248](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/248))
 
 ---
 
 ### Documentation
 * User Guide:
-    * Add description and usage instructions for new commands ([#142](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/142))
-    * Cosmetic changes in terms of grammar ([#184](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/184), [#185](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/185), [#248](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/248))
+  * Add description and usage instructions for new commands ([#142](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/142))
+  * Cosmetic changes in terms of grammar ([#184](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/184), [#185](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/185), [#248](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/248))
 * Developer Guide:
-    * Revamped full `Logic` section with breakdown of `Command` ([#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165), )
-    * Updated DG with new breakdown of `Command` ([#100](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/100), [#105](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/105), [#248](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/248))
-    * Added a new `Parser` section under `Logic` detailing the changes to existing parsers for all commands
-    * Updated diagrams based on new designs/ideas used throughout DG ([#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165))
+  * Revamped full `Logic` section with breakdown of `Command` ([#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165), )
+  * Updated DG with new breakdown of `Command` ([#100](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/100), [#105](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/105), [#248](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/248))
+  * Added a new `Parser` section under `Logic` detailing the changes to existing parsers for all commands
+  * Updated diagrams based on new designs/ideas used throughout DG ([#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165))
 
 ---
 
@@ -49,7 +49,7 @@ care services.
 
 ### Absolute Contributions
 Here's a list of all the Issues I was assigned: <br>
-[#8](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/8), 
+[#8](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/8),
 [#14](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/14),
 [#27](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/27),
 [#56](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/56),
