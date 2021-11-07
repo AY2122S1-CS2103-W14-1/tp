@@ -47,6 +47,10 @@ Given below are my contributions to the project.
 * **Project management**:
   * Ensured scheduling and tracking, including setting up labels for issues for the team's use, and beginning milestones 1.1 and 1.2
   * Managed `Appointment` component and gave technical advice regarding `Appointment`-related classes and tests
+    * Gave advice for tests for EditAppointmentCommand [\#287](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/287)
+    * Fixed tests for DeleteAppointmentCommand [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286)
+    * Made suggestions regarding renaming methods to better suit its purpose in `Appointments` [\#237](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/237), [\#98](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/98)
+    * Suggested enhancements [\#92])(https://github.com/AY2122S1-CS2103-W14-1/tp/issues/92)
   * Kept track of deadlines, updating team member's of current progress and reminding the team of upcoming deadlines
 
 * **Documentation**:
