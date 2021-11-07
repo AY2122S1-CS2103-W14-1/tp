@@ -4,6 +4,7 @@ import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -139,7 +140,7 @@ public class Appointment implements Comparable<Appointment> {
     }
 
     public boolean isToday() {
-        return getDatetime().toLocalDate().equals(LocalDate.now());
+        return getDatetime().toLocalDate().equals(LocalDate.now(ZoneId.of("Singapore")));
     }
 
     /**
