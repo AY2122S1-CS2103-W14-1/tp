@@ -36,7 +36,6 @@ public class EditPatientCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new AppointmentBook(),
             new ArchivedAppointmentBook(), new UserPrefs());
 
-
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Patient editedPatient = new PatientBuilder().build();

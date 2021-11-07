@@ -14,7 +14,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/rish-16.png" width="200px">
 
 [[github](http://github.com/rish-16)]
-[[portfolio](team/rishabh.md)]
+[[portfolio](team/rish-16.md)]
 
 * Role: Developer
 * Responsibilities: Integration, Backend

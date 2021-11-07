@@ -11,6 +11,8 @@ import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.docit.testutil.Assert.assertThrows;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,10 +69,10 @@ public class CommandTestUtil {
 
     public static final String INVALID_PATIENT_INDEX_DESC_MINUS_1 = " " + PREFIX_INDEX + INVALID_PATIENT_INDEX_MINUS_1;
 
-    public static final String VALID_APPOINTMENT_DATE_TIME = "2020-1-10 1600";
+    public static final String VALID_APPOINTMENT_DATE_TIME = "2020-01-10 1600";
     public static final String INVALID_APPOINTMENT_DATE_TIME_MONTH = "2020-13-10 1600"; // invalid month
     public static final String INVALID_APPOINTMENT_DATE_TIME_YEAR = "-1-13-10 1600"; // invalid year
-    public static final String INVALID_APPOINTMENT_DATE_TIME_DATE = "2020-1-43 1600"; // invalid date
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DATE = "2020-01-43 1600"; // invalid date
     public static final String INVALID_APPOINTMENT_DATE_TIME_TIME = "2020-12-10 3400"; // invalid time
     public static final String INVALID_APPOINTMENT_DATE_TIME_ALL = "-1-13-33 9900"; // invalid datetime
     public static final String INVALID_APPOINTMENT_DATE_TIME_NULL = ""; // invalid entry
@@ -102,6 +104,10 @@ public class CommandTestUtil {
 
     public static final String VALID_APPOINTMENT_INDEX = "1";
 
+    public static final EditAppointmentCommand.EditAppointmentDescriptor DESC_AMY_APPT;
+    public static final EditAppointmentCommand.EditAppointmentDescriptor DESC_BOB_APPT;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     public static final String VALID_PRESCRIPTION_MEDICINE_DESC =
             " " + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE;
 
@@ -112,6 +118,16 @@ public class CommandTestUtil {
         DESC_BOB = new EditPatientDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withMedicalHistory(MEDICAL_DESC_PATIENT).build();
+    }
+
+    static {
+        DESC_AMY_APPT = new EditAppointmentCommand.EditAppointmentDescriptor();
+        DESC_AMY_APPT.setPatientIndex(Index.fromOneBased(Integer.parseInt(VALID_PATIENT_INDEX_1)));
+        DESC_AMY_APPT.setDatetime(LocalDateTime.parse("2020-01-10 1600", formatter));
+
+        DESC_BOB_APPT = new EditAppointmentCommand.EditAppointmentDescriptor();
+        DESC_BOB_APPT.setPatientIndex(Index.fromOneBased(Integer.parseInt(VALID_PATIENT_INDEX_2)));
+        DESC_BOB_APPT.setDatetime(LocalDateTime.parse("2020-01-10 1600", formatter));
     }
 
     /**
