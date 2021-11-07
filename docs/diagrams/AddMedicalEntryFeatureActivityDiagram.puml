@@ -2,18 +2,14 @@
 
 start
 :User inputs Add Medical Feature command;
-if (patientIndex && medicalPrefix is present?) then (no)
-: throw ParseException;
-else (yes)
-
-if (patientIndex is within Patient Book) then (yes)
-: Add medical entry into specified patient's medical history;
-: Produce patient copy with modified medical history;
+if () then ([user input is valid])
+: Find specified target patient from Patient Book;
+: Produce patient copy of target patient;
+: Add medical entry into patient copy's medical history;
 : Replace target patient in Patient Book with the patient copy;
 : Display updated Patient Book;
-else (no)
-: throw CommandException;
-endif
+else ([else])
+: Display Error Message;
 endif
 stop
 

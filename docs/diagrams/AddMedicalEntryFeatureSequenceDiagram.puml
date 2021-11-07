@@ -42,7 +42,6 @@ PatientBookParser --> AddressBookParser : cmd
 deactivate PatientBookParser
 AddressBookParser --> LogicManager : cmd
 deactivate AddressBookParser
-
 LogicManager --> AddMedicalEntryCommand : execute(model)
 activate AddMedicalEntryCommand
 
