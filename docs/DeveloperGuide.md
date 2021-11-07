@@ -121,7 +121,7 @@ How the `Logic` component works:
 
 The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("pt delete 1")` API call.
 
-![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeleteSequenceDiagram.png)
+![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeletePatientFeatureSequenceDiagram.png)
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePatientCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 </div>
@@ -157,6 +157,8 @@ The following is a list of commands that extend the three abstract classes:
     - `DeletePatientCommand`
     - `ListPatientCommand`
     - `FindPatientCommand`
+    - `AddMedicalEntryCommandParser`
+    - `DeleteMedicalEntryCommandParser`
 - `AppointmentCommand`
     - `AddAppointmentCommand`
     - `ArchiveAppointmentCommand`
@@ -164,9 +166,8 @@ The following is a list of commands that extend the three abstract classes:
     - `DeleteAppointmentCommand`
     - `ListAppointmentsCommand`
     - `SortAppointmentsCommand`
-    - `PrescriptionCommand`
-        - `AddPrescriptionCommand`
-        - `DeletePrescriptionCommand`
+    - `AddPrescriptionCommand`
+    - `DeletePrescriptionCommand`
 
 > This taxonomy of commands is further reflected on the Parser's side as well.
 
@@ -180,10 +181,14 @@ any form of extra user input), we have a specific parser that tokenises the comm
     - `EditPatientCommandParser`
     - `DeletePatientCommandParser`
     - `FindPatientCommandParser`
+    - `AddMedicalEntryCommandParser`
+    - `DeleteMedicalEntryCommandParser`
 - `AppointmentParser`
     - `AddAppointmentCommandParser`
     - `EditAppointmentCommandParser`
     - `DeleteAppointmentCommandParser`
+    - `AddPrescriptionCommandParser`
+    - `DeletePrescriptionCommandParser`
 
 ### Model component
 **API** : [`Model.java`](https://github.com/AY2122S1-CS2103-W14-1/tp/tree/master/src/main/java/seedu/docit/model/Model.java)
@@ -278,8 +283,8 @@ Below is a class diagram illustrating the relationship between `Patient` and `Me
 | ---------- | ------------------------ | ------------------------ |
 | Using a list of medical entries as an attribute of a `Patient` class | Multiple or zero `MedicalEntry` objects can be stored by a single `MedicalHistory`. Each `Patient` class has exactly one `MedicalHistory` reference.         | ```Patient``` and ```MedicalHistory``` share a whole-part relationship: when a ```Patient``` object is destroyed, the corresponding ```MedicalHistory``` object is also destroyed. If the `Patient` does not have any medical records, this means that the `MedicalHistory` is empty, which is reflected by a single `EMPTY_MEDICAL_HISTORY` (instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`). Hence, there is a 1...1 multiplicity relationship between ```Patient``` and ```MedicalHistory```, as one patient can have exactly one medical history. Following OOP Principles, it is more apt to encapsulate medical history records (or medical entries) as a `MedicalHistory` class than using a collection of medical entries, e.g. `List<MedicalEntry>`. |
 | Using `null` to reflect an empty `MedicalHistory` for patients that do not have any recorded medical history | An empty `MedicalHistory` object is instantiated (`EMPTY_MEDICAL_HISTORY`), and this object is referenced in every `Patient` object that does not have any medical history records.       | It is not a mistake for a patient to have zero medical history records. If we were to use `null` to reflect an empty medical history, there would be many scenarios where by running a blanket command on a patient, `NullPointerException` would be thrown at runtime if we do not check for `null`. Hence, as part of our defensive programming efforts, we created a single `EMPTY_MEDICAL_HISTORY` object that is an instantiation of a `MedicalHistory` object with an `EntryList<Entry<MedicalEntry>>` containing exactly one `Entry` that is an `Empty`. This allows us to bypass `NullPointerException` due to the additional null safety built in and exploit polymorphism.|
-| Using the `Optional` interface to reflect an `Entry` | `Entry` class is implemented to reflect an `Entry` that is either `Some` or `Empty`, such that all `null` or `empty` inputs into the factory `of` method generate an `Entry.Empty`, and every other input generates an `Entry.Some`     | When the `Optional::of` takes in `null`, a runtime exception is thrown. But `null` is a valid input. While `Optional` provides an `ofNullable` method, For defensive programming, we thus constructed the `Entry` class. |
-| Using the `List` interface to reflect a list of entries | `EntryList` class is implemented to reflect an `EntryList` that contains the `Entry` | We want to limit the methods available for an `EntryList` to only `add`, `delete`, `size`, `get`, `toStream`. Each `Entry` should not be modifiable. Iterator functions of the `List` interface allow for modification of contents of an `Entry`, which violates this invariant. As part of defensive programming, we thus chose to create an `EntryList` class that exposes only the immutable functions of a `List`.|
+| Using the `Optional` interface to reflect an `Entry` | `Entry` class is implemented to reflect an `Entry` that is either `Some` or `Empty`, such that all `null` or `empty` inputs into the factory `of` method generate an `Entry.Empty`, and every other input generates an `Entry.Some`     | When the `Optional::of` takes in `null`, a runtime exception is thrown. But `null` is a valid input. While `Optional` provides an `ofNullable` method, we wanted to take an active defensive programming approach. We thus constructed the `Entry` class, whereby there is only one factory `of` method, where `null` inputs are taken care of. |
+| Using the `List` interface to reflect a list of entries | `EntryList` class is implemented to reflect an `EntryList` that contains the `Entry` | We want to limit the methods available for an `EntryList` to only `add`, `delete`, `size`, `get`, `toStream`. Each `Entry` and their position within the `EntryList` should not be modifiable. After all, at our current stage of production, we do not want the `MedicalEntry` to have a different order from their time of input. Iterator functions of the `List` interface allow for modification of contents of an `Entry` at a specified position in the `List`, which violates this invariant. As part of defensive programming, we thus chose to create an `EntryList` class that exposes only the immutable functions of a `List`.|
 | Having `MedicalEntry` as a separate class from `MedicalHistory` | `MedicalEntry` is an inner static class of `MedicalHistory`     | A `MedicalEntry` can only exist if there is a `MedicalHistory`. There should be no instantiation of a `MedicalEntry` without a `MedicalHistory` instantiated. We also do not want `MedicalEntry` to implement any interface that `MedicalHistory` does not. Thus, we opted to have `MedicalEntry` as an inner class of `MedicalHistory`. |
 
 #### Add Medical Entry feature
@@ -316,7 +321,7 @@ The following activity diagram summarises what happens within `AddMedicalEntryCo
 
 | Alternative Considered | Current implementation | Rationale for current implementation |
 | ---------- | ------------------------ | ------------------------ |
-| Implementing a `MedicalHistoryBookParser` to invoke the `AddMedicalEntryCommandParser` | Having `PatientBookParser` invoke `AddMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to add a `MedicalEntry` |
+| Implementing a `MedicalHistoryBookParser` to invoke the `AddMedicalEntryCommandParser` | Having `PatientBookParser` invoke `AddMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to add a `MedicalEntry`. |
 
 
 #### Delete Medical Entry feature
@@ -353,7 +358,7 @@ The following activity diagram summarises what happens within `DeleteMedicalEntr
 
 | Alternative Considered | Current implementation | Rationale for current implementation |
 | ---------- | ------------------------ | ------------------------ |
-| Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry` |
+| Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry`. |
 
 
 ### Appointment composed of a Valid Patient when added, loaded and stored

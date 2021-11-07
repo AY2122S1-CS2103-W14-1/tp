@@ -6,12 +6,12 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":DeletePatientCommandParser" as DeletePatientCommandParser LOGIC_COLOR
 participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
 [-> LogicManager : execute("pt delete 1")
@@ -49,20 +49,22 @@ deactivate AddressBookParser
 LogicManager -> DeletePatientCommand : execute()
 activate DeletePatientCommand
 
-DeletePatientCommand -> Model : deletePatient(1)
-activate Model
+DeletePatientCommand -> ModelManager : deletePatient(patient)
+activate ModelManager
+DeletePatientCommand -> ModelManager : deleteAppointmentsWithPatient(patient)
+ref over ModelManager: Update storage
 
-Model --> DeletePatientCommand
-deactivate Model
+ModelManager --> DeletePatientCommand
+deactivate ModelManager
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeletePatientCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeletePatientCommand : result
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
+DeletePatientCommand --> LogicManager : result
 deactivate DeleteCommand
 
 [<--LogicManager
