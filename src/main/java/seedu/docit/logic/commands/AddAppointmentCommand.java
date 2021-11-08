@@ -64,6 +64,7 @@ public class AddAppointmentCommand extends AppointmentCommand {
         }
 
         model.addAppointment(toAdd);
+        model.archivePastAppointments();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

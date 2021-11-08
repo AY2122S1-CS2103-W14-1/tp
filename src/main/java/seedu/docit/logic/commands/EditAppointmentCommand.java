@@ -75,6 +75,7 @@ public class EditAppointmentCommand extends AppointmentCommand {
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
+        model.archivePastAppointments();
         model.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
         model.updateFilteredAppointmentList(PREDICATE_SHOW_ALL_APPOINTMENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_APPOINTMENT_SUCCESS, editedAppointment));
