@@ -561,11 +561,11 @@ they are already over.
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+* [Documentation guide](https://ay2122s1-cs2103-w14-1.github.io/tp/Documentation.html)
+* [Testing guide](https://ay2122s1-cs2103-w14-1.github.io/tp/Testing.html)
+* [Logging guide](https://ay2122s1-cs2103-w14-1.github.io/tp/Logging.html)
+* [Configuration guide](https://ay2122s1-cs2103-w14-1.github.io/tp/Configuration.html)
+* [DevOps guide](https://ay2122s1-cs2103-w14-1.github.io/tp/DevOps.html)
 
 ---
 
@@ -824,7 +824,6 @@ Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
 testers are expected to do more *exploratory* testing.
-
 </div>
 
 ### Launch and shutdown
@@ -833,26 +832,68 @@ testers are expected to do more *exploratory* testing.
 
     1. Download the jar file and copy into an empty folder
     2. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-2. Saving window preferences
-
-    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
-    2. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
-3. _{ more test cases … }_
 
 ### Deleting a patient
 
 1. Deleting a patient while all patients are being shown
 
-    1. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
-    2. Test case: `delete 1`<br>
-       Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-    3. Test case: `delete 0`<br>
-       Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
-    4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+    1. Prerequisites: List all patients using the `pt list` command. Multiple patients in the list.
+    2. Test case: `pt delete 1`<br>
+       Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message.
+    3. Test case: `pt delete 0`<br>
+       Expected: No patient is deleted. Error details shown in the status message.
+    4. Other incorrect patient delete commands to try: `pt delete`, `delete 1`, `pt delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
-2. _{ more test cases … }_
 
+### Adding a patient
+1. Adding a patient
+
+    1. Test case: `pt add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 m/diabetes`. <br>
+       Expected: Patient is added to the end of the list. Details of the added patient shown in the status message.
+    2. Test case: `pt add p/98765432 e/johnd@example.com`. <br>
+       Expected: No patient is added. Error details shown in the status message.
+    3. Other incorrect patient add commands to try: `pt add`, `add 1`, `pt add m/diabetes`, `...`
+       Expected: Similar to previous.
+
+### Editing a patient
+1. Editing a patient
+    1. Prerequisites: List all patients using the `pt list` command. Multiple patients in the list.
+    2. Test case: `pt edit 1 n/Joshen Lim` <br>
+       Expected: Name of first patient is edited. Details of the edited patient shown in the status message.
+    3. Test case: `pt edit 1 n/` <br>
+       Expected: No edit is executed. Error details shown in the status message.
+    4. Other incorrect patient add commands to try: `pt edit`, `edit 1 n/Joshen Lim`, `pt edit x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+       
+### Adding a Medical Entry to a Patient's Medical History
+1. Adding a medical Entry
+    1. Prerequisites: List all patients using the `pt list` command. Multiple patients in the list.
+    2. Test case: `pt ma 1 m/diabetes` <br>
+       Expected: Medical History of first patient has the new medical entry added to the back of the list. The medical entry should have the corresponding date recorded. Details of the patient shown in the status message.
+    3. Test case: `pt ma 1 i/` <br>
+       Expected: No medical entry is added. Error details shown in the status message.
+    4. Other incorrect patient add commands to try: `pt ma`, `ma 1 m/high blood pressure`, `pt ma x m/lovesick`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+       
+### Deleting a Medical Entry from a Patient's Medical History
+1. Deleting a medical entry from a patient's non-empty medical history
+    1. Prerequisites: List all patients using the `pt list` command. Multiple patients in the list.
+    2. Test case: `pt md 1 i/1` <br>
+       Expected: Medical Entry of the specified index within the Medical History of first patient is deleted. If there are other entries within the Medical History, the list of entries will re-index from 1. If there are no other entries within the Medical History, "No medical history recorded." is shown on the Patient Card. Details of the patient shown in the status message.
+    3. Test case: `pt md 1 i/` <br>
+       Expected: No medical entry is deleted. Error details shown in the status message.
+    4. Other incorrect patient add commands to try: `pt md`, `md 1 i/1`, `pt md x i/1`, `pt md 1 i/x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+2. Deleting a medical entry from a patient's with an empty medical history
+    1. Prerequisites: List all patients using the `pt list` command. Multiple patients in the list.
+    2. Test case: `pt md 1 i/1` <br>
+       Expected: Nothing is changed. Status message reflects that there is "No medical history record to delete from the patient". 
+    3. Test case: `pt md 1 i/` <br>
+       Expected: Nothing is changed. Error details shown in the status message.
+    4. Other incorrect patient add commands to try: `pt md`, `md 1 i/1`, `pt md x i/1`, `pt md 1 i/x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+       
 ### Saving data
 
 1. Dealing with missing/corrupted data files
