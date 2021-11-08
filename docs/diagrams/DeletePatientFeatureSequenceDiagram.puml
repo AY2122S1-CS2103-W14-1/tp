@@ -3,10 +3,8 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
-participant ":DeletePatientCommandParser" as DeletePatientCommandParser LOGIC_COLOR
 participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
-participant "result:CommandResult" as CommandResult LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 
 end box
 
@@ -16,33 +14,7 @@ end box
 
 [-> LogicManager : execute("...")
 activate LogicManager
-ref over LogicManager: Omit parsing details from\n AddressBookParser to\n PatientBookParser
-LogicManager -> PatientBookParser : parsePatientCommand
-activate PatientBookParser
-
-
-PatientBookParser -> DeletePatientCommandParser : parsePatientCommand(\n command, args)
-activate DeletePatientCommandParser
-ref over DeletePatientCommandParser: Parse user input
-
-
-create DeletePatientCommand
-DeletePatientCommandParser -> DeletePatientCommand
-activate DeletePatientCommand
-
-DeletePatientCommand --> DeletePatientCommandParser : d
-deactivate DeletePatientCommand
-
-DeletePatientCommandParser --> PatientBookParser : d
-deactivate DeletePatientCommandParser
-DeletePatientCommandParser -[hidden]-> LogicManager
-destroy DeletePatientCommandParser
-
-PatientBookParser --> LogicManager : d
-deactivate PatientBookParser
-PatientBookParser -[hidden]-> LogicManager
-destroy PatientBookParser
-
+ref over LogicManager: Parse User Input
 
 LogicManager -> DeletePatientCommand : execute(model)
 activate DeletePatientCommand
@@ -60,12 +32,12 @@ create CommandResult
 DeletePatientCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeletePatientCommand : result
+CommandResult --> DeletePatientCommand : r
 deactivate CommandResult
 
-DeletePatientCommand --> LogicManager : result
+DeletePatientCommand --> LogicManager : r
 deactivate DeletePatientCommand
 
-[<--LogicManager
+[<--LogicManager : r
 deactivate LogicManager
 @enduml

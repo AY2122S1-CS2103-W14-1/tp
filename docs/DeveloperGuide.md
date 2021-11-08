@@ -125,7 +125,13 @@ How the `Logic` component works:
 3. The command can communicate with the `Model` when it is executed (e.g. to add a patient).
 4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
 
-The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("pt delete 1")` API call.
+The Sequence Diagram below illustrates the interactions within the `Logic` component for the `execute("pt delete 1")` API call. The illustration has been split into two parts: (1) Parse User Input, (2) Execute command.
+
+**Parse User Input**
+
+![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeletePatientFeatureSequenceDiagram1.png)
+
+**Execute command**
 
 ![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeletePatientFeatureSequenceDiagram.png)
 
@@ -284,8 +290,13 @@ The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, w
 7. The `AddMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
 8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`. 
 
-Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`.
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`. The illustration has been split into two parts: (1) Parse User Input, (2) Execute command.
 
+**Parse User Input**
+
+![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntrySequenceFeatureDiagram1.png)
+
+**Execute a:AddMedicalEntryCommand**
 
 ![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureSequenceDiagram.png)
 
@@ -322,8 +333,13 @@ The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryComma
 7. The `DeleteMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
 8. The `DeleteMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
 
-Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`.
+Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`. The illustration has been split into two parts: (1) Parse User Input, (2) Execute command.
 
+**Parse User Input**
+
+![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram1.png)
+
+**Execute command**
 
 ![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram.png)
 

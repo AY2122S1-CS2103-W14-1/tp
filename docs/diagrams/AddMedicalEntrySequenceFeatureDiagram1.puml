@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
+participant ":AddMedicalEntryCommandParser" as AddMedicalEntryCommandParser LOGIC_COLOR
+participant "a:AddMedicalEntryCommand" as AddMedicalEntryCommand LOGIC_COLOR
+end box
+
+
+[-> LogicManager : execute("...")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand
+activate AddressBookParser
+AddressBookParser -> PatientBookParser : parsePatientCommand
+activate PatientBookParser
+PatientBookParser -> AddMedicalEntryCommandParser : parsePatientCommand
+activate AddMedicalEntryCommandParser
+ref over AddMedicalEntryCommandParser: Parse argument
+
+create AddMedicalEntryCommand
+AddMedicalEntryCommandParser -> AddMedicalEntryCommand
+activate AddMedicalEntryCommand
+
+AddMedicalEntryCommand --> AddMedicalEntryCommandParser : a
+deactivate AddMedicalEntryCommand
+AddMedicalEntryCommandParser --> PatientBookParser : a
+deactivate AddMedicalEntryCommandParser
+AddMedicalEntryCommandParser -[hidden]-> LogicManager
+destroy AddMedicalEntryCommandParser
+
+PatientBookParser --> AddressBookParser : a
+deactivate PatientBookParser
+PatientBookParser -[hidden]-> LogicManager
+destroy PatientBookParser
+
+AddressBookParser --> LogicManager : a
+deactivate AddressBookParser
+AddressBookParser -[hidden]-> LogicManager
+destroy AddressBookParser
+
+ref over LogicManager: Execute\na:AddMedicalEntryCommand
+@enduml
