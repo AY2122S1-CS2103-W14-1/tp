@@ -12,50 +12,31 @@ Doc'IT is a desktop address book application. Users key in CLI-themed commands i
 
 Given below are my contributions to the project.
 
-* **New Feature**: Create `Appointment` class to represent a patient's appointment with the clinic.
+* **New Feature**: Create `Appointment` class to represent a patient's appointment.
   * What it does: Allows users to record a patient's appointment after a patient is created.
-  * Justification: This feature allows users to represent multiple appointments of patients with each appointment having their own date and time.
-  * Highlights:
-    * The implementation of `Appointment` class required creation of `AppointmentBook`, `ReadOnlyAppointmentBook` and `UniqueAppointmentList` in `Storage` to support, Parsing of `Appointment`-related Commands, and Storing and Loading of `Appointment`. 
+  * Justification: This feature allows users to represent multiple appointments of patients with each having their own date and time.
+  * Highlights: The implementation of `Appointment` class required creation of `AppointmentBook`, `ReadOnlyAppointmentBook` and `UniqueAppointmentList` in `Storage` to support saving and loading of `Appointment`. Changes required in `ModelManager` to instantiate `AppointmentBook` with `AddressBook`, i.e. to instantiate list of appointments with list of patient. 
     * Appointments had to be listed in a separate list from `Patient` class, yet have a link to the patient that has the appointment. This feature required an in-depth analysis of design alternatives.
-    * The final design chosen was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while at the same time referencing a patient object.
-    * To achieve this result, the design choice was to use `Index` of a `Patient` at the point of save to store the appointment instead of a `Patient` object for easier loading from and storing to JSON by reference of the `Patient`'s position in the `AddressBook`. `AppointmentBook` similar to AB3's `Person` class structure also needed to be created. 
-    * Changes required in `ModelManager` to instantiate `AppointmentBook` with `AddressBook`, i.e. to instantiate list of appointments with list of patient.
+    * The design choice was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. 
+    * The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while referencing a patient object. The design choice was to use `Index` of a `Patient` to store the appointment instead of a `Patient` object for easier loading from and storing to JSON.
   * Relevant PRs: [\#58](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/58), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85), [\#87](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/87)
 
 * **New Feature**: Implement Add, Edit, Delete operations for `Appointment` class.
   * What it does: Allows users to add, edit and delete a patient's appointment after the appointment is created.
-  * Justification: This feature allows users to create, modify and delete appointments. They can modify wrongly-entered appointments or appointments to match changes in appointment date and time.
-  * Highlights: 
-    * This implementation required the creation of `Parser` and `Command` classes to support `Appointment`-related commands and addition of methods to do modifications on `AppointmentBook` class.
-    * Parser:
-      * Modified `AddressBookParser` class to accept `Appointment` commands
-      * Created `XYZCommandParser` classes (e.g. `AddAppointmentCommandParser`)
-    * Command:
-      * Created `XYZCommand` classes to create, modify or delete the `Appointment` as commanded (e.g. `AddAppointmentCommand`)
-    * Storage:
-      * Added methods in `AppointmentBook` to update the list of appointments. 
+  * Justification: This feature allows users to create, modify and delete appointments. They can modify appointments to reflect changes in appointment details.
+  * Highlights: This implementation required the creation of `Parser` and `Command` classes to support `Appointment`-related commands and addition of methods in `AppointmentBook` class. Modified `AddressBookParser` class to accept `Appointment` commands. Created `XYZCommandParser` classes (e.g. `AddAppointmentCommandParser`). Created `XYZCommand` classes to create, modify or delete the `Appointment` as commanded (e.g. `AddAppointmentCommand`). Added methods in `AppointmentBook` to update the list of appointments. 
   * Relevant PRs: [\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85)
 
 * **New Feature**: Implement date-time parsing for `Appointment` class.
   * What it does: Allows users to enter a computer-comprehensible date and time
   * Justification: This feature improves the product significantly because users can enter a computer-comprehensible date and time that can be reformatted in the UI, and can be used to implement sort and archive features.
-  * Highlights: 
-    * This implementation required implementing `ParserUtil#parseDateTime` for adding, editing appointments, and loading appointments from JSON. 
-    * Implemented related documentation changes and incorrect format handling.
+  * Highlights: This implementation required implementing `ParserUtil#parseDateTime` for adding, editing appointments, and loading appointments from JSON. Implemented related documentation changes and incorrect format handling.
   * Relevant PR: [\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132)
 
 * **New Feature**: Implement more restrictive parsers under `ParserUtil`.
   * What it does: Change validation regexes to be more strict in `Datetime`, `Name`, `Address`, `MedicalHistory`
   * Justification: This feature improves the product significantly because users cannot enter incorrectly formatted information.
-  * Highlights: 
-    * The implementation of stricter validation regexes required a strong understanding of regex.
-    * Prevented fully numerical inputs for `Name`, `Address` and `Medical History` where it does not make sense.
-    * Implemented parsing to restrict: 
-      * Datetime to years 2000-2999, disallow 2400 hour input. Datetime to use Strict parsing to disallow incorrect date and times.
-      * Name to alphabetical characters.
-      * Address to alphanumerical and hash, dash, comma characters, cannot be numerical only.
-      * Medical History to alphanumerical, dash, comma characters, cannot be numerical only.
+  * Highlights: The implementation of stricter validation regexes required a strong understanding of regex. Prevented fully numerical inputs for `Name`, `Address` and `Medical History` where it does not make sense. Implemented parsing to restrict the `Datetime` to years 2000-2999, disallow 2400 hour input. `Datetime` to use Strict parsing to disallow incorrect date and times, Name to alphabetical characters, `Address` to alphanumerical and hash, dash, comma characters, cannot be numerical only and `Medical History` to alphanumerical, dash, comma characters, cannot be numerical only.
   * Relevant PRs: [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261)
 
 * **New Feature**: Add Logging for `parseDateTime` in `ParserUtil`
@@ -69,8 +50,7 @@ Given below are my contributions to the project.
   * Relevant PR: [\@236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236)
 
 * **New Feature**: Wrote tests for `Appointment`-related classes to increase coverage by 4% in total
-* Justification: New test cases also had to be created for coverage of appointment-related classes.
-* Relevant PRs: [\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286)
+  * Relevant PRs: [\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286)
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=gycgabriel)
 
