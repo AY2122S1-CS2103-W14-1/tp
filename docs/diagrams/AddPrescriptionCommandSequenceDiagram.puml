@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":AddPrescriptionCommand" as AddPrescriptionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "appointment:Appointment" as appointment MODEL_COLOR
+participant "Prescription" as Prescription MODEL_COLOR
+
+participant "appointmentBook\n:AppointmentBook" as appointmentBook MODEL_COLOR
+end box
+
+[-> AddPrescriptionCommand : execute()
+
+AddPrescriptionCommand -> Model : get AppointmentBook
+
+Model --> AddPrescriptionCommand : AppointmentBook
+
+
+AddPrescriptionCommand -> Model : addPrescription()
+Model -> appointment : getPrescription()
+appointment --> Model : prescriptions
+
+create Prescription
+Model -> Prescription : medicine, volume, duration
+Prescription --> Model :new prescription
+Model -> appointmentBook : setAppointment(newAppointment)
+appointmentBook --> Model
+
+Model ---> AddPrescriptionCommand
+
+create CommandResult
+AddPrescriptionCommand -> CommandResult
+CommandResult ---> AddPrescriptionCommand : result
+
+[<--AddPrescriptionCommand : result
+
+@enduml

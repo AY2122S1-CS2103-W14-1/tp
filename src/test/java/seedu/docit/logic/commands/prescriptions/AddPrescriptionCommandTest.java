@@ -23,6 +23,7 @@ import seedu.docit.model.ModelManager;
 import seedu.docit.model.UserPrefs;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.prescription.Prescription;
+import seedu.docit.model.prescription.exceptions.DuplicatePrescriptionException;
 
 public class AddPrescriptionCommandTest {
     private static final String defaultMedicine = "Penicillin";
@@ -68,7 +69,7 @@ public class AddPrescriptionCommandTest {
 
         defaultAppointment.addPrescription(validPrescription);
 
-        assertThrows(CommandException.class, AddPrescriptionCommand.MESSAGE_DUPLICATE_MEDICINE, () ->
+        assertThrows(DuplicatePrescriptionException.class, () ->
                 addPrescriptionCommand.execute(model));
 
     }

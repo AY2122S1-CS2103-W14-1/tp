@@ -89,6 +89,7 @@ The `UI` component,
 The main UI parts of the `MainWindow` to display Patient and Appointment information are `PatientListPanel` and
 `AppointmentListPanel`, each holding a number of `PatientCard`'s and `AppointmentCard`'s.
 
+
 ![Example of PatientCard](images/PatientCard.png)
 
 In the `PatientCard` part, we can see all the details that we store of the Patient.
@@ -101,6 +102,11 @@ easily identify appointments occurring today. Non-essential patient details are 
 We can also toggle between the **Archive** and **Upcoming** tabs to view Appointments that are upcoming or have been
 archived. This is also the reason why `MainWindow` component holds two `AppointmentListPanel`'s - One for
 upcoming appointments, and the other for archived appointments.
+
+A multi-panel display is used because the user should be able to look for an Appointment's patient details without
+swapping back and forth between the Patient list and Appointments list. The tab display is used as archived appointments are likely
+to be referred to less than upcoming ones. The decision to separate the two into two tabs reduces visual clutter significantly
+and allows the user to view the more important information immediately.
 
 ### Logic component
 
@@ -230,37 +236,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Recording a Patient's Prescription feature
-
-During appointments, the doctor can provide prescription of drugs for patients.
-Recording this information together with appointment information helps clinic staff to keep track of prescriptions given to a patient.
-Past prescriptions can also be viewed with past appointments.
-
-#### How Prescription is implemented
-
-![Class diagram of Prescription](diagrams/PrescriptionClassDiagram.png)
-
-The implementation of the Prescription class is done with a ```Prescription``` class. The ```Prescription``` class keep records of the medicine given, volume of medicine, and the duration which the medicine is taken.
-```Prescription``` objects are composed under ```Appointment``` objects, and will be deleted along with the parent ```Appointment``` object.
-Within each ```Appointment``` class, a collection of these ```Prescription``` objects are stored.
-
-The following commands are available from the ```Appointment``` class to interact with ```Prescription``` objects.
-
-* ```addPrescription(Prescription prescription)```- adds a new prescription for that appointment.
-* ```removePrescription(String medicineName)```- removes an existing prescription based on the name of the medicine.
-* ```listPrescriptions()```- lists all prescriptions for that appointment.
-
-#### Reason for implementation of Prescription
-
-```Prescription``` and ```Appointment``` forms a whole-part relationship and hence ```Prescription``` is suitable to be stored as a field of ```Appointment```.
-```Prescription``` will also be deleted when appointment is deleted due to this whole-part relationship.  As an ```Appointment``` can have multiple ```Prescription```, the multiplicity is many to one.
-
-#### Alternatives considered
-
-1. Storing ```Prescription``` in a ```UniquePrescriptionList``` object.
-
-This method was considered at first to improve separation of concerns. However, the increased complexity of adapting storage to work with nested composite data structures was deemed to be too high and infeasible.
-
 ### Medical History
 
 **Class Implementation details**
@@ -311,6 +286,7 @@ The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, w
 
 Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`.
 
+
 ![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureSequenceDiagram.png)
 
 The following activity diagram summarises what happens within `AddMedicalEntryCommandParser` when the user executes an Add Medical Entry command.
@@ -348,6 +324,7 @@ The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryComma
 
 Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt md 1 i/1` command. Note that the full command string has been abbreviated to `...`.
 
+
 ![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram.png)
 
 The following activity diagram summarises what happens within `DeleteMedicalEntryCommandParser` when the user executes a DeleteMedicalEntry command.
@@ -360,6 +337,52 @@ The following activity diagram summarises what happens within `DeleteMedicalEntr
 | ---------- | ------------------------ | ------------------------ |
 | Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry`. |
 
+### Recording a Patient's Prescription feature
+
+During appointments, the doctor can provide prescription of drugs for patients.
+Recording this information together with appointment information helps clinic staff to keep track of prescriptions given to a patient.
+Past prescriptions can also be viewed with past appointments.
+
+#### How Prescription is implemented
+Prescription derives from the original Tags class from AB3 and is modified with extra fields and checks.
+* Each `Prescription` class contains fields recording Medicine, Volume and Duration. 
+* Each `Appointment` class contains 0 or more `Prescription` objects.
+
+![Class diagram of Prescription](diagrams/PrescriptionClassDiagram.png)
+
+The implementation of the Prescription class is done with a ```Prescription``` class. The ```Prescription``` class keep records of the medicine given, volume of medicine, and the duration which the medicine is taken.
+```Prescription``` objects are composed under ```Appointment``` objects, and will be deleted along with the parent ```Appointment``` object.
+Within each ```Appointment``` class, a collection of these ```Prescription``` objects are stored.
+
+The following commands are available from the ```Appointment``` class to interact with ```Prescription``` objects.
+
+* ```addPrescription(Prescription prescription)```- adds a new prescription for that appointment.
+* ```deletePrescription(String medicineName)```- removes an existing prescription based on the name of the medicine.
+
+#### Reason for implementation of Prescription
+
+```Prescription``` and ```Appointment``` forms a whole-part relationship and hence ```Prescription``` is suitable to be stored as a field of ```Appointment```.
+```Prescription``` will also be deleted when appointment is deleted due to this whole-part relationship.  As an ```Appointment``` can have multiple ```Prescription``` objects, the multiplicity is many to one.
+
+
+#### Prescription commands
+The flow of how a command for prescription is processed is shown in the diagram below.
+![Activity diagram of Prescription commands](diagrams/PrescriptionActivityDiagram.png)
+
+##### Add Prescription command
+The command structure for add prescription command follows the sequence diagram below.
+![Sequence diagram diagram of Add Prescription commands](diagrams/AddPrescriptionCommandSequenceDiagram.png)
+
+##### Delete Prescription command sequence
+The command structure for delete prescription command follows the sequence diagram below.
+![Sequence diagram diagram of Delete Prescription commands](diagrams/DeletePrescriptionCommandSequenceDiagram.png)
+
+##### General Prescription command sequence
+When `execute()` is called upon the prescriptionCommand object, the prescriptionCommand object checks if the appointment to be targeted
+exists by calling the getAppointmentBook() function of the model, which returns a list of available appointments. Once verified that
+the appointment to be targeted exists, the respective add/delete prescription command is called in the `Model` object. The `Model` object
+then checks for the validity of the prescription command by checking for existence of the same prescription in the targeted appointment.
+Once the check has been done, the prescription in question is added/removed and a CommandResult is returned.
 
 ### Appointment composed of a Valid Patient when added, loaded and stored
 
