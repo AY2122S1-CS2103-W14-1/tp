@@ -48,7 +48,7 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
                 patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             } catch (ParseException pe) {
                 throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE), pe);
+                    pe.getMessage().concat("\n").concat(EditAppointmentCommand.MESSAGE_USAGE), pe);
             }
 
             editAppointmentDescriptor.setPatientIndex(patientIndex);
@@ -66,8 +66,8 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
                 localDateTime = ParserUtil.parseDateTime(argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get(),
                     ParserUtil.INPUT_DATE_TIME_FORMATTER);
             } catch (ParseException pe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    EditAppointmentCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(
+                    pe.getMessage().concat("\n").concat(EditAppointmentCommand.MESSAGE_USAGE), pe);
             }
             editAppointmentDescriptor.setDatetime(localDateTime);
         }
