@@ -35,7 +35,7 @@ Given below are my contributions to the project.
         * Added implementation details of the `prescription` feature. [\#72](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181)
 
 * **Community**:
-    * PRs reviewed (with non-trivial review comments): [\#44](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/44)
+    * PRs reviewed (with non-trivial review comments): [\#44](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/44), [\#282](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/282)
     * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/174), [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/195), [3](https://github.com/nus-cs2103-AY2122S1/forum/issues/325))
     * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/huyuxin0429/ped/issues/8), [2](https://github.com/huyuxin0429/ped/issues/4), [3](https://github.com/huyuxin0429/ped/issues/9))
 

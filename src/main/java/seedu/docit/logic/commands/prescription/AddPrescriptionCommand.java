@@ -16,6 +16,7 @@ import seedu.docit.logic.parser.CliSyntax;
 import seedu.docit.model.Model;
 import seedu.docit.model.appointment.Appointment;
 import seedu.docit.model.prescription.Prescription;
+import seedu.docit.model.prescription.exceptions.DuplicatePrescriptionException;
 
 /**
  * Adds a prescription to an appointment.
@@ -91,7 +92,7 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
             logger.log(Level.WARNING, "prescription adding error, "
                 + MESSAGE_DUPLICATE_MEDICINE);
-            throw new CommandException(MESSAGE_DUPLICATE_MEDICINE);
+            throw new DuplicatePrescriptionException();
         }
 
         if (volume.length() > Prescription.VOLUME_CHAR_LENGTH_LIMIT
