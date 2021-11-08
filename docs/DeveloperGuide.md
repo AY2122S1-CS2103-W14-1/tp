@@ -19,13 +19,12 @@ title: Developer Guide
         - [Delete Medical Entry feature](#delete-medical-entry-feature)
     - [Appointment composed of a Valid Patient when added, loaded and stored](#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
       - [How Appointment is implemented](#how-appointment-is-implemented)
-      - [Loading Appointments](#loading-appointments)
-      - [Adding Appointments](#adding-appointments)
-      - [Deleting Patient that has made an Appointment](#deleting-patient-that-has-made-an-appointment)
-      - [Saving Appointments](#saving-appointments)
-      - [Design considerations](#design-considerations)
-      - [Archiving an Appointment](#archiving-an-appointment)
-        - [Auto-Archiving Feature](#auto-archiving-feature)
+      - [Add a new Appointment](#add-a-new-appointment)
+      - [Load Appointments on App Launch](#load-appointments-on-app-launch)
+      - [Save Appointments after every command](#save-appointments-after-every-command)
+      - [Delete Patient that has made an Appointment](#delete-patient-that-has-made-an-appointment)
+    - [Archiving an Appointment](#archiving-an-appointment) 
+      - [Auto-Archiving Feature](#auto-archiving-feature)
     - [Recording a Patient's Prescription feature](#recording-a-patients-prescription-feature)
         - [How Prescription is implemented](#how-prescription-is-implemented)
         - [Reason for implementation of Prescription](#reason-for-implementation-of-prescription)
@@ -99,7 +98,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -385,21 +384,22 @@ The following activity diagram summarises what happens within `DeleteMedicalEntr
 
 ![AppointmentClassDiagram](images/AppointmentClassDiagram.png)
 
-Each `Appointment` in memory contain
-s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
+Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
 
 Major changes involved to implement this feature:
 * Add a new appointment
-* Load an appointment on app launch
-* Save an appointment after every command
-* Delete a patient that has appointments
+* Load appointments on app launch
+* Save appointments after every command
+* Delete a patient that has made an appointment
 
 #### Add a new Appointment
 
 **Overview**
+
 `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 
 **Detailed Implementation**
+
 The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
 
 ![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
@@ -418,10 +418,12 @@ The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the 
 #### Load Appointments on App Launch
 
 **Overview**
+
 * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
 * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
 
 **Detailed Implementation**
+
 The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
 
 ![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
@@ -429,10 +431,12 @@ The user launches the application. `MainApp` runs `MainApp#initModelManager` to 
 #### Save Appointments after every command
 
 **Overview**
+
 * The app runs `LogicManager#saveAppointmentBook()`.
 * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
 
 **Detailed Implementation**
+
 After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram1.png)
@@ -452,7 +456,14 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 | Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. | - | Changing the order of appointments and patients in saved JSON file will not change affect loading of data. | <ui><li>Requires more code to implement a unique hash or UUID and find the corresponding Patient and Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.</li><li> Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.</li></ui> |
 
 
-#### Delete Patient that has made an Appointment feature
+#### Delete Patient that has made an Appointment
+
+**Overview**
+
+Delete all `Appointments` containing that `Patient` object when `Patient` object is deleted.
+
+
+**Detailed Implementation** 
 
 The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
 
@@ -465,7 +476,7 @@ The user executes `pt delete 1` to delete the first patient in the address book.
 | Design Choice | Justification | Pros | Cons |
 | ---------- | ------------------------ | ------------------------ | ------------------------ |
 | **Delete all appointments that the patient has (current choice)** | `Appointments` is a class that is instantiated with a `Patient` object. When that corresponding `Patient` object is deleted, the `Patient`s appointment objects should be deleted as well so there will be no reference to deleted `Patient` objects. | <ui><li>Ensures `Patient` object is deleted completely from the system, and no objects holds references to deleted `Patient` objects.</li> <li>No `Appointment` objects will reference an invalid `Patient` object.</li></ui>| <ui><li>Accidental deleting of a `Patient` will delete all corresponding `Appointments` which may cause extra hassle to enter in all the `Appointment` details again.</li><li>No past appointment data of deleted `Patients` can be kept because their `Appointment` objects are deleted to garbage collect and truly delete `Patient` objects.</li></ui> |
-| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require correponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
+| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require corresponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
 
 
 
@@ -837,8 +848,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+| Term                | Definition                                                                                                                                |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Mainstream OS       | Windows, Linux, Unix, OS-X |
+| Appointment         | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication.  |
+| Archive             | Storage for data that is non-urgent, e.g. appointment records that are past their date.                                                   |
+| Patient Record      | A record of a patient's name, phone number, address, email and medical history.                                                 |
+| Prescription        | The issued medication/treatment for a patient along with a duration and volume.                                                           |
+| Expired Appointment | An appointment that is 24-hours past its scheduled time.                                                                                  |
 
 ---
 
@@ -862,7 +879,6 @@ testers are expected to do more *exploratory* testing.
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
     2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-3. _{ more test cases … }_
 
 ### Deleting a patient
 
@@ -875,13 +891,23 @@ testers are expected to do more *exploratory* testing.
        Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
     4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
-2. _{ more test cases … }_
+   
+2. Deleting a patient that has an appointment
+
+   1. Prerequisites: Add an appointment to that patient at index 1 e.g. `apmt add i/1 d/2022-12-31 1200`
+   2. Test case: `delete 1`<br>
+      Expected: First patient is deleted from Patient Panel. Patient's appointments in Appointment panel is deleted as well.
+
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
-
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. If JSON files are missing, `Doc'it` will start with a sample AddressBook and AppointmentBook with sample Patients and sample Appointments respectively.
+       2. If JSON files are corrupted, `Doc;it` will start with a blank address book and blank appointment book.
+   2. Save appointment
+       1. Prerequisite: Create an appointment e.g. `apmt add i/1 d/2022-12-31 1200`
+       2. Test case: Close and reopen the application <br>
+          Expected: Appointments reference the same patients as previous session before it was closed.
 2. _{ more test cases … }_
 
 ### Adding a prescription
