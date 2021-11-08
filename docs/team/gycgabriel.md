@@ -8,17 +8,17 @@ title: Gabriel's Project Portfolio Page
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services
-Doc'IT is a desktop address book application. Users key in CLI-themed commands in the command box, and the results of the commands are dislayed in the GUI created with JavaFX. It is written in Java, and has about 10 kLOC. 
+Doc'IT is a desktop address book application. Users key in CLI-themed commands in the command box, and the results of the commands are dislayed in the GUI created with JavaFX. It is written in Java, and has about 10 kLOC.
 
 Given below are my contributions to the project.
 
 * **New Feature**: Create `Appointment` class to represent a patient's appointment with the clinic.
   * What it does: Allows clinic staff to record a patient's appointment after a patient is created.
   * Justification: This feature improves the product significantly because clinic staff can represent multiple appointments of patient with individual date and times.
-  * Highlights: 
+  * Highlights:
     * The implementation of `Appointment` class required changes and creation of new classes in Commands, Parsers and Storage related classes. (Pull requests [\#58](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/58), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
-    * Appointments had to be listed in a separate list from `Patient` class, yet have a link to the patient that has the appointment. This feature required an in-depth analysis of design alternatives. 
-    * The final design chosen was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while at the same time referencing a patient object. 
+    * Appointments had to be listed in a separate list from `Patient` class, yet have a link to the patient that has the appointment. This feature required an in-depth analysis of design alternatives.
+    * The final design chosen was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while at the same time referencing a patient object.
     * To achieve this result, the design choice was to use `Index` of a `Patient` at the point of save to store the appointment instead of a `Patient` object for easier loading from and storing to JSON by reference of the `Patient`'s position in the `AddressBook`. `AppointmentBook` similar to AB3's `Person` class structure also needed to be created. New test cases also had to be created for coverage of appointment-related classes. (Pull request [\#87](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/87))
 
 * **New Feature**: Implement Add, Edit, Delete operations for `Appointment` class.
@@ -36,7 +36,7 @@ Given below are my contributions to the project.
   * Justification: This feature improves the product significantly because clinic staff cannot succeed in entering incorrectly formatted dates, name, address and medical history. Prevents fully numerical inputs for Name, Address and Medical History where it does not make sense.
   * Highlights: The implementation of stricter validation regexes required an understanding of regex. (Pull requests [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
 
-* **New Feature**: Change command result box to wrap text 
+* **New Feature**: Change command result box to wrap text
   * What it does: Wraps text overflow within the box so user does not have to scroll
   * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places.
 
@@ -60,7 +60,7 @@ Given below are my contributions to the project.
     * Added Table Of Contents links
   * Developer Guide:
     * Added implementation details of the `Appointments with valid Patient` feature. [\#93](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/93)
-    * Included sequence diagrams for adding and saving appointments. 
+    * Included sequence diagrams for adding and saving appointments.
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262), [\#91](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/91), [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97))

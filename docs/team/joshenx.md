@@ -30,13 +30,13 @@ Given below are my contributions to the project:
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
     * Highlights:  A "TODAY" tag is displayed on appointment cards with appointments scheduled today. Integration of appointments on the GUI was
       challenging as many considerations had to be made with regards to how appointments should be handled when patients
-      were removed from the system. 
+      were removed from the system.
     * Relevant PRs: [\#152](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/152), [\#91](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/91)
 
 
 - **New Feature**: Auto-Archive feature
     * What it does: auto-archives expired (24-hour past) appointments.
-    * Justification: This feature improves the archiving process significantly because 
+    * Justification: This feature improves the archiving process significantly because
       this saves the user trouble of archiving many (e.g. >20) past appointments when
       they are already over.
     * Highlights: This feature uses a thread pool to schedule the archive command at a specific timing each day. It was challenging to implement testcases due to the time-sensitive nature
