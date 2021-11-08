@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.docit.model.AppointmentBook;
+import seedu.docit.model.ArchivedAppointmentBook;
 import seedu.docit.model.appointment.Appointment;
 
 /**
@@ -53,6 +54,37 @@ public class TypicalAppointments {
     public static List<Appointment> getTypicalAppointments() {
         return new ArrayList<>(Arrays.asList(A1, A2, B1,
             B2));
+    }
+
+    /**
+     * Returns an {@code AppointmentBook} with upcoming and expired appointments.
+     */
+    public static AppointmentBook getAppointmentBookWithExpiredApmts() {
+        AppointmentBook ab = new AppointmentBook();
+        for (Appointment appointment : getUpcomingAndExpiredAppointments()) {
+            ab.addAppointment(appointment);
+        }
+        return ab;
+    }
+
+    public static List<Appointment> getUpcomingAndExpiredAppointments() {
+        return new ArrayList<>(Arrays.asList(A1, A2, B1,
+                B2, A_PAST, B_PAST));
+    }
+
+    /**
+     * Returns an {@code ArchivedAppointmentBook} with archived appointments.
+     */
+    public static ArchivedAppointmentBook getTypicalArchivedAppointmentBook() {
+        ArchivedAppointmentBook aab = new ArchivedAppointmentBook();
+        for (Appointment appointment : getTypicalArchivedAppointments()) {
+            aab.addAppointment(appointment);
+        }
+        return aab;
+    }
+
+    public static List<Appointment> getTypicalArchivedAppointments() {
+        return new ArrayList<>(Arrays.asList(A_PAST, B_PAST));
     }
 
     /**

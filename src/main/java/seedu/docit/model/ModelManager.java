@@ -81,11 +81,11 @@ public class ModelManager implements Model {
         }
 
         Duration duration = Duration.between(now, nextRun);
-        long initalDelay = duration.getSeconds();
+        long initialDelay = duration.getSeconds();
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(new AutoArchiveApmts(this),
-                initalDelay,
+                initialDelay,
                 TimeUnit.DAYS.toSeconds(1),
                 TimeUnit.SECONDS);
         // @@author
