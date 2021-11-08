@@ -23,17 +23,12 @@ Given below are my contributions to the project.
   * Highlights: This implementation required the creation of `Parser` and `Command` classes to support `Appointment`-related commands and addition of methods in `AppointmentBook` class. Modified `AddressBookParser` class to accept `Appointment` commands. Created `XYZCommandParser` classes (e.g. `AddAppointmentCommandParser`). Created `XYZCommand` classes to create, modify or delete the `Appointment` as commanded (e.g. `AddAppointmentCommand`). Added methods in `AppointmentBook` to update the list of appointments. ([\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
 
 * **New Feature**: Implement date-time parsing for `Appointment` class.
-  * What it does: Allows users to enter a computer-comprehensible date and time
   * Justification: Allows date and time that to be reformatted in the UI, and be used to implement sort and archive features.
-  * Highlights: Required implementing `ParserUtil#parseDateTime` for adding, editing appointments, and loading appointments from JSON. Implemented related documentation changes and incorrect format handling. ([\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
+  * Highlights: Required to implement `ParserUtil#parseDateTime` for adding, editing appointments, and loading appointments from JSON. ([\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
 
-* **New Feature**: Implement more restrictive parsers under `ParserUtil`.
-  * What it does: Change regexes to be stricter in `Datetime`, `Name`, `Address`, `MedicalHistory`
+* **New Feature**: Implement stricter parsers for `Datetime`, `Name`, `Address`, `MedicalHistory`
   * Justification: Prevents users from entering incorrectly formatted information.
-  * Highlights: Required a strong understanding of regex. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
-
-* **New Feature**: Add Logging for `parseDateTime` in `ParserUtil`
-  * Highlights: Allows easier debugging of test cases and inputs, to know what caused the parsing date and time exception. [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261)
+  * Highlights: Required a strong understanding of regex. Added logging for `Datetime` parsing. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
   
 * **New Feature**: Change command result box to wrap text
   * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places. [\@236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236)
