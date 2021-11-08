@@ -43,13 +43,13 @@ public class AddPrescriptionCommand extends AppointmentCommand {
     public static final String MESSAGE_DUPLICATE_MEDICINE =
             "This medicine already exists in the prescription for this appointment";
     private static final String MESSAGE_FIELD_TOO_LONG =
-            "Medicine name can only be %1$s characters long. \nVolume field can only be %2$s characters long. "
-                    + "\nDuration field can only be %3$s characters long.";
-
-    public static final String INPUT_TOO_LONG_ERROR_MESSAGE = String.format(MESSAGE_FIELD_TOO_LONG,
-            Prescription.MEDICINE_CHAR_LENGTH_LIMIT,
-            Prescription.VOLUME_CHAR_LENGTH_LIMIT,
+            "%1$s can only be %2$s characters long. \n";
+    public static final String DURATION_LENGTH_WARNING = String.format(MESSAGE_FIELD_TOO_LONG, "Duration",
             Prescription.DURATION_CHAR_LENGTH_LIMIT);
+    public static final String MEDICINE_LENGTH_WARNING = String.format(MESSAGE_FIELD_TOO_LONG, "Medicine name",
+            Prescription.MEDICINE_CHAR_LENGTH_LIMIT);
+    public static final String VOLUME_LENGTH_WARNING = String.format(MESSAGE_FIELD_TOO_LONG, "Volume",
+            Prescription.VOLUME_CHAR_LENGTH_LIMIT);
 
     private static Logger logger = Logger.getLogger("AddPrescriptionCommand");
 
@@ -78,34 +78,46 @@ public class AddPrescriptionCommand extends AppointmentCommand {
         logger.log(Level.INFO, "going to start adding prescription");
         requireNonNull(model);
         List<Appointment> lastShownList = model.getFilteredAppointmentList();
+        try {
+            if (targetAppointmentIndex.getZeroBased() >= lastShownList.size()) {
+                logger.log(Level.WARNING, "prescription adding error, "
+                        + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+            }
+            assert (targetAppointmentIndex.getZeroBased() >= 0
+                    && targetAppointmentIndex.getZeroBased() < lastShownList.size());
+            Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
+            Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
 
-        if (targetAppointmentIndex.getZeroBased() >= lastShownList.size()) {
-            logger.log(Level.WARNING, "prescription adding error, "
-                    + Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
-            throw new CommandException(Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX);
+            if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
+                logger.log(Level.WARNING, "prescription adding error, "
+                    + MESSAGE_DUPLICATE_MEDICINE);
+                throw new DuplicatePrescriptionException();
+            }
+
+            if (volume.length() > Prescription.VOLUME_CHAR_LENGTH_LIMIT) {
+                logger.log(Level.WARNING, VOLUME_LENGTH_WARNING);
+                throw new CommandException(VOLUME_LENGTH_WARNING);
+            }
+
+            if (medicine.length() > Prescription.MEDICINE_CHAR_LENGTH_LIMIT) {
+                logger.log(Level.WARNING, MEDICINE_LENGTH_WARNING);
+                throw new CommandException(MEDICINE_LENGTH_WARNING);
+            }
+
+            if (duration.length() > Prescription.DURATION_CHAR_LENGTH_LIMIT) {
+                logger.log(Level.WARNING, DURATION_LENGTH_WARNING);
+                throw new CommandException(DURATION_LENGTH_WARNING);
+            }
+
+            model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
+            model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+            logger.log(Level.INFO, "prescription adding success");
+            return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
+        } catch (DuplicatePrescriptionException e) {
+            logger.log(Level.WARNING, "prescription adding failed: " + e.getMessage());
+            throw new CommandException(e.getMessage());
         }
-        assert (targetAppointmentIndex.getZeroBased() >= 0
-                && targetAppointmentIndex.getZeroBased() < lastShownList.size());
-        Appointment appointmentToMakePrescription = lastShownList.get(targetAppointmentIndex.getZeroBased());
-        Prescription prescriptionToAdd = new Prescription(medicine, volume, duration);
-
-        if (appointmentToMakePrescription.containsPrescription(prescriptionToAdd)) {
-            logger.log(Level.WARNING, "prescription adding error, "
-                + MESSAGE_DUPLICATE_MEDICINE);
-            throw new DuplicatePrescriptionException();
-        }
-
-        if (volume.length() > Prescription.VOLUME_CHAR_LENGTH_LIMIT
-                || medicine.length() > Prescription.MEDICINE_CHAR_LENGTH_LIMIT
-                || duration.length() > Prescription.DURATION_CHAR_LENGTH_LIMIT) {
-            logger.log(Level.WARNING, INPUT_TOO_LONG_ERROR_MESSAGE);
-            throw new CommandException(INPUT_TOO_LONG_ERROR_MESSAGE);
-        }
-
-        model.addPrescription(appointmentToMakePrescription, prescriptionToAdd);
-        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
-        logger.log(Level.INFO, "prescription adding success");
-        return new CommandResult(String.format(MESSAGE_SUCCESS, medicine, volume, duration));
     }
 
     @Override

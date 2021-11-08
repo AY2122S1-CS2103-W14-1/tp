@@ -12,7 +12,7 @@ import seedu.docit.logic.parser.ParserUtil;
 import seedu.docit.logic.parser.exceptions.ParseException;
 
 public class DeletePrescriptionCommandParser implements AppointmentParser<DeletePrescriptionCommand> {
-    public static final String EMPTY_MEDICINE_FIELD_ERROR_MESSAGE = "Medicine fields cannot be blank.";
+    public static final String EMPTY_MEDICINE_FIELD_ERROR_MESSAGE = "Medicine name field cannot be blank.";
     /**
      * Parses the given {@code String} of arguments in the context of the DeletePrescriptionCommand and returns a
      * DeletePrescriptionCommand object for execution.

@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import seedu.docit.commons.core.index.Index;
@@ -112,18 +111,6 @@ public class AddressBookParserTest {
         DeleteAppointmentCommand command = (DeleteAppointmentCommand) parser.parseCommand(
                 APPT_PREFIX + DeleteAppointmentCommand.COMMAND_WORD + " " + INDEX_FIRST_APPOINTMENT.getOneBased());
         assertEquals(new DeleteAppointmentCommand(INDEX_FIRST_APPOINTMENT), command);
-    }
-
-    @Test
-    @Disabled("Not yet implemented")
-    public void parseCommand_editAppointment() throws Exception {
-        //TODO implement editAppointment test
-    }
-
-    @Test
-    @Disabled("Not yet implemented")
-    public void parseCommand_findAppointment() throws Exception {
-        //TODO implement findAppointment test
     }
 
     @Test

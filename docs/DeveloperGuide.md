@@ -2,8 +2,47 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
-  {:toc}
+
+## Table of Contents
+- [Acknowledgements](#acknowledgements)
+- [Setting up, getting started](#setting-up-getting-started)
+- [Design](#design)
+    - [Architecture](#architecture)
+    - [UI component](#ui-component)
+    - [Logic component](#logic-component)
+    - [Model component](#model-component)
+    - [Storage component](#storage-component)
+    - [Common classes](#common-classes)
+- [Implementation](#implementation)
+    - [Medical History](#medical-history)
+        - [Add Medical Entry feature](#add-medical-entry-feature)
+        - [Delete Medical Entry feature](#delete-medical-entry-feature)
+    - [Appointment composed of a Valid Patient when added, loaded and stored](#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
+      - [How Appointment is implemented](#how-appointment-is-implemented)
+      - [Add a new Appointment](#add-a-new-appointment)
+      - [Load Appointments on App Launch](#load-appointments-on-app-launch)
+      - [Save Appointments after every command](#save-appointments-after-every-command)
+      - [Delete Patient that has made an Appointment](#delete-patient-that-has-made-an-appointment)
+    - [Archiving an Appointment](#archiving-an-appointment) 
+      - [Auto-Archiving Feature](#auto-archiving-feature)
+    - [Recording a Patient's Prescription feature](#recording-a-patients-prescription-feature)
+        - [How Prescription is implemented](#how-prescription-is-implemented)
+        - [Reason for implementation of Prescription](#reason-for-implementation-of-prescription)
+        - [Prescription commands](#prescription-commands)
+            - [Add Prescription command](#add-prescription-command)
+            - [Delete Prescription command sequence](#delete-prescription-command-sequence)
+            - [General Prescription command sequence](#general-prescription-command-sequence)
+- [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+- [Appendix: Requirements](#appendix-requirements)
+  - [Product scope](#product-scope)
+  - [User stories](#user-stories)
+  - [Use cases](#use-cases)
+  - [Non-Functional Requirements](#non-functional-requirements)
+  - [Glossary](#glossary)
+- [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+  - [Launch and shutdown](#launch-and-shutdown)
+  - [Deleting a patient](#deleting-a-patient)
+  - [Saving data](#saving-data)
 
 ---
 
@@ -59,7 +98,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -248,7 +287,7 @@ This section describes some noteworthy details on how certain features are imple
 
 - The `MedicalHistory` class composes an `EntryList<Entry<MedicalEntry>>` class.
 - The `EntryList` class references the `Entry<MedicalEntry>` through an `ArrayList`.
-- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class. 
+- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class.
 - Each `Patient` class composes exactly one `MedicalHistory` class.
 - `MedicalEntry` is an inner static class of `MedicalHistory`
 - Each `MedicalEntry` has a `description` data attribute and a `dateOfRecord` data attribute. The `description` data is supplied by the user. The `dateOfRecord` is automatically generated based on the date the medical entry was recorded.
@@ -280,15 +319,15 @@ Below is a class diagram of the components involved in the Add Medical Entry fea
 
 **Implementation details of feature**
 
-The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.  
+The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.
 1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
 2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
-3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument. 
+3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
 4. `AddMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
 5. If the required `preamble` and `PREFIX_MEDICAL` is present, the `AddMedicalEntryCommandParser` will invoke the `AddMedicalEntryCommand` after calling the `parseMedicalHistory` method provided by `ParserUtil`, which returns a `MedicalHistory` based on the `description` data field. The `preamble` identifies the `Index` of the `Patient` to add the medical entry to, while the string after `PREFIX_MEDICAL` specifies the `description` data field required for adding a new `MedicalEntry`.
 6. `LogicManager` calls the `execute` method of the `AddMedicalEntryCommand`, which calls the `addMedicalHistory` of the `Patient` specified by the `Index`.
 7. The `AddMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
-8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`. 
+8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
 
 Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`. The illustration has been split into two parts: (1) Parse User Input, (2) Execute command.
 
@@ -328,7 +367,7 @@ The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryComma
 2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
 3. The `PatientBookParser` invokes the `DeleteMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
 4. `DeleteMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
-5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted. 
+5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted.
 6. `LogicManager` calls the `execute` method of the `DeleteMedicalEntryCommand`, which calls the `deleteMedicalHistory` of the `Patient` specified by the `Index`.
 7. The `DeleteMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
 8. The `DeleteMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
@@ -353,52 +392,7 @@ The following activity diagram summarises what happens within `DeleteMedicalEntr
 | ---------- | ------------------------ | ------------------------ |
 | Implementing a `MedicalHistoryBookParser` to invoke the `DeleteMedicalEntryCommandParser` | Having `PatientBookParser` invoke `DeleteMedicalEntryCommandParser`  | Since `MedicalHistory` is an attribute of `Patient`, it makes sense to use the `PatientBookParser`. It also takes more effort to implement a new `Parser` that requires an entirely new command word prefix to delete a `MedicalEntry`. |
 
-### Recording a Patient's Prescription feature
 
-During appointments, the doctor can provide prescription of drugs for patients.
-Recording this information together with appointment information helps clinic staff to keep track of prescriptions given to a patient.
-Past prescriptions can also be viewed with past appointments.
-
-#### How Prescription is implemented
-Prescription derives from the original Tags class from AB3 and is modified with extra fields and checks.
-* Each `Prescription` class contains fields recording Medicine, Volume and Duration. 
-* Each `Appointment` class contains 0 or more `Prescription` objects.
-
-![Class diagram of Prescription](diagrams/PrescriptionClassDiagram.png)
-
-The implementation of the Prescription class is done with a ```Prescription``` class. The ```Prescription``` class keep records of the medicine given, volume of medicine, and the duration which the medicine is taken.
-```Prescription``` objects are composed under ```Appointment``` objects, and will be deleted along with the parent ```Appointment``` object.
-Within each ```Appointment``` class, a collection of these ```Prescription``` objects are stored.
-
-The following commands are available from the ```Appointment``` class to interact with ```Prescription``` objects.
-
-* ```addPrescription(Prescription prescription)```- adds a new prescription for that appointment.
-* ```deletePrescription(String medicineName)```- removes an existing prescription based on the name of the medicine.
-
-#### Reason for implementation of Prescription
-
-```Prescription``` and ```Appointment``` forms a whole-part relationship and hence ```Prescription``` is suitable to be stored as a field of ```Appointment```.
-```Prescription``` will also be deleted when appointment is deleted due to this whole-part relationship.  As an ```Appointment``` can have multiple ```Prescription``` objects, the multiplicity is many to one.
-
-
-#### Prescription commands
-The flow of how a command for prescription is processed is shown in the diagram below.
-![Activity diagram of Prescription commands](diagrams/PrescriptionActivityDiagram.png)
-
-##### Add Prescription command
-The command structure for add prescription command follows the sequence diagram below.
-![Sequence diagram diagram of Add Prescription commands](diagrams/AddPrescriptionCommandSequenceDiagram.png)
-
-##### Delete Prescription command sequence
-The command structure for delete prescription command follows the sequence diagram below.
-![Sequence diagram diagram of Delete Prescription commands](diagrams/DeletePrescriptionCommandSequenceDiagram.png)
-
-##### General Prescription command sequence
-When `execute()` is called upon the prescriptionCommand object, the prescriptionCommand object checks if the appointment to be targeted
-exists by calling the getAppointmentBook() function of the model, which returns a list of available appointments. Once verified that
-the appointment to be targeted exists, the respective add/delete prescription command is called in the `Model` object. The `Model` object
-then checks for the validity of the prescription command by checking for existence of the same prescription in the targeted appointment.
-Once the check has been done, the prescription in question is added/removed and a CommandResult is returned.
 
 ### Appointment composed of a Valid Patient when added, loaded and stored
 
@@ -406,43 +400,58 @@ Once the check has been done, the prescription in question is added/removed and 
 
 ![AppointmentClassDiagram](images/AppointmentClassDiagram.png)
 
-Each `Appointment` in memory contain
-s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
+Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
 
 Major changes involved to implement this feature:
+* Add a new appointment
+* Load appointments on app launch
+* Save appointments after every command
+* Delete a patient that has made an appointment
 
-* Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
-* Loading an appointment on app launch  —
-    * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
-    * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
-* Storing an appointment after every command  —
-    * The app runs `LogicManager#saveAppointmentBook()`.
-    * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+#### Add a new Appointment
 
-Given below is an example usage scenario and how the Appointment composed of a Valid Patient feature behaves at each step.
+**Overview**
 
+`AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 
-#### Loading Appointments
+**Detailed Implementation**
 
-Step 1: The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
-
-![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
-
-
-#### Adding Appointments
-
-Step 2: The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
+The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
 
 ![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
 
 
-#### Deleting Patient that has made an Appointment
+**Design considerations**
 
-Step 3: The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
+**Aspect: How Appointments are instantiated**
 
-![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Appointment is composed of a Patient (current choice)** | Appointment can only be instantiated with a Patient, and without Patients, Appointments cannot exist. Hence, for an appointment to be instantiated, it requires a reference to the related Patient object. | <ui><li>Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.</li> <li>Easy to find the patient of the appointment.</li></ui>| Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook` must be loaded to memory before `AppointmentBook`. |
+| Patient and Appointment have an association such that Patient has a link to Appointment and Appointment only requires date and time to instantiate. | - | Able to load `AppointmentBook` without loaded `AddressBook`. | <ui><li>Appointments may not be unique objects as there may be patients with multiple appointments at the same date and time at the same clinic that can be served by different doctors.</li><li> Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed because Appointment has no Patient field.</li></ui> |
 
-#### Saving Appointments
+
+#### Load Appointments on App Launch
+
+**Overview**
+
+* The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+* `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+
+**Detailed Implementation**
+
+The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
+
+![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
+
+#### Save Appointments after every command
+
+**Overview**
+
+* The app runs `LogicManager#saveAppointmentBook()`.
+* `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+
+**Detailed Implementation**
 
 After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
@@ -452,46 +461,42 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram2.png)
 
-#### Design considerations
 
-**Aspect: How Appointments are instantiated**
+**Design considerations**
 
-* **Alternative 1 (current choice):** Appointment is composed of a Patient.
-    * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
-      Appointments cannot exist.
-      Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
-    * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
-    * **Pros:** Easy to find the patient of the appointment.
-    * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
-      must be loaded to memory before `AppointmentBook`.
-* **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and
-  Appointment only requires date and time to instantiate.
-    * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
-    * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
-      date and time at the same clinic that can be served by different doctors.
-    * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
-      because Appointment has no Patient field.
+**Aspect: How Appointments are loaded and saved**
 
-**Aspect: How Appointments are stored and loaded**
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Save `Appointment` as the index of corresponding patient in `AddressBook` and datetime. (current choice)** | The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order of `AddressBook` is saved each time `AppointmentBook` is saved. | <ui><li>Index of patient requires less code then implementing a unique ID and fits with our theme of using indices in commands.</li> <li>Index of patient is guaranteed to be a unique identifier.</li></ui>| Order of the `AddressBook` is important. If the order of patients is changed in the json file, the appointments will become incorrect. |
+| Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. | - | Changing the order of appointments and patients in saved JSON file will not change affect loading of data. | <ui><li>Requires more code to implement a unique hash or UUID and find the corresponding Patient and Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.</li><li> Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.</li></ui> |
 
-* **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and
-  datetime.
-    * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
-      of `AddressBook` is saved each time `AppointmentBook` is saved.
-    * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
-      indices in commands.
-    * **Pros:** Index of patient is guaranteed to be a unique identifier.
-    * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
-      appointments will become incorrect.
-* **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment
-  object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID.
-    * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
-      data.
-    * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
-      Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
-    * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
 
-### Archiving an Appointment
+#### Delete Patient that has made an Appointment
+
+**Overview**
+
+Delete all `Appointments` containing that `Patient` object when `Patient` object is deleted.
+
+
+**Detailed Implementation** 
+
+The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
+
+![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
+
+**Design considerations**
+
+**Aspect: When a patient that has appointment is deleted**
+
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Delete all appointments that the patient has (current choice)** | `Appointments` is a class that is instantiated with a `Patient` object. When that corresponding `Patient` object is deleted, the `Patient`s appointment objects should be deleted as well so there will be no reference to deleted `Patient` objects. | <ui><li>Ensures `Patient` object is deleted completely from the system, and no objects holds references to deleted `Patient` objects.</li> <li>No `Appointment` objects will reference an invalid `Patient` object.</li></ui>| <ui><li>Accidental deleting of a `Patient` will delete all corresponding `Appointments` which may cause extra hassle to enter in all the `Appointment` details again.</li><li>No past appointment data of deleted `Patients` can be kept because their `Appointment` objects are deleted to garbage collect and truly delete `Patient` objects.</li></ui> |
+| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require corresponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
+
+
+
+#### Archiving an Appointment
 
 **Overview**
 
@@ -556,6 +561,52 @@ by the `ModelManager` class in two ways.
 In the case where there are many scheduled appointments, this saves the user trouble of archiving past appointments when
 they are already over.
 
+### Recording a Patient's Prescription feature
+
+During appointments, the doctor can provide prescription of drugs for patients.
+Recording this information together with appointment information helps clinic staff to keep track of prescriptions given to a patient.
+Past prescriptions can also be viewed with past appointments.
+
+#### How Prescription is implemented
+Prescription derives from the original Tags class from AB3 and is modified with extra fields and checks.
+* Each `Prescription` class contains fields recording Medicine, Volume and Duration.
+* Each `Appointment` class contains 0 or more `Prescription` objects.
+
+![Class diagram of Prescription](diagrams/PrescriptionClassDiagram.png)
+
+The implementation of the Prescription class is done with a ```Prescription``` class. The ```Prescription``` class keep records of the medicine given, volume of medicine, and the duration which the medicine is taken.
+```Prescription``` objects are composed under ```Appointment``` objects, and will be deleted along with the parent ```Appointment``` object.
+Within each ```Appointment``` class, a collection of these ```Prescription``` objects are stored.
+
+The following commands are available from the ```Appointment``` class to interact with ```Prescription``` objects.
+
+* ```addPrescription(Prescription prescription)```- adds a new prescription for that appointment.
+* ```deletePrescription(String medicineName)```- removes an existing prescription based on the name of the medicine.
+
+#### Reason for implementation of Prescription
+
+```Prescription``` and ```Appointment``` forms a whole-part relationship and hence ```Prescription``` is suitable to be stored as a field of ```Appointment```.
+```Prescription``` will also be deleted when appointment is deleted due to this whole-part relationship.  As an ```Appointment``` can have multiple ```Prescription``` objects, the multiplicity is many to one.
+
+
+#### Prescription commands
+The flow of how a command for prescription is processed is shown in the diagram below.
+![Activity diagram of Prescription commands](diagrams/PrescriptionActivityDiagram.png)
+
+##### Add Prescription command
+The command structure for add prescription command follows the sequence diagram below.
+![Sequence diagram diagram of Add Prescription commands](diagrams/AddPrescriptionCommandSequenceDiagram.png)
+
+##### Delete Prescription command sequence
+The command structure for delete prescription command follows the sequence diagram below.
+![Sequence diagram diagram of Delete Prescription commands](diagrams/DeletePrescriptionCommandSequenceDiagram.png)
+
+##### General Prescription command sequence
+When `execute()` is called upon the prescriptionCommand object, the prescriptionCommand object checks if the appointment to be targeted
+exists by calling the getAppointmentBook() function of the model, which returns a list of available appointments. Once verified that
+the appointment to be targeted exists, the respective add/delete prescription command is called in the `Model` object. The `Model` object
+then checks for the validity of the prescription command by checking for existence of the same prescription in the targeted appointment.
+Once the check has been done, the prescription in question is added/removed and a CommandResult is returned.
 
 ---
 
@@ -813,8 +864,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+| Term                | Definition                                                                                                                                |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Mainstream OS       | Windows, Linux, Unix, OS-X |
+| Appointment         | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication.  |
+| Archive             | Storage for data that is non-urgent, e.g. appointment records that are past their date.                                                   |
+| Patient Record      | A record of a patient's name, phone number, address, email and medical history.                                                 |
+| Prescription        | The issued medication/treatment for a patient along with a duration and volume.                                                           |
+| Expired Appointment | An appointment that is 24-hours past its scheduled time.                                                                                  |
+| Medical History     | A patient's set of recorded medical complications from the past.                                                                                 |
+| Medical Entry       | A specific past health complication of a patient. There can be multiple medical entries within a patient's medical history.
 
 ---
 
@@ -844,6 +903,12 @@ testers are expected to do more *exploratory* testing.
        Expected: No patient is deleted. Error details shown in the status message.
     4. Other incorrect patient delete commands to try: `pt delete`, `delete 1`, `pt delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
+   
+2. Deleting a patient that has an appointment
+
+   1. Prerequisites: Add an appointment to that patient at index 1 e.g. `apmt add i/1 d/2022-12-31 1200`
+   2. Test case: `delete 1`<br>
+      Expected: First patient is deleted from Patient Panel. Patient's appointments in Appointment panel is deleted as well.
 
 ### Adding a patient
 1. Adding a patient
@@ -897,6 +962,38 @@ testers are expected to do more *exploratory* testing.
 ### Saving data
 
 1. Dealing with missing/corrupted data files
+   1. If JSON files are missing, `Doc'it` will start with a sample AddressBook and AppointmentBook with sample Patients and sample Appointments respectively.
+       2. If JSON files are corrupted, `Doc;it` will start with a blank address book and blank appointment book.
+   2. Save appointment
+       1. Prerequisite: Create an appointment e.g. `apmt add i/1 d/2022-12-31 1200`
+       2. Test case: Close and reopen the application <br>
+          Expected: Appointments reference the same patients as previous session before it was closed.
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-2. _{ more test cases … }_
+### Adding a prescription
+Prerequisites: All test cases below must be independent and fulfills these assumptions:
+All appointments listed using the `apmt list` command. 5 appointments shown in the list. All appointments have no prescriptions.
+1. Test case: `apmt pa 1 n/Penicillin v/400 ml d/2 times a week`<br>
+   Expected: First appointment now contains a prescription label `penicillin | 400ml | 2 times a week`.
+2. Test case: enter `apmt pa 1 n/Penicillin v/400 ml d/2 times a week` twice <br>
+   Expected: No new prescription is created. Error message `Operation would result in duplicate prescriptions` is shown.
+3. Test case: `apmt pa 1 n/PenicillinPenicillinPenicillin v/400 ml d/2 times a week`<br>
+   Expected: No new prescription is created. Error message `Medicine name can only be 20 characters long.` is shown.
+4. Test case: `apmt pa 1 n/Penicillin v/400000000000000000000 ml d/2 times a week`<br>
+   Expected: No new prescription is created. Error message `Volume can only be 20 characters long.` is shown.
+5. Test case: `apmt pa 1 n/Penicillin v/400 ml d/99999999999999999999999999999999 times a week `<br>
+   Expected: No new prescription is created. Error message `Duration can only be 40 characters long.` is shown.
+6. Test case: `apmt pa 0 n/Penicillin v/400 ml d/2 times a week `<br>
+   Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
+7. Test case: `apmt pa 6 n/Penicillin v/400 ml d/2 times a week `<br>
+   Expected: No new prescription is created. Error message `The appointment index provided is invalid.` is shown.
+
+### Deleting a prescription
+Prerequisites: All test cases below must be independent and fulfills these assumptions:
+All appointments listed using the `apmt list` command. Multiple appointments shown in the list.
+First appointment has a single prescription `penicillin | 400ml | 2 times a week`. All other appointments have no prescriptions.
+1. Test case: `apmt pd 1 n/Penicillin`<br>
+   Expected: First appointment now do not contain any prescriptions.
+2. Test case: enter `apmt pa 0 n/Penicillin` twice <br>
+   Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
+3. Test case: `apmt pa 1 n/Panadol`<br>
+   Expected: No new prescription is created. Error message `Medicine name not found in prescription list.` is shown.

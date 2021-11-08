@@ -7,7 +7,7 @@ participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as Model MODEL_COLOR
 participant "appointment:Appointment" as appointment MODEL_COLOR
 participant "Prescription" as Prescription MODEL_COLOR
 
