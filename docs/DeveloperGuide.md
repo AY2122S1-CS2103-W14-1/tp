@@ -392,41 +392,53 @@ Once the check has been done, the prescription in question is added/removed and 
 ![AppointmentClassDiagram](images/AppointmentClassDiagram.png)
 
 Each `Appointment` in memory contain
-s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, modifications were made to how `Appointment` is added, loaded and stored.
+s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
 
 Major changes involved to implement this feature:
+* Add a new appointment
+* Load an appointment on app launch
+* Save an appointment after every command
+* Delete a patient that has appointments
 
-* Adding a new appointment  —  `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
-* Loading an appointment on app launch  —
-    * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
-    * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
-* Storing an appointment after every command  —
-    * The app runs `LogicManager#saveAppointmentBook()`.
-    * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+#### Add a new Appointment
 
+**Overview**
+`AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 
-#### Load Appointments on Launch feature
-
-The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
-
-![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
-
-
-#### Add Appointments feature
-
+**Detailed Implementation**
 The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
 
 ![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
 
 
-#### Delete Patient that has made an Appointment feature
+**Design considerations**
 
-The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
+**Aspect: How Appointments are instantiated**
 
-![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Appointment is composed of a Patient (current choice)** | Appointment can only be instantiated with a Patient, and without Patients, Appointments cannot exist. Hence, for an appointment to be instantiated, it requires a reference to the related Patient object. | <ui><li>Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.</li> <li>Easy to find the patient of the appointment.</li></ui>| Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook` must be loaded to memory before `AppointmentBook`. |
+| Patient and Appointment have an association such that Patient has a link to Appointment and Appointment only requires date and time to instantiate. | - | Able to load `AppointmentBook` without loaded `AddressBook`. | <ui><li>Appointments may not be unique objects as there may be patients with multiple appointments at the same date and time at the same clinic that can be served by different doctors.</li><li> Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed because Appointment has no Patient field.</li></ui> |
 
-#### Save Appointments feature
 
+#### Load Appointments on App Launch
+
+**Overview**
+* The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
+* `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
+
+**Detailed Implementation**
+The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
+
+![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
+
+#### Save Appointments after every command
+
+**Overview**
+* The app runs `LogicManager#saveAppointmentBook()`.
+* `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
+
+**Detailed Implementation**
 After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram1.png)
@@ -435,44 +447,33 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram2.png)
 
-#### Design considerations
 
-**Aspect: How Appointments are instantiated**
+**Design considerations**
 
-* **Alternative 1 (current choice):** Appointment is composed of a Patient.
-    * **Justification:** Appointment can only be instantiated with a Patient, and without Patients,
-      Appointments cannot exist.
-      Hence, for an appointment to be instantiated, it requires a reference to the related Patient object.
-    * **Pros:** Enforces 1 multiplicity requiring one Appointment to be associated with exactly one Patient.
-    * **Pros:** Easy to find the patient of the appointment.
-    * **Cons:** Need to locate corresponding Patient before Appointment can be instantiated. Thus, `AddressBook`
-      must be loaded to memory before `AppointmentBook`.
-* **Alternative 2:** Patient and Appointment have an association such that Patient has a link to Appointment and
-  Appointment only requires date and time to instantiate.
-    * **Pros:** Able to load `AppointmentBook` without loaded `AddressBook`.
-    * **Cons:** Appointments may not be unique objects as there may be patients with multiple appointments at the same
-      date and time at the same clinic that can be served by different doctors.
-    * **Cons:** Difficult to find Patient of each Appointment when Appointment is extracted from Patients and listed
-      because Appointment has no Patient field.
+**Aspect: How Appointments are loaded and saved**
 
-**Aspect: How Appointments are stored and loaded**
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Save `Appointment` as the index of corresponding patient in `AddressBook` and datetime. (current choice)** | The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order of `AddressBook` is saved each time `AppointmentBook` is saved. | <ui><li>Index of patient requires less code then implementing a unique ID and fits with our theme of using indices in commands.</li> <li>Index of patient is guaranteed to be a unique identifier.</li></ui>| Order of the `AddressBook` is important. If the order of patients is changed in the json file, the appointments will become incorrect. |
+| Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. | - | Changing the order of appointments and patients in saved JSON file will not change affect loading of data. | <ui><li>Requires more code to implement a unique hash or UUID and find the corresponding Patient and Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.</li><li> Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.</li></ui> |
 
-* **Alternative 1 (current choice):** Save `Appointment` as the index of corresponding patient in `AddressBook` and
-  datetime.
-    * **Justification:** The order of `AddressBook` does not change when saving or loading `AppointmentBook`. The order
-      of `AddressBook` is saved each time `AppointmentBook` is saved.
-    * **Pros:** Index of patient requires less code then implementing a unique ID and fits with our theme of using
-      indices in commands.
-    * **Pros:** Index of patient is guaranteed to be a unique identifier.
-    * **Cons:** Order of the `AddressBook` is important. If the order of patients is changed in the json file, the
-      appointments will become incorrect.
-* **Alternative 2:** Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment
-  object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID.
-    * **Pros:**  Changing the order of appointments and patients in saved JSON file will not change affect loading of
-      data.
-    * **Cons:** Requires more code to implement a unique hash or UUID and find the corresponding Patient and
-      Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.
-    * **Cons:** Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.
+
+#### Delete Patient that has made an Appointment feature
+
+The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
+
+![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
+
+**Design considerations**
+
+**Aspect: When a patient that has appointment is deleted**
+
+| Design Choice | Justification | Pros | Cons |
+| ---------- | ------------------------ | ------------------------ | ------------------------ |
+| **Delete all appointments that the patient has (current choice)** | `Appointments` is a class that is instantiated with a `Patient` object. When that corresponding `Patient` object is deleted, the `Patient`s appointment objects should be deleted as well so there will be no reference to deleted `Patient` objects. | <ui><li>Ensures `Patient` object is deleted completely from the system, and no objects holds references to deleted `Patient` objects.</li> <li>No `Appointment` objects will reference an invalid `Patient` object.</li></ui>| <ui><li>Accidental deleting of a `Patient` will delete all corresponding `Appointments` which may cause extra hassle to enter in all the `Appointment` details again.</li><li>No past appointment data of deleted `Patients` can be kept because their `Appointment` objects are deleted to garbage collect and truly delete `Patient` objects.</li></ui> |
+| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require correponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
+
+
 
 ### Archiving an Appointment
 
