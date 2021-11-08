@@ -24,7 +24,7 @@ title: Developer Guide
       - [Deleting Patient that has made an Appointment](#deleting-patient-that-has-made-an-appointment)
       - [Saving Appointments](#saving-appointments)
       - [Design considerations](#design-considerations)
-      - [Archiving an Appointment](#archiving-an-appointment) 
+      - [Archiving an Appointment](#archiving-an-appointment)
         - [Auto-Archiving Feature](#auto-archiving-feature)
     - [Recording a Patient's Prescription feature](#recording-a-patients-prescription-feature)
         - [How Prescription is implemented](#how-prescription-is-implemented)
@@ -282,7 +282,7 @@ This section describes some noteworthy details on how certain features are imple
 
 - The `MedicalHistory` class composes an `EntryList<Entry<MedicalEntry>>` class.
 - The `EntryList` class references the `Entry<MedicalEntry>` through an `ArrayList`.
-- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class. 
+- The `Entry<MedicalEntry>` class is an abstract class that is either a `Some<MedicalEntry>` or an `Empty<Object>` class.
 - Each `Patient` class composes exactly one `MedicalHistory` class.
 - `MedicalEntry` is an inner static class of `MedicalHistory`
 - Each `MedicalEntry` has a `description` data attribute and a `dateOfRecord` data attribute. The `description` data is supplied by the user. The `dateOfRecord` is automatically generated based on the date the medical entry was recorded.
@@ -314,15 +314,15 @@ Below is a class diagram of the components involved in the Add Medical Entry fea
 
 **Implementation details of feature**
 
-The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.  
+The Add Medical Entry feature is implemented via the `AddMedicalEntryCommand`, which is supported by the `AddMedicalEntryCommandParser`. The `AddMedicalEntryCommandParser` implements the `PatientParser` interface.
 1. `LogicManager` receives the user input which is parsed by the `AddressBookParser`.
 2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
-3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument. 
+3. The `PatientBookParser` invokes the `AddMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
 4. `AddMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
 5. If the required `preamble` and `PREFIX_MEDICAL` is present, the `AddMedicalEntryCommandParser` will invoke the `AddMedicalEntryCommand` after calling the `parseMedicalHistory` method provided by `ParserUtil`, which returns a `MedicalHistory` based on the `description` data field. The `preamble` identifies the `Index` of the `Patient` to add the medical entry to, while the string after `PREFIX_MEDICAL` specifies the `description` data field required for adding a new `MedicalEntry`.
 6. `LogicManager` calls the `execute` method of the `AddMedicalEntryCommand`, which calls the `addMedicalHistory` of the `Patient` specified by the `Index`.
 7. The `AddMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
-8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`. 
+8. The `AddMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
 
 Below is a sequence diagram illustrating the interactions between the `Logic` and `Model` components when the user inputs `pt ma 1 m/diabetes` command. Note that the full command string has been abbreviated to `...`.
 
@@ -357,7 +357,7 @@ The Delete Medical Entry feature is implemented via the `DeleteMedicalEntryComma
 2. The `AddressBookParser` invokes the `PatientBookParser` based on the regex pattern of the user input, splitting the user input into `commandWord` and `arguments`.
 3. The `PatientBookParser` invokes the `DeleteMedicalEntryCommandParser` based on the `commandWord`, calling the method `parsePatientCommand` with `arguments` as the method argument.
 4. `DeleteMedicalEntryCommandParser` takes in the argument string and invokes an `ArgumentMultiMap`, which tokenizes the `arguments`.
-5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted. 
+5. If the required `patientIndex` and `medicalIndex` is present, the `DeleteMedicalEntryCommandParser` will invoke the `DeleteMedicalEntryCommand` after calling the `parseIndex` method provided by `ParserUtil`, which returns an `Index` to specify the `patient` and the `medicalEntry` to be deleted.
 6. `LogicManager` calls the `execute` method of the `DeleteMedicalEntryCommand`, which calls the `deleteMedicalHistory` of the `Patient` specified by the `Index`.
 7. The `DeleteMedicalEntryCommand` will then call the methods `setPatient`, `updateAppointmentBook`, `updateFilteredPatientList` and `updateFilteredAppointmentList` provided by the `Model`, editing the patient's medical history information.
 8. The `DeleteMedicalEntryCommand` returns a `CommandResult`, which will be returned to the `LogicManager`.
@@ -878,7 +878,7 @@ testers are expected to do more *exploratory* testing.
 2. _{ more test cases … }_
 
 ### Saving data
- 
+
 1. Dealing with missing/corrupted data files
 
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
@@ -902,10 +902,10 @@ All appointments listed using the `apmt list` command. 5 appointments shown in t
 7. Test case: `apmt pa 6 n/Penicillin v/400 ml d/2 times a week `<br>
    Expected: No new prescription is created. Error message `The appointment index provided is invalid.` is shown.
 8. _{ more test cases … }_
-9. 
+
 ### Deleting a prescription
 Prerequisites: All test cases below must be independent and fulfills these assumptions:
-All appointments listed using the `apmt list` command. Multiple appointments shown in the list. 
+All appointments listed using the `apmt list` command. Multiple appointments shown in the list.
 First appointment has a single prescription `penicillin | 400ml | 2 times a week`. All other appointments have no prescriptions.
 1. Test case: `apmt pd 1 n/Penicillin`<br>
    Expected: First appointment now do not contain any prescriptions.
