@@ -707,10 +707,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list patients.
-2. `Doc'it` shows a list of patients.
-3. User requests to delete a specific patient in the list.
-4. `Doc'it` deletes the patient.
+1. `Doc'it` shows a list of patients.
+2. User requests to delete a specific patient in the list.
+3. `Doc'it` deletes the patient.
 
    Use case ends.
 
@@ -719,30 +718,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
   Use case ends.
-* 3a. The given index is invalid.
+* 2b. The given index is invalid.
 
-    * 3a1. `Doc'it` shows an error message.
+    * 2b1. `Doc'it` shows an error message.
 
       Use case resumes at step 2.
 
-**Use case: UC04 - View the records of a patient**
 
-**MSS**
-
-1. User requests to view a patient record.
-2. `Doc'it` shows the details of the patient.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The specified patient does not exist.
-
-    * 1a1. `Doc'it` shows an error message.
-
-      Use case resumes at step 1.
-
-**Use case: UC05 - List all appointments**
+**Use case: UC04 - List all appointments**
 
 **MSS**
 
@@ -757,33 +740,49 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC06 - Add an appointment**
+**Use case: UC05 - Add an appointment**
 
 **MSS**
 
-1. User requests to list patients.
-2. `Doc'it` displays all patients.
-3. User adds an appointment, matching the appointment to the specific patient.
-4. `Doc'it` adds the appointment and associates it to the patient.
+1. `Doc'it` displays all patients.
+2. User adds an appointment, matching the appointment to the specific patient.
+3. `Doc'it` adds the appointment and associates it to the patient.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. The date of the appointment AND/OR the specified patient are invalid.
+* 2a. The date of the appointment AND/OR the specified patient are invalid.
 
-    * 3a1. `Doc'it` shows an error message.
+    * 2a1. `Doc'it` shows an error message.
 
-      Use case resumes at step 3.
+      Use case resumes at step 2.
+
+**Use case: UC06 - Edit an appointment**
+
+**MSS**
+
+1. `Doc'it` displays all patients and appointments.
+2. User edits an appointment, specifying new appointment details to replace old appointment details.
+3. `Doc'it` edits the appointment details.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The date of the appointment AND/OR the specified patient are invalid.
+
+    * 2a1. `Doc'it` shows an error message.
+
+      Use case resumes at step 2.
 
 **Use case: UC07 - Delete an appointment**
 
 **MSS**
 
-1. User requests to list appointments.
-2. `Doc'it` displays all appointments.
-3. User requests to delete a specific appointment in the list.
-4. `Doc'it` deletes the appointment and removes the appointment association from the originally associated patient.
+1. `Doc'it` displays all appointments.
+2. User requests to delete a specific appointment in the list.
+3. `Doc'it` deletes the appointment and removes the appointment association from the originally associated patient.
 
    Use case ends.
 
@@ -792,9 +791,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. The list is empty.
 
   Use case ends.
-* 3a. The given index is invalid.
+* 2a. The given index is invalid.
 
-    * 3a1. `Doc'it` shows an error message.
+    * 2a1. `Doc'it` shows an error message.
 
       Use case resumes at step 2.
 
@@ -802,23 +801,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to list appointments.
-2. `Doc'it` displays all appointments.
-3. User requests to archive all appointments that are past its date.
-4. `Doc'it` archives all appointments that are past its date.
+1. `Doc'it` displays all appointments.
+2. User requests to archive all appointments that are past its date.
+3. `Doc'it` archives all appointments that are past its date.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. There are no appointments in the Appointment panel.
 
   Use case ends.
-* 3a. No appointments are past its date.
+* 2b. No appointments are past its date.
 
   Use case ends.
 
-**Use case: UC08 - Exit program**
+**Use case: UC09 - Exit program**
 
 **MSS**
 
