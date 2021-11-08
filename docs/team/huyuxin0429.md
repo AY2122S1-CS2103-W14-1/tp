@@ -46,3 +46,4 @@ Given below are my contributions to the project.
   * Input validation: Implemented more restrictive general parsing to reduce likelihood of unintended inputs. [\#232](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/232)
   * Introduced more restrictive parsing guidelines for prescriptions. [\#274](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/274)
   * Initiated discussions on forum regarding sustainable testing rigor across development life cycle. ([Link here](https://github.com/nus-cs2103-AY2122S1/forum/issues/325))
+
