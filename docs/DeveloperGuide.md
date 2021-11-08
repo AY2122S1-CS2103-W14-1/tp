@@ -908,6 +908,7 @@ testers are expected to do more *exploratory* testing.
           Expected: Appointments reference the same patients as previous session before it was closed.
 
 ### Adding an appointment
+
 Prerequisites: Use sample addressbook or the same list of patients from index 1 to 2. 
 1. Test case: `apmt add i/1 d/2999-12-31 2359`<br>
    Expected: New appointment added in Upcoming tab of Appointments panel for Patient 1 on 31 Dec 2999 2359.
@@ -918,10 +919,22 @@ Prerequisites: Use sample addressbook or the same list of patients from index 1 
 4. Test case: Conduct test case 3, then enter `apmt add i/2 d/2000-1-1 0000`<br>
    Expected: New appointment added in Archived tab of Appointments panel for Patient 2 on 1 Jan 2000 0000 even if test case 3 appointment exists.
 5. Test case: `apmt add i/1 d/2039-2-29 1200`<br>
-   Expected: No new appointment is created because 2039 is not a leap year and Feb 2039 only has 28 days. Error message "2039-2-29 1200 is incorrect datetime format." shown.
+   Expected: No new appointment is created because 2039 is not a leap year and Feb 2039 only has 28 days. Error message shown.
 
-Editing an appointment test cases similar to adding an appointment.
-Deleting an appointment test cases similar to deleting a patient.
+Editing an appointment test cases are similar to adding an appointment except for an additional appointment index to be specified before Patient Index and Datetime.
+
+### Deleting an appointment
+
+1. Deleting an appointment while all appointments are being shown
+
+    1. Prerequisites: List all appointments in the Upcoming tab using the `apmt list` command. At least one appointment in list.
+    2. Test case: `apmt delete 1`<br>
+       Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message.
+    3. Test case: `apmt delete 0`<br>
+       Expected: No appointment is deleted. Error details shown in the status message.
+    4. Other incorrect delete commands to try: `apmt delete`, `apmt delete x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+    
 
 ### Adding a prescription
 Prerequisites: All test cases below must be independent and fulfills these assumptions:

@@ -98,7 +98,8 @@ Given below are my contributions to the project.
         - [Save Appointments after every command](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#save-appointments-after-every-command)
         - [Delete Patient that has made an Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#delete-patient-that-has-made-an-appointment)
       * Relevant PRs: [\#93](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/93), [\#317](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/317/files)
-    * Added [Adding an Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#adding-an-appointment) test cases under Instructions for Manual Testing and made note of the similar test case for Edit Appointments. Made note of Delete Appointment similarity to Delete Patients test cases.
+    * Added [Adding an Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#adding-an-appointment) and 'Deleting a patient that has an appointment' test cases under Instructions for Manual Testing and made note of the similar test case for Edit Appointments. 
+    * Added 'Deleting an Appointment' test cases
     * Updated Appointment Use Cases to v1.4
       * Remove `User lists commands` because Doc'it displays full list by default
       * Added `Use case: UC06 - Edit an appointment`
