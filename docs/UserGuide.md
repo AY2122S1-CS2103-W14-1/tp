@@ -207,6 +207,7 @@ New patient added:
 Joshen Lim; Phone: 99988888; Email: joshen@gmail.com; Address: 123 Clementi Road SG293821
 ```
 
+**GUI Display:**
 ![PtAdd](images/PtAdd.png)
 
 
@@ -223,8 +224,8 @@ Format: `pt list`
 Listed all patients
 ```
 
-![PtList](images/PtList.png)
-
+**GUI Display:**
+![Patient Card](images/PatientCard.png)
 ---
 
 ### Edit a patient: `pt edit`
@@ -236,15 +237,13 @@ Edits the details of a specified patient.
 - `INDEX` is compulsory when making an edit to patient details
 
 **Examples:**
-- `pt edit 1 n/Joshen Tan m/Heartbreak`
+- `pt edit 1 n/Joshen Tan m/Heartache`
 
 **Expected outcome:** <br>
 ```
 Edited Patient:
 Joshen Tan; Phone: 12345678; Email: google@gmail.com; Address: 311 clementi SG540192; Medical History: Heartache, recorded 31 Oct 2021
 ```
-
-![PtAdd](images/PtEdit.png)
 
 ---
 
@@ -292,8 +291,8 @@ Updated:
 Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Medical History: diabetes, recorded 8 Nov 2021
 ```
 
-![PtAdd](images/PtMa.png)
-
+**GUI Display:**
+![Add Medical History](images/AddMedicalHistory.png)
 
 ---
 
@@ -376,15 +375,8 @@ Shows the list of all appointments.
 **Examples:**
 * `apmt list`  Lists all appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-10-05
-2. Patient Name: Alex Yeoh | Appointment Date: 2021-10-06
-3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-11-23
-
-Listed all appointments
-```
+**GUI Display:**
+![Appointment Card](images/AppointmentCard.png)
 
 ### List all archived appointments: `apmt alist`
 Shows the list of all archived appointments.
@@ -394,15 +386,8 @@ Shows the list of all archived appointments.
 **Examples:**
 * `apmt alist`  Lists all archived appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-1-05
-2. Patient Name: Alex Yeoh | Appointment Date: 2021-1-06
-3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-1-23
-
-Listed all archived appointments
-```
+**GUI Display:**
+![Show Archived](images/ShowArchiveAppointments.png)
 
 ### Edit an appointment: `apmt edit`
 
@@ -474,23 +459,16 @@ Patient: Alex Yeoh; Datetime: 31 Dec 2012 1200; Prescription: []
 ```
 
 ### Sort all appointments: `apmt sort`
-Shows a sorted list of all appointments
+Shows a sorted list of all appointments based on urgency (appointments today > ascending date > ascending name).
 
 **Format:** `apmt sort`
 
 **Examples:**
 * `apmt sort`  Lists all appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-06-05
-2. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-07-21
-3. Patient Name: Alex Yeoh | Appointment Date: 2021-10-05
-4. Patient Name: David Li | Appointment Date: 2021-10-06
+**GUI Display:**
+![Sorted Appointments](images/SortAppointments.png)
 
-Sorted Appointments based on default settings.
-```
 ## Add prescription: `apmt pa`
 Adds a prescription to the designated appointment.
 
@@ -508,6 +486,9 @@ Medicine: Penicillin
 Volume: 400 ml
 Duration: 2 times a week
 ```
+
+**GUI Display:**
+![Add Prescription](images/AddPrescription.png)
 
 ## Delete prescription: `apmt pd`
 Deletes a prescription from the designated appointment.

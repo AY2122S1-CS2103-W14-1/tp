@@ -85,6 +85,62 @@ Given below are my contributions to the project:
 
 <div style="page-break-after: always;"></div>
 
+### Contributions to the User Guide:
+
+### List all archived appointments: `apmt alist`
+Shows the list of all archived appointments.
+
+**Format:** `apmt alist`
+
+**Examples:**
+* `apmt alist`  Lists all archived appointments.
+
+**Expected Outcome:**
+```
+[UI CARDS]
+1. Patient Name: Bernice Yu | Appointment Date: 2021-1-05
+2. Patient Name: Alex Yeoh | Appointment Date: 2021-1-06
+3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-1-23
+Listed all archived appointments
+```
+
+### Archive an appointment: `apmt archive`
+Archives an old appointment that is already past its date.
+
+**Format:** `apmt archive INDEX`
+* Archives the appointment at the specified INDEX.
+* The index refers to the index number shown in the displayed appointment list.
+* The index must be a positive integer 1, 2, 3, ...
+
+**Examples:**
+* `apmt archive 1`  Archives appointment at index 1.
+
+**Expected Outcome:**
+```
+Archived Appointment:
+Patient: Alex Yeoh; Datetime: 31 Dec 2012 1200; Prescription: []
+```
+
+### Sort all appointments: `apmt sort`
+Shows a sorted list of all appointments
+
+**Format:** `apmt sort`
+
+**Examples:**
+* `apmt sort`  Lists all appointments.
+
+**Expected Outcome:**
+```
+[UI CARDS]
+1. Patient Name: Bernice Yu | Appointment Date: 2021-06-05
+2. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-07-21
+3. Patient Name: Alex Yeoh | Appointment Date: 2021-10-05
+4. Patient Name: David Li | Appointment Date: 2021-10-06
+Sorted Appointments based on default settings.
+```
+
+<div style="page-break-after: always;"></div>
+
 ### Contributions to the Developer Guide:
 
 #### Archiving an Appointment
