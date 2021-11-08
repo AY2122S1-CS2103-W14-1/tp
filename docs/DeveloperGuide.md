@@ -459,6 +459,13 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 
 #### Delete Patient that has made an Appointment feature
 
+**Overview**
+
+Delete all `Appointments` containing that `Patient` object when `Patient` object is deleted.
+
+
+**Detailed Implementation** 
+
 The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
 
 ![DeletePatientActivityDiagram](images/DeletePatientActivityDiagram.png)
