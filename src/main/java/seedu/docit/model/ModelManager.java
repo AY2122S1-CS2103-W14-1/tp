@@ -292,7 +292,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deletePrescription(Appointment target, String medicine) {
-        target.removePrescription(medicine);
+        target.deletePrescription(medicine);
         Set<Prescription> nextPrescription = target.getPrescriptions();
         Appointment editedAppt = new Appointment(target.getPatient(), target.getDatetime(), nextPrescription);
         appointmentBook.setAppointment(target, editedAppt);

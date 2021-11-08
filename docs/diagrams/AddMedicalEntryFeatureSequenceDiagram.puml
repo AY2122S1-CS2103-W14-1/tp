@@ -3,7 +3,6 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
 participant ":AddMedicalEntryCommandParser" as AddMedicalEntryCommandParser LOGIC_COLOR
 participant "cmd:AddMedicalEntryCommand" as AddMedicalEntryCommand LOGIC_COLOR
@@ -15,18 +14,13 @@ box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("pt ma ...")
+[-> LogicManager : execute("...")
 activate LogicManager
-activate ModelManager
 
-LogicManager -> AddressBookParser : parseCommand("pt ma ...")
-activate AddressBookParser
-
-
-AddressBookParser -> PatientBookParser : parsePatientCommand("pt ma ...")
+ref over LogicManager: Omit parsing details from\n AddressBookParser to\n PatientBookParser
+LogicManager -> PatientBookParser : parsePatientCommand
 activate PatientBookParser
-
-PatientBookParser -> AddMedicalEntryCommandParser : parsePatientCommand(commandWord, arguments)
+PatientBookParser -> AddMedicalEntryCommandParser : parsePatientCommand
 activate AddMedicalEntryCommandParser
 ref over AddMedicalEntryCommandParser: Parse user input
 
@@ -38,23 +32,34 @@ AddMedicalEntryCommand --> AddMedicalEntryCommandParser : cmd
 deactivate AddMedicalEntryCommand
 AddMedicalEntryCommandParser --> PatientBookParser : cmd
 deactivate AddMedicalEntryCommandParser
-PatientBookParser --> AddressBookParser : cmd
+AddMedicalEntryCommandParser -[hidden]-> LogicManager
+destroy AddMedicalEntryCommandParser
+
+PatientBookParser --> LogicManager : cmd
 deactivate PatientBookParser
-AddressBookParser --> LogicManager : cmd
-deactivate AddressBookParser
-LogicManager --> AddMedicalEntryCommand : execute(model)
+PatientBookParser -[hidden]-> LogicManager
+destroy PatientBookParser
+
+
+LogicManager -> AddMedicalEntryCommand : execute(model)
 activate AddMedicalEntryCommand
 
-
-AddMedicalEntryCommand --> ModelManager : setPatient(patientToEdit, editedPatient)
-AddMedicalEntryCommand --> ModelManager : updateAppointmentBook(patientToEdit, editedPatient)
-AddMedicalEntryCommand --> ModelManager : updateFilteredPatientList()
-AddMedicalEntryCommand --> ModelManager : updateFilteredAppointmentList()
-ref over ModelManager: Update storage
+AddMedicalEntryCommand -> ModelManager : setPatient
+activate ModelManager
 ModelManager --> AddMedicalEntryCommand
 deactivate ModelManager
-
-'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddMedicalEntryCommand -> ModelManager : updateAppointmentBook
+activate ModelManager
+ModelManager --> AddMedicalEntryCommand
+deactivate ModelManager
+AddMedicalEntryCommand -> ModelManager : updateFilteredPatientList
+activate ModelManager
+ModelManager --> AddMedicalEntryCommand
+deactivate ModelManager
+AddMedicalEntryCommand -> ModelManager : updateFilteredAppointmentList
+activate ModelManager
+ModelManager --> AddMedicalEntryCommand
+deactivate ModelManager
 
 create CommandResult
 AddMedicalEntryCommand -> CommandResult

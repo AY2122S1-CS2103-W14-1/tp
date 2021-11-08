@@ -115,7 +115,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
      * Removes a prescription from an appointment specified by the index in the list.
      */
     public void deletePrescription(int index, String medicine) {
-        internalList.get(index).removePrescription(medicine);
+        internalList.get(index).deletePrescription(medicine);
     }
 
     /**

@@ -89,7 +89,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param medicineName medicine name of prescription to be removed.
      * @throws MedicineNotFoundException if no such medicine exists.
      */
-    public void removePrescription(String medicineName) throws MedicineNotFoundException {
+    public void deletePrescription(String medicineName) throws MedicineNotFoundException {
         if (!this.prescriptions.removeIf(p -> p.hasSameMedicalName(
                 new Prescription(medicineName, "default", "default")))) {
             throw new MedicineNotFoundException();
@@ -105,7 +105,7 @@ public class Appointment implements Comparable<Appointment> {
      * @throws MedicineNotFoundException when the prescription cannot be found.
      */
     public void editPrescription(Prescription prescription) throws MedicineNotFoundException {
-        removePrescription(prescription.getMedicine());
+        deletePrescription(prescription.getMedicine());
         addPrescription(prescription);
     }
 
