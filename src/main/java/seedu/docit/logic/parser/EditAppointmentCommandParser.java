@@ -26,19 +26,24 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_INDEX, PREFIX_DATETIME);
 
-        Index index;
-
+        Index apmtIndex;
         try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+            apmtIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE), pe);
         }
 
         EditAppointmentDescriptor editAppointmentDescriptor = new EditAppointmentDescriptor();
         if (argMultimap.getValue(PREFIX_INDEX).isPresent()) {
-            Index patientIndex;
+            String index = argMultimap.getValue(CliSyntax.PREFIX_INDEX).get().trim();
 
+            if (index.equals("")) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE));
+            }
+
+            Index patientIndex;
             try {
                 patientIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_INDEX).get());
             } catch (ParseException pe) {
@@ -49,6 +54,13 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
             editAppointmentDescriptor.setPatientIndex(patientIndex);
         }
         if (argMultimap.getValue(CliSyntax.PREFIX_DATETIME).isPresent()) {
+            String datetime = argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get().trim();
+
+            if (datetime.equals("")) {
+                throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppointmentCommand.MESSAGE_USAGE));
+            }
+
             LocalDateTime localDateTime;
             try {
                 localDateTime = ParserUtil.parseDateTime(argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get(),
@@ -64,6 +76,6 @@ public class EditAppointmentCommandParser implements AppointmentParser<EditAppoi
             throw new ParseException(EditAppointmentCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditAppointmentCommand(index, editAppointmentDescriptor);
+        return new EditAppointmentCommand(apmtIndex, editAppointmentDescriptor);
     }
 }

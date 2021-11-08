@@ -918,7 +918,7 @@ Prerequisites: Use sample addressbook or the same list of patients from index 1 
 4. Test case: Conduct test case 3, then enter `apmt add i/2 d/2000-1-1 0000`<br>
    Expected: New appointment added in Archived tab of Appointments panel for Patient 2 on 1 Jan 2000 0000 even if test case 3 appointment exists.
 5. Test case: `apmt add i/1 d/2039-2-29 1200`<br>
-   Expected: No new appointment is created. Error message shown.
+   Expected: No new appointment is created because 2039 is not a leap year and Feb 2039 only has 28 days. Error message "2039-2-29 1200 is incorrect datetime format." shown.
 
 Editing an appointment test cases similar to adding an appointment.
 Deleting an appointment test cases similar to deleting a patient.

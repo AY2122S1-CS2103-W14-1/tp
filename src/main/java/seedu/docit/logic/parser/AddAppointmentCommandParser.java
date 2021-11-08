@@ -29,21 +29,27 @@ public class AddAppointmentCommandParser implements AppointmentParser<AddAppoint
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        Index patientIndex;
-        try {
-            patientIndex = ParserUtil.parseIndex(argMultimap.getValue(CliSyntax.PREFIX_INDEX).get());
-        } catch (ParseException pe) {
+        String index = argMultimap.getValue(CliSyntax.PREFIX_INDEX).get().trim();
+        String datetime = argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get().trim();
+
+        if (index.equals("") || datetime.equals("")) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
         }
 
-        String datetime = argMultimap.getValue(CliSyntax.PREFIX_DATETIME).get();
+        Index patientIndex;
+        try {
+            patientIndex = ParserUtil.parseIndex(index);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                pe.getMessage().concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE), pe);
+        }
 
         LocalDateTime localDateTime;
         try {
             localDateTime = ParserUtil.parseDateTime(datetime, ParserUtil.INPUT_DATE_TIME_FORMATTER);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            throw new ParseException(pe.getMessage().concat("\n").concat(
                 AddAppointmentCommand.MESSAGE_USAGE), pe);
         }
 

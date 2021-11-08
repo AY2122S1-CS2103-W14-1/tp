@@ -1,6 +1,8 @@
 package seedu.docit.logic.parser;
 
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_ALL;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DATE;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_ALL;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_DATE;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH;
@@ -8,6 +10,10 @@ import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DAT
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_RANDOM;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_TIME;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_DESC_YEAR;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_MONTH;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_RANDOM;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_TIME;
+import static seedu.docit.logic.commands.CommandTestUtil.INVALID_APPOINTMENT_DATE_TIME_YEAR;
 import static seedu.docit.logic.commands.CommandTestUtil.INVALID_PATIENT_INDEX_DESC_MINUS_1;
 import static seedu.docit.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.docit.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
@@ -18,6 +24,8 @@ import static seedu.docit.logic.commands.CommandTestUtil.VALID_PATIENT_INDEX_DES
 import static seedu.docit.logic.commands.CommandTestUtil.VALID_PATIENT_INDEX_DESC_1;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseFailure;
 import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertParseSuccess;
+import static seedu.docit.logic.parser.ParserUtil.MESSAGE_INVALID_DATETIME;
+import static seedu.docit.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.time.LocalDateTime;
 
@@ -70,39 +78,45 @@ public class AddAppointmentCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid index
         assertParseFailure(parser, INVALID_PATIENT_INDEX_DESC_MINUS_1 + VALID_APPOINTMENT_DATE_TIME_DESC,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+            MESSAGE_INVALID_INDEX.concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid year
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_YEAR,
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_YEAR,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_YEAR)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid month
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_MONTH)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid date
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_DATE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_DATE,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_DATE)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid time
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_TIME,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_TIME,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_TIME)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid null input
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_NULL,
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_NULL,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid random input
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_RANDOM,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_RANDOM,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_RANDOM)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // invalid input for all date time fields
-        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_0 + INVALID_APPOINTMENT_DATE_TIME_DESC_ALL,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, VALID_PATIENT_INDEX_DESC_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_ALL,
+            String.format(MESSAGE_INVALID_DATETIME, INVALID_APPOINTMENT_DATE_TIME_ALL)
+                .concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_PATIENT_INDEX_DESC_MINUS_1 + INVALID_APPOINTMENT_DATE_TIME_DESC_MONTH,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppointmentCommand.MESSAGE_USAGE));
+            MESSAGE_INVALID_INDEX.concat("\n").concat(AddAppointmentCommand.MESSAGE_USAGE));
 
 
         // non-empty preamble
