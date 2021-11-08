@@ -89,6 +89,7 @@ The `UI` component,
 The main UI parts of the `MainWindow` to display Patient and Appointment information are `PatientListPanel` and
 `AppointmentListPanel`, each holding a number of `PatientCard`'s and `AppointmentCard`'s.
 
+
 ![Example of PatientCard](images/PatientCard.png)
 
 In the `PatientCard` part, we can see all the details that we store of the Patient.
@@ -101,6 +102,11 @@ easily identify appointments occurring today. Non-essential patient details are 
 We can also toggle between the **Archive** and **Upcoming** tabs to view Appointments that are upcoming or have been
 archived. This is also the reason why `MainWindow` component holds two `AppointmentListPanel`'s - One for
 upcoming appointments, and the other for archived appointments.
+
+A multi-panel display is used because the user should be able to look for an Appointment's patient details without
+swapping back and forth between the Patient list and Appointments list. The tab display is used as archived appointments are likely
+to be referred to less than upcoming ones. The decision to separate the two into two tabs reduces visual clutter significantly
+and allows the user to view the more important information immediately.
 
 ### Logic component
 

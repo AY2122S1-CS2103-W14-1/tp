@@ -11,8 +11,7 @@ reduce man-hours in managing paper files, translating this ‘saved’ time into
 Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created
 with JavaFX. It is written in Java, and has about 10 kLoC.
 
-
-### Summary of Contributions
+**Summary of Contributions**
 
 Given below are my contributions to the project:
 
@@ -20,9 +19,8 @@ Given below are my contributions to the project:
     * What it does: stores details of archived appointments, but prevents internal modification of data.
     * Justification: This feature allows the user to archive and view archived appointments, to look at previous patient
       prescriptions and past appointments.
-    * Highlights: The implementation requires careful consideration of what data should or should not be accessible. For
-      some situations, when a patient is removed or details changed, the `ArchivedAppointmentBook` should support methods
-      to remove/edit past appointment records accordingly. Careful restriction of access must thus be implemented to prevent misuse and inappropriate
+    * Highlights: The implementation requires careful consideration of what data should or should not be accessible.
+      Careful restriction of access must thus be implemented to prevent misuse and inappropriate
       modification of archived data.
     * Credits: Implementation details of `AppointmentBook` by teammate Gabriel Goh
     * Relevant PR: [\#69](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/69)
@@ -42,13 +40,8 @@ Given below are my contributions to the project:
 - **New Feature**: Revamped the GUI's appearance and layout
     * What it does: allows the user to view the list of Patients and swap between Upcoming and Archived appointment tabs.
     * Justification: This significantly reduces visual clutter, since users should ideally view a list of Patients and Appointments at any one time.
-      This is because the user should be able to look for an Appointment's patient details without
-      swapping back and forth between the Patient list and Appointments list. Furthermore, archived appointments are likely
-      to be referred to less than upcoming ones. The decision to separate the two into two tabs reduces visual clutter significantly
-      and allows the user to view the more important information immediately.
     * Highlights: This front-end enhancement is extensive and features a complete CSS overhaul. The light-mode, neumorphism-esque aesthetic of the app showcases modern UI trends, and embodies the clean, professional work setting of a family clinic.
-      Patient and Appointment panels are also resizable, allowing the user to resize the panels to view additional information for
-      either patients or appointments. List commands also swap between the two tabs, showcasing further integration of Logic and UI.
+      List commands also swap between the two tabs, showcasing further integration of Logic and UI.
     * Relevant PR: [\#121](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/121)
 
 
@@ -102,6 +95,8 @@ Given below are my contributions to the project:
 
 - **Debugging**:
     * Bugs fixed: [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97), [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#130](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/130), [\#167](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/167), [\#173](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/173), [\#229](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/229), [\#230](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/230), [\#238](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/238), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262)
+
+<div style="page-break-after: always;"></div>
 
 ### Contributions to the Developer Guide:
 
