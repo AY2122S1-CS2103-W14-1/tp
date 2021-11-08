@@ -3,7 +3,7 @@ layout: page
 title: Joshen's Project Portfolio Page
 ---
 
-## Project: Doc'it
+### Project: Doc'it
 
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
@@ -12,7 +12,7 @@ Doc'IT is a desktop address book application. The user interacts with it using a
 with JavaFX. It is written in Java, and has about 10 kLoC.
 
 
-## Summary of Contributions
+### Summary of Contributions
 
 Given below are my contributions to the project:
 
@@ -28,7 +28,9 @@ Given below are my contributions to the project:
     * Relevant PR: [\#69](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/69)
 
 - **New Feature**: Integrate `Appointment` and `Prescriptions` into the GUI
-  ![AppointmentCard](../images/AppointmentCard.png)
+  
+  <img src="../images/AppointmentCard.png" width="170" />
+  
     * What it does: display appointment information on the GUI.
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
     * Highlights:  A "TODAY" tag is displayed on appointment cards with appointments scheduled today. Integration of appointments on the GUI was
@@ -38,7 +40,6 @@ Given below are my contributions to the project:
 
 
 - **New Feature**: Revamped the GUI's appearance and layout
-  ![Ui](../images/Ui.png)
     * What it does: allows the user to view the list of Patients and swap between Upcoming and Archived appointment tabs.
     * Justification: This significantly reduces visual clutter, since users should ideally view a list of Patients and Appointments at any one time.
       This is because the user should be able to look for an Appointment's patient details without
@@ -102,9 +103,9 @@ Given below are my contributions to the project:
 - **Debugging**:
     * Bugs fixed: [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97), [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#130](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/130), [\#167](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/167), [\#173](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/173), [\#229](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/229), [\#230](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/230), [\#238](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/238), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262)
 
-## Contributions to the Developer Guide:
+### Contributions to the Developer Guide:
 
-### Archiving an Appointment
+#### Archiving an Appointment
 
 **Overview**
 
