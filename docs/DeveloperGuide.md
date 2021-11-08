@@ -457,7 +457,7 @@ After every command that the user makes, appointments are saved. In `LogicManage
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram1.png)
 
-The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is instantiated.
+The diagram below is a more in-dcannnepth look at how `JSONAdaptedAppointment` is instantiated.
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram2.png)
 
@@ -861,6 +861,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5. Data should be stored locally in an easily-editable text file.
 6. Should not depend on any cloud-based remote server.
 7. Data should not be stored in an external Database Management System (DBMS) or data warehouse.
+8. Clinic staff inexperienced in using computers should be able to easily use Doc'it. 
+9. The GUI should work well and not result in resolution-related inconveniences to the user for screen resolutions 1920x1080 and higher, and screen scale at 100% and 125%.
+10. The GUI should be usable, defined as the ability to carry out all functions, even if resolution is not optimal, for resolutions 1280x720 and higher and screen scale at 150%.
 
 ### Glossary
 
