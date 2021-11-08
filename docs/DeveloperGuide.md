@@ -170,12 +170,13 @@ The Sequence Diagram below illustrates the interactions within the `Logic` compo
 
 ![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeletePatientFeatureSequenceDiagram1.png)
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `PatientBookParser` and `DeletePatientCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
 **Execute command**
 
 ![Interactions Inside the Logic Component for the `pt delete 1` Command](diagrams/DeletePatientFeatureSequenceDiagram.png)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeletePatientCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
 
 Here are the other classes in `Logic` (omitted from the class diagram above) that are used for parsing a user command:
 
@@ -335,6 +336,9 @@ Below is a sequence diagram illustrating the interactions between the `Logic` an
 
 ![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntrySequenceFeatureDiagram1.png)
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `PatientBookParser` and `AddMedicalEntryCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
 **Execute a:AddMedicalEntryCommand**
 
 ![Sequence diagram of Add Medical Entry Feature](diagrams/AddMedicalEntryFeatureSequenceDiagram.png)
@@ -378,7 +382,10 @@ Below is a sequence diagram illustrating the interactions between the `Logic` an
 
 ![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram1.png)
 
-**Execute command**
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `PatientBookParser` and `DeleteMedicalEntryCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+**Execute d:DeleteMedicalEntryCommand**
 
 ![Sequence diagram of Delete Medical Entry Feature](diagrams/DeleteMedicalEntryFeatureSequenceDiagram.png)
 
@@ -627,10 +634,13 @@ Once the check has been done, the prescription in question is added/removed and 
 **Target user profile**:
 
 * Authorised staff from small family clinics (both receptionist and doctors)
-* Clinics lacking access to the cloud and are undeveloped compared to hospitals
-* Young clinics that do not have technological capabilities
+* Clinic staff from clinics that lack access to cloud and are undeveloped compared to hospitals
+* Clinic staff from young clinics that do not have technological capabilities
+* Prefer a type-first experience, and can type fast
 
 **Value proposition**:
+* Provide a centralised platform for clinic staff to manage patient records, reducing man hours from managing paper documents
+
 Today, small family clinics often record patient information using paper application forms.
 Such recording of patient information results in the clinic having a messy and inefficient patient record information;
 the family clinic will have to flip through files and documents in order to find the patient. Doc’it aims to provide a
@@ -741,7 +751,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case: UC04 - View the records of a patient**
+**Use case: UC04 - Find a patient**
 
 **MSS**
 

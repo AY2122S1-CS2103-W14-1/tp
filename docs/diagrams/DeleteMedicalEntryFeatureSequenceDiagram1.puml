@@ -38,7 +38,5 @@ destroy PatientBookParser
 
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
-AddressBookParser -[hidden]-> LogicManager
-destroy AddressBookParser
 ref over LogicManager: Execute\nd:DeleteMedicalEntryCommand
 @enduml
