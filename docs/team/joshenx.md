@@ -29,7 +29,7 @@ Given below are my contributions to the project:
 
 - **New Feature**: Integrate `Appointment` and `Prescriptions` into the GUI
   
-  <img src="../images/AppointmentCard.png" width="170" />
+  <img src="../images/AppointmentCard.png" width="470" />
   
     * What it does: display appointment information on the GUI.
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
