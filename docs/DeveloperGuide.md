@@ -908,7 +908,6 @@ testers are expected to do more *exploratory* testing.
        1. Prerequisite: Create an appointment e.g. `apmt add i/1 d/2022-12-31 1200`
        2. Test case: Close and reopen the application <br>
           Expected: Appointments reference the same patients as previous session before it was closed.
-2. _{ more test cases … }_
 
 ### Adding a prescription
 Prerequisites: All test cases below must be independent and fulfills these assumptions:
@@ -927,7 +926,6 @@ All appointments listed using the `apmt list` command. 5 appointments shown in t
    Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
 7. Test case: `apmt pa 6 n/Penicillin v/400 ml d/2 times a week `<br>
    Expected: No new prescription is created. Error message `The appointment index provided is invalid.` is shown.
-8. _{ more test cases … }_
 
 ### Deleting a prescription
 Prerequisites: All test cases below must be independent and fulfills these assumptions:
@@ -939,4 +937,3 @@ First appointment has a single prescription `penicillin | 400ml | 2 times a week
    Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
 3. Test case: `apmt pa 1 n/Panadol`<br>
    Expected: No new prescription is created. Error message `Medicine name not found in prescription list.` is shown.
-4. _{ more test cases … }_
