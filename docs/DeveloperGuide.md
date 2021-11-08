@@ -22,7 +22,7 @@ title: Developer Guide
       - [Add a new Appointment](#add-a-new-appointment)
       - [Load Appointments on App Launch](#load-appointments-on-app-launch)
       - [Save Appointments after every command](#save-appointments-after-every-command)
-      - [Deleting Patient that has made an Appointment](#delete-patient-that-has-made-an-appointment)
+      - [Delete Patient that has made an Appointment](#delete-patient-that-has-made-an-appointment)
     - [Archiving an Appointment](#archiving-an-appointment) 
       - [Auto-Archiving Feature](#auto-archiving-feature)
     - [Recording a Patient's Prescription feature](#recording-a-patients-prescription-feature)
