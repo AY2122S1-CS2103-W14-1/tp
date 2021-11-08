@@ -3,6 +3,8 @@ layout: page
 title: User Guide
 ---
 
+![Doc'it icon](images/DocitHeader.png)
+
 `Doc'it` provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With `Doc'it`, small family clinics can
 reduce man-hours in managing paper files, translating this saved time into better front-line care services.
@@ -92,6 +94,32 @@ understanding of basic functionalities of `Doc'it`, before diving into specific 
     7. Managing appointment prescriptions
         1. Add prescription
         2. Remove prescription
+    
+##Navigating Doc'it
+This section details the various components of Doc'it interface and how you could go about navigating Doc'it.
+
+   ![Navigability](images/Navigability.png)
+
+### Patient View
+![Navigability](images/PatientView.png)
+In this view, you can view all Patients. Each Patient has a name, phone number, address, email and a Medical History. 
+
+All patient-related commands will have change parts of the Patient View.
+
+### Appointment View
+![Navigability](images/AppointmentView.png)
+In this view, you can view all Appointments. Each Appointment has the patient, date and time.
+
+The AppointmentView comprises of two types of Appointments: Upcoming and Archive. Upcoming appointments are scheduled appointments, while Archived appointments are previous appointments that have been archived. You can switch between the two with the `apmt list` and `apmt alist` command. Alternatively, you could also click on the corresponding tab.
+
+### Command Result Status Display
+![Navigability](images/CommandResultStatusDisplay.png)
+In this component, you can view the messages and feedback from Doc'it after every command.
+
+### Command Box
+![Navigability](images/CommandBox.png)
+This is the component where you will input your commands. After inputting your commands, you may click the `Enter` key on your keyboard. Alternatively, you can click the `Send` button displayed here.
+
 
 ## Features
 
