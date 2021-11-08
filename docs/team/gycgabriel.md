@@ -30,7 +30,7 @@ Given below are my contributions to the project.
 * **New Feature**: Implement more restrictive parsers under `ParserUtil`.
   * What it does: Change regexes to be stricter in `Datetime`, `Name`, `Address`, `MedicalHistory`
   * Justification: Prevents users from entering incorrectly formatted information.
-  * Highlights: Required a strong understanding of regex. Prevented fully numerical inputs for `Name`, `Address` and `Medical History` where it does not make sense. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
+  * Highlights: Required a strong understanding of regex. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
 
 * **New Feature**: Add Logging for `parseDateTime` in `ParserUtil`
   * Highlights: Allows easier debugging of test cases and inputs, to know what caused the parsing date and time exception. [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261)
