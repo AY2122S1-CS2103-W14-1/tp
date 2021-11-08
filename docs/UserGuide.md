@@ -309,6 +309,7 @@ Adds an appointment for the patient at the specified index in the Patients panel
 
 - `PATIENT_INDEX`: Index of patient who should have this appointment
 - `DATETIME`: Date and time of appointment in format `yyyy-mm-dd HHmm`
+  - Year must be between 2000 to 2999 inclusive.
 
 **Examples:**
 * `apmt add i/1 d/2021-10-05 1500` adds appointment on 5 Oct 2021 at 3pm to patient at index 1.
@@ -368,6 +369,7 @@ Edits the details of an appointment at the specified index in the Appointments p
 - `APMT_INDEX`: Index of appointment in the Appointments panel
 - `PATIENT_INDEX`: Index of patient who should have this appointment
 - `DATETIME`: Date and time of appointment in format `yyyy-mm-dd HHmm`
+  - Year must be between 2000 to 2999 inclusive.
 - At least one of the optional fields should be present
 
 > :bulb: Use `i/PATIENT_INDEX` to change whose appointment it belongs to. <br>
