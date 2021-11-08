@@ -4,6 +4,7 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
 participant ":DeletePatientCommandParser" as DeletePatientCommandParser LOGIC_COLOR
 participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
@@ -14,21 +15,20 @@ box Model MODEL_COLOR_T1
 participant ":ModelManager" as ModelManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("pt delete 1")
+[-> LogicManager : execute("...")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parsePatientCommand("pt delete 1")
+LogicManager -> AddressBookParser : parsePatientCommand("...")
 activate AddressBookParser
 
-create DeletePatientCommandParser
-AddressBookParser -> DeletePatientCommandParser
-activate DeletePatientCommandParser
+AddressBookParser -> PatientBookParser : parsePatientCommand("...")
+activate PatientBookParser
 
-DeletePatientCommandParser --> AddressBookParser
-deactivate DeletePatientCommandParser
 
-AddressBookParser -> DeletePatientCommandParser : parse("1")
+PatientBookParser -> DeletePatientCommandParser : parsePatientCommand(\n command, args)
 activate DeletePatientCommandParser
+ref over DeletePatientCommandParser: Parse user input
+
 
 create DeletePatientCommand
 DeletePatientCommandParser -> DeletePatientCommand
@@ -37,23 +37,31 @@ activate DeletePatientCommand
 DeletePatientCommand --> DeletePatientCommandParser : d
 deactivate DeletePatientCommand
 
-DeletePatientCommandParser --> AddressBookParser : d
+DeletePatientCommandParser --> PatientBookParser : d
 deactivate DeletePatientCommandParser
-
 DeletePatientCommandParser -[hidden]-> AddressBookParser
 destroy DeletePatientCommandParser
 
+PatientBookParser --> AddressBookParser : d
+deactivate PatientBookParser
+PatientBookParser -[hidden]-> AddressBookParser
+destroy PatientBookParser
+
+
 AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
+AddressBookParser -[hidden]-> LogicManager
+destroy AddressBookParser
 
-LogicManager -> DeletePatientCommand : execute()
+LogicManager -> DeletePatientCommand : execute(model)
 activate DeletePatientCommand
 
-DeletePatientCommand -> ModelManager : deletePatient(patient)
+DeletePatientCommand -> ModelManager : deletePatient
 activate ModelManager
-DeletePatientCommand -> ModelManager : deleteAppointmentsWithPatient(patient)
-ref over ModelManager: Update storage
-
+ModelManager --> DeletePatientCommand
+deactivate ModelManager
+DeletePatientCommand -> ModelManager : deleteAppointmentsWithPatients
+activate ModelManager
 ModelManager --> DeletePatientCommand
 deactivate ModelManager
 
@@ -65,7 +73,7 @@ CommandResult --> DeletePatientCommand : result
 deactivate CommandResult
 
 DeletePatientCommand --> LogicManager : result
-deactivate DeleteCommand
+deactivate DeletePatientCommand
 
 [<--LogicManager
 deactivate LogicManager

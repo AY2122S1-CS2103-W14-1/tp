@@ -1,0 +1,40 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DeletePrescriptionCommand" as DeletePrescriptionCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "appointment:Appointment" as appointment MODEL_COLOR
+participant ":Prescription" as Prescription MODEL_COLOR
+participant "appointmentBook\n:AppointmentBook" as appointmentBook MODEL_COLOR
+end box
+
+[-> DeletePrescriptionCommand : execute()
+
+DeletePrescriptionCommand -> Model : get AppointmentBook
+
+Model --> DeletePrescriptionCommand : AppointmentBook
+
+
+DeletePrescriptionCommand -> Model : deletePrescription()
+Model -> appointment : deletePrescription(medicineName)
+appointment -> Prescription : remove()
+Prescription --> appointment
+destroy Prescription
+appointment --> Model
+Model -> appointmentBook : setAppointment(newAppointment)
+appointmentBook --> Model
+
+Model ---> DeletePrescriptionCommand
+
+create CommandResult
+DeletePrescriptionCommand -> CommandResult
+CommandResult ---> DeletePrescriptionCommand : result
+
+[<--DeletePrescriptionCommand : result
+
+@enduml

@@ -6,11 +6,14 @@ start
 'diamond we place it as the true branch instead.
 
 if () then ([command is valid])
-    :Corresponding prescription
-    is added/removed;
-    :Save prescriptions to
-    appointmentBookList;
+    :Add/remove prescription
+    from Appointment object;
+    :Updates model;
+    :Write to file;
 else ([else])
+    :Show error
+    message to user;
+
 endif
 stop
 @enduml
