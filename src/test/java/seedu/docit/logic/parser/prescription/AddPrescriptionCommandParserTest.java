@@ -10,7 +10,9 @@ import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertPa
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_VOLUME;
-import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.*;
+import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.DURATION_EMPTY_FIELD_ERROR_MESSAGE;
+import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.MEDICINE_EMPTY_FIELD_ERROR_MESSAGE;
+import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.VOLUME_EMPTY_FIELD_ERROR_MESSAGE;
 
 import org.junit.jupiter.api.Test;
 

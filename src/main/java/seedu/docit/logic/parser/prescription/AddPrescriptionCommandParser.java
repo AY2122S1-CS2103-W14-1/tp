@@ -17,9 +17,12 @@ import seedu.docit.logic.parser.exceptions.ParseException;
  */
 public class AddPrescriptionCommandParser implements AppointmentParser<AddPrescriptionCommand> {
     private static final String EMPTY_FIELD_ERROR_MESSAGE = "%1$s fields cannot be blank.";
-    public static final String MEDICINE_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Medicine name");
-    public static final String VOLUME_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Volume");
-    public static final String DURATION_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Duration");
+    public static final String MEDICINE_EMPTY_FIELD_ERROR_MESSAGE =
+            String.format(EMPTY_FIELD_ERROR_MESSAGE, "Medicine name");
+    public static final String VOLUME_EMPTY_FIELD_ERROR_MESSAGE =
+            String.format(EMPTY_FIELD_ERROR_MESSAGE, "Volume");
+    public static final String DURATION_EMPTY_FIELD_ERROR_MESSAGE =
+            String.format(EMPTY_FIELD_ERROR_MESSAGE, "Duration");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPrescriptionCommand and returns an
