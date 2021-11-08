@@ -31,9 +31,9 @@ Given below are my contributions to the project.
   * Highlights: Required a strong understanding of regex. Added logging for `Datetime` parsing. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
   
 * **New Feature**: Change command result box to wrap text
-  * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places. [\@236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236)
+  * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places. [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236)
 
-* **New Feature**: Wrote tests for `Appointment`-related classes to increase coverage by 4% in total [\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286)
+* **New Feature**: Wrote tests for `Appointment`-related classes to increase coverage by 4% in total ([\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286))
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=gycgabriel)
 
@@ -54,7 +54,6 @@ Given below are my contributions to the project.
   * Developer Guide:
     * Added implementation details of the `Appointments with valid Patient` feature.
       - [Appointment composed of a Valid Patient when added, loaded and stored](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
-        - [Appointment composed of a Valid Patient when added, loaded and stored](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
         - [How Appointment is implemented](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#how-appointment-is-implemented)
         - [Add a new Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#add-a-new-appointment)
         - [Load Appointments on App Launch](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#load-appointments-on-app-launch)

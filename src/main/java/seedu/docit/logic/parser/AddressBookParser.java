@@ -23,7 +23,7 @@ public class AddressBookParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(doc) (?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern PTNT_COMMAND_FORMAT = Pattern.compile("(pt) (?<commandWord>\\S+)(?<arguments>.*)");
     private static final Pattern APPT_COMMAND_FORMAT = Pattern.compile("(apmt) (?<commandWord>\\S+)(?<arguments>.*)");
-    private static final Pattern VALID_INPUT_FORMAT = Pattern.compile("^[a-z-A-Z0-9/,.#@\\s]*$");
+    private static final Pattern VALID_INPUT_FORMAT = Pattern.compile("^[a-z-A-Z0-9/,.\\-#@+_\\s]*$");
 
     private final PatientBookParser patientParser = new PatientBookParser();
     private final AppointmentBookParser apmtParser = new AppointmentBookParser();

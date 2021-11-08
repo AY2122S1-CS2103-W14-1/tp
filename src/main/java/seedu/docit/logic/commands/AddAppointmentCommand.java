@@ -29,7 +29,7 @@ public class AddAppointmentCommand extends AppointmentCommand {
 
     public static final String MESSAGE_SUCCESS = "New appointment added: \n%1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT =
-        "This appointment already exists in the appointment book";
+        "This appointment already exists in the appointment book/archives";
 
     private final Index targetPatientIndex;
     private final LocalDateTime datetime;

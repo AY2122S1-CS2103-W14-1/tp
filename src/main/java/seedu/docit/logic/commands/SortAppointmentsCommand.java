@@ -20,7 +20,7 @@ public class SortAppointmentsCommand extends AppointmentCommand {
             + "Parameters: [parameter to sort by..]\n" + "Example: apmt " + COMMAND_WORD + ""; // TODO
 
     public static final String MESSAGE_SORT_APPOINTMENT_SUCCESS = "Sorted Appointments based on "
-            + "default settings.";
+            + "today > ascending date > ascending name.";
 
     public SortAppointmentsCommand() {
 

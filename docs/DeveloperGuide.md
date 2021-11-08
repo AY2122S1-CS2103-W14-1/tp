@@ -842,7 +842,47 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC09 - Add a Medical Entry to Patient**
+**Use case: UC09 - Add a prescription**
+
+**MSS**
+
+1. User requests to list appointments.
+2. `Doc'it` displays all appointments.
+3. User adds a prescription, matching the prescription to the specific appointment by index.
+4. Doc'it adds the prescription and associates it to the appointment.
+
+   Use case ends.
+
+**Extensions**
+
+3a. The index of the appointment is invalid.
+* 3a1. Doc'it shows an error message.
+  Use case resumes at step 3.
+* 3b. The input field of medicine name, volume or duration is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+
+**Use case: UC010 - Delete a prescription**
+
+**MSS**
+
+1. User requests to list appointments.
+2. `Doc'it` displays all appointments.
+3. User deletes a prescription, matching the prescription to the specific appointment by index and medicine name.
+4. Doc'it deletes the prescription
+
+
+
+**Extensions**
+* 3a. The index of the appointment is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+* 3b. The input field of medicine name is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+
+
+**Use case: UC11 - Add a Medical Entry to Patient**
 
 **MSS**
 
@@ -852,15 +892,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-
+**Extension**
 * 2a. The given index is invalid.
-
     * 2a1. `Doc'it` shows an error message.
-
       Use case resumes at step 1.
 
-**Use case: UC10 - Delete a Medical Entry from a Patient**
+**Use case: UC12 - Delete a Medical Entry from a Patient**
 
 **MSS**
 
@@ -890,7 +927,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case: UC11 - Find patient**
+
+**Use case: UC13 - Find patient**
 
 **MSS**
 
@@ -899,8 +937,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. `Doc'it` lists a filtered list of patients that satisfy the keywords given by the user.
 
    Use case ends.
-    
-**Use case: UC12 - Exit program**
+
+
+**Use case: UC14 - Exit program**
 
 **MSS**
 
