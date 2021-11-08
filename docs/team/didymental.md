@@ -33,11 +33,13 @@ Given below are my contributions to the project:
   * Wrote additional tests for existing features and new features, specifically add medical entry, delete medical entry
 - **Project management**:
   * Managed releases `v1.1` - `v1.4` (4 releases) on Github
+  * Coordinated forking workflow
+  * Coordinated weekly tasks and delegated to individual members
 - **Coordinating and Maintaining Issue Tracker**:
   * Coordinated sprint issues by dividing tasks and assigning tasks to group members (examples: [\#54](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/54), [\#55](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/55), [\#56](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/56), [\#57](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/57), [\#67](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/67), [\#75](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/75), [\#76](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/76), [\#77](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/77), [\#78](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/78), [\#79](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/79), [\#80](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/80), [\#81](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/81), [\#102](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/102), [\#108](https://github.com/AY2122S1-CS2103-W14-1/tp/issues/108), and [more](https://github.com/AY2122S1-CS2103-W14-1/tp/issues?q=is%3Aissue+author%3Adidymental+is%3Aclosed))
 - **Documentation**:
   * User Guide:
-    * Added documentation for `MedicalHistory` and all `MedicalHistory` related features expected outcomes [\#179](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/179), [\#240](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/240)
+    * Added documentation for the section on `MedicalHistory` and all `MedicalHistory` related features expected outcomes [\#179](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/179), [\#240](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/240)
     * Fix formatting of User Guide [\#255](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/255)
   * Developer Guide:
     * Added implementation details of the `MedicalHistory` class, `Add Medical Entry` feature, `Delete Medical Entry` feature. [\#282](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/282)
