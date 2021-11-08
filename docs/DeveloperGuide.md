@@ -19,13 +19,12 @@ title: Developer Guide
         - [Delete Medical Entry feature](#delete-medical-entry-feature)
     - [Appointment composed of a Valid Patient when added, loaded and stored](#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
       - [How Appointment is implemented](#how-appointment-is-implemented)
-      - [Loading Appointments](#loading-appointments)
-      - [Adding Appointments](#adding-appointments)
-      - [Deleting Patient that has made an Appointment](#deleting-patient-that-has-made-an-appointment)
-      - [Saving Appointments](#saving-appointments)
-      - [Design considerations](#design-considerations)
-      - [Archiving an Appointment](#archiving-an-appointment) 
-        - [Auto-Archiving Feature](#auto-archiving-feature)
+      - [Add a new Appointment](#add-a-new-appointment)
+      - [Load Appointments on App Launch](#load-appointments-on-app-launch)
+      - [Save Appointments after every command](#save-appointments-after-every-command)
+      - [Deleting Patient that has made an Appointment](#delete-patient-that-has-made-an-appointment)
+    - [Archiving an Appointment](#archiving-an-appointment) 
+      - [Auto-Archiving Feature](#auto-archiving-feature)
     - [Recording a Patient's Prescription feature](#recording-a-patients-prescription-feature)
         - [How Prescription is implemented](#how-prescription-is-implemented)
         - [Reason for implementation of Prescription](#reason-for-implementation-of-prescription)
@@ -99,7 +98,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.)
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -389,9 +388,9 @@ Each `Appointment` in memory contains a reference to a valid `Patient` object. T
 
 Major changes involved to implement this feature:
 * Add a new appointment
-* Load an appointment on app launch
-* Save an appointment after every command
-* Delete a patient that has appointments
+* Load appointments on app launch
+* Save appointments after every command
+* Delete a patient that has made an appointment
 
 #### Add a new Appointment
 
@@ -457,7 +456,7 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 | Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. | - | Changing the order of appointments and patients in saved JSON file will not change affect loading of data. | <ui><li>Requires more code to implement a unique hash or UUID and find the corresponding Patient and Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.</li><li> Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.</li></ui> |
 
 
-#### Delete Patient that has made an Appointment feature
+#### Delete Patient that has made an Appointment
 
 **Overview**
 
@@ -477,7 +476,7 @@ The user executes `pt delete 1` to delete the first patient in the address book.
 | Design Choice | Justification | Pros | Cons |
 | ---------- | ------------------------ | ------------------------ | ------------------------ |
 | **Delete all appointments that the patient has (current choice)** | `Appointments` is a class that is instantiated with a `Patient` object. When that corresponding `Patient` object is deleted, the `Patient`s appointment objects should be deleted as well so there will be no reference to deleted `Patient` objects. | <ui><li>Ensures `Patient` object is deleted completely from the system, and no objects holds references to deleted `Patient` objects.</li> <li>No `Appointment` objects will reference an invalid `Patient` object.</li></ui>| <ui><li>Accidental deleting of a `Patient` will delete all corresponding `Appointments` which may cause extra hassle to enter in all the `Appointment` details again.</li><li>No past appointment data of deleted `Patients` can be kept because their `Appointment` objects are deleted to garbage collect and truly delete `Patient` objects.</li></ui> |
-| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require correponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
+| **Delete patient without deleting the patient's appointments** | - | Past appointment data of `Patient` object can be kept as archives in the system. `Patient` object is not truly deleted and can be restored if needed. | <ui><li>Requires more code to implement an indicator if `Patient` of an `Appointment` has been deleted to safeguard against Upcoming `Appointments` made for deleted `Patients`. </li><li> Deleted `Patient` object will need to be saved and loaded from JSON which would require corresponding storage classes such as `DeletedPatientBook` to be created. </li></ui> |
 
 
 
