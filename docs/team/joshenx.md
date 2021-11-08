@@ -3,13 +3,16 @@ layout: page
 title: Joshen's Project Portfolio Page
 ---
 
-### Project: Doc'it
+## Project: Doc'it
 
 Doc’it provides a centralised platform for authorised staff from small family clinics to view, update, and onboard
 patient records, solving the inefficient paper records and files used today. With Doc’it, small family clinics can
 reduce man-hours in managing paper files, translating this ‘saved’ time into better frontline care services
 Doc'IT is a desktop address book application. The user interacts with it using a CLI, and it has a GUI created
 with JavaFX. It is written in Java, and has about 10 kLoC.
+
+
+## Summary of Contributions
 
 Given below are my contributions to the project:
 
@@ -28,7 +31,9 @@ Given below are my contributions to the project:
   ![AppointmentCard](../images/AppointmentCard.png)
     * What it does: display appointment information on the GUI.
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
-    * Highlights:  A "TODAY" tag is also displayed on appointment cards with appointments scheduled today.
+    * Highlights:  A "TODAY" tag is displayed on appointment cards with appointments scheduled today. Integration of appointments on the GUI was
+      challenging as many considerations had to be made with regards to how appointments should be handled when patients
+      were removed from the system. 
     * Relevant PRs: [\#152](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/152), [\#91](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/91)
 
 
@@ -87,7 +92,7 @@ Given below are my contributions to the project:
     * Developer Guide:
         * Added documentation for the UI.
         * Updated PUML diagrams for UI and Storage classes. [\#96](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/96)
-        * Added implementation details of the Auto-Archive feature. [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#180](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/180)
+        * Added implementation details and PUML diagrams for the Auto-Archive feature and Archive Command. [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#180](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/180), [\#296](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/296)
 
 
 - **Community**:
@@ -96,3 +101,70 @@ Given below are my contributions to the project:
 
 - **Debugging**:
     * Bugs fixed: [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97), [\#114](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/114), [\#130](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/130), [\#167](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/167), [\#173](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/173), [\#229](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/229), [\#230](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/230), [\#238](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/238), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262)
+
+## Contributions to the Developer Guide:
+
+### Archiving an Appointment
+
+**Overview**
+
+A user is able to archive an appointment when the appointment is _expired_, i.e. the patient has either missed his/her appointment
+or already attended the scheduled appointment. In this case, the appointment should be archived, so that clinic staff
+are able to view what medicine was prescribed to the patient during previous appointments.
+
+**Implementation Details**
+
+![Sequence diagram of Archive Command](../diagrams/ArchiveCommandSequenceDiagram.png)
+
+
+Users may archive specific appointments manually to remove visual clutter. This is done through the `ArchiveAppointmentCommand`.
+
+The above sequence diagram displays how the archive command works. The parsing mechanism has been abstracted out from the above diagram as it
+has been covered in previous diagrams. An example input can be viewed in our [User guide](UserGuide.md). It first retrieves the Appointment to archive from the
+appointment index parsed through the user input, removes the appointment from upcoming appointments, and adds it to archived appointments.
+
+Archiving is facilitated by the `ArchivedAppointmentBook`. As opposed to the regular `AppointmentBook`, it does not allow
+users to directly modify the data of appointments as archived data should not be edited. Hence, the following operations
+have the `private` access modifier:
+
+- `ArchivedAppointmentBook#setAppointment(Appointment target, Appointment editedAppointment)` - edits the `target` Appointment
+  to be replaced with `editedAppointment`.
+- `ArchivedAppointmentBook#removeAppointment(Appointment key)` - removes the target Appointment `key`.
+
+The reason these methods exist in the class is so to support the methods `ArchivedAppointmentBook#updatePatient(Patient target, Patient editedPatient)`
+and `ArchivedAppointmentBook#removePatient(Patient target)`, which are called to accurately reflect any updates/removals of patient
+details.
+
+![Class diagram of Archive Storage](../diagrams/ArchivedStorageClassDiagram.png)
+
+In the `Storage` component, the addition of `ArchivedAppointmentBook` also necessitates the implementation of a separate storage system
+for archived appointments. This forms under `ArchivedAppointmentBookStorage`, alongside `AddressBookStorage` and `AppointmentBookStorage`.
+The .json file for archived appointments is named 'archivedappointmentbook.json'.
+
+**Design Considerations**
+
+| Alternative Considered | Current implementation | Rationale for current implementation |
+| ---------- | ------------------------ | ------------------------ |
+| Implementing archived appointments as a second `UniqueAppointmentList` attribute under the `AppointmentBook` class | Have a separate class `ArchivedAppointmentBook` | Having a separate class `ArchivedAppointmentBook` separates the two types of appointments better to facilitate data management. It ties in better with our Storage framework, and archivedappointmentbook.json files can be easily used by the user, instead of having to split one appointmentbook.json files into two segments. |
+
+
+#### Auto-Archiving Feature
+
+The archiving implementation involves scanning through all appointments in a day and comparing it to
+the current date and time of the user system. If the current date and time is 24 hours ahead of the scheduled
+appointment time (24-hour buffer), i.e. by our definition, _expired_, the appointment is automatically archived. This auto-archiving implementation is handled
+by the `ModelManager` class in two ways.
+
+![Sequence diagram of Auto-Archive Feature](../diagrams/AutoArchiveSequenceDiagram.png)
+
+1. Upon initialisation of the application, the application automatically archives expired appointments (24-hours past their
+   scheduled time). This is called through `ModelManager#archivePastAppointments()`.
+
+
+2. A `ScheduledExecutorService` object schedules the task `AutoArchiveApmts` which implements the `Runnable` interface.
+   Every day at the `ModelManager.UPDATE_HOUR`th hour, the `Runnable` object executes the `ModelManager#archivePastAppointments()`
+   method.
+
+
+In the case where there are many scheduled appointments, this saves the user trouble of archiving past appointments when
+they are already over.
