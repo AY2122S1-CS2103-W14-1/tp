@@ -19,10 +19,11 @@ public class MedicalHistory {
         + "should not be numerical only, "
         + "and should not be blank";
     public static final String VALIDATION_REGEX = "[\\p{Alnum} \\-,]*";
+    public static final int MAX_SIZE = 8;
+    public static final int MAX_CHAR_LIMIT = 50;
 
     private EntryList<Entry<MedicalEntry>> entryList = new EntryList<>();
-    public static int MAX_SIZE = 8;
-    public static int MAX_CHAR_LIMIT = 50;
+
 
 
     /**
@@ -140,7 +141,7 @@ public class MedicalHistory {
      * Appends medical entries of another {@code MedicalHistory} object to this {@code MedicalHistory} object.
      * @param mh {@code MedicalHistory} object that is to be added to
      */
-    public MedicalHistory append(MedicalHistory mh) throws TooManyMedicalEntriesException  {
+    public MedicalHistory append(MedicalHistory mh) throws TooManyMedicalEntriesException {
         if (this.isEmpty()) { // if no record was stored
             return mh;
         }

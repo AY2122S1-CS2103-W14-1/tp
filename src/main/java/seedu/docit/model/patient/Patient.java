@@ -5,8 +5,6 @@ import static seedu.docit.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.docit.commons.core.index.Index;
-import seedu.docit.model.patient.exceptions.ExceedCharacterLimit;
-import seedu.docit.model.patient.exceptions.TooManyMedicalEntriesException;
 
 /**
  * Represents a Patient in the address book.
