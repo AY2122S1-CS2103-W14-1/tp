@@ -536,3 +536,5 @@ from John Doe's appointment.
 | Patient Record      | A record of a patient's name, phone number, address, email and medical history.                                                 |
 | Prescription        | The issued medication/treatment for a patient along with a duration and volume.                                                           |
 | Expired Appointment | An appointment that is 24-hours past its scheduled time.                                                                                  |
+| Medical History     | A list of past medical conditions faced by a patient. Each medical condition is stored as a Medical Entry.                                |
+| Medical Entry       | Description of the past medical condition of a patient, with a date of record when the entry was recorded.                                 |
