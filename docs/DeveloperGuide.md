@@ -818,7 +818,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC08 - Exit program**
+**Use case: UC09 - Add a prescription**
+
+**MSS**
+
+1. User requests to list appointments.
+2. `Doc'it` displays all appointments.
+3. User adds a prescription, matching the prescription to the specific appointment by index.
+4. Doc'it adds the prescription and associates it to the appointment.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The index of the appointment is invalid. 
+  * 3a1. Doc'it shows an error message. 
+    Use case resumes at step 3.
+* 3b. The input field of medicine name, volume or duration is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+
+**Use case: UC010 - Delete a prescription**
+
+**MSS**
+
+1. User requests to list appointments.
+2. `Doc'it` displays all appointments.
+3. User deletes a prescription, matching the prescription to the specific appointment by index and medicine name.
+4. Doc'it deletes the prescription
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. The index of the appointment is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+* 3b. The input field of medicine name is invalid.
+    * 3a1. Doc'it shows an error message.
+      Use case resumes at step 3.
+
+
+**Use case: UC011 - Exit program**
 
 **MSS**
 

@@ -33,7 +33,6 @@ Given below are my contributions to the project.
         * Wrote target user profile, value proposition and user stories. [\#37](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/37)
         * Created Plant-UML diagrams for `prescription` class. [\#181](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181), [\#306](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/306)
         * Added implementation details of the `prescription` feature. [\#181](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/181), [\#306](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/306)
-
 * **Community**:
     * PRs reviewed (with non-trivial review comments): [\#44](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/44), [\#282](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/282)
     * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/174), [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/195), [3](https://github.com/nus-cs2103-AY2122S1/forum/issues/325))
