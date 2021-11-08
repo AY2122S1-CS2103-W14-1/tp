@@ -16,7 +16,10 @@ import seedu.docit.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new AddPrescriptionCommand object
  */
 public class AddPrescriptionCommandParser implements AppointmentParser<AddPrescriptionCommand> {
-    public static final String EMPTY_FIELD_ERROR_MESSAGE = "Medicine/Duration/Volume fields cannot be blank.";
+    private static final String EMPTY_FIELD_ERROR_MESSAGE = "%1$s fields cannot be blank.";
+    public static final String MEDICINE_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Medicine name");
+    public static final String VOLUME_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Volume");
+    public static final String DURATION_EMPTY_FIELD_ERROR_MESSAGE = String.format(EMPTY_FIELD_ERROR_MESSAGE, "Duration");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddPrescriptionCommand and returns an
@@ -41,9 +44,16 @@ public class AddPrescriptionCommandParser implements AppointmentParser<AddPrescr
         String duration = argMultimap.getValue(CliSyntax.PREFIX_DURATION).get();
         String volume = argMultimap.getValue(CliSyntax.PREFIX_VOLUME).get();
 
-        if (medicineName.isBlank() || duration.isBlank() || volume.isBlank()) {
-            throw new ParseException(EMPTY_FIELD_ERROR_MESSAGE);
+        if (medicineName.isBlank()) {
+            throw new ParseException(MEDICINE_EMPTY_FIELD_ERROR_MESSAGE);
         }
+        if (volume.isBlank()) {
+            throw new ParseException(VOLUME_EMPTY_FIELD_ERROR_MESSAGE);
+        }
+        if (duration.isBlank()) {
+            throw new ParseException(DURATION_EMPTY_FIELD_ERROR_MESSAGE);
+        }
+
         return new AddPrescriptionCommand(appointmentIndex, medicineName, volume, duration);
     }
 }

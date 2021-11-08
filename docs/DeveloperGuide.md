@@ -838,8 +838,39 @@ testers are expected to do more *exploratory* testing.
 2. _{ more test cases … }_
 
 ### Saving data
-
+ 
 1. Dealing with missing/corrupted data files
 
     1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
 2. _{ more test cases … }_
+
+### Adding a prescription
+Prerequisites: All test cases below must be independent and fulfills these assumptions:
+All appointments listed using the `apmt list` command. 5 appointments shown in the list. All appointments have no prescriptions.
+1. Test case: `apmt pa 1 n/Penicillin v/400 ml d/2 times a week`<br>
+   Expected: First appointment now contains a prescription label `penicillin | 400ml | 2 times a week`.
+2. Test case: enter `apmt pa 1 n/Penicillin v/400 ml d/2 times a week` twice <br>
+   Expected: No new prescription is created. Error message `Operation would result in duplicate prescriptions` is shown.
+3. Test case: `apmt pa 1 n/PenicillinPenicillinPenicillin v/400 ml d/2 times a week`<br>
+   Expected: No new prescription is created. Error message `Medicine name can only be 20 characters long.` is shown.
+4. Test case: `apmt pa 1 n/Penicillin v/400000000000000000000 ml d/2 times a week`<br>
+   Expected: No new prescription is created. Error message `Volume can only be 20 characters long.` is shown.
+5. Test case: `apmt pa 1 n/Penicillin v/400 ml d/99999999999999999999999999999999 times a week `<br>
+   Expected: No new prescription is created. Error message `Duration can only be 40 characters long.` is shown.
+6. Test case: `apmt pa 0 n/Penicillin v/400 ml d/2 times a week `<br>
+   Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
+7. Test case: `apmt pa 6 n/Penicillin v/400 ml d/2 times a week `<br>
+   Expected: No new prescription is created. Error message `The appointment index provided is invalid.` is shown.
+8. _{ more test cases … }_
+9. 
+### Deleting a prescription
+Prerequisites: All test cases below must be independent and fulfills these assumptions:
+All appointments listed using the `apmt list` command. Multiple appointments shown in the list. 
+First appointment has a single prescription `penicillin | 400ml | 2 times a week`. All other appointments have no prescriptions.
+1. Test case: `apmt pd 1 n/Penicillin`<br>
+   Expected: First appointment now do not contain any prescriptions.
+2. Test case: enter `apmt pa 0 n/Penicillin` twice <br>
+   Expected: No new prescription is created. Error message `Index is not a non-zero unsigned integer.` is shown.
+3. Test case: `apmt pa 1 n/Panadol`<br>
+   Expected: No new prescription is created. Error message `Medicine name not found in prescription list.` is shown.
+4. _{ more test cases … }_

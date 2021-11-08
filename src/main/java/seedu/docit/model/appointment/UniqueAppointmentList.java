@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.docit.model.appointment.exceptions.AppointmentNotFoundException;
 import seedu.docit.model.appointment.exceptions.DuplicateAppointmentException;
 import seedu.docit.model.prescription.Prescription;
+import seedu.docit.model.prescription.exceptions.DuplicatePrescriptionException;
 
 /**
  * A list of appointments that enforces uniqueness between its elements and does not allow nulls. An appointment is
@@ -107,7 +108,7 @@ public class UniqueAppointmentList implements Iterable<Appointment> {
     /**
      * Adds a prescription to the indexed appointment in the list.
      */
-    public void addPrescription(int index, Prescription p) {
+    public void addPrescription(int index, Prescription p) throws DuplicatePrescriptionException {
         internalList.get(index).addPrescription(p);
     }
 

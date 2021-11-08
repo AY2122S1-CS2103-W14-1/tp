@@ -3,8 +3,10 @@ package seedu.docit.logic.commands.prescriptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.docit.commons.core.Messages.MESSAGE_INVALID_APPOINTMENT_DISPLAYED_INDEX;
-import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.INPUT_TOO_LONG_ERROR_MESSAGE;
+import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.DURATION_LENGTH_WARNING;
+import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MEDICINE_LENGTH_WARNING;
 import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.MESSAGE_SUCCESS;
+import static seedu.docit.logic.commands.prescription.AddPrescriptionCommand.VOLUME_LENGTH_WARNING;
 import static seedu.docit.testutil.Assert.assertThrows;
 import static seedu.docit.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static seedu.docit.testutil.TypicalPatients.getTypicalAddressBook;
@@ -69,7 +71,7 @@ public class AddPrescriptionCommandTest {
 
         defaultAppointment.addPrescription(validPrescription);
 
-        assertThrows(DuplicatePrescriptionException.class, () ->
+        assertThrows(CommandException.class, new DuplicatePrescriptionException().getMessage(), () ->
                 addPrescriptionCommand.execute(model));
 
     }
@@ -92,7 +94,7 @@ public class AddPrescriptionCommandTest {
         AddPrescriptionCommand invalidAddPrescriptionCommand =
                 new AddPrescriptionCommand(Index.fromOneBased(1), longMedicineName, defaultVolume, defaultDuration);
 
-        assertThrows(CommandException.class, INPUT_TOO_LONG_ERROR_MESSAGE, () ->
+        assertThrows(CommandException.class, MEDICINE_LENGTH_WARNING, () ->
                 invalidAddPrescriptionCommand.execute(model));
 
     }
@@ -103,7 +105,7 @@ public class AddPrescriptionCommandTest {
         AddPrescriptionCommand invalidAddPrescriptionCommand =
                 new AddPrescriptionCommand(Index.fromOneBased(3), defaultMedicine, longVolumeInput, defaultDuration);
 
-        assertThrows(CommandException.class, INPUT_TOO_LONG_ERROR_MESSAGE, () ->
+        assertThrows(CommandException.class, VOLUME_LENGTH_WARNING, () ->
                 invalidAddPrescriptionCommand.execute(model));
 
     }
@@ -114,7 +116,7 @@ public class AddPrescriptionCommandTest {
         AddPrescriptionCommand invalidAddPrescriptionCommand =
                 new AddPrescriptionCommand(Index.fromOneBased(1), defaultMedicine, defaultVolume, longDurationInput);
 
-        assertThrows(CommandException.class, INPUT_TOO_LONG_ERROR_MESSAGE, () ->
+        assertThrows(CommandException.class, DURATION_LENGTH_WARNING, () ->
                 invalidAddPrescriptionCommand.execute(model));
 
     }

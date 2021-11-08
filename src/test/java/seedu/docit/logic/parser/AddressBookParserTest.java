@@ -115,18 +115,6 @@ public class AddressBookParserTest {
     }
 
     @Test
-    @Disabled("Not yet implemented")
-    public void parseCommand_editAppointment() throws Exception {
-        //TODO implement editAppointment test
-    }
-
-    @Test
-    @Disabled("Not yet implemented")
-    public void parseCommand_findAppointment() throws Exception {
-        //TODO implement findAppointment test
-    }
-
-    @Test
     public void parseCommand_listAppointments() throws Exception {
         assertTrue(parser.parseCommand(APPT_PREFIX + ListAppointmentsCommand.COMMAND_WORD)
                 instanceof ListAppointmentsCommand);

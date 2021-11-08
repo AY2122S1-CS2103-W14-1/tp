@@ -10,7 +10,7 @@ import static seedu.docit.logic.parser.AppointmentCommandParserTestUtil.assertPa
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_DURATION;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.docit.logic.parser.CliSyntax.PREFIX_VOLUME;
-import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.EMPTY_FIELD_ERROR_MESSAGE;
+import static seedu.docit.logic.parser.prescription.AddPrescriptionCommandParser.*;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,12 +61,39 @@ public class AddPrescriptionCommandParserTest {
     }
 
     @Test
-    public void parseAppointmentCommand_blankEntry_failure() throws ParseException {
+    public void parseAppointmentCommand_blankAllEntry_failure() throws ParseException {
         assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
                         + PREFIX_NAME + " "
                         + PREFIX_VOLUME + " "
                         + PREFIX_DURATION,
-                EMPTY_FIELD_ERROR_MESSAGE);
+                MEDICINE_EMPTY_FIELD_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void parseAppointmentCommand_blankMedicineEntry_failure() throws ParseException {
+        assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
+                        + PREFIX_NAME + " "
+                        + PREFIX_VOLUME + VALID_PRESCRIPTION_VOLUME + " "
+                        + PREFIX_DURATION + VALID_PRESCRIPTION_DURATION,
+                MEDICINE_EMPTY_FIELD_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void parseAppointmentCommand_blankVolumeEntry_failure() throws ParseException {
+        assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
+                        + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE + " "
+                        + PREFIX_VOLUME + " "
+                        + PREFIX_DURATION + VALID_PRESCRIPTION_DURATION,
+                VOLUME_EMPTY_FIELD_ERROR_MESSAGE);
+    }
+
+    @Test
+    public void parseAppointmentCommand_blankDurationEntry_failure() throws ParseException {
+        assertParseFailure(parser, VALID_APPOINTMENT_INDEX + " "
+                        + PREFIX_NAME + VALID_PRESCRIPTION_MEDICINE + " "
+                        + PREFIX_VOLUME + VALID_PRESCRIPTION_VOLUME + " "
+                        + PREFIX_DURATION,
+                DURATION_EMPTY_FIELD_ERROR_MESSAGE);
     }
 
 }

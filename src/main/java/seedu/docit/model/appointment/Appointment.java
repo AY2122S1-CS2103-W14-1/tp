@@ -72,7 +72,7 @@ public class Appointment implements Comparable<Appointment> {
      * @param prescription prescription to be added.
      * @throws DuplicatePrescriptionException if prescription already exists.
      */
-    public void addPrescription(Prescription prescription) throws DuplicatePrescriptionException {
+    public void addPrescription(Prescription prescription) {
         for (Prescription p : prescriptions) {
             if (p.getMedicine().equals(prescription.getMedicine())) {
                 throw new DuplicatePrescriptionException();
@@ -106,7 +106,10 @@ public class Appointment implements Comparable<Appointment> {
      */
     public void editPrescription(Prescription prescription) throws MedicineNotFoundException {
         deletePrescription(prescription.getMedicine());
-        addPrescription(prescription);
+        this.prescriptions.add(prescription);
+        Set<Prescription> p = new HashSet<>();
+        p.addAll(prescriptions);
+        this.prescriptions = p;
     }
 
     public String getFormattedDatetimeString() {
