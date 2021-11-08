@@ -19,16 +19,13 @@ Given below are my contributions to the project:
     * What it does: stores details of archived appointments, but prevents internal modification of data.
     * Justification: This feature allows the user to archive and view archived appointments, to look at previous patient
       prescriptions and past appointments.
-    * Highlights: The implementation requires careful consideration of what data should or should not be accessible.
-      Careful restriction of access must thus be implemented to prevent misuse and inappropriate
-      modification of archived data.
+    * Highlights: The implementation requires careful restriction of access for the new classes
+      to prevent misuse and inappropriate modification of archived data.
     * Credits: Implementation details of `AppointmentBook` by teammate Gabriel Goh
     * Relevant PR: [\#69](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/69)
 
+
 - **New Feature**: Integrate `Appointment` and `Prescriptions` into the GUI
-  
-  <img src="../images/AppointmentCard.png" width="470" />
-  
     * What it does: display appointment information on the GUI.
     * Justification: This feature extends the functionality of the CLI application as a user can immediately view upcoming appointments at a glance.
     * Highlights:  A "TODAY" tag is displayed on appointment cards with appointments scheduled today. Integration of appointments on the GUI was
@@ -37,18 +34,10 @@ Given below are my contributions to the project:
     * Relevant PRs: [\#152](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/152), [\#91](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/91)
 
 
-- **New Feature**: Revamped the GUI's appearance and layout
-    * What it does: allows the user to view the list of Patients and swap between Upcoming and Archived appointment tabs.
-    * Justification: This significantly reduces visual clutter, since users should ideally view a list of Patients and Appointments at any one time.
-    * Highlights: This front-end enhancement is extensive and features a complete CSS overhaul. The light-mode, neumorphism-esque aesthetic of the app showcases modern UI trends, and embodies the clean, professional work setting of a family clinic.
-      List commands also swap between the two tabs, showcasing further integration of Logic and UI.
-    * Relevant PR: [\#121](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/121)
-
-
 - **New Feature**: Auto-Archive feature
     * What it does: auto-archives expired (24-hour past) appointments.
-    * Justification: This feature improves the archiving process significantly because in the case where the clinic is large and there are many scheduled appointments,
-      this saves the user trouble of archiving past appointments when
+    * Justification: This feature improves the archiving process significantly because 
+      this saves the user trouble of archiving many (e.g. >20) past appointments when
       they are already over.
     * Highlights: This feature uses a thread pool to schedule the archive command at a specific timing each day. It was challenging to implement testcases due to the time-sensitive nature
       of the feature.
@@ -58,8 +47,7 @@ Given below are my contributions to the project:
 
 - **New Feature**: Sort Appointments feature
     * What it does: sorts appointments in order of whether its today, followed by dateTime, and patient name.
-    * Justification: This feature significantly improves the visual display of the appointment list by displaying the most urgent appointments
-      first. The user can hence view the most urgent appointments first, and assign prescriptions to the most important
+    * Justification: This feature allows the user to view the most urgent appointments first, and assign prescriptions to the most important
       appointments (those happening today).
     * Highlights: This feature required use of the Comparable interface for the `Patient` and `Appointment` classes, and
       checks with the current system time to verify if an appointment is deemed 'expired'.
@@ -74,8 +62,7 @@ Given below are my contributions to the project:
 
 
 - **Enhancements to existing features**:
-    * Add a "TODAY" indicator on appointments
-    * Updated the GUI color scheme
+    * Completely revamped the GUI with modern UI trends [\#121](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/121)
     * Wrote additional tests for existing features
     * Handled most of the UI changes, UI testing, and UI debugging
 
