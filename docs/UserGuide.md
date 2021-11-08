@@ -171,6 +171,8 @@ Shows the user manual for `Doc'it` explaining how to access the help page.
 
 Format: `doc help`
 
+![DocHelp](images/DocHelp.png)
+
 ---
 
 ### Exit the program: `doc exit`
@@ -205,6 +207,9 @@ New patient added:
 Joshen Lim; Phone: 99988888; Email: joshen@gmail.com; Address: 123 Clementi Road SG293821
 ```
 
+![PtAdd](images/PtAdd.png)
+
+
 ---
 
 ### List all patients: `pt list`
@@ -212,6 +217,13 @@ Joshen Lim; Phone: 99988888; Email: joshen@gmail.com; Address: 123 Clementi Road
 Shows a list of all patients in the record system.
 
 Format: `pt list`
+
+**Expected Outcome:**
+```
+Listed all patients
+```
+
+![PtList](images/PtList.png)
 
 ---
 
@@ -231,6 +243,9 @@ Edits the details of a specified patient.
 Edited Patient:
 Joshen Tan; Phone: 12345678; Email: google@gmail.com; Address: 311 clementi SG540192; Medical History: Heartache, recorded 31 Oct 2021
 ```
+
+![PtAdd](images/PtEdit.png)
+
 ---
 
 ### Delete a patient: `pt delete`
@@ -273,9 +288,12 @@ pt ma 1 m/diabetes
 
 **Expected Outcome:**
 ```
-Updated:
-Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Medical History: diabetes, recorded 28 Oct 2021, high blood pressure, recorded 28 Oct 2021, diabetes, recorded 28 Oct 2021
+Updated: 
+Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Address: Blk 11 Ang Mo Kio Street 74, #11-04; Medical History: diabetes, recorded 8 Nov 2021
 ```
+
+![PtAdd](images/PtMa.png)
+
 
 ---
 
@@ -292,10 +310,9 @@ Deletes a medical history to the Patient Record.
 
 **Expected Outcome:**
 ```
-Updated:
-Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Medical History: high blood pressure, recorded 28 Oct 2021, diabetes, recorded 28 Oct 2021
+Updated: 
+Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Address: Blk 11 Ang Mo Kio Street 74, #11-04
 ```
-
 
 ---
 
