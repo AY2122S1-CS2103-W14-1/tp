@@ -61,6 +61,8 @@ reduce man-hours in managing paper files, translating this saved time into bette
 
 6. Refer to the **Features** section below for details of each command.
 
+7. Doc'it is built specifically for small clinic staff based in Singapore. Hence, the date and time run in Singapore time.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Overview of Features
