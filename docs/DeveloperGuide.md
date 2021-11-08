@@ -879,7 +879,6 @@ testers are expected to do more *exploratory* testing.
     1. Resize the window to an optimum size. Move the window to a different location. Close the window.
     2. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
-3. _{ more test cases … }_
 
 ### Deleting a patient
 
@@ -892,11 +891,21 @@ testers are expected to do more *exploratory* testing.
        Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
     4. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
-2. _{ more test cases … }_
+   
+2. Deleting a patient that has an appointment
+
+   1. Prerequisites: Add an appointment to that patient at index 1 e.g. `apmt add i/1 d/2022-12-31 1200`
+   2. Test case: `delete 1`<br>
+      Expected: First patient is deleted from Patient Panel. Patient's appointments in Appointment panel is deleted as well.
+
 
 ### Saving data
 
 1. Dealing with missing/corrupted data files
 
-    1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-2. _{ more test cases … }_
+    1. If JSON files are missing, `Doc'it` will start with a sample AddressBook and AppointmentBook with sample Patients and sample Appointments respectively.
+    2. If JSON files are corrupted, `Doc;it` will start with a blank address book and blank appointment book.
+2. Save appointment
+   1. Prerequisite: Create an appointment e.g. `apmt add i/1 d/2022-12-31 1200`
+   2. Test case: Close and reopen the application <br>
+      Expected: Appointments reference the same patients as previous session before it was closed.
