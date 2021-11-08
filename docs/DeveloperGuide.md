@@ -718,7 +718,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. Necessary details of patient are absent (name, NRIC).
+* 1a. Necessary details of patient are absent (name, address, phone number).
 
     * 1a1. `Doc'it` shows an error message.
 
@@ -842,7 +842,73 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-**Use case: UC09 - Exit program**
+**Use case: UC09 - Add a Medical Entry to Patient**
+
+**MSS**
+
+1. `Doc'it` displays all patients.
+2. User requests to add a medical entry to a specified patient.
+3. `Doc'it` adds the medical entry and records the date of entry.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The given index is invalid.
+
+    * 2a1. `Doc'it` shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC10 - Delete a Medical Entry from a Patient**
+
+**MSS**
+
+1. `Doc'it` displays all patients.
+2. User requests to delete a specified medical entry from a specified patient.
+3. `Doc'it` deletes the specified medical entry from the patient.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The given index specifying the medical entry is invalid.
+
+    * 2a1. `Doc'it` shows an error message.
+
+      Use case resumes at step 1.
+    
+* 2b. The given index specifying the patient is invalid.
+
+    * 2b1. `Doc'it` shows an error message.
+
+      Use case resumes at step 1.
+    
+* 2c. The patient specified has an empty medical history.
+
+    * 2c1. `Doc'it` shows an error message.
+
+      Use case resumes at step 1.
+
+**Use case: UC11 - Find patient**
+
+**MSS**
+
+1. `Doc'it` displays all patients.
+2. User requests to find patients whose names or medical histories match the given set of keywords.
+3. `Doc'it` lists a filtered list of patients that satisfy the keywords given by the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. No patient has a name or medical history that matches the user's keywords.
+
+    * 2a1. `Doc'it` shows an error message.
+
+      Use case resumes at step 1.
+    
+**Use case: UC12 - Exit program**
 
 **MSS**
 

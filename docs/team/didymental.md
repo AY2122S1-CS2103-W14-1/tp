@@ -43,8 +43,10 @@ Given below are my contributions to the project:
     * Added implementation details of the `MedicalHistory` class, `Add Medical Entry` feature, `Delete Medical Entry` feature. [\#282](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/282)
     * Drew the UML class diagram which captures the associations between `MedicalHistory`, `MedicalEntry` and `Patient` classes. [\#304](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/304)
     * Drew the sequence and activity diagram which captures the associations between `Logic` and `Model` components for `AddMedicalEntry`, `DeleteMedicalEntry` features [\#282](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/282), [\#304](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/304), [\#321](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/321)
-    * Wrote 8 use cases [\#38](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/38)
-    * Added manual testing test cases for Adding a Patient, Deleting a Patient, Adding a Medical Entry, Deleting a Medical Entry from patient with non-empty medical history, Deleting a Medical Entry from patient with empty medical history [\#321](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/321) 
+    * Wrote 8 initial use cases [\#38](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/38), 
+    * Updated previous use cases and added 3 new use cases [\#38](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/38), [\#321](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/321)
+    * Added manual testing test cases for Adding a Patient, Deleting a Patient, Adding a Medical Entry, Deleting a Medical Entry from patient with non-empty medical history, Deleting a Medical Entry from patient with empty medical history [\#321](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/321)
+    * Updated target user profile and value proposition. [\#321](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/321)  
 - **Community**:
   * PRs reviewed (with non-trivial review comments): [\#71](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/71), [\#29](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/29), [\#18](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/18), [\#61](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/61)
   * Contributed to forum discussions (examples: [1](https://github.com/nus-cs2103-AY2122S1/forum/issues/237), [2](https://github.com/nus-cs2103-AY2122S1/forum/issues/306))
