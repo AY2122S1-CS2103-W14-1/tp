@@ -391,8 +391,7 @@ Once the check has been done, the prescription in question is added/removed and 
 
 ![AppointmentClassDiagram](images/AppointmentClassDiagram.png)
 
-Each `Appointment` in memory contain
-s a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
+Each `Appointment` in memory contains a reference to a valid `Patient` object. To ensure this valid reference is maintained while the app is running and between different running instances, `Appointment` is stored in JSON with the index of the `Patient` in the corresponding `AddressBook`.
 
 Major changes involved to implement this feature:
 * Add a new appointment
@@ -403,9 +402,11 @@ Major changes involved to implement this feature:
 #### Add a new Appointment
 
 **Overview**
+
 `AddAppointmentCommand#execute()` gets patient at the given index in the address book to create a new appointment referencing that patient.
 
 **Detailed Implementation**
+
 The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the first patient of the address book. The `apmt add` command calls `Model#getFilteredPatientList()`to receive a list of patients and gets the Patient object at the inputted index. A new Appointment of that patient is instantiated, and the `AddAppointmentCommand` calls `Model#addAppointment()` to add this appointment to the appointment book. A `CommandResult` is instantiated and returned.
 
 ![AddAppointmentSequenceDiagram](images/AddAppointmentSequenceDiagram.png)
@@ -424,10 +425,12 @@ The user executes `apmt add i/1 d/2021-10-19 1800` to add an appointment to the 
 #### Load Appointments on App Launch
 
 **Overview**
+
 * The app first loads address book, then passes the address book as argument to `Storage#readAppointmentBook()`.
 * `Storage#readAppointmentBook()` gets the corresponding patient from the patient index in `JSONAdaptedAppointments` and instantiates appointments.
 
 **Detailed Implementation**
+
 The user launches the application. `MainApp` runs `MainApp#initModelManager` to initialize the model. First, the address book of patients is loaded to memory in `StorageManager#readAddressBook()`. Referencing the order of patients in this loaded address book, `StorageManager#readAppointmentBook()` loads the appointment book. Under `Storage`, the JSON file is loaded to `JsonAdaptedAppointment` object and its `JsonAdaptedAppointment#toModelType()` is executed. `JsonAdaptedAppointment#toModelType()` runs `AddressBook#getPatientOfIndex()` to get the patient of the appointment at the index loaded from the JSON file. The Appointment object is then instantiated.
 
 ![LoadAppointmentSequenceDiagram](images/LoadAppointmentSequenceDiagram.png)
@@ -435,10 +438,12 @@ The user launches the application. `MainApp` runs `MainApp#initModelManager` to 
 #### Save Appointments after every command
 
 **Overview**
+
 * The app runs `LogicManager#saveAppointmentBook()`.
 * `LogicManager#saveAppointmentBook()` gets the index of the patient referenced by the appointment, that is to be stored as `JSONAdaptedAppointments` in JSON file.
 
 **Detailed Implementation**
+
 After every command that the user makes, appointments are saved. In `LogicManager#executes`, after every command is executed, `LogicManager` calls `StorageManager#saveAppointmentBook`, passing in the appointment book and address book from `Model` as arguments. In converting model-type Appointments to `JSONAdaptedAppointment`, `AddressBook#getIndexOfPatient()` is called to get the corresponding index of the patient for storage.
 
 ![SaveAppointmentSequenceDiagram](images/SaveAppointmentSequenceDiagram1.png)
@@ -458,7 +463,7 @@ The diagram below is a more in-depth look at how `JSONAdaptedAppointment` is ins
 | Implement a hash or Universally Unique Identifier (UUID) to for each Patient and Appointment object. Save `Appointment` with Patient UUID and save `Patient` with Appointment UUID. | - | Changing the order of appointments and patients in saved JSON file will not change affect loading of data. | <ui><li>Requires more code to implement a unique hash or UUID and find the corresponding Patient and Appointment by traversing the `AddressBook` and `AppointmentBook` respectively.</li><li> Takes more computational work when loading compared to finding the `Patient` at an index at O(1) time.</li></ui> |
 
 
-#### Delete Patient that has made an Appointment feature
+#### Delete Patient that has made an Appointment
 
 The user executes `pt delete 1` to delete the first patient in the address book. The patient is deleted and the corresponding appointments and archive appointments with that patient are deleted. The `pt delete` command calls `AddressBook#deleteAppointmentsWithPatient()` to delete all appointments to that patient before deleting the patient.
 
