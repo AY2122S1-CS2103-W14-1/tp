@@ -71,9 +71,14 @@ public class CommandTestUtil {
 
     public static final String VALID_APPOINTMENT_DATE_TIME = "2020-01-10 1600";
     public static final String INVALID_APPOINTMENT_DATE_TIME_MONTH = "2020-13-10 1600"; // invalid month
+    public static final String INVALID_MONTH = "13";
     public static final String INVALID_APPOINTMENT_DATE_TIME_YEAR = "-1-13-10 1600"; // invalid year
+    public static final String INVALID_YEAR = "-1";
     public static final String INVALID_APPOINTMENT_DATE_TIME_DATE = "2020-01-43 1600"; // invalid date
-    public static final String INVALID_APPOINTMENT_DATE_TIME_TIME = "2020-12-10 3400"; // invalid time
+    public static final String INVALID_DATE = "43";
+    public static final String INVALID_APPOINTMENT_DATE_TIME_HOUR = "2020-12-10 3400"; // invalid hour
+    public static final String INVALID_APPOINTMENT_DATE_TIME_MIN = "2020-12-10 1272"; // invalid minute
+    public static final String INVALID_MINUTE = "72";
     public static final String INVALID_APPOINTMENT_DATE_TIME_ALL = "-1-13-33 9900"; // invalid datetime
     public static final String INVALID_APPOINTMENT_DATE_TIME_NULL = ""; // invalid entry
     public static final String INVALID_APPOINTMENT_DATE_TIME_RANDOM = "asfdsafsfs"; // invalid entry
@@ -86,8 +91,10 @@ public class CommandTestUtil {
             " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_YEAR; // invalid year
     public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_DATE =
             " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_DATE; // invalid date
-    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_TIME =
-            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_TIME; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_HOUR =
+            " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_HOUR; // invalid time
+    public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_MIN =
+        " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_MIN; // invalid time
     public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_ALL =
             " " + PREFIX_DATETIME + INVALID_APPOINTMENT_DATE_TIME_ALL; // invalid datetime
     public static final String INVALID_APPOINTMENT_DATE_TIME_DESC_NULL =
