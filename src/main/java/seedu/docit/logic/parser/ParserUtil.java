@@ -29,6 +29,9 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATETIME = "%s is incorrect datetime format.";
+    public static final String MESSAGE_INVALID_DATETIME_VALUE = "Year must be between year 2000 to 2999 inclusive and "
+        + "hour must"
+        + " be between 0000 to 2359 inclusive.";
     public static final String MESSAGE_INVALID_NUMERICAL_ONLY = "%s cannot be numerical only.";
     public static final DateTimeFormatter DEFAULT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d MMM uuuu HHmm");
     public static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-M-d HHmm");
@@ -141,14 +144,14 @@ public class ParserUtil {
 
         // to limit inputs further
         if (year < min_year || year > max_year || hour > max_hour) {
-            throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
+            throw new ParseException(MESSAGE_INVALID_DATETIME_VALUE);
         }
 
         try {
             return LocalDateTime.parse(datetime, formatter.withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
             logger.warning(e.getMessage());
-            throw new ParseException(String.format(MESSAGE_INVALID_DATETIME, datetime));
+            throw new ParseException(e.getMessage());
         }
     }
 

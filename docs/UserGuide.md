@@ -185,6 +185,8 @@ Shows a list of all patients in the record system.
 
 Format: `pt list`
 
+GUI Display:
+![Patient Card](images/PatientCard.png)
 ---
 
 ### Edit a patient: `pt edit`
@@ -196,7 +198,7 @@ Edits the details of a specified patient.
 - `INDEX` is compulsory when making an edit to patient details
 
 **Examples:**
-- `pt edit 1 n/Joshen Tan m/Heartbreak`
+- `pt edit 1 n/Joshen Tan m/Heartache`
 
 **Expected outcome:** <br>
 ```
@@ -248,6 +250,9 @@ pt ma 1 m/diabetes
 Updated:
 Alex Yeoh; Phone: 87438807; Email: alexyeoh@example.com; Address: Blk 30 Geylang Street 29, #06-40; Medical History: diabetes, recorded 28 Oct 2021, high blood pressure, recorded 28 Oct 2021, diabetes, recorded 28 Oct 2021
 ```
+
+**GUI Display:**
+![Add Medical History](images/AddMedicalHistory.png)
 
 ---
 
@@ -309,6 +314,7 @@ Adds an appointment for the patient at the specified index in the Patients panel
 
 - `PATIENT_INDEX`: Index of patient who should have this appointment
 - `DATETIME`: Date and time of appointment in format `yyyy-mm-dd HHmm`
+  - Year must be between 2000 to 2999 inclusive.
 
 **Examples:**
 * `apmt add i/1 d/2021-10-05 1500` adds appointment on 5 Oct 2021 at 3pm to patient at index 1.
@@ -331,15 +337,8 @@ Shows the list of all appointments.
 **Examples:**
 * `apmt list`  Lists all appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-10-05
-2. Patient Name: Alex Yeoh | Appointment Date: 2021-10-06
-3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-11-23
-
-Listed all appointments
-```
+**GUI Display:**
+![Appointment Card](images/AppointmentCard.png)
 
 ### List all archived appointments: `apmt alist`
 Shows the list of all archived appointments.
@@ -349,15 +348,8 @@ Shows the list of all archived appointments.
 **Examples:**
 * `apmt alist`  Lists all archived appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-1-05
-2. Patient Name: Alex Yeoh | Appointment Date: 2021-1-06
-3. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-1-23
-
-Listed all archived appointments
-```
+**GUI Display:**
+![Show Archived](images/ShowArchiveAppointments.png)
 
 ### Edit an appointment: `apmt edit`
 
@@ -368,6 +360,7 @@ Edits the details of an appointment at the specified index in the Appointments p
 - `APMT_INDEX`: Index of appointment in the Appointments panel
 - `PATIENT_INDEX`: Index of patient who should have this appointment
 - `DATETIME`: Date and time of appointment in format `yyyy-mm-dd HHmm`
+  - Year must be between 2000 to 2999 inclusive.
 - At least one of the optional fields should be present
 
 > :bulb: Use `i/PATIENT_INDEX` to change whose appointment it belongs to. <br>
@@ -429,23 +422,16 @@ Patient: Alex Yeoh; Datetime: 31 Dec 2012 1200; Prescription: []
 ```
 
 ### Sort all appointments: `apmt sort`
-Shows a sorted list of all appointments
+Shows a sorted list of all appointments based on urgency (appointments today > ascending date > ascending name).
 
 **Format:** `apmt sort`
 
 **Examples:**
 * `apmt sort`  Lists all appointments.
 
-**Expected Outcome:**
-```
-[UI CARDS]
-1. Patient Name: Bernice Yu | Appointment Date: 2021-06-05
-2. Patient Name: Charlotte Oliveiro | Appointment Date: 2021-07-21
-3. Patient Name: Alex Yeoh | Appointment Date: 2021-10-05
-4. Patient Name: David Li | Appointment Date: 2021-10-06
+**GUI Display:**
+![Sorted Appointments](images/SortAppointments.png)
 
-Sorted Appointments based on default settings.
-```
 ## Add prescription: `apmt pa`
 Adds a prescription to the designated appointment.
 
@@ -463,6 +449,9 @@ Medicine: Penicillin
 Volume: 400 ml
 Duration: 2 times a week
 ```
+
+**GUI Display:**
+![Add Prescription](images/AddPrescription.png)
 
 ## Delete prescription: `apmt pd`
 Deletes a prescription from the designated appointment.

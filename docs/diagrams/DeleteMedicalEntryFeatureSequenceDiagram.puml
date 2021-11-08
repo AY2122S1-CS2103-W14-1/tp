@@ -3,11 +3,9 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
-participant ":DeleteMedicalEntryCommandParser" as DeleteMedicalEntryCommandParser LOGIC_COLOR
-participant "cmd:DeleteMedicalEntryCommand" as DeleteMedicalEntryCommand LOGIC_COLOR
+participant "d:DeleteMedicalEntryCommand" as DeleteMedicalEntryCommand LOGIC_COLOR
 participant ":ModelManager" as ModelManager MODEL_COLOR
-participant "result:CommandResult" as CommandResult LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,31 +14,7 @@ end box
 
 [-> LogicManager : execute("...")
 activate LogicManager
-ref over LogicManager: Omit parsing details from\n AddressBookParser to\n PatientBookParser
-
-LogicManager -> PatientBookParser : parsePatientCommand
-activate PatientBookParser
-
-PatientBookParser -> DeleteMedicalEntryCommandParser : parsePatientCommand
-activate DeleteMedicalEntryCommandParser
-ref over DeleteMedicalEntryCommandParser: Parse user input
-
-create DeleteMedicalEntryCommand
-DeleteMedicalEntryCommandParser -> DeleteMedicalEntryCommand
-activate DeleteMedicalEntryCommand
-
-DeleteMedicalEntryCommand --> DeleteMedicalEntryCommandParser : cmd
-deactivate DeleteMedicalEntryCommand
-DeleteMedicalEntryCommandParser --> PatientBookParser : cmd
-deactivate DeleteMedicalEntryCommandParser
-DeleteMedicalEntryCommandParser -[hidden]-> AddressBookParser
-destroy DeleteMedicalEntryCommandParser
-
-PatientBookParser --> LogicManager : cmd
-deactivate PatientBookParser
-PatientBookParser -[hidden]-> AddressBookParser
-destroy PatientBookParser
-
+ref over LogicManager: Parse User Input
 LogicManager -> DeleteMedicalEntryCommand : execute(model)
 activate DeleteMedicalEntryCommand
 
@@ -68,12 +42,12 @@ create CommandResult
 DeleteMedicalEntryCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteMedicalEntryCommand : result
+CommandResult --> DeleteMedicalEntryCommand : r
 deactivate CommandResult
 
-DeleteMedicalEntryCommand --> LogicManager : result
+DeleteMedicalEntryCommand --> LogicManager : r
 deactivate DeleteMedicalEntryCommand
 
-[<--LogicManager : result
+[<--LogicManager : r
 deactivate LogicManager
 @enduml

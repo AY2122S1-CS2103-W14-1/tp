@@ -12,40 +12,33 @@ Doc'IT is a desktop address book application. Users key in CLI-themed commands i
 
 Given below are my contributions to the project.
 
-* **New Feature**: Create `Appointment` class to represent a patient's appointment with the clinic.
-  * What it does: Allows clinic staff to record a patient's appointment after a patient is created.
-  * Justification: This feature improves the product significantly because clinic staff can represent multiple appointments of patient with individual date and times.
-  * Highlights:
-    * The implementation of `Appointment` class required changes and creation of new classes in Commands, Parsers and Storage related classes. (Pull requests [\#58](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/58), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
-    * Appointments had to be listed in a separate list from `Patient` class, yet have a link to the patient that has the appointment. This feature required an in-depth analysis of design alternatives.
-    * The final design chosen was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while at the same time referencing a patient object.
-    * To achieve this result, the design choice was to use `Index` of a `Patient` at the point of save to store the appointment instead of a `Patient` object for easier loading from and storing to JSON by reference of the `Patient`'s position in the `AddressBook`. `AppointmentBook` similar to AB3's `Person` class structure also needed to be created. New test cases also had to be created for coverage of appointment-related classes. (Pull request [\#87](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/87))
+* **New Feature**: Create `Appointment` class to represent a patient's appointment.
+  * What it does: Allows users to record a patient's appointment after a patient is created.
+  * Justification: This feature allows users to represent multiple appointments of patients with each having their own date and time.
+  * Highlights: The implementation of `Appointment` class required creation of `AppointmentBook`, `ReadOnlyAppointmentBook` and `UniqueAppointmentList` in `Storage` to support saving and loading of `Appointment`. Changes required in `ModelManager` to instantiate `AppointmentBook` with `AddressBook`, i.e. to instantiate list of appointments with list of patient. Appointments had to be listed in a separate list from `Patient` class, yet have a link to the patient that has the appointment. This feature required an in-depth analysis of design alternatives. The design choice was to build `Appointment` class to compose `Patient` and a `LocalDateTime` to represent the date and time of the appointment. This design required the use of OOP composition and polymorphism principles. The implementation required careful thought in how the `Appointment` class will be loaded and stored to memory as a list of appointments, while referencing a patient object. The design choice was to use `Index` of a `Patient` to store the appointment instead of a `Patient` object for easier loading from and storing to JSON. ([\#58](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/58), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85), [\#87](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/87))
 
 * **New Feature**: Implement Add, Edit, Delete operations for `Appointment` class.
-  * What it does: Allows clinic staff to modify a patient's appointment after a patient is created.
-  * Justification: This feature improves the product significantly because clinic staff can enter commands to add, edit and delete appointments. They can also modify appointments that they have created if they have entered in the wrong patient or date, or if the appointment timing was changed.
-  * Highlights: The implementation of `apmt add`, `apmt edit`, `apmt delete` required changes in `AddressBookParser` class and creation of respective `XYZCommandParser` classes, `XYZCommand` classes to conduct operations on `Appointment` objects. The `AppointmentBook` had to be created as well and have methods to conduct CRUD operations. (Pull requests [\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
+  * What it does: Allows users to add, edit and delete a patient's appointment after the appointment is created.
+  * Justification: Allows users to create, modify and delete appointments. Users can modify appointments to reflect changes in appointment details.
+  * Highlights: This implementation required the creation of `Parser` and `Command` classes to support `Appointment`-related commands and addition of methods in `AppointmentBook` class. Modified `AddressBookParser` class to accept `Appointment` commands. Created `XYZCommandParser` classes (e.g. `AddAppointmentCommandParser`). Created `XYZCommand` classes to create, modify or delete the `Appointment` as commanded (e.g. `AddAppointmentCommand`). Added methods in `AppointmentBook` to update the list of appointments. ([\#135](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/135), [\#85](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/85))
 
-* **New Feature**: Implement LocalDateTime and date-time parsing for `Appointment` class.
-  * What it does: Allows clinic staff to enter a computer-comprehensible date and time, so that further functionality can be added that use computer-comprehensible date and time.
-  * Justification: This feature improves the product significantly because clinic staff can enter a computer-comprehensible date and time that can be formatted in the UI, and can be used to create sort appointment by date, and archive functionality.
-  * Highlights: The implementation of `LocalDateTime` required parsing to be implemented when receiving input, documentation changes and incorrect format handling. (Pull request [\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
+* **New Feature**: Implement date-time parsing for `Appointment` class.
+  * Justification: Allows date and time that to be reformatted in the UI, and be used to implement sort and archive features.
+  * Highlights: Required to implement `ParserUtil#parseDateTime` for adding, editing appointments, and loading appointments from JSON. ([\#132](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/132))
 
-* **New Feature**: Implement more restrictive parsers under `ParserUtil`.
-  * What it does: Change validation regexes to be more strict in Datetime, Name, Address, MedicalHistory
-  * Justification: This feature improves the product significantly because clinic staff cannot succeed in entering incorrectly formatted dates, name, address and medical history. Prevents fully numerical inputs for Name, Address and Medical History where it does not make sense.
-  * Highlights: The implementation of stricter validation regexes required an understanding of regex. (Pull requests [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
-
+* **New Feature**: Implement stricter parsers for `Datetime`, `Name`, `Address`, `MedicalHistory`
+  * Justification: Prevents users from entering incorrectly formatted information.
+  * Highlights: Required a strong understanding of regex. Added logging for `Datetime` parsing. ([\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236), [\#261](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/261))
+  
 * **New Feature**: Change command result box to wrap text
-  * What it does: Wraps text overflow within the box so user does not have to scroll
-  * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places.
+  * Highlights: The implementation in UI property removes the need to include a newline in command results in multiple places. [\#236](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/236)
 
-* **New Feature**: Wrote tests for Appointment-related classes to increase coverage by 4% in total (Pull requests [\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286))
+* **New Feature**: Wrote tests for `Appointment`-related classes to increase coverage by 4% in total ([\#265](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/265), [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286))
 
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/#breakdown=true&search=gycgabriel)
 
 * **Project management**:
-  * Ensured scheduling and tracking, including setting up labels for issues for the team's use, and beginning milestones 1.1 and 1.2
+  * Ensured scheduling and tracking, including setting up labels for issues for the team's use, and beginning milestones
   * Managed `Appointment` component and gave technical advice regarding `Appointment`-related classes and tests
     * Gave advice for tests for EditAppointmentCommand [\#287](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/287)
     * Fixed tests for DeleteAppointmentCommand [\#286](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/286)
@@ -55,15 +48,27 @@ Given below are my contributions to the project.
 
 * **Documentation**:
   * User Guide:
-    * Added documentation for the features `apmt add`, `apmt list`, `apmt edit`, `apmt delete` [\#36](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/36/)
-    * Did cosmetic tweaks to `Appointment` documentation of features to include 💡 and ℹ️  to improve readability: [\#162](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/162)
-    * Added Table Of Contents links
+    * Added documentation for the commands `apmt add`, `apmt list`, `apmt edit`, `apmt delete` [\#36](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/36/)
+    * Did cosmetic tweaks to `Appointment` documentation of features to include 💡 and ℹ icons to improve readability: [\#162](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/162)
+    * Added Table Of Contents links: [\#162](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/162)
   * Developer Guide:
-    * Added implementation details of the `Appointments with valid Patient` feature. [\#93](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/93)
-    * Included sequence diagrams for adding and saving appointments.
+    * Added implementation details of the `Appointments with valid Patient` feature.
+      - [Appointment composed of a Valid Patient when added, loaded and stored](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#appointment-composed-of-a-valid-patient-when-added-loaded-and-stored)
+        - [How Appointment is implemented](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#how-appointment-is-implemented)
+        - [Add a new Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#add-a-new-appointment)
+        - [Load Appointments on App Launch](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#load-appointments-on-app-launch)
+        - [Save Appointments after every command](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#save-appointments-after-every-command)
+        - [Delete Patient that has made an Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#delete-patient-that-has-made-an-appointment)
+      * Relevant PRs: [\#93](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/93), [\#317](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/317/files)
+    * Added [Adding an Appointment](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#adding-an-appointment) and 'Deleting a patient that has an appointment' test cases under Instructions for Manual Testing and made note of the similar test case for Edit Appointments. 
+    * Added 'Deleting an Appointment' test cases
+    * Updated Appointment Use Cases to v1.4
+      * Remove `User lists commands` because Doc'it displays full list by default
+      * Added `Use case: UC06 - Edit an appointment`
+    * Added [Glossary](https://ay2122s1-cs2103-w14-1.github.io/tp/DeveloperGuide.html#glossary), Glossary credits to User Guide.
+    * Relevant PRs: [\#322](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/322), [\#319](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/319)
 
 * **Community**:
   * PRs reviewed (with non-trivial review comments): [\#165](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/165), [\#262](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/262), [\#91](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/91), [\#97](https://github.com/AY2122S1-CS2103-W14-1/tp/pull/97))
   * Contributed to forum discussions by raising good questions (examples: [\#58](https://github.com/nus-cs2103-AY2122S1/forum/issues/58))
   * Reported bugs and suggestions for other teams in the class (examples: [1](https://github.com/gycgabriel/ped/issues/8), [2](https://github.com/gycgabriel/ped/issues/1), [3](https://github.com/gycgabriel/ped/issues/6))
-

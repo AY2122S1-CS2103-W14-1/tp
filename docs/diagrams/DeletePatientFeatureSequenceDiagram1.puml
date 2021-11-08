@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
+participant ":DeletePatientCommandParser" as DeletePatientCommandParser LOGIC_COLOR
+participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
+
+[-> LogicManager : execute("...")
+activate LogicManager
+LogicManager -> AddressBookParser : parseCommand
+activate AddressBookParser
+
+AddressBookParser -> PatientBookParser : parsePatientCommand
+activate PatientBookParser
+
+PatientBookParser -> DeletePatientCommandParser : parsePatientCommand(\n command, args)
+activate DeletePatientCommandParser
+ref over DeletePatientCommandParser: Parse argument
+
+
+create DeletePatientCommand
+DeletePatientCommandParser -> DeletePatientCommand
+activate DeletePatientCommand
+
+DeletePatientCommand --> DeletePatientCommandParser : d
+deactivate DeletePatientCommand
+
+DeletePatientCommandParser --> PatientBookParser : d
+deactivate DeletePatientCommandParser
+DeletePatientCommandParser -[hidden]-> LogicManager
+destroy DeletePatientCommandParser
+
+PatientBookParser --> AddressBookParser : d
+deactivate PatientBookParser
+PatientBookParser -[hidden]-> LogicManager
+destroy PatientBookParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+ref over LogicManager: Execute command
+
+@enduml
