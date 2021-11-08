@@ -58,7 +58,7 @@ Given below are my contributions to the project:
 
 
 - **Project management**:
-    * Managed releases `v1.1` - `v1.5` (3 releases) on Github
+    * Managed releases `v1.1` - `v1.4` (4 releases) on Github
 
 
 - **Enhancements to existing features**:
