@@ -3,7 +3,6 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":PatientBookParser" as PatientBookParser LOGIC_COLOR
 participant ":DeletePatientCommandParser" as DeletePatientCommandParser LOGIC_COLOR
 participant "d:DeletePatientCommand" as DeletePatientCommand LOGIC_COLOR
@@ -17,11 +16,8 @@ end box
 
 [-> LogicManager : execute("...")
 activate LogicManager
-
-LogicManager -> AddressBookParser : parsePatientCommand("...")
-activate AddressBookParser
-
-AddressBookParser -> PatientBookParser : parsePatientCommand("...")
+ref over LogicManager: Omit parsing details from\n AddressBookParser to\n PatientBookParser
+LogicManager -> PatientBookParser : parsePatientCommand
 activate PatientBookParser
 
 
@@ -39,19 +35,14 @@ deactivate DeletePatientCommand
 
 DeletePatientCommandParser --> PatientBookParser : d
 deactivate DeletePatientCommandParser
-DeletePatientCommandParser -[hidden]-> AddressBookParser
+DeletePatientCommandParser -[hidden]-> LogicManager
 destroy DeletePatientCommandParser
 
-PatientBookParser --> AddressBookParser : d
+PatientBookParser --> LogicManager : d
 deactivate PatientBookParser
-PatientBookParser -[hidden]-> AddressBookParser
+PatientBookParser -[hidden]-> LogicManager
 destroy PatientBookParser
 
-
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
-AddressBookParser -[hidden]-> LogicManager
-destroy AddressBookParser
 
 LogicManager -> DeletePatientCommand : execute(model)
 activate DeletePatientCommand
