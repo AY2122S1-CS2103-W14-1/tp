@@ -51,7 +51,13 @@ public class AddMedicalEntryCommand extends PatientCommand {
         }
 
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
-        Patient editedPatient = patientToEdit.addMedicalHistory(this.medicalHistory);
+        Patient editedPatient = patientToEdit;
+
+        try {
+            editedPatient = patientToEdit.addMedicalHistory(this.medicalHistory);
+        } catch (RuntimeException e) {
+            throw new CommandException(e.getMessage());
+        }
 
         model.setPatient(patientToEdit, editedPatient);
         model.updateAppointmentBook(patientToEdit, editedPatient);

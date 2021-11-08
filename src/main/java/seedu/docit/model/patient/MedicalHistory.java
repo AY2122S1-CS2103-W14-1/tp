@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import seedu.docit.model.Entry;
 import seedu.docit.model.EntryList;
+import seedu.docit.model.patient.exceptions.ExceedCharacterLimit;
+import seedu.docit.model.patient.exceptions.TooManyMedicalEntriesException;
 
 public class MedicalHistory {
     public static final MedicalHistory EMPTY_MEDICAL_HISTORY = new MedicalHistory(null);
@@ -19,6 +21,9 @@ public class MedicalHistory {
     public static final String VALIDATION_REGEX = "[\\p{Alnum} \\-,]*";
 
     private EntryList<Entry<MedicalEntry>> entryList = new EntryList<>();
+    public static int MAX_SIZE = 8;
+    public static int MAX_CHAR_LIMIT = 50;
+
 
     /**
      * Constructs an {@code DateOfBirth}.
@@ -100,6 +105,14 @@ public class MedicalHistory {
      * @param date date of recording of the medical entry.
      */
     public void add(String desc, String date) {
+        if (this.isMax()) {
+            throw new TooManyMedicalEntriesException();
+        }
+
+        if (hasExceededMaxCharLimit(desc)) {
+            throw new ExceedCharacterLimit();
+        }
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM uuuu");
         LocalDate dateOfEntry = LocalDate.parse(date, formatter);
         MedicalEntry entryToAdd = new MedicalEntry(desc, dateOfEntry);
@@ -110,7 +123,15 @@ public class MedicalHistory {
      * Adds a MedicalEntry into the MedicalHistory, with the entry consisting of a description.
      * @param desc description of the medical entry.
      */
-    public void add(String desc) {
+    public void add(String desc) throws TooManyMedicalEntriesException {
+        if (this.isMax()) {
+            throw new TooManyMedicalEntriesException();
+        }
+
+        if (hasExceededMaxCharLimit(desc)) {
+            throw new ExceedCharacterLimit();
+        }
+
         MedicalEntry entryToAdd = new MedicalEntry(desc);
         this.entryList.add(Entry.of(entryToAdd));
     }
@@ -119,10 +140,16 @@ public class MedicalHistory {
      * Appends medical entries of another {@code MedicalHistory} object to this {@code MedicalHistory} object.
      * @param mh {@code MedicalHistory} object that is to be added to
      */
-    public MedicalHistory append(MedicalHistory mh) {
+    public MedicalHistory append(MedicalHistory mh) throws TooManyMedicalEntriesException  {
         if (this.isEmpty()) { // if no record was stored
             return mh;
         }
+
+        if (mh.size() + this.size() > MAX_SIZE) {
+            throw new TooManyMedicalEntriesException();
+        }
+
+        //MedicalHistory copiedMedicalHistory = copy(this);
 
         for (int i = 0; i < mh.size(); i++) {
             this.entryList.add(mh.entryList.get(i));
@@ -287,6 +314,23 @@ public class MedicalHistory {
         }
 
         return toReturn;
+    }
+
+    private boolean isMax() {
+        return this.entryList.size() == MAX_SIZE;
+    }
+
+    private boolean hasExceededMaxCharLimit(String s) {
+        return s.length() > MAX_CHAR_LIMIT;
+    }
+
+    private MedicalHistory copy(MedicalHistory mh) {
+        MedicalHistory toCopy = MedicalHistory.generate();
+        for (int i = 0; i < mh.entryList.size(); i++) {
+            toCopy.entryList.add(mh.entryList.get(i));
+        }
+
+        return toCopy;
     }
 
 }

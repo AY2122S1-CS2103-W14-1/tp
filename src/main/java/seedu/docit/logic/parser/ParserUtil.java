@@ -180,6 +180,11 @@ public class ParserUtil {
         toParseMh.delete(0);
 
         for (String medicalEntry : medicalEntries) {
+            if (medicalEntry.length() > MedicalHistory.MAX_CHAR_LIMIT) {
+                throw new ParseException("Max number of characters for a medical entry is "
+                    + MedicalHistory.MAX_CHAR_LIMIT + "!!!");
+            }
+
             MedicalHistory mh = parseMedicalEntry(medicalEntry);
             if (mh.equals(MedicalHistory.EMPTY_MEDICAL_HISTORY)) {
                 toParseMh = MedicalHistory.EMPTY_MEDICAL_HISTORY;

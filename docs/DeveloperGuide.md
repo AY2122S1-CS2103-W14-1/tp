@@ -899,14 +899,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. `Doc'it` lists a filtered list of patients that satisfy the keywords given by the user.
 
    Use case ends.
-
-**Extensions**
-
-* 2a. No patient has a name or medical history that matches the user's keywords.
-
-    * 2a1. `Doc'it` shows an error message.
-
-      Use case resumes at step 1.
     
 **Use case: UC12 - Exit program**
 

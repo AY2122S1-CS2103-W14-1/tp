@@ -60,7 +60,7 @@ reduce man-hours in managing paper files, translating this saved time into bette
     * **`doc exit`** : Exits the app.
 
 6. Refer to the **Features** section below for details of each command.
-
+this on
 7. Doc'it is built specifically for small clinic staff based in Singapore. Hence, the date and time run in Singapore time.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -271,9 +271,9 @@ Joshen Tan; Phone: 12345678; Email: google@gmail.com; Address: 311 clementi SG54
 
 ---
 
-### Add a Medical History: `pt ma`
+### Add a Medical Entry: `pt ma`
 
-Adds a medical history to the Patient Record, saving the medical history and ```today``` as the date of entry.
+Adds a medical entry to the Medical History of a Patient Record, saving the medical history and ```today``` as the date of entry.
 
 **Format:** `pt ma INDEX m/MEDICAL_HISTORY...`
 
@@ -295,6 +295,10 @@ Charlotte Oliveiro; Phone: 93210283; Email: charlotte@example.com; Address: Blk 
 
 **GUI Display:**
 ![Add Medical History](images/AddMedicalHistory.png)
+
+**Restrictions:**
+- Can only add up to 8 medical entries per patient
+- Each medical entry can only have up to 50 characters
 
 ---
 
