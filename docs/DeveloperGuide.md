@@ -907,6 +907,22 @@ testers are expected to do more *exploratory* testing.
        2. Test case: Close and reopen the application <br>
           Expected: Appointments reference the same patients as previous session before it was closed.
 
+### Adding an appointment
+Prerequisites: Use sample addressbook or the same list of patients from index 1 to 2. 
+1. Test case: `apmt add i/1 d/2999-12-31 2359`<br>
+   Expected: New appointment added in Upcoming tab of Appointments panel for Patient 1 on 31 Dec 2999 2359.
+2. Test case: Conduct test case 1, then enter `apmt add i/2 d/2999-12-31 2359` <br>
+   Expected: New appointment added in Upcoming tab of Appointments panel for Patient 2 on 31 Dec 2999 2359 even if test case 1 appointment exists.
+3. Test case: `apmt add i/1 d/2000-1-1 0000`<br>
+   Expected: New appointment added in Archived tab of Appointments panel for Patient 1 on 1 Jan 2000 0000.
+4. Test case: Conduct test case 3, then enter `apmt add i/2 d/2000-1-1 0000`<br>
+   Expected: New appointment added in Archived tab of Appointments panel for Patient 2 on 1 Jan 2000 0000 even if test case 3 appointment exists.
+5. Test case: `apmt add i/1 d/2039-2-29 1200`<br>
+   Expected: No new appointment is created. Error message shown.
+
+Editing an appointment test cases similar to adding an appointment.
+Deleting an appointment test cases similar to deleting a patient.
+
 ### Adding a prescription
 Prerequisites: All test cases below must be independent and fulfills these assumptions:
 All appointments listed using the `apmt list` command. 5 appointments shown in the list. All appointments have no prescriptions.
