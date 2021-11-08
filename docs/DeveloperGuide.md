@@ -848,8 +848,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, OS-X
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+| Term                | Definition                                                                                                                                |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| Mainstream OS       | Windows, Linux, Unix, OS-X |
+| Appointment         | A scheduled consult between a patient and the clinic's doctor at an exact date and time. The doctor may or may not prescribe medication.  |
+| Archive             | Storage for data that is non-urgent, e.g. appointment records that are past their date.                                                   |
+| Patient Record      | A record of a patient's name, phone number, address, email and medical history.                                                 |
+| Prescription        | The issued medication/treatment for a patient along with a duration and volume.                                                           |
+| Expired Appointment | An appointment that is 24-hours past its scheduled time.                                                                                  |
 
 ---
 
